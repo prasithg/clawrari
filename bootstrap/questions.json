@@ -1,0 +1,97 @@
+{
+  "questions": [
+    {
+      "id": "name",
+      "prompt": "What's your name?",
+      "default": "",
+      "required": true
+    },
+    {
+      "id": "pronouns",
+      "prompt": "Pronouns (optional, press Enter to skip):",
+      "default": "",
+      "required": false
+    },
+    {
+      "id": "timezone",
+      "prompt": "Timezone (e.g. America/New_York, Europe/London):",
+      "default": "America/New_York",
+      "required": true
+    },
+    {
+      "id": "role",
+      "prompt": "What do you do? (e.g. CTO at a startup, freelance developer, student):",
+      "default": "",
+      "required": true
+    },
+    {
+      "id": "priority_1",
+      "prompt": "Top priority (what should your AI focus on most?):",
+      "default": "Content creation and publishing",
+      "required": true
+    },
+    {
+      "id": "priority_2",
+      "prompt": "Second priority:",
+      "default": "Building and shipping projects",
+      "required": false
+    },
+    {
+      "id": "priority_3",
+      "prompt": "Third priority:",
+      "default": "Personal admin and planning",
+      "required": false
+    },
+    {
+      "id": "wake_time",
+      "prompt": "What time do you usually wake up? (e.g. 6:30 AM):",
+      "default": "7:00 AM",
+      "required": true
+    },
+    {
+      "id": "writing_style",
+      "prompt": "How do you write? Pick one: [concise] short/direct/bullets, [narrative] longer/storytelling, [technical] detailed/precise:",
+      "default": "concise",
+      "required": true,
+      "options": ["concise", "narrative", "technical"]
+    },
+    {
+      "id": "tone",
+      "prompt": "Preferred tone: [professional] mostly serious, [casual] relaxed/playful, [balanced] professional with personality:",
+      "default": "balanced",
+      "required": true,
+      "options": ["professional", "casual", "balanced"]
+    },
+    {
+      "id": "ai_name",
+      "prompt": "Name your AI (or press Enter for 'Claw'):",
+      "default": "Claw",
+      "required": false
+    },
+    {
+      "id": "ai_personality",
+      "prompt": "AI personality vibe: [sharp] opinionated/direct, [warm] supportive/encouraging, [neutral] just the facts:",
+      "default": "sharp",
+      "required": true,
+      "options": ["sharp", "warm", "neutral"]
+    },
+    {
+      "id": "platforms",
+      "prompt": "What platforms do you post to? (comma-separated, e.g. twitter,linkedin,slack):",
+      "default": "twitter,linkedin",
+      "required": false
+    },
+    {
+      "id": "topics",
+      "prompt": "Topics you care about (comma-separated):",
+      "default": "AI, engineering, startups",
+      "required": false
+    },
+    {
+      "id": "slack_workspace",
+      "prompt": "Do you use Slack? (y/n):",
+      "default": "n",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clawrari — The Ferrari of OpenClaw Setups</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono&display=swap');
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e5e5e5; }
+    code, .mono { font-family: 'JetBrains Mono', monospace; }
+    .gradient-text {
+      background: linear-gradient(135deg, #ef4444 0%, #f97316 50%, #eab308 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .card { background: #141414; border: 1px solid #262626; }
+    .card:hover { border-color: #404040; }
+    .glow { box-shadow: 0 0 60px rgba(239, 68, 68, 0.1); }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Hero -->
+  <div class="max-w-5xl mx-auto px-6 pt-32 pb-20">
+    <div class="text-center">
+      <p class="mono text-sm text-neutral-500 tracking-widest uppercase mb-6">v0.1.0</p>
+      <h1 class="text-6xl md:text-8xl font-black tracking-tight mb-6">
+        <span class="gradient-text">Clawrari</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-neutral-400 max-w-2xl mx-auto mb-4">
+        The Ferrari of OpenClaw setups.
+      </p>
+      <p class="text-lg text-neutral-500 max-w-xl mx-auto mb-12">
+        An opinionated, battle-tested, open source AI operations system.
+        Point a fresh install at it and get a second brain in minutes.
+      </p>
+      <div class="flex gap-4 justify-center">
+        <a href="https://github.com/prasithg/clawrari" class="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-neutral-200 transition">
+          View on GitHub
+        </a>
+        <a href="#quickstart" class="border border-neutral-700 px-8 py-3 rounded-lg font-semibold hover:border-neutral-500 transition">
+          Quick Start
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- What You Get -->
+  <div class="max-w-5xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-12 text-center">What You Get</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card rounded-xl p-6 transition">
+        <div class="text-2xl mb-3">🧠</div>
+        <h3 class="font-bold text-lg mb-2">Second Brain</h3>
+        <p class="text-neutral-400 text-sm">Structured memory with daily logs, semantic search, and auto-curation. Your AI remembers what matters.</p>
+      </div>
+      <div class="card rounded-xl p-6 transition">
+        <div class="text-2xl mb-3">✍️</div>
+        <h3 class="font-bold text-lg mb-2">Content Engine</h3>
+        <p class="text-neutral-400 text-sm">Research, draft, review, publish. Multi-platform. Topic rotation and voice consistency built in.</p>
+      </div>
+      <div class="card rounded-xl p-6 transition">
+        <div class="text-2xl mb-3">⚡</div>
+        <h3 class="font-bold text-lg mb-2">Proactive Intelligence</h3>
+        <p class="text-neutral-400 text-sm">Morning briefings, calendar prep, responsive scans. Your AI anticipates, not just responds.</p>
+      </div>
+      <div class="card rounded-xl p-6 transition">
+        <div class="text-2xl mb-3">🔁</div>
+        <h3 class="font-bold text-lg mb-2">Self-Improvement</h3>
+        <p class="text-neutral-400 text-sm">RLHF from your feedback. Daily self-audits. Auto-skill updates. Gets better every day.</p>
+      </div>
+      <div class="card rounded-xl p-6 transition">
+        <div class="text-2xl mb-3">🔌</div>
+        <h3 class="font-bold text-lg mb-2">Connectors</h3>
+        <p class="text-neutral-400 text-sm">Slack, Calendar, Gmail, GitHub, Reddit, X. The pipes are already laid.</p>
+      </div>
+      <div class="card rounded-xl p-6 transition">
+        <div class="text-2xl mb-3">🔒</div>
+        <h3 class="font-bold text-lg mb-2">Security First</h3>
+        <p class="text-neutral-400 text-sm">Local-first. Weekly audits. Clear permissions. Your data stays yours.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Start -->
+  <div id="quickstart" class="max-w-5xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-8 text-center">Quick Start</h2>
+    <div class="card rounded-xl p-8 glow max-w-2xl mx-auto">
+      <pre class="mono text-sm text-neutral-300 leading-relaxed"><span class="text-neutral-500"># Clone it</span>
+git clone https://github.com/prasithg/clawrari.git
+cd clawrari
+
+<span class="text-neutral-500"># Run the bootstrap (2 minutes)</span>
+./bootstrap/init.sh
+
+<span class="text-neutral-500"># Start OpenClaw</span>
+openclaw gateway start</pre>
+    </div>
+    <p class="text-center text-neutral-500 mt-6 text-sm">
+      The bootstrap asks a few questions, generates your workspace, and you're live.
+    </p>
+  </div>
+
+  <!-- Philosophy -->
+  <div class="max-w-5xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-8 text-center">Philosophy</h2>
+    <div class="max-w-2xl mx-auto space-y-6 text-neutral-400">
+      <p><strong class="text-neutral-200">Opinionated defaults.</strong> Not 47 options. THE setup, with rationale for every choice.</p>
+      <p><strong class="text-neutral-200">Battle-tested.</strong> Everything here runs in production daily. If it's in Clawrari, it works.</p>
+      <p><strong class="text-neutral-200">Your AI should have a personality.</strong> Not a corporate drone. Not a sycophant. A sharp partner with opinions.</p>
+      <p><strong class="text-neutral-200">Memory is the foundation.</strong> An AI that forgets everything between sessions is just a search engine.</p>
+      <p><strong class="text-neutral-200">Errors are bugs.</strong> If a cron job fails, that's not a footnote. That's something to fix now.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="max-w-5xl mx-auto px-6 py-12 border-t border-neutral-800">
+    <div class="flex justify-between items-center text-sm text-neutral-500">
+      <p>Clawrari — built by <a href="https://x.com/prasithg" class="text-neutral-400 hover:text-white transition">@prasithg</a></p>
+      <p>MIT License</p>
+    </div>
+  </footer>
+
+</body>
+</html>
