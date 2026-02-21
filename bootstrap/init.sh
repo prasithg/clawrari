@@ -36,9 +36,9 @@ ask() {
   local result=""
 
   if [ -n "$default" ]; then
-    echo -ne "${BOLD}${prompt}${NC} ${YELLOW}[${default}]${NC} "
+    echo -ne "${BOLD}${prompt}${NC} ${YELLOW}[${default}]${NC} " >&2
   else
-    echo -ne "${BOLD}${prompt}${NC} "
+    echo -ne "${BOLD}${prompt}${NC} " >&2
   fi
   read -r result
   echo "${result:-$default}"
@@ -54,7 +54,7 @@ ask_required() {
       echo "$result"
       return
     fi
-    echo -e "${RED}  This one's required.${NC}"
+    echo -e "${RED}  This one's required.${NC}" >&2
   done
 }
 
