@@ -1,0 +1,23 @@
+// Example OpenClaw cron job snippets
+// Note: actual configuration lives in your OpenClaw gateway config.
+// Treat these as copy/paste starting points.
+[
+  {
+    "name": "Night Work — Queue Kickoff",
+    "schedule": { "kind": "cron", "expr": "0 0 * * *", "tz": "America/New_York" },
+    "sessionTarget": "main",
+    "payload": {
+      "kind": "systemEvent",
+      "text": "[night-work] 00:00 — Read tasks/queue.md and start the top queued task. Spawn agents as needed; log progress to memory/YYYY-MM-DD.md."
+    }
+  },
+  {
+    "name": "Night Work — Check & Continue",
+    "schedule": { "kind": "cron", "expr": "0 1,2,3,4 * * *", "tz": "America/New_York" },
+    "sessionTarget": "main",
+    "payload": {
+      "kind": "systemEvent",
+      "text": "[night-work] Check in-progress tasks, poll sub-agents, and keep the queue moving. Log progress to memory/YYYY-MM-DD.md."
+    }
+  }
+]
