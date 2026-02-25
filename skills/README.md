@@ -20,7 +20,7 @@ These are the skills that power the reference setup. Install via ClawHub:
 - **web-fetch** — URL content extraction
 
 ### Content
-- **bird** — Twitter/X posting and reading
+- **x-api** — Twitter/X posting and reading (official API, OAuth 1.0a)
 - **browser** — Browser automation for platforms without APIs
 
 ## Installation

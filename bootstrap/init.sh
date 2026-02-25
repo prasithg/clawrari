@@ -169,7 +169,7 @@ cat > "$DAILY_NOTE" << EOF
 
 ## Setup
 - Clawrari bootstrap completed
-- Workspace initialized with Clawrari v0.1.0
+- Workspace initialized with Clawrari v0.2.0
 EOF
 echo -e "  ${GREEN}✓${NC} memory/$TODAY.md"
 
@@ -182,6 +182,37 @@ for f in projects.md people.md preferences.md operating-rules.md; do
     echo -e "  ${GREEN}✓${NC} memory/$f"
   fi
 done
+
+# Create meta-learning memory files
+for f in regressions.md context-holds.md predictions.md; do
+  if [ ! -f "$OPENCLAW_DIR/memory/$f" ]; then
+    if [ -f "$TEMPLATES_DIR/$f.tmpl" ]; then
+      cp "$TEMPLATES_DIR/$f.tmpl" "$OPENCLAW_DIR/memory/$f"
+    else
+      echo "# $(echo "$f" | sed 's/\.md//' | sed 's/-/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2))}1')" > "$OPENCLAW_DIR/memory/$f"
+      echo "" >> "$OPENCLAW_DIR/memory/$f"
+      echo "_Add entries as you learn._" >> "$OPENCLAW_DIR/memory/$f"
+    fi
+    echo -e "  ${GREEN}✓${NC} memory/$f"
+  fi
+done
+
+# Create influences tracker
+if [ ! -f "$OPENCLAW_DIR/memory/influences.md" ]; then
+  cat > "$OPENCLAW_DIR/memory/influences.md" << 'EOF'
+# Influences
+
+Credits and inspirations tracker. Give credit where it's due.
+
+## Format
+- **[Name/Handle]** — What they influenced, link
+
+## Influences
+
+_Add influences as you discover them._
+EOF
+  echo -e "  ${GREEN}✓${NC} memory/influences.md"
+fi
 
 # Create task queue
 if [ ! -f "$OPENCLAW_DIR/tasks/queue.md" ]; then

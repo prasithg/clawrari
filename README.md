@@ -22,6 +22,9 @@ Morning briefings, calendar prep, responsive scans. Your AI doesn't wait to be a
 ### 🔁 Self-Improvement Loops
 RLHF from your feedback. Daily self-audits. Auto-skill updates. Your AI gets better every day without you doing anything.
 
+### 🔄 Meta-Learning Loops
+Nine feedback loops that make your AI permanently better: failure-to-guardrail pipeline, trust-scored memory with decay, prediction-outcome calibration, nightly extraction, friction detection, active context holds, epistemic tagging, creative mode directives, and recursive self-improvement. Inspired by [@AtlasForgeAI](https://x.com/AtlasForgeAI/status/2026380335249002843).
+
 ### 🔌 First-Class Connectors
 Slack, Calendar, Gmail, GitHub, iMessage, Reddit, X. The pipes are already laid.
 
@@ -79,11 +82,15 @@ Total time: ~5 minutes. Result: a setup that took months to build.
 ├── MEMORY.md        # Long-term memory index
 ├── IDENTITY.md      # AI identity and name
 ├── memory/          # Daily logs + structured memory files
-│   ├── YYYY-MM-DD.md
-│   ├── projects.md
-│   ├── people.md
-│   ├── preferences.md
-│   └── operating-rules.md
+│   ├── YYYY-MM-DD.md        # Daily logs
+│   ├── projects.md          # Active projects
+│   ├── people.md            # Relationships
+│   ├── preferences.md       # Human patterns/preferences
+│   ├── operating-rules.md   # Learned rules, RLHF corrections
+│   ├── regressions.md       # Failure-to-guardrail pipeline
+│   ├── context-holds.md     # Active context filters with expiry
+│   ├── predictions.md       # Prediction-outcome calibration
+│   └── influences.md        # Credits/influences tracker
 ├── tasks/           # Task queue for async/night work
 ├── drafts/          # Content drafts awaiting review
 ├── reports/         # Generated reports and analyses
@@ -102,7 +109,7 @@ See [docs/architecture.md](docs/architecture.md) for the full breakdown.
 | Second Brain | ✅ Production | [docs/components/memory.md](docs/components/memory.md) |
 | Content Engine | ✅ Production | [docs/components/content-engine.md](docs/components/content-engine.md) |
 | Proactive Intelligence | 🟡 Partial | [docs/components/proactive.md](docs/components/proactive.md) |
-| Self-Improvement | 🟡 Partial | [docs/components/self-improvement.md](docs/components/self-improvement.md) |
+| Self-Improvement | ✅ Production | [docs/components/self-improvement.md](docs/components/self-improvement.md) |
 | Connectors | 🟡 Partial | [docs/components/connectors.md](docs/components/connectors.md) |
 | Security | ✅ Production | [docs/components/security.md](docs/components/security.md) |
 
