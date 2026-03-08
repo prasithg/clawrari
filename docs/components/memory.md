@@ -6,6 +6,51 @@ Clawrari's memory system is structured, tiered, and trust-scored. It's designed 
 
 ---
 
+## Session Brief — The Preconscious Buffer
+
+Before diving into the full memory system, there's a critical file: `memory/session-brief.md`.
+
+This is a ~50-line "what matters right now" file. It's read FIRST at session start — before daily logs, before anything else. The goal: orient the AI in under 60 seconds.
+
+```markdown
+# Session Brief — Updated 2026-03-08 10:30
+
+## Active State
+- Current top priority: [project]
+- Active sub-agents: agent-label (task-description) | none
+
+## Open Loops
+- [Thing that needs follow-up but isn't a task yet]
+
+## Don't Forget
+- [Expiring hold or time-sensitive item]
+
+## Last Session
+2026-03-08 10:16 — [one-line summary of what happened]
+```
+
+**Why this matters:** Daily logs grow to 7-13KB. Reading them cold means wading through completed items and logs to find the 5 things that matter. The session brief is the scored, selected subset that's session-critical.
+
+**Update protocol:** Rewrite at session end when significant state changed. Keep under 60 lines. It's not a log — it's a brief.
+
+---
+
+## Sub-Agent Ledger
+
+`memory/subagent-ledger.md` — append-only record of every sub-agent spawned.
+
+```markdown
+| Date | Label | Task | Expected Output | Status |
+|------|-------|------|-----------------|--------|
+| 2026-03-08 09:47 | community-scan | Weekly scan | reports/scan-2026-03-08.md | ❌ FAILED |
+```
+
+**Session start protocol:** Scan for 🔄 IN PROGRESS rows. Check if the output file exists. If missing and >2h old: mark stale, add to session brief open loops.
+
+This pattern catches silent sub-agent failures — work that completed but never produced output — at the next session start instead of 4 sessions later.
+
+---
+
 ## Three-Tier Memory
 
 Not all memories are equal. Some should last forever, some should expire.
@@ -43,6 +88,29 @@ Day-to-day context. High volume, high churn.
 - `tasks/queue.md` — Active task queue
 
 Operational memory older than 30 days gets moved to an archive. Not deleted — archived. Because sometimes you need to look back.
+
+---
+
+## Memory Type Tagging
+
+Every memory entry should carry a type tag. Typed memories enable selective loading — a new session needs all `[type:rule]` entries but not last night's `[type:event]` items.
+
+| Tag | Meaning | Decay Rate |
+|-----|---------|------------|
+| `[type:fact]` | Stable facts | Slow |
+| `[type:pref]` | Preferences and patterns | Very slow |
+| `[type:rule]` | Operating rules, guardrails, hard limits | Never (until retired) |
+| `[type:goal]` | Active objectives | Medium |
+| `[type:event]` | Things that happened (meeting, deploy) | Fast — archive to daily files |
+| `[type:habit]` | Recurring patterns | Slow |
+| `[type:context]` | Temporary situational context | Active until released |
+
+**Example entry with both type and trust:**
+```
+- Prefers short paragraphs (3 sentences max) [type:pref|trust:9|src:direct|hits:40+]
+```
+
+Without type tags, a preference that never expires and an event that should archive in 24h look identical as markdown bullets. Typing them now costs 30 minutes and pays off indefinitely.
 
 ---
 

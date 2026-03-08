@@ -25,6 +25,9 @@ RLHF from your feedback. Daily self-audits. Auto-skill updates. Your AI gets bet
 ### 🔄 Meta-Learning Loops
 Nine feedback loops that make your AI permanently better: failure-to-guardrail pipeline, trust-scored memory with decay, prediction-outcome calibration, nightly extraction, friction detection, active context holds, epistemic tagging, creative mode directives, and recursive self-improvement. Inspired by [@AtlasForgeAI](https://x.com/AtlasForgeAI/status/2026380335249002843).
 
+### 📋 Structured Task Management
+A proper async task system for background and night work. Structured queue format with goal ancestry (the "why" that prevents locally-correct/globally-wrong decisions), a sub-agent tracking ledger, failure artifact system, and atomic task claiming to prevent duplicate work. Borrowed patterns from company orchestration systems, distilled for personal use.
+
 ### 🔌 First-Class Connectors
 Slack, Calendar, Gmail, GitHub, iMessage, Reddit, X. The pipes are already laid.
 
@@ -82,20 +85,26 @@ Total time: ~5 minutes. Result: a setup that took months to build.
 ├── MEMORY.md        # Long-term memory index
 ├── IDENTITY.md      # AI identity and name
 ├── memory/          # Daily logs + structured memory files
+│   ├── session-brief.md     # Preconscious buffer — read FIRST at session start
+│   ├── subagent-ledger.md   # Append-only sub-agent tracking ledger
 │   ├── YYYY-MM-DD.md        # Daily logs
 │   ├── projects.md          # Active projects
 │   ├── people.md            # Relationships
-│   ├── preferences.md       # Human patterns/preferences
+│   ├── preferences.md       # Human patterns/preferences (type-tagged)
 │   ├── operating-rules.md   # Learned rules, RLHF corrections
 │   ├── regressions.md       # Failure-to-guardrail pipeline
 │   ├── context-holds.md     # Active context filters with expiry
 │   ├── predictions.md       # Prediction-outcome calibration
 │   └── influences.md        # Credits/influences tracker
-├── tasks/           # Task queue for async/night work
+├── tasks/           # Task queue for async/night work (structured format)
 ├── drafts/          # Content drafts awaiting review
 ├── reports/         # Generated reports and analyses
 ├── ideas/           # Captured ideas inbox
-└── systems/         # Internal systems (annotation loop, etc.)
+├── systems/         # Internal systems (agent registry, failure artifacts)
+│   └── failures/    # Structured failure records for failed sub-agent tasks
+└── reference/       # Prompt engineering and agent templates
+    ├── agent-prompt-template.md    # XML-structured prompt template for sub-agents
+    └── prompt-engineering-patterns.md  # LLM prompting patterns cheat sheet
 ```
 
 See [docs/architecture.md](docs/architecture.md) for the full breakdown.
@@ -108,6 +117,7 @@ See [docs/architecture.md](docs/architecture.md) for the full breakdown.
 |-----------|--------|------|
 | Second Brain | ✅ Production | [docs/components/memory.md](docs/components/memory.md) |
 | Content Engine | ✅ Production | [docs/components/content-engine.md](docs/components/content-engine.md) |
+| Task Management | ✅ Production | [docs/components/task-management.md](docs/components/task-management.md) |
 | Proactive Intelligence | 🟡 Partial | [docs/components/proactive.md](docs/components/proactive.md) |
 | Self-Improvement | ✅ Production | [docs/components/self-improvement.md](docs/components/self-improvement.md) |
 | Connectors | 🟡 Partial | [docs/components/connectors.md](docs/components/connectors.md) |
