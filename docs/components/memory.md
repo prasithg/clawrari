@@ -2,7 +2,7 @@
 
 An AI that forgets everything between sessions is a search engine with extra steps.
 
-Clawrari's memory system is structured, tiered, and trust-scored. It's designed so your AI gets smarter over time instead of starting from zero every conversation.
+Clawrari's memory system is structured, tiered, trust-scored, and bounded. It's designed so your AI gets smarter over time instead of starting from zero every conversation.
 
 ---
 
@@ -32,6 +32,19 @@ This is a ~50-line "what matters right now" file. It's read FIRST at session sta
 **Why this matters:** Daily logs grow to 7-13KB. Reading them cold means wading through completed items and logs to find the 5 things that matter. The session brief is the scored, selected subset that's session-critical.
 
 **Update protocol:** Rewrite at session end when significant state changed. Keep under 60 lines. It's not a log — it's a brief.
+
+### Deterministic Startup
+
+The brief anchors the startup order:
+
+1. `SOUL.md`
+2. `USER.md`
+3. `memory/session-brief.md`
+4. `memory/subagent-ledger.md`
+5. today's and yesterday's daily logs
+6. `MEMORY.md` for main sessions
+
+That order keeps urgent context in front of broad context and makes session starts reproducible.
 
 ---
 
@@ -63,6 +76,8 @@ Core identity and operating principles. These are the bedrock.
 - `USER.md` — Who the human is, permissions, context
 - `AGENTS.md` — Session protocol
 - `operating-rules.md` — Learned rules from corrections and RLHF
+- `rules-constitutional.md` — Hard rules, high stability
+- `rules-tactical.md` — Evolving conventions and local playbooks
 
 Constitutional memory is never auto-archived. Changes require human review.
 
@@ -88,6 +103,15 @@ Day-to-day context. High volume, high churn.
 - `tasks/queue.md` — Active task queue
 
 Operational memory older than 30 days gets moved to an archive. Not deleted — archived. Because sometimes you need to look back.
+
+### Rule Splitting
+
+`v0.4.0` formalizes a useful distinction:
+
+- **constitutional rules** are rare, durable, and high-trust
+- **tactical rules** are operational and expected to evolve
+
+If those live in one undifferentiated blob, everything feels equally permanent. It is not.
 
 ---
 
@@ -135,6 +159,23 @@ Every fact in memory carries metadata:
 - **Hits matter.** High-hit memories are clearly useful. They resist archival even if they're old.
 - **Decay is real.** A fact unused for 60 days drops 1 trust point per month. Eventually it falls below threshold and gets archived.
 - **Contradictions trigger review.** If new information contradicts a stored fact, both get flagged for human resolution.
+
+## Search-Then-Read Retrieval
+
+Semantic retrieval is an acceleration layer, not the source of truth.
+
+The pattern is:
+
+1. search semantically for likely snippets
+2. get ranked candidate paths or chunks
+3. read the actual file sections directly
+4. write back to markdown files
+
+Why this matters:
+
+- the system stays inspectable
+- retrieval stays explainable
+- the workspace still works when the semantic layer is stale or unavailable
 
 ---
 
@@ -188,7 +229,7 @@ Daily logs are the source material for nightly extraction. The AI reviews them a
 - Notes: Moving to Seattle in March
 
 ## Dormant
-### Mike R. — Met at conference [last: 2025-11-01]
+### Alex Kim — Met at conference [last: 2025-11-01]
 ```
 
 ### preferences.md
@@ -240,6 +281,16 @@ The nightly cron includes a monthly deep clean:
 - Archive resolved regressions older than 30 days
 - Move completed projects to archive section
 
+## Freshness
+
+If you use a semantic index, it needs an explicit freshness rule.
+
+Clawrari treats freshness as maintenance:
+
+- check index freshness during heartbeat or review
+- reindex when the semantic layer lags the files
+- fall back to direct reads when search looks suspicious
+
 ---
 
 ## Supersede Chains
@@ -247,15 +298,15 @@ The nightly cron includes a monthly deep clean:
 When information changes, you don't just overwrite — you create a chain.
 
 ```markdown
-## Prasith's role
-- [2026-01-01] CEO at Acme [trust:10|src:direct] — SUPERSEDED
-- [2026-02-15] CEO at Jobleap [trust:10|src:direct] — CURRENT
+## Role history
+- [2026-01-01] Engineering lead at Company A [trust:10|src:direct] — SUPERSEDED
+- [2026-02-15] Founder at Company B [trust:10|src:direct] — CURRENT
 ```
 
 ### Why Chains Matter
 
 - **Audit trail** — You can always see what changed and when
-- **Context preservation** — Old facts might still be relevant ("used to work at Acme" is useful context)
+- **Context preservation** — Old facts might still be relevant ("used to work at Company A" is useful context)
 - **Contradiction resolution** — When two facts conflict, the chain shows which is newer
 - **Rollback** — If a supersede was wrong, you can restore the previous version
 
