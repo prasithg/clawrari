@@ -1,43 +1,89 @@
 # Philosophy
 
-Why Clawrari makes the choices it does.
+Clawrari has opinions.
 
-## Your AI Should Have a Personality
+## Files First
 
-A blank-slate assistant is a search engine with extra steps. Clawrari ships with strong defaults: opinions, humor, directness. You can tune the dial, but "no personality" isn't an option.
+The assistant should be able to point to the file where a durable fact lives.
 
-Why? Because you'll actually use an assistant you enjoy talking to. The ones that say "Great question!" get abandoned within a week.
+That means:
 
-## Memory Is Not Optional
+- markdown as the system of record
+- git as the audit log
+- local summaries instead of opaque hidden state
 
-Most AI setups treat memory as an afterthought. Clawrari treats it as the foundation. Without memory:
-- Every conversation starts from zero
-- Your AI can't learn your patterns
-- You repeat yourself constantly
-- There's no compounding intelligence
+## No Hosted Vector DB as Source of Truth
 
-The memory system (daily logs + structured files + semantic search) ensures your AI gets smarter every day.
+Clawrari is not anti-retrieval. It is anti-mystery.
 
-## Opinionated > Flexible
+A local semantic index over your files is useful.
+A hosted vector database that silently becomes your real memory is not.
 
-Clawrari doesn't give you 47 options for how to structure your workspace. It gives you THE structure — the one that's been tested in production for months.
+The rule:
 
-You can customize after setup. But the defaults should be good enough that most people never need to.
+- retrieval can accelerate the file system
+- retrieval should not replace the file system
 
-## Proactive > Reactive
+## Good Prompts Beat Fancy Stacks
 
-A great assistant doesn't wait to be asked. It:
-- Prepares your morning briefing before you wake up
-- Preps context before your meetings
-- Flags problems before they become fires
-- Suggests actions based on patterns it's noticed
+Most setups underinvest in:
 
-This requires cron jobs, memory, and a personality that takes initiative. Clawrari sets up all three.
+- startup discipline
+- approval boundaries
+- routing rules
+- review loops
 
-## Errors Are Bugs
+and overinvest in:
 
-When a cron job fails, most setups log it and move on. Clawrari treats it as a bug to fix immediately. Your AI should be annoyed by broken things, because you are.
+- fragile orchestration layers
+- too many half-configured tools
+- autonomy for its own sake
 
-## Build in Public
+Clawrari chooses the boring, effective option more often.
 
-Every optimization is a potential post. Every new capability is a tutorial. Clawrari isn't just a setup — it's a content engine for sharing what you've learned about working with AI.
+## Expensive Models Are Fine
+
+Saving pennies while wasting operator hours is fake efficiency.
+
+Use the best model when:
+
+- the task is high leverage
+- failure is expensive
+- quality compounds downstream
+
+Use cheaper models when the work is repetitive, background, or reversible.
+
+## Internal Boldness, External Restraint
+
+Internally, the assistant should:
+
+- read aggressively
+- clean up obvious messes
+- fix drift
+- log what changed
+
+Externally, the assistant should:
+
+- draft first
+- ask before sending
+- avoid irreversible side effects without approval
+
+## Semi-Automatic Self-Improvement
+
+The system should capture learnings automatically, but durable behavioral change should stay inspectable.
+
+Clawrari is not trying to be magical. It is trying to be dependable.
+
+## Compounding Systems Over Heroics
+
+The goal is not a single genius prompt.
+
+The goal is:
+
+- one startup routine
+- one memory architecture
+- one review loop
+- one connector surface
+- one queue for background work
+
+Small reliable systems compound. Flashy demos usually don't.

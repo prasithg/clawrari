@@ -1,52 +1,22 @@
-# Sub-Agent Ledger
+# Subagent Ledger
 
-Append-only record of sub-agents spawned. Check for 🔄 rows at session start.
-Any row >2 hrs old with no output file → flag as stale.
+Append-only tracking table for all spawned subagents. Check this at session start.
 
----
+## Ledger
 
-## Active / Recent
+| Date | Label | Task Summary | Expected Output Path | Status | Validation | Result Notes |
+|------|-------|--------------|----------------------|--------|------------|--------------|
+| YYYY-MM-DD HH:MM | example-agent | Example research task | reports/example-report.md | 🔄 running | ⏭️ skipped | Add the row before you spawn the agent. |
 
-| Date | Label | Task | Expected Output | Status |
-|------|-------|------|-----------------|--------|
-| YYYY-MM-DD HH:MM | example-agent | Example research task | reports/example-YYYY-MM-DD.md | 🔄 IN PROGRESS |
+## Status Rules
 
----
-
-## Archive
-
-> Move completed/failed rows here after resolution. Keep Active table clean.
-
-| Date | Label | Task | Output | Status |
-|------|-------|------|--------|--------|
-| YYYY-MM-DD HH:MM | example-agent | Example completed task | reports/example-YYYY-MM-DD.md | ✅ DONE |
-
----
-
-## Status Legend
-
-| Icon | Meaning |
-|------|---------|
-| 🔄 IN PROGRESS | Agent running or recently spawned |
-| ✅ DONE | Completed, output file confirmed |
-| ❌ FAILED | Agent failed or output never appeared |
-| ⏳ STALE | >2h old, no output — needs investigation |
-| 🔁 RETRY | Failed, queued for retry |
-
----
+- `🔄 running` — in progress, output not verified yet
+- `✅ done` — output exists and is usable
+- `❌ stale` — no output after the expected window
+- `⚠️ failed` — agent completed but failed acceptance criteria
 
 ## Protocol
 
-**Before spawning a sub-agent:**
-1. Add a row to this ledger with status 🔄 IN PROGRESS
-2. Include the exact output file path in Expected Output
-
-**At session start:**
-1. Scan this table for 🔄 rows
-2. Check if the Expected Output file exists
-3. If not: mark ⏳ STALE or ❌ FAILED, add to open loops in session-brief.md
-
-**On completion:**
-1. Update status to ✅ DONE
-2. Confirm output file path is accurate
-3. Archive the row at next cleanup
+1. Add a row before spawning a subagent.
+2. At session start, scan for stale rows and surface them in `memory/session-brief.md`.
+3. For coding tasks, run validation before marking the task done.

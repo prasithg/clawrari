@@ -1,5 +1,34 @@
 # Changelog
 
+## v0.4.0 — 2026-04-19
+
+### Added
+- **Build Playbook** (`docs/playbook.md`) — opinionated install-and-adopt guide for taking a fresh OpenClaw setup to a working Clawrari system.
+- **Mission statement** (`MISSION.md`) — tighter articulation of what Clawrari is for, who it serves, and what standard it should meet.
+- **Process docs** (`docs/process.md`) — public summary of how Clawrari features are discovered, filtered, packaged, and shipped.
+- **Model Playbook** (`reference/model-playbook/`) — routing table, model metadata, overlays, and per-model prompting notes for the live stack.
+- **Reference publishing pass** (`reference/architecture-template.md`, `reference/execplan-template.md`, `reference/prompt-patterns.md`, `reference/sop-agent-task-workflow.md`, `reference/validation-agent-spec.md`, `reference/steering-hooks-spec.md`, `reference/agentic-engineering-patterns.md`) — public-safe versions of the internal playbooks that support agent-first engineering.
+- **Persona docs** (`docs/components/persona.md`) — shared-base plus overlay model for personal and work-facing behaviors.
+- **Identity channel docs** (`docs/components/identity-channel.md`) — assistant-owned communication identity pattern for Slack or equivalent channels.
+
+### Changed
+- Updated `bootstrap/init.sh` to generate the modern memory skeleton, `TOOLS.md`, split rule files, conventions, and heartbeat state.
+- Fixed `bootstrap/templates/SOUL.md.tmpl` so personality conditionals render correctly instead of leaking raw template tags.
+- Updated `bootstrap/templates/*` and `templates/*` to match the current workspace patterns for session briefs, subagent ledgers, queue structure, startup order, and model overlays.
+- Expanded `docs/components/memory.md` with deterministic startup order, rule splitting, search-then-read retrieval, and freshness guidance.
+- Expanded `docs/components/self-improvement.md` with improvement-signal framing, promotion discipline, and review-surface guidance.
+- Updated `docs/components/connectors.md`, `skills/README.md`, and `crons/README.md` to reflect current connector naming, identity-channel guidance, model freshness, and night-work prep.
+- Reworked `README.md` for an accurate `v0.4.0` public surface and synced the landing pages in `docs/index.html` and `site/index.html`.
+
+### Notes
+- GitHub Pages remains served from the `docs/` output on `main`; `site/index.html` is kept in sync as the editable twin.
+- Custom domain setup is intentionally not changed in this release. No `CNAME` file has been added.
+
+### Credits
+- @AtlasForgeAI / @jonnym1ller for the meta-learning loop framing
+- @johnsonmxe for active context holds / vasocomputation influence
+- HZL, Total Recall, and Paperclip for durable workflow and memory-system inspiration
+
 ## v0.3.0 — 2026-03-08
 
 ### Added

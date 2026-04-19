@@ -54,6 +54,24 @@ Failure occurs
 
 The key insight: regressions are not shame. They're the raw material for guardrails. A system that never fails is a system that never learns.
 
+## Improvement Signals
+
+`v0.4.0` sharpens the idea of an improvement signal: any structured evidence that the system should change behavior.
+
+Useful signal classes:
+
+- failures
+- regressions
+- human feedback
+- friction
+- learnings
+- predictions
+- benchmark results
+
+Those signals should graduate:
+
+`raw event → reviewed signal → promoted learning → durable rule or template`
+
 ---
 
 ## Prediction-Outcome Calibration
@@ -187,6 +205,33 @@ This is the janitor loop. It prevents memory drift and ensures nothing falls thr
 - Ideas captured: Offhand mention of an idea → add to ideas/inbox.md
 
 The nightly extraction is what turns raw daily logs into structured, searchable memory.
+
+## Benchmark Before Promotion
+
+Not every clever idea deserves promotion into the permanent layer.
+
+Before adopting a new prompt, workflow, or guardrail, benchmark it when you can:
+
+1. define a representative case
+2. compare baseline vs candidate
+3. store the result
+4. only then promote, or override consciously
+
+That prevents the system from cargo-culting every novelty into a permanent rule.
+
+## Review Surface
+
+Self-improvement needs a review surface, even if that surface is just markdown plus a weekly ritual.
+
+At minimum, the review loop should show:
+
+- what failed
+- what was promoted
+- what is unresolved
+- what is stale
+- what changed because of validated evidence vs because of preference
+
+That is how self-improvement stays auditable instead of mystical.
 
 ---
 

@@ -209,7 +209,7 @@ Daily logs are the source material for nightly extraction. The AI reviews them a
 ## Active
 
 ### Clawrari — Open source AI ops framework
-- Status: v0.2.0 shipping
+- Status: v0.4.0 shipping
 - Next: Documentation, X announcement
 - Blockers: None
 

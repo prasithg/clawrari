@@ -1,0 +1,215 @@
+# Model Playbook — Single Source of Truth
+# Version: 1
+# Last updated: 2026-04-18
+#
+# Read by: docs, local helper scripts, and humans
+# Update protocol: bump version, log change at bottom
+#
+# Pricing notes are approximate (per million tokens, input/output) and
+# represent published rates. Use as relative signal,
+# not invoicing truth.
+
+version: 2
+
+models:
+  opus-4-7:
+    aliases: [opus, opus-4.7, claude-opus-4-7]
+    provider: anthropic
+    full_id: anthropic/claude-opus-4-7
+    role: main-orchestrator
+    capabilities:
+      reasoning: top
+      coding: top
+      tool_use: high          # but defaults to fewer tool calls than 4.6
+      long_context: 200k
+      vision: high
+      multimodal: image
+    prompt_style: claude-xml-or-markdown
+    effort_default: high      # use xhigh for coding/agentic, max for hardest
+    cost_tier: premium        # ~$15/$75 per M tokens approx
+    notes: "Literal interpretation. State scope explicitly. Spawns fewer subagents — ask for them."
+    prompt_file: models/opus.md
+
+  opus-4-6:
+    aliases: [opus-4.6, claude-opus-4-6]
+    provider: anthropic
+    full_id: anthropic/claude-opus-4-6
+    role: main-orchestrator
+    capabilities: { reasoning: top, coding: top, tool_use: high, long_context: 200k, vision: high, multimodal: image }
+    prompt_style: claude-xml-or-markdown
+    effort_default: high
+    cost_tier: premium
+    notes: "Predecessor to 4.7. Warmer prose, more interpretive, spawns subagents readily."
+    prompt_file: models/opus.md
+
+  gpt-5-4:
+    aliases: [gpt, gpt-5.4, gpt5.4]
+    provider: openai
+    full_id: openai/gpt-5.4
+    role: main-orchestrator-alt | coding-agent
+    capabilities: { reasoning: top, coding: top, tool_use: top, long_context: 400k, vision: high, multimodal: image }
+    prompt_style: gpt5-xml-blocks
+    effort_default: high
+    cost_tier: high
+    notes: "Strongest tool persistence and parallel calling when prompted. Needs explicit output_contract + completion criteria. Tool routing weak early-session."
+    prompt_file: models/gpt-5.4.md
+
+  gemini-3-1-pro:
+    aliases: [gemini, gemini-pro, gemini-3.1-pro]
+    provider: google
+    full_id: google/gemini-3.1-pro-preview
+    role: research-deep | multimodal | long-context
+    capabilities: { reasoning: top, coding: high, tool_use: high, long_context: 1M, vision: top, multimodal: image+video+audio }
+    prompt_style: gemini-xml-or-markdown-pick-one
+    effort_default: high     # thinking_level
+    cost_tier: medium-high
+    notes: "TEMPERATURE MUST BE 1.0. Place core request + negative constraints LAST. Don't mix XML and Markdown. Best for websearch, YouTube, video, deep research synthesis."
+    prompt_file: models/gemini-3.1-pro.md
+
+  glm-5-1:
+    aliases: [glm, glm-5.1, glm-5]
+    provider: z-ai
+    full_id: z-ai/glm-5.1   # also openrouter/z-ai/glm-5.1 via OpenRouter
+    role: long-horizon-coding-agent | subagent-workhorse | frontier-competitive
+    capabilities: { reasoning: top, coding: top, tool_use: top, long_context: 200k, vision: none, multimodal: text }
+    prompt_style: openai-compatible-thinking-toggle
+    effort_default: thinking-enabled
+    cost_tier: medium-low
+    notes: "z.ai's flagship (2026). SOTA on SWE-Bench Pro (58.4 — beats GPT-5.4 / Opus 4.6 / Gemini 3.1 Pro on that benchmark). Built for 8-hour autonomous tasks. Explicitly optimized for OpenClaw. Use coding endpoint base URL (/api/coding/paas/v4) for agent harness work. Temperature 1.0, top_p 0.95."
+    prompt_file: models/glm-5.1.md
+
+  sonnet-4-6:
+    aliases: [sonnet, sonnet-4.6, claude-sonnet-4-6]
+    provider: anthropic
+    full_id: anthropic/claude-sonnet-4-6
+    role: subagent-workhorse | execution-agent | content-drafts
+    capabilities: { reasoning: high, coding: top, tool_use: top, long_context: 1M, vision: high, multimodal: image }
+    prompt_style: claude-xml
+    effort_default: high
+    cost_tier: medium
+    notes: "Released Feb 17 2026. 1M context, $3/$15 per M. Default for content drafts + Anthropic-ecosystem tasks. May guess at missing tool params — be explicit."
+    prompt_file: models/sonnet-4.6.md
+
+  haiku-4-5:
+    aliases: [haiku, haiku-4.5, claude-haiku-4-5]
+    provider: anthropic
+    full_id: anthropic/claude-haiku-4-5
+    role: cheap-anthropic-subagent | latency-critical
+    capabilities: { reasoning: medium, coding: high, tool_use: high, long_context: 200k, vision: high, multimodal: image }
+    prompt_style: claude-xml
+    effort_default: medium
+    cost_tier: low
+    notes: "Released Oct 15 2025. $1/$5 per M. Cheapest Anthropic model with vision. Not currently in openclaw.json — add if we need Anthropic-family cheap subagent (vs. GLM 5.1 which is text-only). More literal than Sonnet — be explicit."
+    prompt_file: models/haiku-4.5.md
+    active: false
+
+# Routing intents → preferred + fallback model id
+intents:
+  main_session:
+    primary: opus-4-7
+    fallbacks: [gpt-5-4, opus-4-6]
+
+  deep_research:
+    primary: gemini-3-1-pro
+    fallbacks: [opus-4-7, gpt-5-4]
+    rationale: "Gemini's 1M context + native websearch/YouTube + grounded synthesis"
+
+  websearch_heavy:
+    primary: gemini-3-1-pro
+    fallbacks: [gpt-5-4]
+
+  youtube_video_analysis:
+    primary: gemini-3-1-pro
+    fallbacks: []
+    rationale: "Native video understanding"
+
+  coding_heavy_build:
+    primary: gpt-5-4              # via Codex CLI
+    fallbacks: [opus-4-7]         # via Claude Code
+    rationale: "Codex strongest on long-horizon coding; Claude Code excellent fallback"
+
+  coding_review:
+    primary: opus-4-7
+    fallbacks: [gpt-5-4]
+    rationale: "Opus 4.7 has 11pp recall gain on bug-finding evals"
+
+  long_horizon_autonomous_coding:
+    primary: glm-5-1
+    fallbacks: [gpt-5-4, opus-4-7]
+    rationale: "GLM 5.1 is SOTA on SWE-Bench Pro + built for 8-hour autonomous execution"
+
+  cheap_tool_driving:
+    primary: glm-5-1
+    fallbacks: [haiku-4-5, sonnet-4-6]
+    rationale: "GLM 5.1 first (text-only, cheapest + frontier-competitive). Haiku 4.5 when vision needed or Anthropic ecosystem required."
+
+  subagent_default:
+    primary: glm-5-1
+    fallbacks: [sonnet-4-6]
+    rationale: "GLM 5.1 is workspace default per openclaw.json; better cost/quality than Sonnet for most execution work"
+
+  content_drafting:
+    primary: sonnet-4-6
+    fallbacks: [opus-4-7, gpt-5-4]
+    rationale: "Sonnet is good enough for drafts; main reviews. Opus only when voice is critical. GLM 5.1 is weaker on personal voice-critical content."
+
+  cross_model_review:
+    primary: gpt-5-4              # if main is opus
+    secondary: opus-4-7           # if main is gpt
+    rationale: "Always use a different family than the writer"
+
+# Changelog
+# 3 (2026-04-18): Verified all model versions are current (Opus 4.7, GPT-5.4, Gemini 3.1 Pro,
+#                 Sonnet 4.6, GLM 5.1, Haiku 4.5). Added Haiku 4.5 (active:false — candidate).
+#                 Added GPT-5.4-Pro variant note in models/gpt-5.4.md. Updated Sonnet 4.6 context
+#                 window to 1M (not 200K). Added # Future Candidates section below.
+# 2 (2026-04-18): Corrected GLM 4.6 → GLM 5.1 (z.ai's actual flagship, SOTA SWE-Bench Pro 58.4).
+#                 Repositioned as frontier-competitive, not cheap tool-driver. Made GLM 5.1 the
+#                 default subagent (matches workspace openclaw.json config).
+# 1 (2026-04-18): Initial version. Built from official prompting guides.
+
+# -----------------------------------------------------------------------------
+# Future Candidates (not active; re-evaluate quarterly)
+# -----------------------------------------------------------------------------
+future_candidates:
+  gemini-3-1-flash-lite:
+    provider: google
+    full_id: google/gemini-3.1-flash-lite-preview
+    released: 2026-03-03
+    why: "High-volume low-latency Gemini variant. Matches 2.5 Flash quality at lower cost. Useful for cheap Gemini-family work."
+
+  gpt-5-4-pro:
+    provider: openai
+    full_id: openai/gpt-5.4-pro
+    released: 2026-03-05
+    why: "Premium GPT-5.4 for hardest reasoning ($30/$180). Reserve for cases where standard GPT-5.4 fails twice."
+
+  qwen-3-5-plus:
+    provider: alibaba
+    full_id: qwen/qwen3.5-plus
+    released: 2026-02
+    why: "Top open-weight for broad use. 397B MoE, 1M context, ~$0.40/$1.20 per M. Laptop-runnable variants."
+
+  deepseek-v3-2:
+    provider: deepseek
+    full_id: deepseek/deepseek-v3.2
+    released: 2026
+    why: "Strongest open-weight reasoning. $0.32/$0.89 per M. Competitive with closed models on GPQA/AIME."
+
+  grok-4-20:
+    provider: x-ai
+    full_id: x-ai/grok-4.20
+    released: 2026-02
+    why: "Leads SWE-Bench (~75%). Real-time data access. Weaker on novel reasoning (ARC-AGI-2). Consider if you want xAI exposure in the stack."
+
+# -----------------------------------------------------------------------------
+# Model Version Verification (last checked: 2026-04-18)
+# -----------------------------------------------------------------------------
+# Opus 4.7:      Released 2026-04-16 GA. CURRENT.
+# GPT-5.4:       Released 2026-03-05. CURRENT.
+# Gemini 3.1 Pro: Released 2026-02-19. CURRENT. (Gemini 3 Pro deprecated 2026-03-09)
+# Sonnet 4.6:    Released 2026-02-17. CURRENT.
+# GLM 5.1:       Released late 2026. CURRENT per z.ai docs.
+# Haiku 4.5:     Released 2025-10-15. CURRENT. EOL no sooner than 2026-10-01.
+# No newer versions found as of 2026-04-18 (no 4.8, 5.5, 3.2, 4.7-sonnet, 5.2-glm, 5.0-haiku).
+# Next verification: 2026-05-18 OR when behavior changes are observed.

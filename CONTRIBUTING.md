@@ -1,53 +1,50 @@
-# Contributing to Clawrari
+# Contributing
 
-First off — thanks for being here. Clawrari is one person's production setup, open sourced so others can build on it. Contributions should enhance, not dilute.
+Clawrari is an opinionated reference config. Contributions should make the operating model sharper, not broader for its own sake.
 
-## Ground Rules
+## What Belongs Here
 
-This is an opinionated project. That's the point. PRs that add 47 configuration options where there's currently one good default will be respectfully declined.
+- workflows that have been used repeatedly in a real setup
+- documentation that makes the system easier to adopt
+- safer defaults
+- clearer startup, memory, or review patterns
+- connector guidance that improves reliability
 
-**Good contributions:**
-- Bug fixes
-- Documentation improvements
-- New component docs with real substance
-- Bootstrap improvements
-- New skill recommendations (battle-tested, not theoretical)
-- Security hardening
+## What Does Not Belong Here
 
-**Not what we're looking for:**
-- "Make it configurable" PRs that add complexity without clear value
-- Generic templates that water down the opinionated voice
-- AI-generated docs that read like AI-generated docs
+- personal secrets, tokens, account IDs, or hostnames
+- employer or customer-specific workflows
+- purely theoretical prompts or configs
+- giant kitchen-sink additions with no documentation
 
-## How to Report Issues
+## Contribution Rules
 
-1. Open a [GitHub issue](https://github.com/prasithg/clawrari/issues)
-2. Describe what's broken and what you expected
-3. Include your environment (OS, OpenClaw version) if relevant
-4. If it's a bootstrap issue, include the error output
+1. Keep public-facing examples sanitized.
+2. Explain the operational problem being solved.
+3. Prefer one focused improvement per pull request.
+4. Update docs when behavior changes.
+5. If a pattern has not been used in practice, mark it clearly as experimental or keep it out.
 
-## How to Suggest Features
+## Pull Request Checklist
 
-1. Open an issue with the `enhancement` label
-2. Explain the use case — not just "add X" but "I need X because..."
-3. Bonus: explain how it fits the existing architecture
+- documentation updated
+- placeholders used instead of real identifiers
+- no secrets or private customer references
+- examples are copyable
+- behavior is consistent with the Clawrari philosophy
 
-## How to Submit PRs
+## Style Guide
 
-1. Fork the repo
-2. Create a branch (`feature/your-thing` or `fix/the-bug`)
-3. Make your changes
-4. Write a clear commit message (what and why, not just what)
-5. Open a PR against `main`
-6. Describe what changed and why
+- be direct
+- prefer practical guidance over hype
+- keep docs modular and linkable
+- write for operators, not for marketing pages
 
-## Code Style
+## Suggested PR Shapes
 
-- **Keep it simple.** Bash for scripts, Markdown for docs. No build tools, no frameworks.
-- **Be substantive.** No "coming soon" stubs. If you write a doc, make it real.
-- **Match the voice.** Sharp, direct, opinionated. Read the README to calibrate.
-- **Test the bootstrap.** If you change `init.sh`, run it on a clean workspace.
+- add one new documented workflow
+- improve one existing playbook or architecture doc
+- harden one config area and document the reason
+- clarify one connector or safety pattern
 
-## Questions?
-
-Open an issue or reach out to [@prasithg](https://x.com/prasithg).
+If the change needs a long defense, it is probably too broad for one PR.

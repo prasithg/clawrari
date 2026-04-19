@@ -9,7 +9,7 @@ openclaw skill install slack-personal
 
 ## What it enables
 - Read channel history + unreads
-- Post drafts to a review channel (recommended: `#prasclaw-briefings`)
+- Post drafts to a review channel (recommended: `#assistant-review`)
 - React/acknowledge feedback with emoji
 
 ## Notes

@@ -1,20 +1,37 @@
 # MEMORY.md — Index
 
-Long-term memory is split into focused files for better search recall. This file is the map.
+Long-term memory is split into focused files for better recall. This file is the map.
 
-## Memory Files
-| File | Contents |
-|------|----------|
-| `memory/projects.md` | Active projects and their status |
-| `memory/people.md` | People and relationships |
-| `memory/preferences.md` | {{NAME}}'s preferences, patterns, and habits |
-| `memory/operating-rules.md` | Operating principles, lessons learned, corrections |
-| `memory/YYYY-MM-DD.md` | Daily notes — raw logs of what happened each day |
+## Fast-Start Memory
+
+| File | Purpose |
+|------|---------|
+| `memory/session-brief.md` | What matters right now. Read first. |
+| `memory/subagent-ledger.md` | Active, stale, or recently completed subagent work. |
+| `memory/YYYY-MM-DD.md` | Daily raw logs for recency and handoff context. |
+
+## Durable Memory
+
+| File | Purpose |
+|------|---------|
+| `memory/projects.md` | Active projects, milestones, blockers |
+| `memory/people.md` | Relationship context and communication notes |
+| `memory/preferences.md` | {{NAME}}'s preferences and recurring patterns |
+| `memory/operating-rules.md` | Cross-session lessons and behavior corrections |
+| `memory/rules-constitutional.md` | Hard rules that should rarely change |
+| `memory/rules-tactical.md` | Evolving conventions and local playbooks |
+| `memory/context-holds.md` | Temporary focus shifts with expiry |
+| `memory/predictions.md` | Prediction-outcome calibration |
+| `memory/regressions.md` | Failure-to-guardrail pipeline |
+| `memory/reference/conventions.md` | Type tags, trust scoring, memory conventions |
 
 ## How to Use This
-1. Daily files for recent context (today + yesterday)
-2. Focused files for specific lookups
-3. This index when you need to know where something lives
+
+1. Start with `memory/session-brief.md`.
+2. Read today + yesterday from `memory/YYYY-MM-DD.md`.
+3. Use the durable files when you need stable context or rules.
+4. Keep the semantic layer optional. Plain-text files remain the source of truth.
 
 ## Initialized
-{{DATE}} — Clawrari bootstrap v0.1.0
+
+{{DATE}} — Clawrari bootstrap v0.4.0

@@ -2,11 +2,13 @@
 
 The pipes that connect your AI to the world. Every connector follows the same principle: **read freely, write with permission.**
 
+`v0.4.0` makes a second principle explicit: connector names drift, workflow intent should not. Whether your install exposes `gws`, `gog`, `gh`, `mcporter`, or another alias, record the exact commands in `TOOLS.md` and keep the operating rules stable.
+
 ---
 
-## Slack — slkcli
+## Slack / Messaging
 
-The primary communication channel. Your AI lives in Slack.
+The primary communication channel in many Clawrari installs. Your AI needs one designated feedback surface even if it is not Slack.
 
 ### Capabilities
 
@@ -20,21 +22,24 @@ The primary communication channel. Your AI lives in Slack.
 
 ### Setup
 
-```bash
-openclaw skill install slkcli
-# Configure with your Slack workspace token
-```
+Install the messaging skill or connector you actually use, then record the command name and auth notes in `TOOLS.md`.
 
 ### How It's Used
 
 - **Morning briefing** — Reads unreads, summarizes threads
 - **Responsive scanning** — Flags unanswered DMs
-- **Content sharing** — Posts to #ai-talk with approval
+- **Content sharing** — Posts with approval
 - **RLHF** — Your reactions/replies to AI messages become feedback
+
+### Identity Channel Pattern
+
+If your assistant posts often, give it a distinct identity instead of having it always post as you.
+
+See [identity-channel.md](identity-channel.md).
 
 ---
 
-## Google Workspace — gog
+## Google Workspace
 
 Calendar, Gmail, Drive, Docs, Sheets. The productivity backbone.
 
@@ -50,11 +55,7 @@ Calendar, Gmail, Drive, Docs, Sheets. The productivity backbone.
 
 ### Key Commands
 
-```bash
-gog calendar list --limit 10      # Upcoming events
-gog gmail search "from:boss"      # Search emails
-gog drive ls                      # List Drive files
-```
+Common alias families include `gws` and older wrappers. Pick one, verify it, and document it in `TOOLS.md`.
 
 ### Notes
 
@@ -94,7 +95,7 @@ gh auth login
 
 ---
 
-## Browser Automation
+## Browser Automation / Relay
 
 Two browser profiles for different use cases.
 

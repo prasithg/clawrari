@@ -3,7 +3,14 @@
 ## Health Checks (every heartbeat)
 - Verify workspace integrity: do MEMORY.md, SOUL.md, USER.md, memory/ exist?
 - Check last cron job runs: any errors? Fix path issues or config problems autonomously.
+- Verify the designated feedback channel is reachable and the browser/tooling config still works.
+- If semantic memory is enabled, verify the index is fresh and reindex if it is stale.
 - If something is broken and fixable without destructive action, fix it and log what you did.
+
+## Feedback Check (every heartbeat, quick)
+- Scan the designated RLHF / feedback surface for corrections and new requests.
+- Acknowledge anything seen, capture durable corrections, and surface ambiguous items for review.
+- Track the last successful check in `memory/heartbeat-state.json`.
 
 ## Morning Briefing (daily, {{WAKE_TIME}})
 - Weather + calendar overview for the day
@@ -12,16 +19,17 @@
 - Relevant news/updates on: {{TOPICS}}
 
 ## Periodic Checks (2-4x daily)
+- Communication scan: anything important needing a reply or decision?
 - Calendar: anything in next 2-4 hours needing prep?
-- Email spot-check: flag anything urgent needing human reply
 - Task queue: any items ready to work on?
 
 ## Self-Improvement (daily)
 - Audit own performance: what went well, what didn't
-- Check for skill updates on ClawHub
+- Check for skill or model-playbook updates
 - Review and prune stale memory entries
 
 ## Weekly
 - Security audit: review permissions, check for anomalies
 - Memory cleanup: archive old daily notes, update long-term memory
 - Performance report: what got done this week
+- Model freshness review: are better defaults available?

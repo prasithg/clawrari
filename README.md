@@ -2,33 +2,55 @@
 
 **The Ferrari of OpenClaw setups.**
 
-> **Context Repo:** The full product development context — FRDs, blueprints, process docs, and work orders — is open-sourced at [github.com/prasithg/clawrari-context](https://github.com/prasithg/clawrari-context). Read it to understand the *why* behind every decision.
-
-Clawrari is an opinionated, battle-tested reference configuration for people who want OpenClaw to feel less like a toy chatbot and more like an operating system for work.
+Clawrari is an opinionated, battle-tested OpenClaw operating system for people who want their assistant to behave like durable infrastructure instead of a stateless chatbot.
 
 It packages the patterns that matter:
 
-- File-based memory that survives sessions
-- Behavioral rules that keep the assistant sharp and predictable
-- A self-improvement loop that turns feedback into better defaults
-- A content engine for research, drafting, review, and publishing
-- Connector patterns for search, GitHub, Google Workspace, project management, and coding agents
+- file-first memory with session continuity
+- explicit behavioral rules and startup order
+- self-improvement loops that promote feedback into better defaults
+- structured async work through queue + ledger patterns
+- a published model playbook for routing and overlays
 
-Clawrari is not a generic starter template. It is a strong point of view about how to run OpenClaw well.
+It is not a generic starter template. It is a strong point of view about how to run OpenClaw well.
+
+## What's New in v0.4.0
+
+- [`docs/playbook.md`](docs/playbook.md) is now the canonical install-and-adopt guide.
+- `reference/model-playbook/` is public with routing, overlays, and per-model prompting notes.
+- Core docs now reflect the current memory, self-improvement, connector, and architecture patterns.
+- Persona overlays and assistant-owned identity channels are now documented.
+- `bootstrap/init.sh` now generates the modern memory skeleton and no longer leaks raw template conditionals.
 
 ## Why Clawrari
 
 Most assistant setups fail in one of three ways:
 
-- They forget everything between sessions
-- They accumulate brittle prompts with no operating system around them
-- They automate isolated tricks instead of building a durable workflow
+- they forget everything between sessions
+- they accumulate brittle prompts with no operating system around them
+- they automate isolated tricks instead of building a durable loop
 
 Clawrari fixes that with three layers:
 
-1. **Memory layer**: durable files, session briefs, daily logs, and local semantic indexing over human-readable notes.
-2. **Behavioral layer**: `AGENTS.md`, `SOUL.md`, `USER.md`, `IDENTITY.md`, and `HEARTBEAT.md` define how the agent starts, thinks, checks itself, and asks for approval.
-3. **Skill layer**: reusable skills wire the system to real work like briefings, research, coding, Slack, calendars, and night-time execution.
+1. **Memory layer**: session brief, ledger, daily logs, durable files, and optional semantic retrieval.
+2. **Behavioral layer**: `SOUL.md`, `USER.md`, `AGENTS.md`, `HEARTBEAT.md`, and model overlays define how the system behaves.
+3. **Skill layer**: reusable workflows wire the system to real work like briefings, research, coding, messaging, and night-time execution.
+
+## Quick Start
+
+```bash
+git clone https://github.com/prasithg/clawrari.git
+cd clawrari
+./bootstrap/init.sh
+```
+
+Then do the real setup work:
+
+1. Read [the build playbook](docs/playbook.md).
+2. Personalize `SOUL.md`, `USER.md`, `IDENTITY.md`, `HEARTBEAT.md`, and `AGENTS.md`.
+3. Install the core skills and connector surfaces you actually use.
+4. Wire your feedback channel, cron cadence, and model stack.
+5. Start using `tasks/queue.md`, `memory/session-brief.md`, and `memory/subagent-ledger.md` immediately.
 
 ## Architecture
 
@@ -48,94 +70,61 @@ Clawrari fixes that with three layers:
             |                         |                        |
             v                         v                        v
   +-------------------+    +-------------------+    +-------------------+
-  | SOUL / USER /     |    | AGENTS /          |    | morning-briefing  |
-  | MEMORY / logs /   |    | HEARTBEAT /       |    | research /        |
-  | session-brief     |    | model overlays    |    | night-work / gh   |
+  | SOUL / USER /     |    | AGENTS /          |    | briefings /       |
+  | MEMORY / logs /   |    | HEARTBEAT /       |    | coding / research |
+  | session-brief     |    | model overlays    |    | connectors        |
   +---------+---------+    +--------+----------+    +---------+---------+
             \___________________________|_______________________/
                                         |
                                         v
                            +---------------------------+
                            | OpenClaw runtime + local  |
-                           | plugins + external APIs   |
+                           | tools + external APIs     |
                            +---------------------------+
 ```
+
+Read [docs/architecture.md](docs/architecture.md) for the fuller breakdown.
+
+## Core Docs
+
+- [Build Playbook](docs/playbook.md)
+- [Architecture](docs/architecture.md)
+- [Process](docs/process.md)
+- [Mission](MISSION.md)
+- [Memory](docs/components/memory.md)
+- [Self-Improvement](docs/components/self-improvement.md)
+- [Connectors](docs/components/connectors.md)
+- [Persona Patterns](docs/components/persona.md)
+- [Identity Channels](docs/components/identity-channel.md)
+- [Philosophy](docs/philosophy.md)
+- [Skills Catalog](skills/README.md)
+- [Crons](crons/README.md)
 
 ## Repo Layout
 
 ```text
 clawrari/
-├── bootstrap/       # seed templates and bootstrap helpers
-├── config/
-│   ├── README.md
-│   └── openclaw.example.json
-├── crons/           # cron examples and notes
-├── docs/            # architecture, philosophy, and adoption docs
-├── reference/       # prompt and routing references
+├── bootstrap/       # bootstrap script + personalized core-file templates
+├── crons/           # scheduling notes and cadence patterns
+├── docs/            # playbook, architecture, philosophy, component docs
+├── reference/       # model playbook, prompt patterns, planning templates
 ├── skills/          # catalog of the core skill surface
-├── templates/       # starter memory and task files
+├── templates/       # memory and task starter templates
+├── CHANGELOG.md
 ├── CONTRIBUTING.md
-├── ROADMAP.md
 ├── LICENSE
+├── MISSION.md
 └── README.md
 ```
-
-## Quickstart
-
-Clawrari is best adopted as a forkable pattern library, not a black-box installer.
-
-```bash
-git clone https://github.com/<your-github-org>/clawrari.git
-cd clawrari
-cp config/openclaw.example.json ~/.openclaw/openclaw.json
-```
-
-Then:
-
-1. Read [the build playbook](docs/playbook.md).
-2. Create your workspace identity files: `IDENTITY.md`, `SOUL.md`, `USER.md`, `AGENTS.md`.
-3. Create your memory skeleton: `MEMORY.md`, `memory/session-brief.md`, `memory/subagent-ledger.md`, `memory/YYYY-MM-DD.md`.
-4. Install the core skills and connector profiles you actually use.
-5. Turn on heartbeat and cron jobs only after the manual flow works.
-
-## Documentation
-
-- [Docs Index](docs/index.md)
-- [Architecture](docs/architecture.md)
-- [Memory System](docs/memory-system.md)
-- [Self-Improvement](docs/self-improvement.md)
-- [Content Engine](docs/content-engine.md)
-- [Connectors](docs/connectors.md)
-- [Night Work](docs/night-work.md)
-- [Philosophy](docs/philosophy.md)
-- [Build Playbook](docs/playbook.md)
-- [Skills Catalog](skills/README.md)
-- [Config Example](config/openclaw.example.json)
 
 ## Design Principles
 
 - Files are the system of record.
-- Optional local indexing is fine; hidden cloud memory is not.
-- Good prompts beat fancy architecture most of the time.
+- Optional indexing is good; hidden memory is not.
+- Strong defaults beat configuration sprawl.
 - Review loops matter more than autonomy theater.
-- Expensive models are justified when they save real human time.
 - External actions should be gated; internal maintenance should be aggressive.
-
-## Status
-
-`v0.1` documents the current Clawrari operating model:
-
-- core memory architecture
-- self-improvement framework
-- content pipeline
-- connector and coding-agent patterns
-- bootstrap playbook for a fresh install
-
-See [ROADMAP.md](ROADMAP.md) for the next gaps.
-
-## Contributing
-
-Start with [CONTRIBUTING.md](CONTRIBUTING.md). Clawrari prefers practical patterns over theoretical ones. If you have not used a workflow in anger, it does not belong here yet.
+- If a recurring workflow cannot be explained in docs, it is not ready to ship.
 
 ## License
 

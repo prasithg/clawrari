@@ -19,7 +19,7 @@ We as members, contributors, and leaders pledge to make participation in our com
 
 ## Enforcement
 
-Instances of unacceptable behavior may be reported to the project maintainer at [@prasithg](https://x.com/prasithg). All complaints will be reviewed and investigated. The maintainer has the right to remove, edit, or reject contributions that violate this code.
+Instances of unacceptable behavior may be reported to the project maintainer at `<maintainer-contact>`. All complaints will be reviewed and investigated. The maintainer has the right to remove, edit, or reject contributions that violate this code.
 
 ## Attribution
 

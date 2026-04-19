@@ -7,6 +7,7 @@ Reference cron job definitions for a Clawrari setup.
 ### Every Heartbeat (~15 min)
 - **Health check** — Verify workspace integrity, fix broken configs
 - **RLHF scan** — Check feedback channels for human corrections
+- **Memory freshness** — Reindex or repair semantic search if you use it and it drifts stale
 - **Annotation loop** — Process inline file annotations (@claw, TODO:, FEEDBACK:)
 
 ### Morning (before wake time)
@@ -22,10 +23,12 @@ Reference cron job definitions for a Clawrari setup.
 - **Self-audit** — Performance review, what went well/didn't
 - **Memory cleanup** — Prune stale entries, update long-term files
 - **Content pipeline** — Draft posts, review queue
+- **Night work prep** — Confirm `tasks/queue.md` is real, not vague
 
 ### Weekly
 - **Security audit** — Permissions review, anomaly check
 - **Skill updates** — Check ClawHub for new versions
+- **Model freshness review** — Revisit routing and overlays in `reference/model-playbook/`
 - **Performance report** — Weekly summary of output
 
 ## Configuration

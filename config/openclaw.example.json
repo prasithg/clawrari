@@ -1,0 +1,275 @@
+{
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "calendar.add",
+        "contacts.add",
+        "reminders.add"
+      ]
+    }
+  },
+  "browser": {
+    "enabled": true,
+    "headless": false,
+    "defaultProfile": "openclaw",
+    "ssrfPolicy": {
+      "allowedHostnames": [
+        "github.com",
+        "reddit.com",
+        "x.com",
+        "google.com",
+        "docs.google.com",
+        "mail.google.com",
+        "calendar.google.com"
+      ]
+    },
+    "extraArgs": [
+      "--profile-directory=Default"
+    ],
+    "remoteCdpTimeoutMs": 10000,
+    "remoteCdpHandshakeTimeoutMs": 15000,
+    "attachOnly": false,
+    "executablePath": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "profiles": {
+      "openclaw": {
+        "cdpPort": 18800,
+        "color": "#FF4500"
+      },
+      "remote-browser": {
+        "cdpUrl": "${BROWSER_CDP_URL}",
+        "color": "#F97316"
+      }
+    }
+  },
+  "memory": {
+    "backend": "qmd"
+  },
+  "models": {
+    "providers": {
+      "openai": {
+        "baseUrl": "https://api.openai.com/v1",
+        "auth": "api-key",
+        "api": "openai-responses",
+        "apiKey": "${OPENAI_API_KEY}",
+        "models": [
+          {
+            "id": "gpt-5.4",
+            "name": "GPT-5.4",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 2.5,
+              "output": 15,
+              "cacheRead": 0.25,
+              "cacheWrite": 0
+            },
+            "contextWindow": 1050000,
+            "maxTokens": 128000,
+            "api": "openai-responses"
+          }
+        ]
+      },
+      "anthropic": {
+        "baseUrl": "https://api.anthropic.com/v1",
+        "auth": "api-key",
+        "api": "anthropic-messages",
+        "apiKey": "${ANTHROPIC_API_KEY}",
+        "models": [
+          {
+            "id": "claude-opus-4-7",
+            "name": "Claude Opus 4.7",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 5,
+              "output": 25,
+              "cacheRead": 0.5,
+              "cacheWrite": 6.25
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 128000,
+            "api": "anthropic-messages"
+          },
+          {
+            "id": "claude-sonnet-4-6",
+            "name": "Claude Sonnet 4.6",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 3,
+              "output": 15,
+              "cacheRead": 0.3,
+              "cacheWrite": 3.75
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 128000,
+            "api": "anthropic-messages"
+          }
+        ]
+      },
+      "google": {
+        "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+        "apiKey": "${GEMINI_API_KEY}",
+        "api": "google-generative-ai",
+        "models": [
+          {
+            "id": "gemini-3.1-pro-preview",
+            "name": "Gemini 3.1 Pro",
+            "api": "google-generative-ai",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 1000000,
+            "maxTokens": 64000
+          }
+        ]
+      },
+      "z-ai": {
+        "baseUrl": "https://api.z.ai/api/paas/v4/",
+        "apiKey": "${ZAI_API_KEY}",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "glm-5.1",
+            "name": "GLM 5.1",
+            "api": "openai-completions",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 200000,
+            "maxTokens": 128000
+          }
+        ]
+      }
+    }
+  },
+  "plugins": {
+    "allow": [
+      "claw-memory-engine",
+      "browser",
+      "anthropic",
+      "openai",
+      "google",
+      "openrouter",
+      "active-memory",
+      "codex",
+      "memory-core",
+      "perplexity",
+      "zai"
+    ],
+    "load": {
+      "paths": [
+        "~/.openclaw/plugins/claw-memory-engine"
+      ]
+    },
+    "slots": {
+      "contextEngine": "claw-memory-engine"
+    },
+    "entries": {
+      "claw-memory-engine": {
+        "enabled": true
+      },
+      "browser": {
+        "enabled": true
+      },
+      "anthropic": {
+        "enabled": true
+      },
+      "openai": {
+        "enabled": true
+      },
+      "google": {
+        "enabled": true
+      },
+      "openrouter": {
+        "enabled": true
+      },
+      "codex": {
+        "enabled": true,
+        "config": {}
+      },
+      "zai": {
+        "enabled": true
+      },
+      "perplexity": {
+        "enabled": true,
+        "config": {
+          "webSearch": {
+            "apiKey": "${OPENROUTER_API_KEY}",
+            "baseUrl": "https://openrouter.ai/api/v1",
+            "model": "perplexity/sonar-pro"
+          }
+        }
+      },
+      "active-memory": {
+        "enabled": true,
+        "config": {
+          "enabled": true,
+          "model": "google/gemini-3-flash-preview",
+          "modelFallback": "anthropic/claude-sonnet-4-6",
+          "queryMode": "message",
+          "agents": [
+            "main"
+          ],
+          "logging": true,
+          "promptStyle": "balanced",
+          "timeoutMs": 7000,
+          "maxSummaryChars": 1000
+        }
+      }
+    }
+  },
+  "tools": {
+    "web": {
+      "search": {
+        "provider": "perplexity"
+      }
+    },
+    "exec": {
+      "security": "full",
+      "ask": "off"
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  }
+}

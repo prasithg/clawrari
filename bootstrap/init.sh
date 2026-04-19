@@ -81,6 +81,20 @@ render_template() {
   content="${content//\{\{TOPICS\}\}/$USER_TOPICS}"
   content="${content//\{\{DATE\}\}/$TODAY}"
 
+  if [ "$AI_PERSONALITY" = "sharp" ]; then
+    content="${content//\{\{#if_sharp\}\}/}"
+    content="${content//\{\{\/if_sharp\}\}/}"
+    content=$(printf '%s' "$content" | perl -0pe 's/\{\{#if_warm\}\}.*?\{\{\/if_warm\}\}\n?//sg; s/\{\{#if_neutral\}\}.*?\{\{\/if_neutral\}\}\n?//sg')
+  elif [ "$AI_PERSONALITY" = "warm" ]; then
+    content="${content//\{\{#if_warm\}\}/}"
+    content="${content//\{\{\/if_warm\}\}/}"
+    content=$(printf '%s' "$content" | perl -0pe 's/\{\{#if_sharp\}\}.*?\{\{\/if_sharp\}\}\n?//sg; s/\{\{#if_neutral\}\}.*?\{\{\/if_neutral\}\}\n?//sg')
+  else
+    content="${content//\{\{#if_neutral\}\}/}"
+    content="${content//\{\{\/if_neutral\}\}/}"
+    content=$(printf '%s' "$content" | perl -0pe 's/\{\{#if_sharp\}\}.*?\{\{\/if_sharp\}\}\n?//sg; s/\{\{#if_warm\}\}.*?\{\{\/if_warm\}\}\n?//sg')
+  fi
+
   echo "$content" > "$output"
 }
 
@@ -101,7 +115,7 @@ if ! command -v openclaw &> /dev/null; then
 fi
 
 # Check workspace
-if [ -d "$OPENCLAW_DIR" ]; then
+if [ -d "$OPENCLAW_DIR" ] && [ -n "$(find "$OPENCLAW_DIR" -mindepth 1 -maxdepth 1 -print -quit 2>/dev/null)" ]; then
   echo -e "${YELLOW}Found existing workspace at $OPENCLAW_DIR${NC}"
   OVERWRITE=$(ask "Overwrite existing files? (y/n)" "n")
   if [ "$OVERWRITE" != "y" ] && [ "$OVERWRITE" != "Y" ]; then
@@ -153,7 +167,7 @@ echo ""
 echo -e "${CYAN}Generating your workspace...${NC}"
 echo ""
 
-mkdir -p "$OPENCLAW_DIR"/{memory,tasks,drafts,reports,ideas,systems}
+mkdir -p "$OPENCLAW_DIR"/{memory,memory/reference,tasks,drafts,reports,ideas,systems,systems/failures,reference}
 
 # Render templates
 for tmpl in "$TEMPLATES_DIR"/*.tmpl; do
@@ -169,12 +183,12 @@ cat > "$DAILY_NOTE" << EOF
 
 ## Setup
 - Clawrari bootstrap completed
-- Workspace initialized with Clawrari v0.2.0
+- Workspace initialized with Clawrari v0.4.0
 EOF
 echo -e "  ${GREEN}✓${NC} memory/$TODAY.md"
 
 # Create memory index files
-for f in projects.md people.md preferences.md operating-rules.md; do
+for f in projects.md people.md preferences.md operating-rules.md rules-constitutional.md rules-tactical.md; do
   if [ ! -f "$OPENCLAW_DIR/memory/$f" ]; then
     echo "# $(echo "$f" | sed 's/\.md//' | sed 's/-/ /g' | awk '{for(i=1;i<=NF;i++) $i=toupper(substr($i,1,1)) tolower(substr($i,2))}1')" > "$OPENCLAW_DIR/memory/$f"
     echo "" >> "$OPENCLAW_DIR/memory/$f"
@@ -182,6 +196,66 @@ for f in projects.md people.md preferences.md operating-rules.md; do
     echo -e "  ${GREEN}✓${NC} memory/$f"
   fi
 done
+
+# Seed session brief
+if [ ! -f "$OPENCLAW_DIR/memory/session-brief.md" ]; then
+  cat > "$OPENCLAW_DIR/memory/session-brief.md" << EOF
+# Session Brief — Last updated $TODAY 09:00
+
+⚡ READ THIS FIRST every session. Keep this file under 50 lines.
+
+## Active Context
+- Top priority: $USER_PRIORITY_1
+- Secondary focus: ${USER_PRIORITY_2:-None}
+- Feedback channel: add one in HEARTBEAT.md after connector setup
+
+## Model Stack
+- Main: choose your preferred main model
+- Subagents: choose your default execution model
+
+## Pending
+- [ ] Finish connector setup
+- [ ] Review generated workspace files
+- [ ] Add your first real task to tasks/queue.md
+
+## Recent Changes
+- Workspace bootstrapped with Clawrari v0.4.0
+- Personality set to $AI_PERSONALITY
+
+## Runtime
+- Runtime: agent=main | host=local | model=unset
+EOF
+  echo -e "  ${GREEN}✓${NC} memory/session-brief.md"
+fi
+
+# Seed subagent ledger
+if [ ! -f "$OPENCLAW_DIR/memory/subagent-ledger.md" ]; then
+  cat > "$OPENCLAW_DIR/memory/subagent-ledger.md" << 'EOF'
+# Subagent Ledger
+
+Append-only tracking table for all spawned subagents. Check for stale rows at session start.
+
+## Ledger
+
+| Date | Label | Task Summary | Expected Output Path | Status | Validation | Result Notes |
+|------|-------|--------------|----------------------|--------|------------|--------------|
+| YYYY-MM-DD HH:MM | example-agent | Example research task | reports/example-report.md | 🔄 running | ⏭️ skipped | Add the row before you spawn the agent. |
+
+## Status Rules
+
+- `🔄 running` — in progress, output not verified yet
+- `✅ done` — output exists and is usable
+- `❌ stale` — no output after the expected window
+- `⚠️ failed` — agent completed but failed acceptance criteria
+
+## Protocol
+
+1. Add a row before spawning a subagent.
+2. At session start, scan for stale rows and surface them in `memory/session-brief.md`.
+3. For coding tasks, run validation before marking the task done.
+EOF
+  echo -e "  ${GREEN}✓${NC} memory/subagent-ledger.md"
+fi
 
 # Create meta-learning memory files
 for f in regressions.md context-holds.md predictions.md; do
@@ -214,15 +288,69 @@ EOF
   echo -e "  ${GREEN}✓${NC} memory/influences.md"
 fi
 
+if [ ! -f "$OPENCLAW_DIR/memory/reference/conventions.md" ]; then
+  cat > "$OPENCLAW_DIR/memory/reference/conventions.md" << 'EOF'
+# Memory Conventions
+
+## Type Tags
+
+- `[type:fact]` — stable facts
+- `[type:pref]` — preferences and habits
+- `[type:rule]` — operating rules and guardrails
+- `[type:goal]` — active objectives
+- `[type:event]` — dated events and outcomes
+- `[type:context]` — temporary state
+
+## Trust Metadata
+
+Use inline metadata when a fact matters across sessions:
+
+`[trust:8|src:direct|hits:3|used:YYYY-MM-DD]`
+
+- `trust` — 1 to 10 confidence
+- `src` — `direct`, `observed`, or `inferred`
+- `hits` — how often the memory proved useful
+- `used` — last confirmed use date
+EOF
+  echo -e "  ${GREEN}✓${NC} memory/reference/conventions.md"
+fi
+
+if [ ! -f "$OPENCLAW_DIR/memory/heartbeat-state.json" ]; then
+  cat > "$OPENCLAW_DIR/memory/heartbeat-state.json" << 'EOF'
+{
+  "last_feedback_check": null,
+  "last_model_check": null,
+  "last_community_scan": null
+}
+EOF
+  echo -e "  ${GREEN}✓${NC} memory/heartbeat-state.json"
+fi
+
 # Create task queue
 if [ ! -f "$OPENCLAW_DIR/tasks/queue.md" ]; then
   cat > "$OPENCLAW_DIR/tasks/queue.md" << 'EOF'
 # Task Queue
 
-Add tasks here for your AI to work on overnight or during async time.
+Async and night-work tasks. Claim the task, do the work, close it with verification.
 
-## Format
-- [ ] Task description — context/links
+## P1
+
+### [P1] First real task
+- **Type:** ops
+- **Goal context:** Finish the rest of the Clawrari setup and verify the loop works end to end.
+- **Acceptance criteria:** Connectors configured, first cron scheduled, first heartbeat run checked manually.
+- **Status:** pending
+- **Claimed by:** unassigned
+- **Executor model:** unset
+
+## P2
+
+_Add medium-priority tasks here._
+
+## Completed
+
+| Date | Task | Output | Notes |
+|------|------|--------|-------|
 EOF
   echo -e "  ${GREEN}✓${NC} tasks/queue.md"
 fi
@@ -237,6 +365,22 @@ Quick capture. Your AI monitors this and processes ideas into projects.
 ---
 EOF
   echo -e "  ${GREEN}✓${NC} ideas/inbox.md"
+fi
+
+if [ ! -f "$OPENCLAW_DIR/TOOLS.md" ]; then
+  cat > "$OPENCLAW_DIR/TOOLS.md" << 'EOF'
+# TOOLS.md
+
+Environment-specific notes for this workspace.
+
+## Add entries for each important connector or helper
+
+- Account:
+- Auth method:
+- Common commands:
+- Known gotchas:
+EOF
+  echo -e "  ${GREEN}✓${NC} TOOLS.md"
 fi
 
 echo ""
