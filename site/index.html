@@ -4,9 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Clawrari — The Ferrari of OpenClaw Setups</title>
+  <meta name="description" content="An opinionated, battle-tested, open source AI operations system. Point a fresh OpenClaw install at it and get a second brain in minutes.">
+  <meta property="og:title" content="Clawrari — The Ferrari of OpenClaw Setups">
+  <meta property="og:description" content="Opinionated, battle-tested OpenClaw reference config. Memory, content engine, proactive intelligence, self-improvement — all wired up.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://clawrari.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Clawrari — The Ferrari of OpenClaw Setups">
+  <meta name="twitter:description" content="Opinionated, battle-tested OpenClaw reference config. Ship a real AI ops system in minutes.">
+  <link rel="canonical" href="https://clawrari.com">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
     body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e5e5e5; }
     code, .mono { font-family: 'JetBrains Mono', monospace; }
     .gradient-text {
@@ -17,14 +26,34 @@
     .card { background: #141414; border: 1px solid #262626; }
     .card:hover { border-color: #404040; }
     .glow { box-shadow: 0 0 60px rgba(239, 68, 68, 0.1); }
+    .code-block { background: #111; border: 1px solid #262626; }
+    .step-number {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px;
+      background: linear-gradient(135deg, #ef4444, #f97316);
+      color: #0a0a0a; flex-shrink: 0;
+    }
+    .divider { border-top: 1px solid #1a1a1a; }
   </style>
 </head>
 <body class="min-h-screen">
 
+  <!-- Nav -->
+  <nav class="max-w-5xl mx-auto px-6 py-6 flex justify-between items-center">
+    <span class="gradient-text font-black text-xl tracking-tight">Clawrari</span>
+    <div class="flex gap-6 text-sm text-neutral-400">
+      <a href="#features" class="hover:text-white transition">Features</a>
+      <a href="#playbooks" class="hover:text-white transition">Playbooks</a>
+      <a href="#quickstart" class="hover:text-white transition">Quick Start</a>
+      <a href="https://github.com/prasithg/clawrari" class="hover:text-white transition">GitHub</a>
+    </div>
+  </nav>
+
   <!-- Hero -->
-  <div class="max-w-5xl mx-auto px-6 pt-32 pb-20">
+  <div class="max-w-5xl mx-auto px-6 pt-24 pb-20">
     <div class="text-center">
-      <p class="mono text-sm text-neutral-500 tracking-widest uppercase mb-6">v0.4.0</p>
+      <p class="mono text-sm text-neutral-500 tracking-widest uppercase mb-6">v0.4.0 — open source</p>
       <h1 class="text-6xl md:text-8xl font-black tracking-tight mb-6">
         <span class="gradient-text">Clawrari</span>
       </h1>
@@ -32,10 +61,10 @@
         The Ferrari of OpenClaw setups.
       </p>
       <p class="text-lg text-neutral-500 max-w-xl mx-auto mb-12">
-        An opinionated, battle-tested, open source AI operations system.
+        An opinionated, battle-tested AI operations system.
         Point a fresh install at it and get a second brain in minutes.
       </p>
-      <div class="flex gap-4 justify-center">
+      <div class="flex gap-4 justify-center flex-wrap">
         <a href="https://github.com/prasithg/clawrari" class="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-neutral-200 transition">
           View on GitHub
         </a>
@@ -43,85 +72,211 @@
           Quick Start
         </a>
       </div>
-      <div class="mt-10 grid gap-3 md:grid-cols-3 text-sm text-neutral-400 max-w-4xl mx-auto">
-        <div class="card rounded-xl px-4 py-3">New in v0.4.0: a real build playbook for fresh installs.</div>
-        <div class="card rounded-xl px-4 py-3">Published model playbook with routing, overlays, and prompting notes.</div>
-        <div class="card rounded-xl px-4 py-3">Persona and identity-channel patterns now documented publicly.</div>
+    </div>
+  </div>
+
+  <!-- Social Proof Strip -->
+  <div class="max-w-5xl mx-auto px-6 pb-20">
+    <div class="grid gap-3 md:grid-cols-3 text-sm text-neutral-400 max-w-4xl mx-auto">
+      <div class="card rounded-xl px-4 py-3">
+        <span class="text-neutral-500 mono">New in v0.4 →</span> Build playbook for fresh installs with verified parity.
+      </div>
+      <div class="card rounded-xl px-4 py-3">
+        <span class="text-neutral-500 mono">New in v0.4 →</span> Model playbook with routing, overlays, per-family conventions.
+      </div>
+      <div class="card rounded-xl px-4 py-3">
+        <span class="text-neutral-500 mono">New in v0.4 →</span> Persona + identity-channel patterns documented publicly.
       </div>
     </div>
   </div>
 
-  <!-- What You Get -->
+  <!-- Features -->
+  <div id="features" class="divider"></div>
   <div class="max-w-5xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold mb-12 text-center">What You Get</h2>
+    <h2 class="text-3xl font-bold mb-4 text-center">What You Get</h2>
+    <p class="text-neutral-500 text-center mb-12 max-w-lg mx-auto">Every component runs in production daily. If it's in Clawrari, it works.</p>
     <div class="grid md:grid-cols-3 gap-6">
       <div class="card rounded-xl p-6 transition">
         <div class="text-2xl mb-3">🧠</div>
-        <h3 class="font-bold text-lg mb-2">Second Brain</h3>
-        <p class="text-neutral-400 text-sm">Structured memory with daily logs, semantic search, and auto-curation. Your AI remembers what matters.</p>
+        <h3 class="font-bold text-lg mb-2">Structured Memory</h3>
+        <p class="text-neutral-400 text-sm">Daily logs, semantic search, auto-curation, session briefs. Your AI remembers what matters — across sessions, across days, across projects.</p>
       </div>
       <div class="card rounded-xl p-6 transition">
         <div class="text-2xl mb-3">✍️</div>
         <h3 class="font-bold text-lg mb-2">Content Engine</h3>
-        <p class="text-neutral-400 text-sm">Research, draft, review, publish. Multi-platform. Topic rotation and voice consistency built in.</p>
+        <p class="text-neutral-400 text-sm">Research → draft → review → publish. Multi-platform. Topic rotation, voice consistency, epistemic tagging. Built for founders who ship content.</p>
       </div>
       <div class="card rounded-xl p-6 transition">
         <div class="text-2xl mb-3">⚡</div>
         <h3 class="font-bold text-lg mb-2">Proactive Intelligence</h3>
-        <p class="text-neutral-400 text-sm">Morning briefings, calendar prep, responsive scans. Your AI anticipates, not just responds.</p>
+        <p class="text-neutral-400 text-sm">Morning briefings, calendar prep, nightly autonomous work, cron-driven task queues. Your AI anticipates, not just responds.</p>
       </div>
       <div class="card rounded-xl p-6 transition">
         <div class="text-2xl mb-3">🔁</div>
-        <h3 class="font-bold text-lg mb-2">Self-Improvement</h3>
-        <p class="text-neutral-400 text-sm">RLHF from your feedback. Daily self-audits. Auto-skill updates. Gets better every day.</p>
+        <h3 class="font-bold text-lg mb-2">Self-Improvement Loop</h3>
+        <p class="text-neutral-400 text-sm">Recursive generate → evaluate → diagnose → improve cycle. Daily self-audits. Corrections become code. Gets better every session.</p>
       </div>
       <div class="card rounded-xl p-6 transition">
         <div class="text-2xl mb-3">🔌</div>
-        <h3 class="font-bold text-lg mb-2">Connectors</h3>
-        <p class="text-neutral-400 text-sm">Slack, Calendar, Gmail, GitHub, Reddit, X. The pipes are already laid.</p>
+        <h3 class="font-bold text-lg mb-2">50+ Connectors</h3>
+        <p class="text-neutral-400 text-sm">Google Workspace, Slack, GitHub, Telegram, Linear, Reddit, X/Twitter. Calendar, email, tasks, docs, sheets — the pipes are already laid.</p>
       </div>
       <div class="card rounded-xl p-6 transition">
         <div class="text-2xl mb-3">🔒</div>
         <h3 class="font-bold text-lg mb-2">Security First</h3>
-        <p class="text-neutral-400 text-sm">Local-first. Weekly audits. Clear permissions. Your data stays yours.</p>
+        <p class="text-neutral-400 text-sm">Local-first data. Explicit permission gates for external actions. Weekly audits. Clear boundaries between read and write. Your data stays yours.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Playbooks Section -->
+  <div id="playbooks" class="divider"></div>
+  <div class="max-w-5xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-4 text-center">Two Playbooks. One System.</h2>
+    <p class="text-neutral-500 text-center mb-12 max-w-lg mx-auto">The playbooks are what separate a working setup from a collection of config files.</p>
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Build Playbook -->
+      <div class="card rounded-xl p-8">
+        <div class="mono text-xs text-red-400 mb-2 tracking-widest uppercase">Build Playbook</div>
+        <h3 class="font-bold text-xl mb-3">From Zero to Running</h3>
+        <p class="text-neutral-400 text-sm mb-6">Step-by-step guide for bootstrapping a fresh OpenClaw install. Verified against a clean machine — every path, every config, every connector.</p>
+        <ul class="space-y-2 text-sm text-neutral-300">
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Core file structure and workspace layout</li>
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Memory system setup (daily logs + semantic search)</li>
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Cron job scheduling for autonomous work</li>
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Connector auth flows (Google, GitHub, Slack…)</li>
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Night work queue and sub-agent orchestration</li>
+        </ul>
+      </div>
+      <!-- Model Playbook -->
+      <div class="card rounded-xl p-8">
+        <div class="mono text-xs text-orange-400 mb-2 tracking-widest uppercase">Model Playbook</div>
+        <h3 class="font-bold text-xl mb-3">Right Model, Right Prompt</h3>
+        <p class="text-neutral-400 text-sm mb-6">Not all models respond to the same prompt structure. The model playbook routes tasks to the right model with the right prompt conventions.</p>
+        <ul class="space-y-2 text-sm text-neutral-300">
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Routing table: task type → model family</li>
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Per-family prompt conventions (Anthropic, OpenAI, Google, z.ai)</li>
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Model overlays for main-session behavior tuning</li>
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Cost-aware orchestration strategy</li>
+          <li class="flex gap-2"><span class="text-neutral-500">→</span> Orchestration decision tree for complex work</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Architecture Peek -->
+  <div class="divider"></div>
+  <div class="max-w-5xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-4 text-center">How It Fits Together</h2>
+    <p class="text-neutral-500 text-center mb-12 max-w-lg mx-auto">Four layers. Each one builds on the last.</p>
+    <div class="max-w-3xl mx-auto space-y-4">
+      <div class="card rounded-xl p-6 flex gap-4 items-start">
+        <div class="step-number">4</div>
+        <div>
+          <h4 class="font-bold">Self-Improvement Layer</h4>
+          <p class="text-neutral-400 text-sm">Recursive improvement cycle, eval harnesses, feedback integration. The system that makes every other layer better over time.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-6 flex gap-4 items-start">
+        <div class="step-number">3</div>
+        <div>
+          <h4 class="font-bold">Autonomous Operations</h4>
+          <p class="text-neutral-400 text-sm">Cron-driven night work, task queues, sub-agent orchestration, coding agent delegation. Works while you sleep.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-6 flex gap-4 items-start">
+        <div class="step-number">2</div>
+        <div>
+          <h4 class="font-bold">Active Intelligence</h4>
+          <p class="text-neutral-400 text-sm">Content engine, morning briefings, proactive scans, calendar prep, project tracking. The "doing" layer.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-6 flex gap-4 items-start">
+        <div class="step-number">1</div>
+        <div>
+          <h4 class="font-bold">Foundation</h4>
+          <p class="text-neutral-400 text-sm">Structured memory, session briefs, workspace layout, connectors, security model. Everything else sits on this.</p>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Quick Start -->
-  <div id="quickstart" class="max-w-5xl mx-auto px-6 py-20">
+  <div id="quickstart" class="divider"></div>
+  <div class="max-w-5xl mx-auto px-6 py-20">
     <h2 class="text-3xl font-bold mb-8 text-center">Quick Start</h2>
-    <div class="card rounded-xl p-8 glow max-w-2xl mx-auto">
+    <div class="code-block rounded-xl p-8 glow max-w-2xl mx-auto">
       <pre class="mono text-sm text-neutral-300 leading-relaxed"><span class="text-neutral-500"># Clone it</span>
 git clone https://github.com/prasithg/clawrari.git
 cd clawrari
 
-<span class="text-neutral-500"># Run the bootstrap (2 minutes)</span>
+<span class="text-neutral-500"># Run the bootstrap (~2 minutes)</span>
 ./bootstrap/init.sh
 
-<span class="text-neutral-500"># Then follow the playbook</span>
-open docs/playbook.md</pre>
+<span class="text-neutral-500"># Follow the build playbook</span>
+open docs/playbook.md
+
+<span class="text-neutral-500"># (Optional) Set up model playbook</span>
+open docs/model-playbook/README.md</pre>
     </div>
     <p class="text-center text-neutral-500 mt-6 text-sm">
-      The bootstrap generates the core files. The playbook covers connectors, cron setup, night work, and upgrades.
+      Bootstrap generates core files. Playbook covers connectors, cron, night work, and upgrades.
     </p>
   </div>
 
   <!-- Philosophy -->
+  <div class="divider"></div>
   <div class="max-w-5xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold mb-8 text-center">Philosophy</h2>
+    <h2 class="text-3xl font-bold mb-12 text-center">Philosophy</h2>
     <div class="max-w-2xl mx-auto space-y-6 text-neutral-400">
-      <p><strong class="text-neutral-200">Opinionated defaults.</strong> Not 47 options. THE setup, with rationale for every choice.</p>
-      <p><strong class="text-neutral-200">Battle-tested.</strong> Everything here runs in production daily. If it's in Clawrari, it works.</p>
-      <p><strong class="text-neutral-200">Your AI should have a personality.</strong> Not a corporate drone. Not a sycophant. A sharp partner with opinions.</p>
-      <p><strong class="text-neutral-200">Memory is the foundation.</strong> An AI that forgets everything between sessions is just a search engine.</p>
-      <p><strong class="text-neutral-200">Errors are bugs.</strong> If a cron job fails, that's not a footnote. That's something to fix now.</p>
+      <p><strong class="text-neutral-200">Opinionated defaults.</strong> Not 47 options. THE setup, with rationale for every choice. Fork and customize from a known-good baseline.</p>
+      <p><strong class="text-neutral-200">Battle-tested.</strong> Everything here runs in production daily. If it's in Clawrari, it works. If it doesn't work, it's not in Clawrari.</p>
+      <p><strong class="text-neutral-200">Your AI should have a personality.</strong> Not a corporate drone. Not a sycophant. A sharp partner with opinions, humor, and honest feedback.</p>
+      <p><strong class="text-neutral-200">Memory is the foundation.</strong> An AI that forgets everything between sessions is just a search engine. Structured memory is what makes it a second brain.</p>
+      <p><strong class="text-neutral-200">Errors are bugs.</strong> If a cron job fails, that's not a footnote. That's something to fix now. Silence around failures is the enemy.</p>
+    </div>
+  </div>
+
+  <!-- What's Next -->
+  <div class="divider"></div>
+  <div class="max-w-5xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-8 text-center">What's Next</h2>
+    <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+      <div class="card rounded-xl p-6 text-center">
+        <div class="mono text-xs text-neutral-500 mb-2">v0.5</div>
+        <h4 class="font-bold mb-2">Proof</h4>
+        <p class="text-neutral-400 text-sm">Benchmarked self-improvement. Measurable eval harnesses. Show it improved, don't just claim it.</p>
+      </div>
+      <div class="card rounded-xl p-6 text-center">
+        <div class="mono text-xs text-neutral-500 mb-2">v0.6</div>
+        <h4 class="font-bold mb-2">Expansion</h4>
+        <p class="text-neutral-400 text-sm">Richer ingestion pipelines. Creator tools. Research workflows. Community contributions.</p>
+      </div>
+      <div class="card rounded-xl p-6 text-center">
+        <div class="mono text-xs text-neutral-500 mb-2">v1.0</div>
+        <h4 class="font-bold mb-2">Stable</h4>
+        <p class="text-neutral-400 text-sm">Full API surface. Plugin ecosystem. Production-grade docs. The reference OpenClaw setup.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="max-w-5xl mx-auto px-6 py-20 text-center">
+    <h2 class="text-3xl font-bold mb-4">Ready to build your second brain?</h2>
+    <p class="text-neutral-500 mb-8">MIT licensed. Open source. Battle-tested daily.</p>
+    <div class="flex gap-4 justify-center flex-wrap">
+      <a href="https://github.com/prasithg/clawrari" class="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-neutral-200 transition">
+        View on GitHub
+      </a>
+      <a href="https://github.com/prasithg/clawrari/fork" class="border border-neutral-700 px-8 py-3 rounded-lg font-semibold hover:border-neutral-500 transition">
+        Fork It
+      </a>
     </div>
   </div>
 
   <!-- Footer -->
-  <footer class="max-w-5xl mx-auto px-6 py-12 border-t border-neutral-800">
-    <div class="flex justify-between items-center text-sm text-neutral-500">
+  <footer class="divider">
+    <div class="max-w-5xl mx-auto px-6 py-12 flex justify-between items-center text-sm text-neutral-500">
       <p>Clawrari — opinionated OpenClaw reference config</p>
       <p>MIT License</p>
     </div>
