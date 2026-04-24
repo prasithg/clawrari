@@ -55,6 +55,7 @@ Potential directions:
 ## Near-Term TODOs
 
 - document one canonical feedback-channel setup end to end
-- add an example `TOOLS.md`
-- add a lightweight semantic-memory freshness recipe
+- ~~add an example `TOOLS.md`~~ ✅ (v0.4.1)
+- ~~add a lightweight semantic-memory freshness recipe~~ ✅ (v0.4.1)
 - tighten the website around the build playbook and model playbook
+- add more recipes (night-work setup, content-engine config, connector auth walkthrough)
