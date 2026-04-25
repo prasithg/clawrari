@@ -57,6 +57,6 @@ Potential directions:
 - ~~document one canonical feedback-channel setup end to end~~ ✅ (v0.4.1)
 - ~~add an example `TOOLS.md`~~ ✅ (v0.4.1)
 - ~~add a lightweight semantic-memory freshness recipe~~ ✅ (v0.4.1)
-- tighten the website around the build playbook and model playbook
+- ~~tighten the website around the build playbook and model playbook~~ ✅ (v0.4.2)
 - ~~add more recipes (night-work setup, content-engine config, connector auth walkthrough)~~ ✅ night-work + connector auth (v0.4.2)
 - add content-engine config recipe

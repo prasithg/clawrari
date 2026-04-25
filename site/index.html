@@ -134,34 +134,96 @@
   <div id="playbooks" class="divider"></div>
   <div class="max-w-5xl mx-auto px-6 py-20">
     <h2 class="text-3xl font-bold mb-4 text-center">Two Playbooks. One System.</h2>
-    <p class="text-neutral-500 text-center mb-12 max-w-lg mx-auto">The playbooks are what separate a working setup from a collection of config files.</p>
+    <p class="text-neutral-500 text-center mb-12 max-w-lg mx-auto">The playbooks are what separate a working setup from a collection of config files. Each one is a real document, not a handwave.</p>
     <div class="grid md:grid-cols-2 gap-8">
       <!-- Build Playbook -->
       <div class="card rounded-xl p-8">
-        <div class="mono text-xs text-red-400 mb-2 tracking-widest uppercase">Build Playbook</div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="mono text-xs text-red-400 tracking-widest uppercase">Build Playbook</div>
+          <a href="https://github.com/prasithg/clawrari/blob/main/docs/playbook.md" class="mono text-xs text-neutral-600 hover:text-neutral-400 transition">docs/playbook.md →</a>
+        </div>
         <h3 class="font-bold text-xl mb-3">From Zero to Running</h3>
-        <p class="text-neutral-400 text-sm mb-6">Step-by-step guide for bootstrapping a fresh OpenClaw install. Verified against a clean machine — every path, every config, every connector.</p>
-        <ul class="space-y-2 text-sm text-neutral-300">
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Core file structure and workspace layout</li>
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Memory system setup (daily logs + semantic search)</li>
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Cron job scheduling for autonomous work</li>
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Connector auth flows (Google, GitHub, Slack…)</li>
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Night work queue and sub-agent orchestration</li>
-        </ul>
+        <p class="text-neutral-400 text-sm mb-6">337 lines. Verified against a clean machine. Six steps from <code class="mono text-xs text-neutral-500">git clone</code> to a system that works while you sleep.</p>
+        <div class="space-y-3">
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-red-400 mt-0.5 flex-shrink-0 w-4">1.</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Prereqs</strong> <span class="text-neutral-500">— what you need before you start</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-red-400 mt-0.5 flex-shrink-0 w-4">2.</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Bootstrap</strong> <span class="text-neutral-500">— init.sh generates the file skeleton</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-red-400 mt-0.5 flex-shrink-0 w-4">3.</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Personalize</strong> <span class="text-neutral-500">— SOUL, USER, IDENTITY, HEARTBEAT, TOOLS</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-red-400 mt-0.5 flex-shrink-0 w-4">4.</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Skills</strong> <span class="text-neutral-500">— install core + optional connectors</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-red-400 mt-0.5 flex-shrink-0 w-4">5.</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Memory</strong> <span class="text-neutral-500">— daily logs, session briefs, semantic search</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-red-400 mt-0.5 flex-shrink-0 w-4">6.</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Automate</strong> <span class="text-neutral-500">— cron, night work, sub-agents</span></div>
+          </div>
+        </div>
       </div>
       <!-- Model Playbook -->
       <div class="card rounded-xl p-8">
-        <div class="mono text-xs text-orange-400 mb-2 tracking-widest uppercase">Model Playbook</div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="mono text-xs text-orange-400 tracking-widest uppercase">Model Playbook</div>
+          <a href="https://github.com/prasithg/clawrari/blob/main/reference/model-playbook/README.md" class="mono text-xs text-neutral-600 hover:text-neutral-400 transition">reference/model-playbook/ →</a>
+        </div>
         <h3 class="font-bold text-xl mb-3">Right Model, Right Prompt</h3>
-        <p class="text-neutral-400 text-sm mb-6">Not all models respond to the same prompt structure. The model playbook routes tasks to the right model with the right prompt conventions.</p>
-        <ul class="space-y-2 text-sm text-neutral-300">
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Routing table: task type → model family</li>
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Per-family prompt conventions (Anthropic, OpenAI, Google, z.ai)</li>
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Model overlays for main-session behavior tuning</li>
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Cost-aware orchestration strategy</li>
-          <li class="flex gap-2"><span class="text-neutral-500">→</span> Orchestration decision tree for complex work</li>
-        </ul>
+        <p class="text-neutral-400 text-sm mb-6">Different model families parse different prompt structures. This playbook routes tasks to the right model with conventions that actually work for each family.</p>
+        <div class="space-y-3">
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-orange-400 mt-0.5 flex-shrink-0 w-4">→</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Routing table</strong> <span class="text-neutral-500">— task type → model + prompt style</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-orange-400 mt-0.5 flex-shrink-0 w-4">→</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Per-family guides</strong> <span class="text-neutral-500">— Opus, GPT-5.4, Gemini 3.1, GLM 5.1, Sonnet, Haiku</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-orange-400 mt-0.5 flex-shrink-0 w-4">→</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Orchestration decision tree</strong> <span class="text-neutral-500">— when to route complex work</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-orange-400 mt-0.5 flex-shrink-0 w-4">→</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Main-session overlays</strong> <span class="text-neutral-500">— behavioral nudges per model</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-orange-400 mt-0.5 flex-shrink-0 w-4">→</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">models.yaml</strong> <span class="text-neutral-500">— ids, aliases, costs, capabilities</span></div>
+          </div>
+          <div class="flex gap-3 items-start">
+            <span class="mono text-xs text-orange-400 mt-0.5 flex-shrink-0 w-4">→</span>
+            <div class="text-sm text-neutral-300"><strong class="text-neutral-200">Failure-mode guards</strong> <span class="text-neutral-500">— known quirks per model</span></div>
+          </div>
+        </div>
       </div>
+    </div>
+    <!-- Supporting Docs -->
+    <div class="mt-8 grid md:grid-cols-3 gap-4">
+      <a href="https://github.com/prasithg/clawrari/tree/main/docs/recipes" class="card rounded-xl p-5 hover:border-neutral-500 transition block">
+        <div class="mono text-xs text-neutral-500 mb-1">docs/recipes/</div>
+        <h4 class="font-semibold text-sm mb-1">Recipes</h4>
+        <p class="text-neutral-500 text-xs">Night-work setup, connector auth walkthroughs, semantic-memory freshness, content-engine config.</p>
+      </a>
+      <a href="https://github.com/prasithg/clawrari/tree/main/docs/examples" class="card rounded-xl p-5 hover:border-neutral-500 transition block">
+        <div class="mono text-xs text-neutral-500 mb-1">docs/examples/</div>
+        <h4 class="font-semibold text-sm mb-1">Examples</h4>
+        <p class="text-neutral-500 text-xs">Ready-to-use TOOLS.md template, feedback-channel setup for Telegram/Slack/Discord.</p>
+      </a>
+      <a href="https://github.com/prasithg/clawrari/tree/main/docs/components" class="card rounded-xl p-5 hover:border-neutral-500 transition block">
+        <div class="mono text-xs text-neutral-500 mb-1">docs/components/</div>
+        <h4 class="font-semibold text-sm mb-1">Component Docs</h4>
+        <p class="text-neutral-500 text-xs">Deep dives: memory, connectors, content engine, persona, identity, security, self-improvement.</p>
+      </a>
     </div>
   </div>
 
@@ -214,11 +276,11 @@ cd clawrari
 <span class="text-neutral-500"># Run the bootstrap (~2 minutes)</span>
 ./bootstrap/init.sh
 
-<span class="text-neutral-500"># Follow the build playbook</span>
-open docs/playbook.md
+<span class="text-neutral-500"># Follow the build playbook (6 steps, ~30 min)</span>
+<span class="text-neutral-500"># →</span> <a href="https://github.com/prasithg/clawrari/blob/main/docs/playbook.md" class="text-red-400 hover:text-red-300">docs/playbook.md</a>
 
-<span class="text-neutral-500"># (Optional) Set up model playbook</span>
-open docs/model-playbook/README.md</pre>
+<span class="text-neutral-500"># Wire up model routing + prompt conventions</span>
+<span class="text-neutral-500"># →</span> <a href="https://github.com/prasithg/clawrari/blob/main/reference/model-playbook/README.md" class="text-orange-400 hover:text-orange-300">reference/model-playbook/README.md</a></pre>
     </div>
     <p class="text-center text-neutral-500 mt-6 text-sm">
       Bootstrap generates core files. Playbook covers connectors, cron, night work, and upgrades.
