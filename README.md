@@ -14,6 +14,14 @@ It packages the patterns that matter:
 
 It is not a generic starter template. It is a strong point of view about how to run OpenClaw well.
 
+> **Governance.** Clawrari is run as a real project, not a side blog. See [`CHARTER.md`](CHARTER.md) for the operating contract: who decides what, the 90-day "vibrant OSS" targets, and the cadence commitment of **at least one commit every 2 days**.
+
+## What's New in v0.5.x (in progress)
+
+- [`CHARTER.md`](CHARTER.md) — explicit governance + cadence contract is now part of the repo.
+- Discipline-layer work begins (Linear-style workflow doc, executive-ticket protocol, eval template, regression log, cron self-triage, model-playbook fixes).
+- v0.4.x docs and site remain the supported surface while the discipline layer ships.
+
 ## What's New in v0.4.0
 
 - [`docs/playbook.md`](docs/playbook.md) is now the canonical install-and-adopt guide.
@@ -99,6 +107,8 @@ Read [docs/architecture.md](docs/architecture.md) for the fuller breakdown.
 - [Philosophy](docs/philosophy.md)
 - [Skills Catalog](skills/README.md)
 - [Crons](crons/README.md)
+- [Charter & Governance](CHARTER.md)
+- [Contributing](CONTRIBUTING.md)
 
 ## Repo Layout
 
@@ -111,6 +121,7 @@ clawrari/
 ├── skills/          # catalog of the core skill surface
 ├── templates/       # memory and task starter templates
 ├── CHANGELOG.md
+├── CHARTER.md
 ├── CONTRIBUTING.md
 ├── LICENSE
 ├── MISSION.md

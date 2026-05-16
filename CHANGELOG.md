@@ -1,5 +1,17 @@
 # Changelog
 
+All notable changes to Clawrari are documented here. Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); the project uses [Semantic Versioning](https://semver.org/).
+
+## [Unreleased] — v0.5.x (in progress)
+
+### Added
+- **Governance layer** — `CHARTER.md` lands in the repo as the operating contract between Prasith (CEO) and Claw (President), with explicit roles, 90-day "vibrant OSS" targets, and a commit cadence of **≥1 commit every 2 days**.
+- README **Governance** callout + a "What's New in v0.5.x" section linking to the charter.
+- CONTRIBUTING gains a "Before You Start" section pointing at the charter, a GitHub issues link, and a placeholder for the forthcoming Linear-style workflow doc.
+
+### Notes
+- v0.5.x is the discipline-layer release train (workflow doc, executive-ticket protocol, eval template, regression log, cron self-triage, model-playbook fixes). This entry will be split into a versioned release section when v0.5.0 ships.
+
 ## v0.4.0 — 2026-04-19
 
 ### Added

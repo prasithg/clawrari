@@ -2,6 +2,19 @@
 
 Clawrari is an opinionated reference config. Contributions should make the operating model sharper, not broader for its own sake.
 
+## Before You Start
+
+Clawrari isn't a typical OSS repo. It has an opinionated governance and cadence layer on top of the code — roles, decision protocols, and a commit-every-2-days mandate. **Read [`CHARTER.md`](CHARTER.md) first** so a contribution lands inside the operating model rather than against it.
+
+A canonical "Linear-style workflow" doc (how tickets, decisions, and releases flow through the project) is planned for v0.5.x and will be linked here once it lands. Until then, the charter + this file are the authority.
+
+## Filing Issues
+
+- File bugs, feature requests, and feedback at **<https://github.com/prasithg/clawrari/issues>**.
+- For bugs: include what you ran, what you expected, what happened, and your Clawrari version.
+- For ideas: explain the operational problem first; the design proposal second.
+- Triage SLA: 48h acknowledgement (per charter).
+
 ## What Belongs Here
 
 - workflows that have been used repeatedly in a real setup
