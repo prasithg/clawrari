@@ -91,6 +91,8 @@ Read [docs/architecture.md](docs/architecture.md) for the fuller breakdown.
 - [Architecture](docs/architecture.md)
 - [Process](docs/process.md)
 - [Mission](MISSION.md)
+- [Roadmap](ROADMAP.md)
+- [Contributing](CONTRIBUTING.md)
 - [Memory](docs/components/memory.md)
 - [Self-Improvement](docs/components/self-improvement.md)
 - [Connectors](docs/components/connectors.md)
@@ -99,6 +101,17 @@ Read [docs/architecture.md](docs/architecture.md) for the fuller breakdown.
 - [Philosophy](docs/philosophy.md)
 - [Skills Catalog](skills/README.md)
 - [Crons](crons/README.md)
+
+## What's Next
+
+Clawrari is moving into its **v0.5 discipline layer**: making self-improvement measurable instead of merely claimed. Highlights on deck:
+
+- benchmarked self-improvement loop with eval harnesses
+- promotion review tooling so good runs become defaults
+- stronger validation gates around coding-agent output
+- tighter visibility into queue health and memory freshness
+
+Full plan in [ROADMAP.md](ROADMAP.md). If you want to help shape it, start with [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Repo Layout
 
