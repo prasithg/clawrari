@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-22
+
+- docs(reference): add `skill-change-eval-template.md` — Phase 1 v0.5.x discipline-layer port. Pairs with the PR template's eval-artifact checkbox to enforce "no eval = not Done" on skill / workflow / orchestration changes (REG-032 / REG-034).
+
 ## v0.4.0 — 2026-04-19
 
 ### Added
