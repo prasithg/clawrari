@@ -126,6 +126,10 @@ clawrari/
 - External actions should be gated; internal maintenance should be aggressive.
 - If a recurring workflow cannot be explained in docs, it is not ready to ship.
 
+## How we work with adjacent projects
+
+Clawrari sits in a crowded neighborhood — Claude Skills, obra/superpowers, basic-memory, Letta, and other agent-OS projects all overlap with parts of what we do. We collaborate, credit by name, and contribute upstream where we can; we don't position ourselves against peers. See [docs/partnerships/stance.md](docs/partnerships/stance.md) for the full posture and the hard line on when collaboration becomes assimilation.
+
 ## License
 
 MIT.
