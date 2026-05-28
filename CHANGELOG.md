@@ -7,6 +7,9 @@
   - [`docs/discipline/linear-workflow.md`](docs/discipline/linear-workflow.md) — structural reference for running a ticket tracker as a real operating system: teams, projects, three-gradient routing, capture decision tree, state machine, label hygiene, priority-to-timing mapping, and cron query patterns.
   - [`docs/discipline/executive-ticket-protocol.md`](docs/discipline/executive-ticket-protocol.md) — the behavioral spec that keeps the board healthy: self-contained comment rule, Decision Card format, mechanical lifecycle gates, default-to-execute rule, no-dangling-promises convention, proof-of-work template, and the comment-responder cron spec that closes the comment loop.
 - **Skill-change eval template** ([`reference/skill-change-eval-template.md`](reference/skill-change-eval-template.md)) — pairs with the PR template's eval-artifact checkbox to enforce "no eval = not Done" on skill / workflow / orchestration changes (REG-032 / REG-034).
+- **Discipline layer (batch 2)** — two more ported operating-discipline docs:
+  - [`docs/discipline/regression-log-example.md`](docs/discipline/regression-log-example.md) — structure and template for an append-only regression log, with two sanitized example entries (post-mutation verification rule + cron error self-triage rule).
+  - [`docs/discipline/cron-self-triage.md`](docs/discipline/cron-self-triage.md) — behavioral spec for an agent diagnosing and fixing a failing cron in the same turn it observes the error, with explicit agency on model / timeout / payload changes and explicit guardrails on schedule / enabled state.
 - **README** now links the new discipline-layer section.
 
 ### Notes

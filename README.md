@@ -106,6 +106,8 @@ How to run an AI-assisted ticket board so it doesn't rot. Structural reference p
 
 - [Linear Workflow Reference](docs/discipline/linear-workflow.md) — teams, projects, states, labels, priorities, capture decision tree, cron query patterns.
 - [Executive Ticket Protocol (ETP)](docs/discipline/executive-ticket-protocol.md) — self-contained comment rule, Decision Card format, lifecycle gates, default-to-execute rule, proof-of-work template, comment-responder cron.
+- [Regression Log Example](docs/discipline/regression-log-example.md) — structure and template for an append-only regression log, with two sanitized real entries.
+- [Cron Error Self-Triage](docs/discipline/cron-self-triage.md) — behavioral spec for diagnosing and fixing a failing cron in the same turn it's observed, with pre-authorized agency on model / timeout / payload.
 
 ## Repo Layout
 
