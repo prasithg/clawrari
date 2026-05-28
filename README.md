@@ -100,6 +100,13 @@ Read [docs/architecture.md](docs/architecture.md) for the fuller breakdown.
 - [Skills Catalog](skills/README.md)
 - [Crons](crons/README.md)
 
+## Discipline Layer
+
+How to run an AI-assisted ticket board so it doesn't rot. Structural reference plus the behavioral protocol that keeps comments self-contained, decisions un-stuck, and night-work closed-out instead of orphaned.
+
+- [Linear Workflow Reference](docs/discipline/linear-workflow.md) — teams, projects, states, labels, priorities, capture decision tree, cron query patterns.
+- [Executive Ticket Protocol (ETP)](docs/discipline/executive-ticket-protocol.md) — self-contained comment rule, Decision Card format, lifecycle gates, default-to-execute rule, proof-of-work template, comment-responder cron.
+
 ## Repo Layout
 
 ```text

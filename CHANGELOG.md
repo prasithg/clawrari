@@ -1,8 +1,17 @@
 # Changelog
 
-## 2026-05-22
+## v0.5.0-rc1 — Phase 1 discipline-layer port (unreleased)
 
-- docs(reference): add `skill-change-eval-template.md` — Phase 1 v0.5.x discipline-layer port. Pairs with the PR template's eval-artifact checkbox to enforce "no eval = not Done" on skill / workflow / orchestration changes (REG-032 / REG-034).
+### Added
+- **Discipline layer (batch 1)** — first two ported operating-discipline docs under [`docs/discipline/`](docs/discipline/):
+  - [`docs/discipline/linear-workflow.md`](docs/discipline/linear-workflow.md) — structural reference for running a ticket tracker as a real operating system: teams, projects, three-gradient routing, capture decision tree, state machine, label hygiene, priority-to-timing mapping, and cron query patterns.
+  - [`docs/discipline/executive-ticket-protocol.md`](docs/discipline/executive-ticket-protocol.md) — the behavioral spec that keeps the board healthy: self-contained comment rule, Decision Card format, mechanical lifecycle gates, default-to-execute rule, no-dangling-promises convention, proof-of-work template, and the comment-responder cron spec that closes the comment loop.
+- **Skill-change eval template** ([`reference/skill-change-eval-template.md`](reference/skill-change-eval-template.md)) — pairs with the PR template's eval-artifact checkbox to enforce "no eval = not Done" on skill / workflow / orchestration changes (REG-032 / REG-034).
+- **README** now links the new discipline-layer section.
+
+### Notes
+- These are the first ported docs of a larger discipline-layer port from the maintainer's private workspace. Subsequent batches will follow on the same `phase1/discipline-layer-*` cadence.
+- All workspace-specific identifiers (team UUIDs, project UUIDs, state UUIDs, user IDs, chat channel IDs, internal email addresses) were replaced with placeholders before publishing.
 
 ## v0.4.0 — 2026-04-19
 
