@@ -7,3 +7,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .DS_Store?
+
+# Local content-engine config (example stays tracked)
+config/content-engine.conf
