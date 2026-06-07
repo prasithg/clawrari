@@ -34,7 +34,7 @@ die()  { echo -e "${RED}error:${NC} $*" >&2; exit 1; }
 # ──────────────────────────────────────────────
 MODE=""
 WINDOW_DAYS=""
-OUTPUT_DIR="drafts"
+OUTPUT_DIR="docs/content-engine/drafts"
 REPO_ROOT="$REPO_ROOT_DEFAULT"
 AS_OF="$(date +%Y-%m-%d)"
 CONFIG_FILE=""
@@ -262,6 +262,10 @@ render_weekly() {
 > on $AS_OF from $COMMIT_COUNT commit(s) in $SINCE .. $UNTIL.
 > Review before posting. Strip \`[epistemic]\` tags before publishing.
 > Nothing here is sent anywhere automatically — this is a review artifact.
+>
+> **Post format:** shape the drafts below with
+> \`docs/content-engine/templates/weekly-build-in-public.md\`
+> (X + LinkedIn variants, hook formulas, and the voice-guardrails checklist).
 
 ## What Shipped This Week
 
@@ -323,6 +327,10 @@ render_monthly() {
 > Broader than the weekly pack: themes, highlights, and long-form candidates.
 > Review before posting. Strip \`[epistemic]\` tags before publishing.
 > Nothing here is sent anywhere automatically — this is a review artifact.
+>
+> **Post format:** shape the drafts below with
+> \`docs/content-engine/templates/monthly-retro.md\`
+> (X thread, LinkedIn long-form, short-form variants + the voice-guardrails checklist).
 
 ## The Month in One Line
 
@@ -380,14 +388,15 @@ $CHANGELOG_TOP
 EOF
 }
 
+# Period-keyed filenames (PRA-122 acceptance criteria):
+#   weekly  -> <YYYY-MM-DD>-weekly.md   (the Friday date)
+#   monthly -> <YYYY-MM>-monthly.md     (the calendar month)
 if [ "$MODE" = "weekly" ]; then
   CONTENT="$(render_weekly)"
-  SUBDIR="weekly"
-  FILENAME="weekly-content-${UNTIL}.md"
+  FILENAME="${UNTIL}-weekly.md"
 else
   CONTENT="$(render_monthly)"
-  SUBDIR="monthly"
-  FILENAME="monthly-content-${UNTIL}.md"
+  FILENAME="${AS_OF:0:7}-monthly.md"
 fi
 
 if [ "$DRY_RUN" = "true" ]; then
@@ -396,11 +405,11 @@ if [ "$DRY_RUN" = "true" ]; then
   exit 0
 fi
 
-DEST_DIR="$REPO_ROOT/$OUTPUT_DIR/$SUBDIR"
+DEST_DIR="$REPO_ROOT/$OUTPUT_DIR"
 mkdir -p "$DEST_DIR"
 DEST="$DEST_DIR/$FILENAME"
 printf '%s\n' "$CONTENT" > "$DEST"
 
-ok "Wrote $MODE draft: ${OUTPUT_DIR}/${SUBDIR}/${FILENAME}"
+ok "Wrote $MODE draft: ${OUTPUT_DIR}/${FILENAME}"
 log "Draft-only. No external sends. Review before publishing."
 echo "$DEST"
