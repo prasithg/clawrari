@@ -7,3 +7,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .DS_Store?
+
+# Local content-engine config (example stays tracked)
+config/content-engine.conf
+
+# AWDS gate artifacts — regenerated next to each draft on every run
+docs/content-engine/drafts/*.awds.json

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-06-06
+
+### Added
+- **Content engine draft generator** (`scripts/content-engine.sh`) — runnable CLI that turns recent repo activity (git commits + CHANGELOG) into reviewable **weekly** and **monthly** content drafts. Draft-only by design: writes markdown into `drafts/` and makes no network calls. Supports `--weekly`/`--monthly`, `--window`, `--output-dir`, `--as-of`, `--dry-run`, and an optional config file. (PRA-122)
+- **Content engine config example** (`config/content-engine.example.conf`) — sensible defaults for output dir, window, and as-of date; copy to `config/content-engine.conf` for a local auto-loaded default. (PRA-122)
+- **Content engine cron spec** (`crons/content-engine.md`) — intended schedule (weekly Fri 09:00, monthly 1st 09:00) with both system-crontab and OpenClaw-routine variants. Registration stays manual. (PRA-122)
+
+### Changed
+- Added a "Draft Generator (CLI)" usage section to `docs/content-engine.md`. (PRA-122)
+
 ## 2026-05-22
 
 - docs(reference): add `skill-change-eval-template.md` — Phase 1 v0.5.x discipline-layer port. Pairs with the PR template's eval-artifact checkbox to enforce "no eval = not Done" on skill / workflow / orchestration changes (REG-032 / REG-034).

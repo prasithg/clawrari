@@ -1,0 +1,25 @@
+{
+  "name": "Clawrari Content Engine — Monthly Retro",
+  "description": "Last Friday of the month, AM ET: generate the monthly retro draft, run it through the AWDS v0.1 gate, and post the gated preview to Slack #prasclaw-content. Draft-only, no external publish.",
+  "schedule": { "kind": "cron", "expr": "15 9 * * 5", "tz": "America/New_York" },
+  "sessionTarget": "main",
+  "wake": "now",
+  "lastFridayNote": "Cron cannot express 'last Friday of the month' directly (day-of-month and day-of-week are OR'd in Vixie cron). So this job fires EVERY Friday at 09:15 ET and the wrapper self-gates: scripts/content-engine-run.sh --monthly is a no-op on any Friday that is not the last of the month. Staggered to 09:15 so it does not collide with the 09:00 weekly job.",
+  "payload": {
+    "kind": "systemEvent",
+    "text": "[content-engine] Friday 09:15 ET — from the clawrari repo run `scripts/content-engine-run.sh --monthly`. The wrapper only acts on the LAST Friday of the month (it self-gates and exits 0 on other Fridays). On the last Friday it generates docs/content-engine/drafts/<YYYY-MM>-monthly.md, runs the AWDS v0.1 gate, and posts the AWDS-gated preview to Slack #prasclaw-content. HARD RULES: draft-only; do NOT publish to X/LinkedIn/email; Slack #prasclaw-content is the only destination; the post is a draft preview + approval request, not an auto-publish. The script is idempotent (it skips if this month's draft already exists). Confirm the AWDS verdict appears in the Slack message. If the script exits non-zero, report the failure — do not retry blindly."
+  },
+  "delivery": {
+    "note": "The wrapper script posts to Slack itself, so cron-level delivery is not requested. Leave delivery unset (do not add --announce/--to)."
+  },
+  "failureAlert": {
+    "bestEffortDeliver": false,
+    "note": "Do NOT set --best-effort-deliver. The wrapper exits non-zero if the AWDS gate cannot run, if generation fails, or if the Slack post fails, so the run is marked failed and surfaces in `openclaw cron runs`. A clean last-Friday no-op exits 0 and is expected on non-last Fridays."
+  },
+  "sandbox": {
+    "tools": ["exec", "read", "write"],
+    "workingDir": "the clawrari repo checkout",
+    "egress": "Slack #prasclaw-content (C0B1BENB3EC) ONLY. No X/LinkedIn/email/web publish. The wrapper makes exactly one network send: the openclaw message send to that channel.",
+    "note": "Constrain the session to the repo working dir + the single Slack channel. No other external-send tools."
+  }
+}

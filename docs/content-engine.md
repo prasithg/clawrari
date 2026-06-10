@@ -102,6 +102,33 @@ Weekly:
 - one long-form draft
 - one summary of what themes are compounding
 
+## Draft Generator (CLI)
+
+The repo ships a runnable generator that turns recent repo activity (git commits
++ CHANGELOG) into reviewable drafts. It is **draft-only** — it writes markdown
+into `drafts/` and never sends, posts, or makes network calls.
+
+```bash
+# Weekly "what shipped this week" pack (last 7 days)
+./scripts/content-engine.sh --weekly
+
+# Monthly rollup (last 30 days)
+./scripts/content-engine.sh --monthly
+
+# Preview without writing, custom window / backdate
+./scripts/content-engine.sh --weekly --window 14 --dry-run
+./scripts/content-engine.sh --monthly --as-of 2026-05-31
+```
+
+Output lands in `drafts/weekly/weekly-content-<date>.md` and
+`drafts/monthly/monthly-content-<date>.md`. Defaults (output dir, window,
+as-of date) can be set in a local config — copy
+[`config/content-engine.example.conf`](../config/content-engine.example.conf) to
+`config/content-engine.conf`. CLI flags always override the config.
+
+For scheduling, see [`crons/content-engine.md`](../crons/content-engine.md).
+Drafts still pass through the human approval gate before anything is published.
+
 ## Why This Matters
 
 For Clawrari, content is not just marketing. It is:

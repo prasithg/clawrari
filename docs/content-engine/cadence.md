@@ -20,10 +20,10 @@ How the 3 templates plug into the existing content-engine cron. Spec only — no
 
 Drafts staged in: `docs/content-engine/drafts/`
 
-File naming:
-- Weekly: `weekly-{YYYY-MM-DD}.md`
-- Monthly: `retro-{YYYY-MM}.md`
-- Contributor: `contributor-{handle}-{YYYY-MM-DD}.md`
+File naming (matches the automation in `scripts/content-engine.sh` / `scripts/content-engine-run.sh`, per PRA-122):
+- Weekly: `{YYYY-MM-DD}-weekly.md`
+- Monthly: `{YYYY-MM}-monthly.md`
+- Contributor: `contributor-{handle}-{YYYY-MM-DD}.md` (manual, not yet automated)
 
 ### Draft-Staging Path
 
