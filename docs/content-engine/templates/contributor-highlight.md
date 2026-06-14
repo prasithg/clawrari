@@ -124,6 +124,8 @@ If a contributor declines or doesn't respond within 7 days, do not publish. Move
 
 ## Voice Guardrails
 
+This checklist is a convenience subset of the [`avoid-ai-writing` (AWDS) skill](../../../skills/avoid-ai-writing/SKILL.md), which is the single source of truth for voice and anti-AI-tell rules. Run the AWDS gate for the authoritative check; the boxes below are a quick manual pass and defer to AWDS on any conflict.
+
 Before posting, check every line against this list:
 
 - [ ] No hype words: "game-changing," "revolutionary," "insane," "wild," "amazing," "incredible"

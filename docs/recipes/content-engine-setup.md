@@ -377,6 +377,8 @@ A deliverable is not done unless it includes:
 
 This is the most important file. Generic voice instructions create generic writing. Be blunt.
 
+> **Defer to AWDS for anti-AI-tell rules.** This `writing-style.md` is a local, positive voice guide ("what you're trying to sound like"). The banned-word / banned-pattern / structural-fingerprint rules — the negative side — are owned by the [`avoid-ai-writing` (AWDS) skill](../../skills/avoid-ai-writing/SKILL.md), which is the single source of truth. Don't duplicate banned-vocab or structural rules here; keep them in AWDS so there's one list to evolve. On any conflict, AWDS wins.
+
 Create `~/.openclaw/workspace/skills/content-engine/writing-style.md`:
 
 ```markdown

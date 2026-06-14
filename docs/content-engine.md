@@ -45,6 +45,8 @@ Recommended drafting rules:
 
 The review loop is where Clawrari becomes different from autopost junk.
 
+The mandatory first pass is the **anti-AI-tell gate**. The canonical ruleset and scoring for that gate is the [`avoid-ai-writing` (AWDS) skill](../skills/avoid-ai-writing/SKILL.md) — it is the single source of truth for voice and anti-AI-tell rules, and nothing in this pipeline overrides it. Every draft is scored CLEAN / PATCH / REWRITE before human review; REWRITE-verdict pieces never ship.
+
 Review can happen in:
 
 - markdown files
@@ -84,7 +86,7 @@ Track:
 The best learnings go into:
 
 - content strategy docs
-- writing-style guidance
+- writing-style guidance (a local subset that defers to the [`avoid-ai-writing` (AWDS) skill](../skills/avoid-ai-writing/SKILL.md); new voice/anti-AI-tell rules land in AWDS, not in a parallel list)
 - repeatable templates
 - the self-improvement layer
 

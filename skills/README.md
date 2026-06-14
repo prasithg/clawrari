@@ -31,7 +31,10 @@ This repo does not vend every skill directly. It documents the core skill mix us
 - One-format drafting workflow that can be folded into a broader content system.
 
 `publish-pipeline`
-- Publishing-stage workflow for reviewed content.
+- Publishing-stage workflow for reviewed content. Defers to `avoid-ai-writing` for all voice rules. Stub vended at [`publish-pipeline/SKILL.md`](publish-pipeline/SKILL.md).
+
+`avoid-ai-writing` (AWDS)
+- The single source of truth for voice and anti-AI-tell rules. A four-layer detector (lexical / formatting / structural / emerging) plus a self-improving autoresearch loop. Mandatory pre-ship gate for generated content. `content-engine`, `content-autopilot`, `ai-talk-draft`, and `publish-pipeline` all defer to it on any conflict. Vended in full at [`avoid-ai-writing/`](avoid-ai-writing/SKILL.md).
 
 ## Execution and Improvement
 

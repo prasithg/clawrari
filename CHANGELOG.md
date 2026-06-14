@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-06-13
+
+### Added
+- **`avoid-ai-writing` (AWDS) skill** (`skills/avoid-ai-writing/`) — the documented single source of truth for Clawrari's voice and anti-AI-tell rules. Ships `SKILL.md` (workflow, scoring rubric, variance rules, autoresearch loop) and a four-layer pattern set: `v1-lexical`, `v2-formatting`, `v3-structural`, `v4-emerging`, plus a skill `CHANGELOG.md`. (PRA-137)
+- **`publish-pipeline` stub** (`skills/publish-pipeline/SKILL.md`) — publish-stage contract that defers to AWDS for all voice rules. (PRA-137)
+
+### Changed
+- Consolidated voice authority on AWDS: `bootstrap/templates/SOUL.md.tmpl`, `docs/content-engine.md` (Review + Learn stages), `docs/recipes/content-engine-setup.md`, `skills/README.md`, and the three content templates (`docs/content-engine/templates/*`) now cross-reference AWDS as canonical and defer to it on conflict, instead of carrying parallel banned-word lists. (PRA-137)
+
 ## 2026-06-06
 
 ### Added
