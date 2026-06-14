@@ -91,18 +91,32 @@ illustrations (a public technique, not secret).
 
 ### 4. Commit landed
 
-`git log -1`:
+Landing commit (the change above): `6b484f6`.
+
+`git log -1` (at the time the change landed on the work branch):
 ```
-<filled by the follow-up commit that records the landing commit>
+commit 6b484f61b0ca6cf1805f5dda8ad48b4b6076207b
+Author: prasithg <prasithg@gmail.com>
+Date:   Sun Jun 14 01:12:58 2026 -0400
+
+    feat(skills): make avoid-ai-writing (AWDS) the canonical voice authority (PRA-137)
+
+    Port the AWDS skill into the public repo (sanitized of private content) and
+    consolidate all anti-AI-tell voice rules behind it. ...
+    16 files changed, 685 insertions(+), 2 deletions(-)
 ```
 
-`git status`:
+`git status` (clean tree; only the unrelated, gitignored-by-policy `.openclaw/` workspace dir untracked):
 ```
-<filled by the follow-up commit>
+On branch claw/pra-137-awds-voice-authority
+Untracked files:
+	.openclaw/
+nothing added to commit but untracked files present
 ```
 
-See the repo `CHANGELOG.md` (2026-06-13) and the final handoff summary for the landed
-commit hash and push confirmation.
+This eval is itself part of `6b484f6`; this section is recorded in a small follow-up
+commit on the same branch. Both commits fast-forward onto `main` and push to origin —
+see the final handoff summary for the merge + push confirmation.
 
 ## Verdict
 
