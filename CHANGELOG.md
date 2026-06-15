@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-06-15
+
+### Added
+- **Memory promotion (the dreaming pass)** (`docs/memory-promotion.md`) — documents the graduated promotion path and the nightly consolidation step that reviews the day's log and graduates the few facts that matter into durable files. Covers the four-tier path, supersede chains, type and trust tags, decay, and the monthly deep pass.
+- **Memory templates** (`templates/memory/`) — reusable scaffolds for the layered store: `MEMORY.md` (the index), `daily-log.md` (raw journal with type/trust tagging), `thematic-file.md` (promotion target with supersede chains and decay rules), and `promotion-checklist.md` (a runnable dreaming-pass checklist for night work). These join the existing `session-brief.md` and `subagent-ledger.md`.
+- **Harness pattern set** (`docs/harness/`) — four reusable, dependency-free harness patterns ported from a running setup: the night-work pipeline (plan, build, test, completion sweep), the executable regression suite, the six-axis cross-agent eval scorecard, and the peer-blocker bridge. Indexed by `docs/harness/README.md`.
+- **Harness scaffolds** (`scripts/`) — runnable, sanitized scaffolds, each with a `--selftest`: `night-work-pipeline.sh` (stage-hook pipeline with logging and a failure valve), `regression-check.mjs` (turns prose guardrails into machine-checkable assertions, Node builtins only), `eval-scorecard.mjs` (honest six-axis roll-up that never fabricates a score it cannot ground, Node builtins only), and `peer-blocker-watch.sh` (cross-agent deadlock watcher with dedup).
+- **Sample regression spec** (`config/regression-suite.example.json`) — starter machine-checkable guardrail set for `regression-check.mjs`.
+
 ## 2026-06-13
 
 ### Added

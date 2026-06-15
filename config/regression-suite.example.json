@@ -1,0 +1,42 @@
+{
+  "_comment": "Sample machine-checkable guardrail suite for regression-check.mjs. Copy to config/regression-suite.json and adapt to your workspace. Each entry turns a prose guardrail into an assertion. Run: node scripts/regression-check.mjs --spec config/regression-suite.json --root .",
+  "checks": [
+    {
+      "id": "REG-secrets-uncommitted",
+      "description": "Secrets file must never be committed",
+      "type": "file_absent",
+      "target": ".env",
+      "severity": "P0"
+    },
+    {
+      "id": "REG-brief-exists",
+      "description": "Session brief must exist for fast startup",
+      "type": "file_exists",
+      "target": "memory/session-brief.md",
+      "severity": "P0"
+    },
+    {
+      "id": "REG-brief-bounded",
+      "description": "Session brief stays a brief, not a log (<= 60 lines)",
+      "type": "max_lines",
+      "target": "memory/session-brief.md",
+      "max": 60,
+      "severity": "P1"
+    },
+    {
+      "id": "REG-no-emdash-in-readme",
+      "description": "Public README carries no em-dash (AWDS v1.01)",
+      "type": "file_not_contains",
+      "target": "README.md",
+      "pattern": "—",
+      "severity": "P1"
+    },
+    {
+      "id": "REG-ledger-exists",
+      "description": "Subagent ledger present so stalled work is visible",
+      "type": "file_exists",
+      "target": "memory/subagent-ledger.md",
+      "severity": "P1"
+    }
+  ]
+}

@@ -32,14 +32,20 @@ Clawrari ships in layers. The first releases established the core operating syst
 - persona and identity-channel patterns
 - broader context sync from the live workspace
 
+### v0.5 (in progress)
+
+- memory promotion docs (the dreaming pass) and reusable memory templates
+- harness pattern set: night-work pipeline, executable regression suite, six-axis eval scorecard, peer-blocker bridge
+- runnable harness scaffolds with selftests (Node builtins and bash only, no dependencies)
+
 ## Next: v0.5
 
 Focus:
 
 - benchmarked self-improvement loop
-- measurable eval harnesses
-- promotion review tooling
-- stronger validation defaults for coding-agent output
+- ~~measurable eval harnesses~~ ✅ six-axis scorecard scaffold (v0.5)
+- ~~promotion review tooling~~ ✅ dreaming-pass checklist + promotion docs (v0.5)
+- ~~stronger validation defaults for coding-agent output~~ ✅ executable regression suite (v0.5)
 
 The goal is simple: Clawrari should be able to show that it improved, not just claim it.
 

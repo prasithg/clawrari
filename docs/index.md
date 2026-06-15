@@ -4,6 +4,8 @@
 - [Process](process.md)
 - [Architecture](architecture.md)
 - [Memory](components/memory.md)
+- [Memory Promotion (Dreaming Pass)](memory-promotion.md)
+- [The Harness](harness/README.md)
 - [Self-Improvement](components/self-improvement.md)
 - [Connectors](components/connectors.md)
 - [Persona Patterns](components/persona.md)
