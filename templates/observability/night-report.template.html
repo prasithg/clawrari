@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+  Night-report skeleton. Zero dependencies: inline CSS, no fonts to fetch, no
+  scripts to load. It must render offline from a file path with no server.
+
+  A generator replaces every {{TOKEN}} below. Repeating blocks (artifacts,
+  axis rows, check items) are marked with BEGIN/END comments; emit the inner
+  markup once per item. Keep the two-minute-read contract: if a section does
+  not help a human decide "ship, fix, or dig in", cut it. Never launder a
+  null into a number — opaque tokens read "not instrumented", not "0".
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Night Report — {{SESSION_NAME}}</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #171a21; --line: #262b36;
+    --fg: #e6e9ef; --muted: #9aa3b2; --accent: #7aa2f7;
+    --good: #7bd88f; --warn: #e0af68; --bad: #f7768e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px;
+    background: var(--bg); color: var(--fg);
+    font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+  .verdict {
+    padding: 14px 16px; border-radius: 10px; border: 1px solid var(--line);
+    background: var(--card); font-size: 17px; font-weight: 600; margin-bottom: 20px;
+  }
+  .verdict.ship { border-left: 4px solid var(--good); }
+  .verdict.fix  { border-left: 4px solid var(--warn); }
+  .verdict.dig  { border-left: 4px solid var(--bad); }
+  section {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 16px; margin-bottom: 16px;
+  }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em;
+       color: var(--muted); margin: 0 0 12px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); font-size: 14px; }
+  th { color: var(--muted); font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  .score-null { color: var(--muted); font-style: italic; }
+  .stats { display: flex; flex-wrap: wrap; gap: 20px; }
+  .stat .n { font-size: 22px; font-weight: 700; }
+  .stat .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  ul { margin: 0; padding-left: 18px; }
+  li { margin: 4px 0; }
+  a { color: var(--accent); text-decoration: none; word-break: break-all; }
+  a:hover { text-decoration: underline; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  footer { color: var(--muted); font-size: 12px; text-align: center; margin-top: 8px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Night Report — {{SESSION_NAME}}</h1>
+  <div class="sub">{{WINDOW_SINCE}} → {{WINDOW_UNTIL}} · mode: {{MODE}} · {{RUN_COUNT}} run(s)</div>
+
+  <!-- verdict class is one of: ship | fix | dig -->
+  <div class="verdict {{VERDICT_CLASS}}">{{VERDICT_LINE}}</div>
+
+  <section>
+    <h2>At a glance</h2>
+    <div class="stats">
+      <div class="stat"><div class="n">{{ARTIFACT_COUNT}}</div><div class="k">durable artifacts</div></div>
+      <div class="stat"><div class="n">{{CLEAN_EXITS}}/{{RUN_COUNT}}</div><div class="k">clean exits</div></div>
+      <div class="stat"><div class="n">{{COST_DISPLAY}}</div><div class="k">cost ({{TOKEN_VISIBILITY}})</div></div>
+      <div class="stat"><div class="n">{{TOKENS_DISPLAY}}</div><div class="k">tokens</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Scorecard</h2>
+    <table>
+      <thead><tr><th>Axis</th><th>Score</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <!-- BEGIN axis_row (repeat per axis; use class="score-null" for a null score) -->
+        <tr><td>{{AXIS_NAME}}</td><td class="{{AXIS_SCORE_CLASS}}">{{AXIS_SCORE}}</td><td>{{AXIS_EVIDENCE}}</td></tr>
+        <!-- END axis_row -->
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Durable artifacts</h2>
+    <ul>
+      <!-- BEGIN artifact (repeat per artifact) -->
+      <li><a href="{{ARTIFACT_HREF}}"><code>{{ARTIFACT_PATH}}</code></a></li>
+      <!-- END artifact -->
+    </ul>
+  </section>
+
+  <section>
+    <h2>What to check</h2>
+    <ul>
+      <!-- BEGIN check (repeat per item a human should look at before trusting the session) -->
+      <li>{{CHECK_ITEM}}</li>
+      <!-- END check -->
+    </ul>
+  </section>
+
+  <footer>Generated {{GENERATED_AT}} · regenerate from traces, never edit by hand</footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,61 @@
+{
+  "session_name": "REPLACE_ME",
+  "generated_at": "1970-01-01T00:00:00Z",
+  "window": {
+    "since": "1970-01-01T00:00:00Z",
+    "until": "1970-01-01T00:00:00Z"
+  },
+  "mode": "solo",
+  "run_count": 0,
+  "token_visibility": "opaque",
+  "totals": {
+    "tokens_in": null,
+    "tokens_out": null,
+    "cost_usd": null,
+    "opaque_run_count": 0
+  },
+  "axes": {
+    "output": {
+      "score": null,
+      "needs": "qa-judgment",
+      "evidence": {
+        "durable_artifacts_count": 0,
+        "artifacts": [],
+        "clean_exit_count": 0,
+        "nonzero_exit_count": 0
+      }
+    },
+    "throughput": {
+      "score": null,
+      "needs": "qa-judgment",
+      "label": "uninstrumented",
+      "evidence": {
+        "durable_artifacts_count": 0,
+        "total_wall_clock_seconds": 0,
+        "token_visibility": "opaque"
+      }
+    },
+    "intelligence": {
+      "score": null,
+      "needs": "qa-judgment",
+      "evidence": {
+        "note": "model tier and reasoning effort are not in the trace schema; independent QA verdict required"
+      }
+    },
+    "collaboration": {
+      "score": null,
+      "needs": "n/a-solo-mode",
+      "evidence": {
+        "applicable": false
+      }
+    },
+    "autonomy": {
+      "execution": { "score": null, "needs": "qa-judgment" },
+      "direction": { "score": null, "needs": "qa-judgment" }
+    },
+    "safety": {
+      "score": 5,
+      "source": "default held; record a guardrail breach to drop to 1 and cap the session"
+    }
+  }
+}

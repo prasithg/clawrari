@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://clawrari.dev/schemas/trace.schema.json",
+  "title": "Agent Run Trace",
+  "description": "One record per agent run. Append one of these as a line to a JSONL index. The index is the source of truth; scorecards and reports are derived views. Metrics you cannot read are null, never guessed.",
+  "type": "object",
+  "required": ["run_id", "agent", "started_at", "exit_code"],
+  "additionalProperties": true,
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "description": "Stable identifier for this run, unique within the index.",
+      "minLength": 1
+    },
+    "agent": {
+      "type": "string",
+      "description": "Which agent or model family ran (e.g. 'claude', 'reviewer-b').",
+      "minLength": 1
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC start time."
+    },
+    "ended_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 UTC end time. Null if the run is still open or crashed without writing one."
+    },
+    "exit_code": {
+      "type": "integer",
+      "description": "Process exit code. 0 is a clean exit; a clean exit is not the same as good work."
+    },
+    "mode": {
+      "type": ["string", "null"],
+      "enum": ["solo", "orchestrated", "peer", null],
+      "description": "Collaboration mode for the session this run belongs to."
+    },
+    "artifacts": {
+      "type": "array",
+      "description": "Durable things this run produced. A durable artifact survives the session and a human cares about it (committed files, new templates, shipped docs). Scratch files and re-reads do not count. Keep the list, not just the count.",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Resource usage. Any field the runtime does not expose stays null. Do not estimate from wall-clock or list price.",
+      "additionalProperties": true,
+      "properties": {
+        "tokens_in": { "type": ["integer", "null"], "minimum": 0 },
+        "tokens_out": { "type": ["integer", "null"], "minimum": 0 },
+        "cost_usd": { "type": ["number", "null"], "minimum": 0 }
+      }
+    },
+    "guardrail_breach": {
+      "type": "boolean",
+      "description": "True if a guardrail failed during this run. A breach caps the session's Safety axis at the floor.",
+      "default": false
+    },
+    "notes": {
+      "type": ["string", "null"],
+      "description": "Short free-text context. Optional."
+    }
+  }
+}
