@@ -22,4 +22,6 @@ Watches a shared inbox for blocking handoffs from a peer agent, so a cross-agent
 
 The pipeline runs the work. The regression suite is what the pipeline's test stage calls. The scorecard reads the runs the pipeline produced and reports how the session went. The bridge keeps a multi-agent setup from deadlocking while all of that happens.
 
+For the layer that feeds the scorecard — tracing each run, capturing tokens and durable artifacts, and rendering a morning report a human reads in two minutes — see [Agent Observability](../observability.md).
+
 Every scaffold ships with a `--selftest` so you can confirm it works before wiring it into a cron. None of them pull a dependency: the shell scripts are POSIX-ish bash, and the `.mjs` tools use Node builtins only. Copy them, adapt the paths, and keep the markdown files as the source of truth.

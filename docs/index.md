@@ -6,6 +6,7 @@
 - [Memory](components/memory.md)
 - [Memory Promotion (Dreaming Pass)](memory-promotion.md)
 - [The Harness](harness/README.md)
+- [Agent Observability](observability.md)
 - [Self-Improvement](components/self-improvement.md)
 - [Connectors](components/connectors.md)
 - [Persona Patterns](components/persona.md)

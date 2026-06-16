@@ -37,6 +37,7 @@ Clawrari ships in layers. The first releases established the core operating syst
 - memory promotion docs (the dreaming pass) and reusable memory templates
 - harness pattern set: night-work pipeline, executable regression suite, six-axis eval scorecard, peer-blocker bridge
 - runnable harness scaffolds with selftests (Node builtins and bash only, no dependencies)
+- agent observability pattern: run-trace schema, scorecard roll-up, and a zero-dependency morning-report HTML skeleton (`docs/observability.md`, `templates/observability/`)
 
 ## Next: v0.5
 
@@ -46,6 +47,7 @@ Focus:
 - ~~measurable eval harnesses~~ ✅ six-axis scorecard scaffold (v0.5)
 - ~~promotion review tooling~~ ✅ dreaming-pass checklist + promotion docs (v0.5)
 - ~~stronger validation defaults for coding-agent output~~ ✅ executable regression suite (v0.5)
+- ~~legible reporting on unattended runs~~ ✅ observability pattern + morning-report skeleton (v0.5)
 
 The goal is simple: Clawrari should be able to show that it improved, not just claim it.
 
