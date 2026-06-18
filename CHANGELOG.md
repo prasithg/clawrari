@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-18
+
+### Added
+- **Stacking loops pattern** (`docs/stacking-loops.md`) — documents composing nested feedback loops so quality compounds: a craft loop (generate → evaluate → diagnose → improve) inside a cross-model review loop inside a measured-gate (escape-rate) loop. Each loop emits a measurable signal the next consumes, lands those signals on the run trace, and inherits the "a metric you cannot read is null" rule. Argues stacking complementary loops beats adding parallel agents because the checks decorrelate and quality multiplies rather than sums. Cross-links `docs/observability.md` and `docs/harness/eval-scorecard.md`; linked from `docs/index.md` and `docs/harness/README.md`.
+
 ## 2026-06-15
 
 ### Added

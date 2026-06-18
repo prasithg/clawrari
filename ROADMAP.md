@@ -38,6 +38,7 @@ Clawrari ships in layers. The first releases established the core operating syst
 - harness pattern set: night-work pipeline, executable regression suite, six-axis eval scorecard, peer-blocker bridge
 - runnable harness scaffolds with selftests (Node builtins and bash only, no dependencies)
 - agent observability pattern: run-trace schema, scorecard roll-up, and a zero-dependency morning-report HTML skeleton (`docs/observability.md`, `templates/observability/`)
+- stacking-loops pattern: composing nested feedback loops (craft → cross-review → measured-gate) where each emits a measurable signal the next consumes (`docs/stacking-loops.md`)
 
 ## Next: v0.5
 
