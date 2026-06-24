@@ -103,6 +103,7 @@ These are useful as optional role packs:
 - `persona-researcher`
 - `persona-content-creator`
 - `persona-team-lead`
+- `personal-advisor` — a context-grounded advisor: durable `plan`/`learnings`/`eval` context-files plus a satisfaction-loop self-check that gates advice against a stated bar. Unlike the `persona-*` packs above, this one is **vended in full** at [`personal-advisor/SKILL.md`](personal-advisor/SKILL.md).
 
 They work best as overlays on top of the shared base, not as replacements for it.
 
