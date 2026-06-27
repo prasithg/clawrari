@@ -8,6 +8,7 @@
 - [The Harness](harness/README.md)
 - [Agent Observability](observability.md)
 - [Stacking Loops](stacking-loops.md)
+- [Human-Facing Message Standard](human-facing-message-standard.md)
 - [Self-Improvement](components/self-improvement.md)
 - [Connectors](components/connectors.md)
 - [Persona Patterns](components/persona.md)

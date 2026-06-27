@@ -1,0 +1,33 @@
+name: Docs and selftests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  harness-selftests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check shell syntax
+        run: |
+          bash -n bootstrap/init.sh
+          bash -n scripts/content-engine.sh
+          bash -n scripts/content-engine-run.sh
+          bash -n scripts/night-work-pipeline.sh
+          bash -n scripts/peer-blocker-watch.sh
+
+      - name: Run harness selftests
+        run: |
+          bash scripts/night-work-pipeline.sh --selftest
+          bash scripts/peer-blocker-watch.sh --selftest
+          node scripts/regression-check.mjs --selftest
+          node scripts/eval-scorecard.mjs --selftest

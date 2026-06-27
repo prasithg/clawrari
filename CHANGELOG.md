@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-21
+
+### Added
+- **PRA-173 cadence recovery packet** — adds the human-facing message standard (`docs/human-facing-message-standard.md`), the cadence recovery eval (`reports/evals/2026-06-21-pra173-clawrari-cadence.md`), GitHub hygiene (`.github/workflows/ci.yml` plus issue templates), and an OpenClaw recovery note (`.openclaw/cadence-recovery-2026-06-19-pra173.md`). The packet restores the post-2026-06-19 cadence with a documented human-message rule, repo intake templates, and a lightweight CI gate that runs the harness selftests.
+
 ## 2026-06-18
 
 ### Added

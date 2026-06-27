@@ -1,0 +1,59 @@
+name: Bug report
+description: Report a broken Clawrari doc, template, script, or example.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep Clawrari sharp. Keep the report to one reproducible problem and redact any secrets or private identifiers.
+  - type: textarea
+    id: what-you-did
+    attributes:
+      label: What you did
+      description: Include the command, config change, or doc step you followed.
+      placeholder: "./bootstrap/init.sh from a fresh clone..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: Describe the behavior the docs or templates implied.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened
+      description: Include exact error text or confusing output, with secrets redacted.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Share the OS, OpenClaw version, and Clawrari commit or version.
+      placeholder: "macOS 15, OpenClaw x.y.z, Clawrari commit abc1234"
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: Is this about Clawrari's documented opinion layer or the OpenClaw runtime?
+      options:
+        - Clawrari docs, templates, scripts, or examples
+        - OpenClaw runtime behavior
+        - Not sure
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Pre-flight checks
+      options:
+        - label: I checked README.md, docs/playbook.md, docs/index.md, and SUPPORT.md.
+          required: true
+        - label: I removed secrets, tokens, private hostnames, and customer identifiers.
+          required: true

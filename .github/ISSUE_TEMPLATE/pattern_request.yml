@@ -1,0 +1,43 @@
+name: Pattern request
+description: Request a Clawrari workflow, doc, template, or safer default.
+title: "[Pattern]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Clawrari stays useful by adding proven, reusable operating patterns. Describe the operational problem first, then the proposed change.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Operational problem
+      description: What repeated assistant, memory, connector, or review-loop problem should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-pattern
+    attributes:
+      label: Proposed pattern
+      description: Describe the doc, template, config, or workflow you want added or changed.
+    validations:
+      required: true
+  - type: dropdown
+    id: maturity
+    attributes:
+      label: Maturity
+      description: Has this pattern been used in a real setup?
+      options:
+        - Used repeatedly in practice
+        - Used once and needs review
+        - Experimental idea
+    validations:
+      required: true
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Guardrails
+      options:
+        - label: This request does not include secrets, private customer details, or employer-specific workflow data.
+          required: true
+        - label: This can be explained as one focused change rather than a catch-all expansion.
+          required: true

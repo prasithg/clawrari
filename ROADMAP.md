@@ -39,6 +39,8 @@ Clawrari ships in layers. The first releases established the core operating syst
 - runnable harness scaffolds with selftests (Node builtins and bash only, no dependencies)
 - agent observability pattern: run-trace schema, scorecard roll-up, and a zero-dependency morning-report HTML skeleton (`docs/observability.md`, `templates/observability/`)
 - stacking-loops pattern: composing nested feedback loops (craft → cross-review → measured-gate) where each emits a measurable signal the next consumes (`docs/stacking-loops.md`)
+- human-facing message standard: plain-English-first status, chat, Slack, handoff, and report updates that route internal machinery to logs and eval artifacts (`docs/human-facing-message-standard.md`)
+- cadence recovery hygiene: GitHub CI/selftest workflow, structured issue templates, OpenClaw recovery note, and PRA-173 eval artifact (`.github/`, `.openclaw/`, `reports/evals/2026-06-21-pra173-clawrari-cadence.md`)
 
 ## Next: v0.5
 
@@ -49,6 +51,7 @@ Focus:
 - ~~promotion review tooling~~ ✅ dreaming-pass checklist + promotion docs (v0.5)
 - ~~stronger validation defaults for coding-agent output~~ ✅ executable regression suite (v0.5)
 - ~~legible reporting on unattended runs~~ ✅ observability pattern + morning-report skeleton (v0.5)
+- ~~plain-English human-facing agent updates~~ ✅ human-facing message standard + eval (v0.5)
 
 The goal is simple: Clawrari should be able to show that it improved, not just claim it.
 
