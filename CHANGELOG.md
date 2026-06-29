@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-06-29
+
+### Added
+- **Regression → skill graduation (Toil vs Anomaly)** (`docs/self-improvement.md`) — documents when a guardrail belongs in the regression log (a *tripwire* that detects) versus an executable skill (a *procedure* that remediates). Mechanical/deterministic gaps graduate to a verified, self-checking skill on first occurrence; cognitive/judgment errors stay tripwires and escalate to an architectural gate on recurrence. The lever is executability, not the file. Established after the same sandboxed-git-commit failure was logged as 5+ separate regressions; model-council reviewed (Opus/Gemini/GPT-5.5).
+
 ## 2026-06-21
 
 ### Added
