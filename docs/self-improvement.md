@@ -36,6 +36,17 @@ Recommended flow:
 
 This is how the system gets harder to break over time.
 
+### Graduation: tripwire vs executable procedure (Toil vs Anomaly)
+
+Not every guardrail belongs in the regression log. A regression is a *tripwire* — it detects. A skill is an *executable procedure* — it remediates. The lever that matters is **executability, not which file it lives in**: a fix written as prose to be re-read by a busy agent is a reminder, and reminders decay.
+
+Classify a failure at the first postmortem:
+
+- **Toil / mechanical** — a missing deterministic step (a tool call, a commit+push, an env/auth setup, a path assertion). Promote it to an **executable skill immediately, on the first occurrence**. The skill runs the step and *verifies the outcome*; it never just reminds someone to do it.
+- **Anomaly / cognitive** — a reasoning, judgment, or hallucination error. Log it as a regression tripwire. On recurrence, force an **architectural gate** (a test, validator, or pre-flight assertion), not another reminder.
+
+Keep the regression log small and high-signal (prune, compile to lints, or collapse a recurring family into a single tripwire). A tripped tripwire should emit the exact command to run its remedial skill. **The same mechanical failure reappearing as new regressions is the signal that the system failed to graduate it to a skill.**
+
 ## 3. Semi-Automatic Learning Capture
 
 Clawrari prefers semi-automatic promotion over blind self-editing.
