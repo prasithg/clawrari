@@ -41,6 +41,22 @@ Recommended drafting rules:
 - tag whether a take is observed, inferred, speculative, or contrarian
 - keep drafts short enough to review quickly
 
+### Epistemic-pressure preflight
+
+Left alone, an LLM drifts toward the confident-sounding median take. Tone rules alone do not fix this — the draft reads clean and still says nothing new. Add a cheap heuristic **preflight** that runs *before* the anti-AI-tell gate and does one job: refuse a draft that carries zero angle.
+
+A minimal version is a sub-second local script that:
+
+- returns `PATCH` when a short-form draft has no contrarian or speculative marker, and
+- returns `OK` when the draft carries an explicit angle tag and points at a stated belief.
+
+Two things make this work:
+
+- **A durable list of stated beliefs.** Keep opinions in a versioned file with stable ids, so drafts can anchor to a real position instead of inventing a fresh, safe one each time. The act of picking an id is the intervention — it forces a choice.
+- **Force at least one non-consensus tag per piece.** If nearly every claim is [consensus], you are summarizing, not thinking.
+
+The preflight is deliberately heuristic. Its job is to force a second pass on bland drafts, not to certify that a take is good — that is still the reviewer's call. But a cheap stop sign at draft time catches the failure that a voice gate never will: technically clean prose with no point of view.
+
 ## Stage 3: Review
 
 The review loop is where Clawrari becomes different from autopost junk.

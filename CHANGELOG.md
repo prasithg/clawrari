@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-07-01
+
+### Added
+- **Epistemic-pressure preflight** (`docs/content-engine.md`) — a cheap heuristic stop-sign that runs before the anti-AI-tell gate and refuses a draft carrying zero angle. Documents the general pattern: keep a versioned file of stated beliefs with stable ids so drafts anchor to a real position, force at least one non-consensus tag per piece, and treat the preflight as a bland-draft second-pass trigger — not a certifier of good takes. Catches the failure a voice gate never will: clean prose with no point of view.
+
 ## 2026-06-29
 
 ### Added
