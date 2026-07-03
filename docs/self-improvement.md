@@ -108,6 +108,27 @@ It is also the best time to:
 
 Night work should leave a trail in the daily log so the next main session can pick up cleanly.
 
+## 7. Periodic Workspace Self-Audit
+
+Self-improvement loops fix things as they break. But a long-running workspace also accumulates *debris* that no single failure ever trips: bloated ledgers, references to retired models stated as if live, a duplicated or stale index, a skills catalog diluted by thin wrappers, config drift, and root-directory clutter. None of it throws an error — it just quietly degrades every session's boot context and recall.
+
+Run a structured audit on a cadence (monthly is a reasonable default) across a fixed set of dimensions, for example:
+
+- **Context / boot** — is startup context lean and true, or is it pointing sessions at stale or non-injected files?
+- **Skills** — is the catalog high-signal, or diluted by near-duplicate wrappers and name collisions?
+- **Memory** — are logs rotating, or growing unbounded? Is there a single canonical index, or has it forked?
+- **Regression ledger** — still a tight, high-signal tripwire set, or bloated past the point of usefulness?
+- **Sandbox / env** — do the runtime flags match the documented config, or has a deprecated flag silently overridden it?
+- **Root hygiene** — how many loose files accumulated? Archive, don't delete.
+
+### The load-bearing insight
+
+The first time you run this seriously, the finding is usually counterintuitive: **the system is structurally sound. The doctrine and guardrails already exist. The debts are accumulated debris and execution cadence, not missing rules.**
+
+That reframes the fix. The temptation on finding a problem is to write another rule. But if the rule already exists and the failure still happened, the gap is *enforcement or cleanup*, not *authorship*. Prefer: prune the ledger, archive the clutter, script the rotation, delete the stale reference, add a mechanical assertion — over writing a new paragraph nobody will re-read.
+
+Every fix in an audit should be reversible (archive, don't delete), evidenced (cite the file/command that proves it landed), and where possible converted into a standing check so the debris can't silently re-accumulate.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
