@@ -129,6 +129,19 @@ That reframes the fix. The temptation on finding a problem is to write another r
 
 Every fix in an audit should be reversible (archive, don't delete), evidenced (cite the file/command that proves it landed), and where possible converted into a standing check so the debris can't silently re-accumulate.
 
+## 8. Refreshing a Curated Artifact Without Overwriting It
+
+Some artifacts are living distillations — a personal opinions/positions file, a voice guide, a set of operating principles. They should evolve as the system accumulates new activity, but they are also load-bearing and easy to corrupt with a bad automated rewrite. The failure mode is a well-meaning refresh job that silently overwrites a hand-curated file with lower-quality regenerated content.
+
+The safer pattern is **draft-only extraction with drift classification against a versioned baseline**:
+
+1. **Extract repeatably from local sources.** Read recent, already-captured local material (date-named notes, cached samples) rather than hitting live APIs. Repeatability and zero external cost matter more than freshness here — you want the same command to produce the same review artifact.
+2. **Classify each candidate against the current baseline**, not in a vacuum. Label every extracted item as `REFINEMENT` (sharpens an existing entry), `NEW` (a genuinely new position), or `REVERSAL` (contradicts a prior stance). The reversal label is the most valuable — it surfaces where your own thinking has actually changed.
+3. **Flag factual / time-sensitive risk.** Any candidate whose truth depends on a moment in time gets a risk flag so a reviewer knows not to enshrine a soon-stale claim.
+4. **Emit a `v(n+1)-candidate` artifact, never a live overwrite.** Preserve the existing schema and headings, and mark which entries are carried over versus newly proposed. The current live file is untouched until a human promotes the candidate.
+
+This keeps a self-refreshing artifact aligned with the governance rules below: the change stays reviewable, provenance is explicit (which run proposed what), and rollback is trivial because the live file never moved. Automate the *extraction and triage*; keep the *promotion* a human step.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
