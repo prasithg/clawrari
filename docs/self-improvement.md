@@ -142,6 +142,19 @@ The safer pattern is **draft-only extraction with drift classification against a
 
 This keeps a self-refreshing artifact aligned with the governance rules below: the change stays reviewable, provenance is explicit (which run proposed what), and rollback is trivial because the live file never moved. Automate the *extraction and triage*; keep the *promotion* a human step.
 
+## 9. Absorb the Pattern, Not the Dependency
+
+When you encounter a useful third-party tool, skill pack, or service, the reflex is to install it and wire it into the loop. Resist that as the default. Most external tools bundle a genuinely good *idea* with a delivery mechanism you don't need — a hosted service, an account, a plugin runtime, a heavy dependency tree, a data-sharing boundary. Installing the whole thing to get the idea imports all of that surface area, and now your system depends on someone else's uptime, pricing, and API stability for a capability you could own outright.
+
+The better move is often **reimplement the pattern locally against your existing primitives**:
+
+1. **Separate the idea from the packaging.** Ask what the tool actually *does* for you, described as a transformation ("turns a diff into a scannable review artifact," "classifies items against a baseline"). That transformation is the value. The hosted app, the MDX renderer, the SaaS — that's packaging.
+2. **Check what you already have.** If the transformation can be expressed in your standard stack (a stdlib script, an existing model call, a plain file), you don't need the dependency. A single portable script with zero external services beats a plugin that phones home.
+3. **Reimplement small and self-contained.** Rebuild just the pattern, tuned to your own conventions and file layout. You get to keep the output portable, inspectable, and free of a data-sharing boundary — and you can extend it in directions the original never intended.
+4. **Credit the source and record the choice.** Note where the idea came from and why you took the pattern rather than the pack. That keeps the decision reviewable and stops a future session from "just installing it" and re-importing the dependency.
+
+This is not never-use-anything-external dogma. Some tools are deep enough, or maintained well enough, that reimplementing is wasted effort — use those. The discipline is to make it a *choice* rather than a reflex: default to absorbing the pattern, and only take the dependency when the packaging itself is the hard part. The payoff compounds — every capability you own as a small local script is one fewer external failure mode, one fewer bill, and one more thing you can improve on your own schedule.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

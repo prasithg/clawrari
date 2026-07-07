@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-07-07
+
+### Added
+- **Absorb the pattern, not the dependency** (`docs/self-improvement.md` §9) — documents the discipline of reimplementing a useful third-party tool's *pattern* against your own primitives instead of installing the whole pack. Separate the idea (the transformation it performs) from the packaging (hosted service, plugin runtime, dependency tree, data-sharing boundary); if your standard stack can express the transformation, own it as a small portable script rather than importing an external failure mode. Not anti-external dogma — the point is to make it a choice, defaulting to absorption and only taking the dependency when the packaging itself is the hard part. Credit the source and record the choice so a future session doesn't re-import the dependency.
+
 ## 2026-07-01
 
 ### Added
