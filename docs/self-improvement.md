@@ -155,6 +155,22 @@ The better move is often **reimplement the pattern locally against your existing
 
 This is not never-use-anything-external dogma. Some tools are deep enough, or maintained well enough, that reimplementing is wasted effort — use those. The discipline is to make it a *choice* rather than a reflex: default to absorbing the pattern, and only take the dependency when the packaging itself is the hard part. The payoff compounds — every capability you own as a small local script is one fewer external failure mode, one fewer bill, and one more thing you can improve on your own schedule.
 
+## 10. Make "Done" Falsifiable
+
+The most expensive failure in an autonomous system is not a crash — it's a confident "done" on work that is actually broken. An agent writes a file with a literal `\n` instead of a newline, or claims it produced a report that doesn't exist, then prints "Done — tested, everything works" and exits 0. Every downstream consumer trusts that exit code. The lie propagates.
+
+A voice gate or a human reviewer catches *some* of this, but neither scales and neither is deterministic. The durable fix is to make the success claim **machine-checkable**, and to make the check *block* the claim:
+
+1. **Turn "done" into assertions, not prose.** A run that claims completion should emit a small manifest of falsifiable claims — file X exists, file X parses, file X is at least N bytes, command Y exits 0. "I tested it and it works" is not a claim; `python3 -c "import ast; ast.parse(open('X').read())"` returning 0 is.
+2. **Gate at every surface that says "done."** The claim is made in more than one place — coding-agent wrappers, background/night crons, the main chat loop. Each surface runs the same verifier before it is allowed to report success.
+3. **A red gate overrides a green agent.** This is the load-bearing rule. If the agent exited 0 but the gate failed, the run is NOT done — the wrapper returns a distinct failure exit code, the cron posts `failed-qa` instead of ✅, and the FAIL lines are pasted as evidence. The agent's self-report never wins over the mechanical check.
+4. **Syntax-parse everything the run changed.** A cheap universal check — parse every file the run touched with the right tool for its type (`ast.parse`, `node --check`, `bash -n`, `JSON.parse`). This alone kills the entire class of "emitted a literal `\n` / truncated file" bugs that read fine in a diff and explode at import time.
+5. **Log every catch to a scorecard.** Each blocked claim appends a line to an append-only log. That log is the system-vs-human catch-rate metric — proof the gate is earning its keep, and a dataset for tuning it. (See the "a metric you cannot read is null" rule in `docs/observability.md`.)
+
+The test that proves the gate works is deliberately adversarial: feed it a run that writes a syntax-broken file and claims success, and confirm the wrapper *blocks* it (non-zero exit) rather than passing the agent's 0 through. A gate you have not watched reject a real fake-success is not a gate — it's a hope.
+
+This is the executable end of the Toil/Anomaly graduation (§2): "agents claim done when it isn't" is a mechanical failure, so the remedy is a verifier that runs and refuses — not another line of prose asking agents to be careful.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

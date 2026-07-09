@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-07-09
+
+### Added
+- **Make "done" falsifiable** (`docs/self-improvement.md` §10) — documents the discipline of turning a completion claim into machine-checkable assertions (file exists / parses / min-bytes / command exits 0) and gating every surface that reports "done" (agent wrappers, background crons, the chat loop) with the same verifier. The load-bearing rule: a red gate overrides a green agent — if the agent exited 0 but the check failed, the run is NOT done and the wrapper returns a distinct failure code. A cheap universal syntax-parse of every changed file kills the whole "literal `\n` / truncated file" class that reads clean in a diff and explodes at import. Every blocked claim logs to an append-only scorecard (system-vs-human catch rate). The proof it works is adversarial: watch it reject a deliberate fake-success. This is the executable end of the Toil/Anomaly graduation (§2).
+
 ## 2026-07-07
 
 ### Added
