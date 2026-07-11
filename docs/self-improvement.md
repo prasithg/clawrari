@@ -47,6 +47,8 @@ Classify a failure at the first postmortem:
 
 Keep the regression log small and high-signal (prune, compile to lints, or collapse a recurring family into a single tripwire). A tripped tripwire should emit the exact command to run its remedial skill. **The same mechanical failure reappearing as new regressions is the signal that the system failed to graduate it to a skill.**
 
+**Guard the guardrail.** "Keep the ledger pruned" fails the moment it depends on a human remembering to prune. So make the pruning rule itself a machine assertion inside the ledger: a duplicate or colliding tripwire ID trips, and a hard size cap trips, exactly like any other tripwire. The list that catches your regressions must catch its own bloat, or it silently grows past the point where anyone reads it — and an unread ledger is a dead ledger.
+
 ## 3. Semi-Automatic Learning Capture
 
 Clawrari prefers semi-automatic promotion over blind self-editing.
