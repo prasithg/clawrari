@@ -141,6 +141,36 @@ That keeps the system:
 - portable
 - recoverable after failures
 
+## Hardening the Retrieval Layer
+
+A semantic index is a piece of infrastructure, and infrastructure fails quietly. Three patterns, learned the hard way, keep a local retrieval layer honest.
+
+### 1. Monitor the *effective* backend, not just the outcome
+
+The most dangerous failure is the silent fallback: config says you're on the fast/smart backend, but the process quietly fell back to a degraded path — and every query still returns *a* result, so nothing looks broken. A state like this can fester for weeks because the only signal being watched is "did a result come back," not "which backend actually served it."
+
+Build a canary that checks three things on a known query:
+
+1. the **configured** backend (what config claims),
+2. the **effective** backend (proof the intended engine actually booted — a startup marker, a health field, a version string), and
+3. **index health** (the canary query returns the hit it should).
+
+Config says X but the effective marker is absent == silent fallback == alert. Outcome-only monitoring will never catch this.
+
+### 2. Dedupe on content identity, before truncating the window
+
+If a query fans out across multiple collections or aliases that point at the same underlying data, the same chunk can come back twice — and it eats a slot in your top-`k` window, halving the diversity the model actually sees.
+
+A docid- or URL-keyed dedupe does **not** catch this: the ids and source prefixes differ across aliases even when the bytes are identical. The only reliable identity is the **content coordinate** — the collection-stripped path plus line range. Dedupe on that key, keeping the higher-scored copy, *before* you truncate to `maxResults`. Fixing the symptom at the merge layer is safe and reversible; removing the redundant alias upstream is the deeper cleanup but a destructive live-state op — do it deliberately, not as a side effect.
+
+### 3. Fuse mixed-scale signals with rank, not raw score
+
+When you blend two retrieval signals — e.g. a lexical/keyword pass for exact-token queries and a vector pass for semantic ones — their score scales rarely match. A common trap: lexical (BM25) scores are unbounded (~1.0–1.5) while vector cosine scores are 0–1. Merge them with an **additive boost** and any lexical hit outranks every vector hit — you recover the exact-token query but *displace* a better-contextualized semantic chunk. Net zero, or worse.
+
+Use **Reciprocal Rank Fusion (RRF)** instead: fuse on each result's *rank* within its own list, not its raw score, so the two scales stop fighting. This is the ecosystem-standard hybrid approach for exactly this reason. In a real bake-off, switching additive→RRF recovered the exact-token miss with zero regressions on the golden set. Caveat: hybrid only fires when the *query itself* carries a token shape — a natural-language question that never mentions the id still needs query-side expansion.
+
+**Meta-lesson:** every one of these is an eval-gated change. "It returns results" is not "retrieval is proven." Green means "beats baseline on a fixed golden set," and the untested surface (live path under load, fault-injected fallback, fusion-constant sensitivity) gets named explicitly, not assumed.
+
 ## Rules of Thumb
 
 - Keep `session-brief.md` aggressively small.
