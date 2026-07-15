@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-07-15
+
+### Added
+- **The dispatch contract** (`docs/night-work.md`) — hardens unattended background-job handoff so a run can never report green while doing nothing. Six rules: write a liveness receipt before any external side effect (so QA can tell never-started from started-and-failed), forbid detached `nohup`/`&` launches in favor of supervised exec with recoverable process ids, pass agent prompts via files not shell quoting, make cross-model fallback part of the dispatch path rather than a manual retry, require a written build→next-stage handoff receipt, and alert on the first failed run instead of waiting for two. Encode it as a mechanical regression check so a skipped receipt or forbidden launch fails loudly.
+
 ## 2026-07-09
 
 ### Added

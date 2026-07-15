@@ -45,6 +45,19 @@ Maintenance jobs:
 
 - main runtime or lightweight sub-agent, depending on scope
 
+## The Dispatch Contract
+
+Unattended dispatch is where night work quietly rots. A job "succeeds" (exit 0, green status) while having done nothing, or a worker dies and the supervisor cannot tell _never started_ from _started and failed_. Harden the handoff with a contract every background job obeys:
+
+1. **Liveness receipt before any external side effect.** Write a `mark-started` record (a run ID + timestamp) _before_ the first mutation to chat, a tracker, or the filesystem. A later QA pass can then distinguish never-started, running, done, and failed — even across same-day reruns of the same job.
+2. **No detached launches.** Forbid `nohup ... &` and bare shell `&`. They orphan the process and throw away the identifiers you need to inspect, steer, or kill it. Launch through the runtime's supervised background exec so the process/session id stays recoverable.
+3. **Prompts via files, not shell quoting.** Pass large agent prompts through a prompt file or stdin. Inline heredocs and quoted mega-strings break unpredictably and are impossible to diff.
+4. **Cross-model fallback is part of dispatch, not a manual retry.** If the primary coding agent fails fast, route the same task to the other agent automatically. Bake the fallback into the dispatch path.
+5. **Require a handoff receipt.** The build stage must leave a written handoff (what was attempted, where output landed, done/blocked/failed) that the next stage reads. No dangling "will follow when done."
+6. **Alert on the _first_ failed run.** Don't wait for two consecutive failures; a single failed unattended run is worth one loud, best-effort notification.
+
+Encode the contract as a mechanical check (see [Regression Suite](harness/regression-suite.md)) so a run that skips a receipt or uses a forbidden launch pattern fails loudly instead of reporting green.
+
 ## Safety Valves
 
 Night work should be productive, not runaway.
