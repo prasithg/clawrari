@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-07-17
+
+### Added
+- **When the orchestrator itself dies** (`docs/harness/night-work-pipeline.md`) — extends the night-work pipeline past its "agent reaches the completion sweep" assumption to the nastier case where the orchestrator crashes mid-flight and cannot run its own finalizer. Load-bearing rule: **a completion guarantee must live outside the thing it guards.** Ship two external, orchestrator-independent checks on their own schedule: an idempotent `mark-failed --if-running` finalizer that heals markers stuck at `running` past a staleness window (no-op once terminal), and a launch-confirmation sweep that fails loudly and names any planned unit that produced neither a log nor a recorded skip (the silent-drop case invisible to checks that only inspect units that ran). Traps: a start-time process id is the launcher, not the work, so use marker freshness for liveness; and build the sweep with witnessed red→green evidence plus pos/neg self-tests, or a finalizer that never fires just looks like coverage. Generalizes: any autonomous agent that can die silently needs an external observer to close its books.
+
 ## 2026-07-15
 
 ### Added
