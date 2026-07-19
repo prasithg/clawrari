@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-07-19
+
+### Added
+- **The generator is not the grader** (`docs/self-improvement.md` §11) — the companion to §10's mechanical done-gate, for the subjective case (voice, taste, tone) where no `ast.parse` exists. Load-bearing rule: **an agent may not be the final judge of its own subjective quality** — where no mechanical assertion is possible, the verdict comes from an independent signal (the human's actual reply, a shipped-vs-rejected outcome, a separate evaluator that never saw the drafting step), never from the producer self-scoring. The tell is the self-certifying headline ("quality wasn't the gap") emitted by the very component under review, which lets a correction go uncaptured while the next cycle invents a fresh externalizing theory. Practices: treat the verdict as an input not an output, read the real feedback and the real output before diagnosing, persist corrections to a durable ledger the producer reads every run, and cross-reference sibling loops instead of grading in isolation. Generalizes: a green self-review is worth as much as a green self-report — nothing, until an independent signal confirms it.
+
 ## 2026-07-17
 
 ### Added

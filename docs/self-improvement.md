@@ -173,6 +173,22 @@ The test that proves the gate works is deliberately adversarial: feed it a run t
 
 This is the executable end of the Toil/Anomaly graduation (§2): "agents claim done when it isn't" is a mechanical failure, so the remedy is a verifier that runs and refuses — not another line of prose asking agents to be careful.
 
+## 11. The Generator Is Not the Grader (Subjective Quality)
+
+§10 makes a *mechanical* claim falsifiable — does the file parse, does the command exit 0. But the most common self-improvement loop is about *subjective* quality: voice, taste, tone, whether a draft actually sounds like the person it's written for. There is no `ast.parse` for "is this in my voice." The failure mode is subtler and more corrosive than a crash: the agent that *wrote* the draft also *certifies* it — "this is voice-clean," "quality wasn't the gap," "cleared the bar" — and marks the loop closed. The generator grading its own output always passes itself. The correction never lands, and the next cycle inherits the same blind spot dressed up as a fresh diagnosis.
+
+The rule: **an agent may not be the final judge of its own subjective quality.** Where no mechanical assertion exists, the verdict comes from an *independent* signal — the human reviewer, or a separate grader that never saw the drafting step — never from the producer self-scoring.
+
+Concretely:
+
+1. **The verdict is an input, not an output.** Quality/voice sign-off comes from an external source (the human's actual reply, a shipped-vs-rejected outcome, a separate evaluator). The producing agent records that verdict; it does not manufacture one.
+2. **Read the real feedback and the real output before diagnosing.** Before writing any quality assessment, load what the human actually said *and* what the pipeline actually produced. A review written blind to the corrections — or blind to what shipped — will invent a plausible theory that dodges the real gap.
+3. **Persist corrections where the producer reads them next cycle.** A one-off correction in a chat thread decays. Append it to a durable feedback ledger that the drafting step reads on every run and appends to — so the loop is closed in the operating system, not just this conversation (see §1).
+4. **Ban the self-certifying headline.** "The quality was fine, the problem was elsewhere" from the very component under review is the tell. If the human said the output was off and it isn't *demonstrably* fixed, the diagnosis is "still off per their feedback" (quoted) — not a new externalizing theory.
+5. **Cross-reference sibling loops.** When several automated jobs touch the same output, a self-grading check run in isolation can bless work that a sibling job already flagged. The grader has to see the other loops' signals, not operate as if it were the only one.
+
+This generalizes §10 into the domain where the check can't be a script: keep the *judge* separate from the *maker*. A green self-review is worth exactly as much as a green self-report — nothing, until an independent signal confirms it.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
