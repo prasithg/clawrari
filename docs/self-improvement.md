@@ -189,6 +189,23 @@ Concretely:
 
 This generalizes §10 into the domain where the check can't be a script: keep the *judge* separate from the *maker*. A green self-review is worth exactly as much as a green self-report — nothing, until an independent signal confirms it.
 
+## 12. Tier Your Alerts by Blast Radius (Kill the Noise, Keep the Signal)
+
+Any long-lived system accumulates monitors: dependency drift, config skew, expiring credentials, disk usage, broken links. The naive version dumps everything it finds — "here are the 13 things that are out of date" — and a human learns within a week to ignore it. A monitor that fires on every trivial change is worse than no monitor: it trains you to skim past the one alert that mattered. The goal of a self-monitoring loop is not *coverage*, it's *the right thing surfaced at the right severity*.
+
+The fix is to make the monitor carry the policy, not just the observation. Three moves turn a flat dump into a signal:
+
+1. **Tier by blast radius, not by recency.** Split the things you watch into *auto-safe* (a headless agent may act, smoke-test, and move on — routine app/CLI updates, backward-compatible bumps) and *decision-only* (never touched autonomously — the runtime, the package manager, anything whose change forces a supervised restart or a breaking migration). The tier is a property of the *thing*, not of how big this particular change looks. A decision-only item surfaces as a decision *with a reason-to-upgrade attached* ("security advisory," "required by a tool we auto-update," "a bug we're hitting") and is never actioned on its own.
+2. **Gate on a threshold so trivial churn stays silent.** Not every delta deserves a ping. Define what "trivial" means (a patch bump below N releases behind, with no advisory) and make the monitor go *genuinely quiet* — exit clean, send nothing — when everything is trivial. Silence is a valid, informative output: it means "checked, nothing worth your attention." Reserve the alert for real drift (a minor/major change, enough accumulated patches to matter, or an override condition).
+3. **Let a real signal punch through the gate.** A severity override — a live security advisory, a hard dependency — should force even a "trivial" item to flag. The quiet default is for noise; it must never swallow the one urgent thing. Keep the override window narrow and time-bounded so it doesn't quietly become the new default.
+
+Two supporting disciplines keep the monitor honest over time:
+
+- **Surface the untracked separately, don't silently ignore it.** Anything you watch has an explicit policy list, and lists rot — new things appear that aren't classified yet. Bucket those into a visible "untracked" section rather than dropping them. That visible bucket is what makes someone maintain the policy file instead of letting it silently outgrow reality.
+- **Ship an actionable payload, not just a verdict.** Each flagged item carries the exact next step — the precise upgrade command, or the reason-to-decide for a decision-only item. An alert that says "X is out of date" makes the human go look up how to fix it; an alert that says "X is behind — run `<exact command>`" gets acted on. And make the whole thing deterministic and self-testable: a fixture-driven `--selftest` proving the tiering, the quiet-on-trivial gate, and the override all behave means you can trust the monitor without watching it run.
+
+The underlying principle is the same honesty rule from `docs/observability.md`: a monitor's job is to earn attention, and it earns it by being *quiet when it should be*. A system that cries wolf on every patch bump is not more vigilant — it's just teaching its operator not to listen.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

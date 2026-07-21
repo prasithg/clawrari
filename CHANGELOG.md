@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-07-21
+
+### Added
+- **Tier your alerts by blast radius** (`docs/self-improvement.md` §12) — how a self-monitoring loop (dependency drift, config skew, expiring creds, disk) earns attention instead of training its operator to ignore it. A monitor that fires on every trivial change is worse than none: it teaches you to skim past the one alert that mattered. Three moves turn a flat "here's everything out of date" dump into signal — (1) **tier by blast radius**: split what you watch into *auto-safe* (a headless agent may act, smoke-test, move on) vs *decision-only* (never autonomous — the runtime/package-manager/anything forcing a supervised restart), where the tier is a property of the *thing* not this change, and decision-only items surface with a reason-to-upgrade attached; (2) **gate on a threshold so trivial churn stays silent** — define "trivial" and make the monitor genuinely quiet (exit clean, send nothing) when everything is, because silence is a valid, informative output; (3) **let a real signal punch through** — a live security advisory or hard dependency forces even a trivial item to flag, on a narrow time-bounded window. Plus two honesty disciplines: surface untracked items in a visible bucket (so the policy list gets maintained, not silently outgrown) and ship an actionable payload (exact upgrade command / reason-to-decide) behind a fixture-driven `--selftest`. Generalizes the observability honesty rule: a monitor earns attention by being quiet when it should be — crying wolf on every patch bump isn't vigilance, it's teaching the operator not to listen.
+
 ## 2026-07-19
 
 ### Added
