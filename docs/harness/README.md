@@ -18,6 +18,9 @@ Rolls a window of agent runs into a six-axis scorecard: Output, Throughput, Inte
 ### [Peer-Blocker Bridge](peer-blocker-bridge.md)
 Watches a shared inbox for blocking handoffs from a peer agent, so a cross-agent question gets answered in one cron cycle instead of sitting unread for hours. Scaffold: `scripts/peer-blocker-watch.sh`.
 
+### [Skill Evals](skill-evals.md)
+Turns "this skill triggers correctly and says the right thing" into a check that runs before the skill ships. Each skill gets a case file of happy + negative prompts that lock its trigger boundary and content guarantees; trigger signals are derived from the live skill file so a description edit that drops a trigger term turns the eval red. The executable end of a "no-eval = not Done" gate.
+
 ## How they fit together
 
 The pipeline runs the work. The regression suite is what the pipeline's test stage calls. The scorecard reads the runs the pipeline produced and reports how the session went. The bridge keeps a multi-agent setup from deadlocking while all of that happens.
