@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-07-25
+
+### Added
+- **Where a guardrail's enforcement lives** (`docs/harness/regression-suite.md`) — an executable check only holds where you wire it, and the obvious spot is a trap. A pre-commit script dropped in `.git/hooks/` is untracked per-clone git metadata: it vanishes on a fresh clone, never reaches CI, and silently does nothing for every contributor who skipped your setup step — you get a green board and zero enforcement, which is worse than no hook because now you trust one. Four rules turn a check into one that actually holds: (1) **commit the hook into the tree** (`.githooks/pre-commit` + an idempotent installer that points `core.hooksPath` at it) so it ships with the repo instead of living in private metadata; (2) **back it with a CI gate** running the same check module on push — the local hook is fast feedback, CI is the gate that holds because it runs whether or not anyone installed the hook, and when they disagree CI wins; (3) **fail closed** — when the check can't run (unreadable blob, missing tool, incomplete parse) it must block, never wave through, because a guard that fails open silently converts "I couldn't check" into "looks fine"; (4) **check the staged index, not the working tree**, so you gate exactly the bytes that will land rather than a cleaner version sitting on disk. Companion discipline — **detect, don't silently repair**: a guard that auto-rewrites source turns a loud reviewable failure into a silent mutation the author never sees, and corrupts the thing it protects when its fix is wrong; report the offense, exit non-zero, let a human edit, and reserve auto-repair for outputs you fully own. Generalizes: enforcement is a property of *where the check is wired*, not whether the check exists — two points (tracked local hook + CI) sharing one module, tracked one authoritative, is the shape that can't be skipped by forgetting to install it.
+
 ## 2026-07-23
 
 ### Added

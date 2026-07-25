@@ -44,6 +44,23 @@ node scripts/regression-check.mjs --selftest
 
 A natural home for this is the test stage of the [night-work pipeline](night-work-pipeline.md), or a pre-commit hook so a guardrail breach blocks the commit that would have introduced it.
 
+## Where the enforcement lives
+
+A guardrail is only as reliable as the place you wire it. The tempting spot for a pre-commit check — `.git/hooks/pre-commit` — is a trap: that directory is untracked, per-clone git metadata. It vanishes on a fresh clone, never survives to CI, and quietly does nothing for every contributor who didn't run your setup script. You get a green board and zero enforcement, which is worse than no hook, because you now trust one.
+
+The fix is to make enforcement a tracked, version-controlled artifact with a redundant backstop:
+
+- **Commit the hook into the tree**, e.g. a `.githooks/pre-commit` that lives in version control, plus an idempotent installer that points `core.hooksPath` at it. The check ships with the repo instead of living in each machine's private metadata.
+- **Back it with a CI gate** that runs the same check on push. The local hook is fast feedback; CI is the gate that actually holds, because it runs whether or not anyone installed the hook. If they disagree, CI wins.
+- **Fail closed.** When the check cannot run — a blob it can't read, a tool it can't find, a parse it can't complete — it must block, not wave the commit through. A guardrail that fails open silently converts "I couldn't check" into "looks fine."
+- **Check the staged index, not the working tree.** A pre-commit guard that reads working-tree bytes can pass on what's on disk while a different, defective version is what's actually staged to land. Inspect the staged blob so you gate exactly what will be committed.
+
+Two enforcement points that share one check module, with the tracked one authoritative, is the shape: local speed plus a gate that can't be skipped by forgetting to install it.
+
+## Detect, don't silently repair
+
+When a guardrail finds a defect in source, the instinct is to auto-fix it. Resist it for anything touching user or contributor source. A guard that rewrites files turns a loud, reviewable failure into a silent mutation the author never sees — and when its fix is wrong, it corrupts the very thing it was protecting. Prefer **detection-only**: report the exact offense and its location, exit non-zero, and let a human make the edit. Reserve auto-repair for outputs you fully own and can regenerate, never for source you're guarding on someone else's behalf.
+
 ## Where the line sits
 
 Not every guardrail reduces to a check. "Match the voice in SOUL.md" needs judgment a regex cannot supply, though you can get partway there by asserting the absence of specific banned tokens (the AWDS lexical layer is a good source of those). The rule of thumb: if you can describe the failure as an observable condition on files or command output, make it a check. If it needs taste, leave it in prose and let the [eval scorecard](eval-scorecard.md) route it to human judgment.
