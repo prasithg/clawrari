@@ -39,10 +39,16 @@ This repo does not vend every skill directly. It documents the core skill mix us
 ## Execution and Improvement
 
 `coding-agent`
-- Delegates meaty implementation work to Codex or Claude Code.
+- Delegates meaty implementation work to Codex or Claude Code, with a mechanical delegate-or-declare trigger that stops interactive sessions from silently drifting into hours of inline editing. Vended in full at [`coding-agent/SKILL.md`](coding-agent/SKILL.md).
+
+`cross-review`
+- The default review handle for any code work: the *opposite* model family reviews the build (Codex reviews Claude Code, and vice versa), grades every acceptance criterion with `file:line` evidence, and must name its own untested surface. Vended in full at [`cross-review/SKILL.md`](cross-review/SKILL.md).
 
 `night-work`
-- Overnight queue runner for coding, research, maintenance, and cleanup.
+- Overnight autonomous build loop: one bounded task at a time, verify, log, move on — for coding, research, maintenance, and cleanup. Vended in full at [`night-work/SKILL.md`](night-work/SKILL.md).
+
+`loop-watcher`
+- Scouts emerging repeatable agent loops from external sources (social feeds, community loop libraries), dedupes against a shared seen-ledger, classifies each net-new candidate with a deterministic rubric, and drafts a digest for human review — never auto-files, never posts. Pattern scaffold at [`loop-watcher/SKILL.md`](loop-watcher/SKILL.md).
 
 `self-improving-agent`
 - Captures failures, learnings, corrections, and feature requests for later promotion.
@@ -125,10 +131,11 @@ Useful but not core to every install:
 3. `responsive`
 4. `daily-digest`
 5. `coding-agent`
-6. `night-work`
-7. `self-improving-agent`
-8. `slack`
-9. `linear`
-10. selected `gws-*` skills
+6. `cross-review`
+7. `night-work`
+8. `self-improving-agent`
+9. `slack`
+10. `linear`
+11. selected `gws-*` skills
 
 The rule is simple: install skills that map to recurring workflows first. Leave novelty skills for later.

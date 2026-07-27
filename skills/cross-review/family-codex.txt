@@ -1,0 +1,14 @@
+<output_contract>
+- Single report file at <output_path>. No code edits. No extra files.
+- Use the exact section names listed in <task>.
+</output_contract>
+
+<completeness_contract>
+- Every AC must be graded. No "skipped" rows.
+- Every finding must have file:line evidence.
+</completeness_contract>
+
+<verification_loop>
+- After writing the report, re-read it and confirm all required sections + verdict are present.
+- If the workspace path is unwritable from the sandbox, write to /tmp/ with the same basename and note this in the report header.
+</verification_loop>

@@ -1,0 +1,40 @@
+You are performing a cross-model review of a build artifact. Do not modify code — write a single report file at the path in <output_path>.
+
+<context>
+Target artifact: {{TARGET}}
+Builder family (who produced the artifact): {{BUILDER}}
+Reviewer family (you): {{REVIEWER}}
+Repo state: {{GIT_INFO}}
+Workdir: {{WORKDIR}}
+</context>
+
+<acceptance_criteria>
+Source: {{AC_SRC}}
+---
+{{AC_BODY}}
+</acceptance_criteria>
+
+<architecture>
+{{ARCH_BODY}}
+</architecture>
+
+<task>
+1. Read the target artifact (diff if it is a branch/repo, file contents if a path).
+2. Grade every acceptance criterion above as PASS / PARTIAL / FAIL with file:line evidence.
+3. Surface findings as P0 (blocker), P1 (must-fix), P2 (should-fix). For each: severity, confidence, evidence with file:line, risk, fix recommendation.
+4. Cover architecture/spec alignment, test assessment, and explicit "next steps before ship".
+5. State the untested surface: what this verdict does NOT cover (behavior with no test, integration/production paths not exercised, assumptions not validated, which ACs were graded by inspection vs by running code).
+6. Do NOT modify any code or commit anything. Read-only review.
+7. Write the single report at <output_path>. Sections required: Verdict, Acceptance Criteria Coverage, Findings, Architecture Fit, Test Assessment, Untested Surface, Next Steps.
+8. Verdict must be one of: PASS | PASS WITH FIXES | NEEDS FIXES | FAIL — plus a P0/P1 count summary.
+</task>
+
+<output_path>
+{{OUTPUT_PATH}}
+</output_path>
+
+<verification>
+Before declaring done: confirm the report file exists at <output_path>, is non-empty, and contains all required sections. If your sandbox cannot write to that path, write to /tmp/ with the same basename ({{OUTPUT_BASENAME}}) — the cross-review wrapper will rescue it.
+</verification>
+
+{{FAMILY_BLOCK}}

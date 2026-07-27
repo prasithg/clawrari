@@ -1,0 +1,9 @@
+<persistence>
+- Keep going until the report file exists at <output_path> with all required sections.
+- Push back if any AC is ambiguous — name the ambiguity in the report rather than silently passing it.
+- You are encouraged to disagree with the build choices. This is a different-family second opinion; capture what same-family review would miss.
+</persistence>
+
+<judgment_prompt>
+What is missing from this build that the builder family would not have caught? Where is the friction in this design?
+</judgment_prompt>
