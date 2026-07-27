@@ -14,13 +14,14 @@ It packages the patterns that matter:
 
 It is not a generic starter template. It is a strong point of view about how to run OpenClaw well.
 
-## What's New in v0.4.0
+## What's New in v0.5.0
 
-- [`docs/playbook.md`](docs/playbook.md) is now the canonical install-and-adopt guide.
-- `reference/model-playbook/` is public with routing, overlays, and per-model prompting notes.
-- Core docs now reflect the current memory, self-improvement, connector, and architecture patterns.
-- Persona overlays and assistant-owned identity channels are now documented.
-- `bootstrap/init.sh` now generates the modern memory skeleton and no longer leaks raw template conditionals.
+- **Refreshed model playbook** — [`reference/model-playbook/`](reference/model-playbook/) is resynced with the live stack after months of drift: a new `effort-ladder.md` (single source for effort levels and the default routing chain), per-model prompt guides, and updated overlays and orchestration routing.
+- **Four new production skills**, sanitized for reuse: `cross-review` (opposite-family review with evidence-graded criteria), `night-work` (bounded overnight build loop), `coding-agent` (bash-first delegation to Codex/Claude Code), and `loop-watcher` (read-only external-loop scouting).
+- **Matured harness patterns** in [`docs/harness/`](docs/harness/): the night-work pipeline now survives a dead orchestrator via an external finalizer, plus the executable regression suite, six-axis eval scorecard, and "no eval = not Done" skill gate.
+- **Agent observability** — the `trace → usage → scorecard → report` chain with a zero-dependency morning-report skeleton ([`docs/observability.md`](docs/observability.md), [`templates/observability/`](templates/observability/)).
+- **Distilled-patterns cadence** — ~13 field-tested docs landed since v0.4: make "done" falsifiable, the generator is not the grader, tier alerts by blast radius, guard the guardrail, and absorb the pattern not the dependency.
+- **Memory promotion (the dreaming pass)** and reusable memory templates for the layered store ([`docs/memory-promotion.md`](docs/memory-promotion.md), [`templates/memory/`](templates/memory/)).
 
 ## Why Clawrari
 

@@ -32,26 +32,24 @@ Clawrari ships in layers. The first releases established the core operating syst
 - persona and identity-channel patterns
 - broader context sync from the live workspace
 
-### v0.5 (in progress)
+### v0.5
 
-- memory promotion docs (the dreaming pass) and reusable memory templates
-- harness pattern set: night-work pipeline, executable regression suite, six-axis eval scorecard, peer-blocker bridge
-- runnable harness scaffolds with selftests (Node builtins and bash only, no dependencies)
+- refreshed public model playbook: `effort-ladder.md` (single source for effort levels + default routing chain), per-model prompt guides, updated overlays and orchestration routing, plus a Fable long-horizon operating pack
+- four new production skills ported and sanitized: `cross-review`, `night-work`, `coding-agent`, `loop-watcher`
+- harness pattern set: night-work pipeline (now with an external finalizer for dead orchestrators), executable regression suite, six-axis eval scorecard, "no eval = not Done" skill gate, and the peer-blocker bridge
 - agent observability pattern: run-trace schema, scorecard roll-up, and a zero-dependency morning-report HTML skeleton (`docs/observability.md`, `templates/observability/`)
-- stacking-loops pattern: composing nested feedback loops (craft → cross-review → measured-gate) where each emits a measurable signal the next consumes (`docs/stacking-loops.md`)
-- human-facing message standard: plain-English-first status, chat, Slack, handoff, and report updates that route internal machinery to logs and eval artifacts (`docs/human-facing-message-standard.md`)
-- cadence recovery hygiene: GitHub CI/selftest workflow, structured issue templates, OpenClaw recovery note, and PRA-173 eval artifact (`.github/`, `.openclaw/`, `reports/evals/2026-06-21-pra173-clawrari-cadence.md`)
+- memory promotion (the dreaming pass) docs and reusable memory templates (`docs/memory-promotion.md`, `templates/memory/`)
+- stacking-loops and human-facing-message-standard patterns, plus ~13 distilled field-tested pattern docs landed since v0.4 (make "done" falsifiable, generator-is-not-the-grader, tier alerts by blast radius, guard the guardrail, absorb the pattern not the dependency)
+- cadence recovery hygiene: GitHub CI/selftest workflow, structured issue templates, and eval artifacts
 
-## Next: v0.5
+## Next
 
 Focus:
 
-- benchmarked self-improvement loop
-- ~~measurable eval harnesses~~ ✅ six-axis scorecard scaffold (v0.5)
-- ~~promotion review tooling~~ ✅ dreaming-pass checklist + promotion docs (v0.5)
-- ~~stronger validation defaults for coding-agent output~~ ✅ executable regression suite (v0.5)
-- ~~legible reporting on unattended runs~~ ✅ observability pattern + morning-report skeleton (v0.5)
-- ~~plain-English human-facing agent updates~~ ✅ human-facing message standard + eval (v0.5)
+- expand the skill eval harness so every ported skill ships with a trigger + content eval
+- port more skills from the drift backlog (the live workspace is ahead of the public surface)
+- site refresh so the landing pages track the v0.5 playbook and harness docs
+- richer visibility into queue health, stale agents, and memory freshness
 
 The goal is simple: Clawrari should be able to show that it improved, not just claim it.
 
@@ -62,7 +60,6 @@ Potential directions:
 - richer creator/research ingestion pipelines
 - optional work/personal persona separation
 - stronger proactive intelligence workflows
-- better visibility into queue health, stale agents, and memory freshness
 
 ## Near-Term TODOs
 

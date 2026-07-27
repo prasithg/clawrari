@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.5.0 — 2026-07-27
+
+The proof-and-execution release. The public model playbook is resynced with the live stack (`effort-ladder.md`, per-model prompt guides, updated overlays and orchestration routing, a Fable long-horizon pack), and four production skills ship sanitized for reuse: `cross-review`, `night-work`, `coding-agent`, and `loop-watcher`. The harness set matured — the night-work pipeline now survives a dead orchestrator via an external finalizer, and the regression suite, six-axis eval scorecard, and "no eval = not Done" skill gate are wired in. Adds agent observability (`trace → usage → scorecard → report` with a zero-dependency morning report), memory promotion (the dreaming pass) plus reusable templates, and ~13 distilled field-tested pattern docs landed since v0.4. Dated entries below carry the detail.
+
 ## 2026-07-27
 
 ### Changed
