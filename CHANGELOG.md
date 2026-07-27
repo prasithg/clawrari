@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-07-27
+
+### Changed
+- **Model Playbook refresh** (`reference/model-playbook/`) — brought the public playbook back in sync with the live stack after ~3 months of drift. Rebuilt the roster around **Opus 4.8 medium** as the default orchestrator with a cross-provider fallback chain (Opus → GPT-5.6 Sol → Kimi K3), **Fable 5** as the hard-autonomous/long-horizon primary, GPT-5.6 Sol as reviewer/coding, Grok 4.5 as specialist escalation, Gemini 3.5 Flash as fast/bulk-only, and GLM 5.2 as experimental-only. New `models.yaml` (v13), `orchestration-strategy.md` routing table + decision tree, and per-model prompt files (`opus`, `fable`, `gpt-5.6`, `grok-4.5`, `kimi-k3`, `gemini-3.5-flash`, `glm-5.2`) plus refreshed `overlays/` (`main-opus`, `main-fable`, `main-gpt54`).
+
+### Added
+- **`effort-ladder.md`** — single source of truth for effort levels (xhigh/high/medium/low/max) and the default routing chain, with guardrails on which lanes each model may enter.
+- **`fable-operating-pack.md`** — a prompt library for long-horizon autonomous work (a pre-discovery prompt + 13 task templates), adapted from Every's public Fable 5 pack to an OpenClaw-style harness.
+- **`models/fable.md`** — Fable 5 prompting and long-horizon constraints, including the reasoning-extraction hazard, effort/`max_tokens` pairing, orchestration patterns, and field-tested usage notes.
+- **`overlays/main-fable.md`** — main-session behavior when driving Fable: reasoning handling, automatic task-entry compiler, sub-agent fan-out governor, and durable execution/recovery discipline.
+- **`goal-loop-vasilescu-second-brain.md`** — an annotated reference exemplar of a well-structured Codex `/goal` spec (orientation-first, hard checkpoints, resumable state, deterministic validation gates).
+
+### Removed
+- Retired/superseded per-model files: `models/gpt-5.4.md`, `models/gemini-3.1-pro.md`, `models/glm-5.1.md`, `models/sonnet-4.6.md`, and `models/haiku-4.5.md` — replaced by the current roster above (Sonnet prompting now folds into `models/opus.md`; Haiku and Gemini Pro are retired routes).
+
 ## 2026-07-25
 
 ### Added

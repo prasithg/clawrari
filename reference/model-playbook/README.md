@@ -1,45 +1,46 @@
 # Model Playbook
 
-Single source of truth for **which model to use, when, and how to prompt it**.
+Single source of truth for which model to use, at what effort, and how to prompt it.
 
-Last updated: 2026-04-18 — built from official model prompting guides plus observed behavior in live OpenClaw-style workflows.
+Last updated: 2026-07-21.
 
----
-
-## What's here
+## Files
 
 | File | Purpose |
 |---|---|
-| `orchestration-strategy.md` | **Read first.** Decision tree: task type → model + prompt style. The routing brain. |
-| `models.yaml` | Single source of truth for model ids, aliases, capabilities, costs, and prompt style. |
-| `models/opus.md` | Claude Opus 4.6 + 4.7 prompting (covers main-session orchestration + heavy reasoning subagents). |
-| `models/gpt-5.4.md` | OpenAI GPT-5.4 prompting (alternate main + Codex CLI coding agent). |
-| `models/gemini-3.1-pro.md` | Gemini 3.1 Pro prompting (deep research, websearch-heavy, multimodal). |
-| `models/glm-5.1.md` | z.ai GLM 5.1 prompting (flagship, SOTA SWE-Bench Pro, long-horizon autonomous work, default subagent). |
-| `models/sonnet-4.6.md` | Claude Sonnet 4.6 prompting (Anthropic-ecosystem fallback, content drafts). |
-| `models/haiku-4.5.md` | Claude Haiku 4.5 prompting (cheap Anthropic-family — candidate, not active in workspace). |
-| `overlays/main-opus.md` | Loaded when main session = Opus. Behavioral nudges that don't belong in SOUL.md. |
-| `overlays/main-gpt54.md` | Loaded when main session = GPT-5.4. Behavioral nudges + XML-block scaffolding. |
+| `models.yaml` | Canonical active roster, aliases, intent routes, efforts, and fallbacks. |
+| `orchestration-strategy.md` | Human-readable routing policy and decision tree. |
+| `effort-ladder.md` | Workspace effort convention. |
+| `models/opus.md` | Opus 4.8 prompting. |
+| `models/fable.md` | Fable 5 prompting and long-horizon constraints. |
+| `models/gpt-5.6.md` | GPT-5.6 Sol effort tiers and prompting. |
+| `models/grok-4.5.md` | Grok 4.5 specialist route. |
+| `models/kimi-k3.md` | Explicit Kimi K3 route through OpenRouter. |
+| `models/gemini-3.5-flash.md` | Flash-only fast/bulk lane. |
+| `models/glm-5.2.md` | Experimental GLM route. |
+| `overlays/main-opus.md` | Main-session behavior when running Opus. |
+| `overlays/main-fable.md` | Main-session behavior when running Fable. |
+| `overlays/main-gpt54.md` | GPT-family main-session behavior; filename retained for compatibility. |
 
-## How to use
+## Active roster
 
-**Routine sub-agent spawn:** Look at the routing table at the top of `reference/agent-prompt-template.md`. It tells you which model file to consult. Most cases stop there.
+- Default: Opus 4.8 medium.
+- Default fallback: GPT-5.6 Sol medium, then Kimi K3 high.
+- Reviewer/coding: GPT-5.6 Sol high; Fable 5 as the alternate reviewer.
+- Hard autonomous: Fable 5 xhigh, then GPT-5.6 Sol xhigh, then Grok 4.5 high.
+- Fast/bulk only: Gemini 3.5 Flash low.
+- Specialist escalation: Grok 4.5 high.
+- Third-best general fallback: Kimi K3 high. Grok 4.5 remains specialist escalation; GLM 5.2 remains experimental.
 
-**Edge case / unfamiliar task:** Read `orchestration-strategy.md` decision tree, then the relevant `models/<model>.md` for prompt patterns.
+Perplexity remains a search provider, not a reasoning-model route.
 
-**Switching main session model:** Update SOUL.md's `ACTIVE_MAIN_OVERLAY` line to point at the right file in `overlays/`. Nothing else needs to change.
+## Use
 
-**Building a new prompt or skill:** Use the model file's "system prompt template" section as your starting point. Test against the model's known failure modes listed at the bottom of each model file.
+Run `./scripts/spawn-helper.sh <intent>` before non-trivial delegation, then read the returned model file. `models.yaml` is authoritative if prose drifts.
 
-## Update cadence
+When adding or retiring a model:
 
-- **Per-model files:** Update when a new model version drops or a quirk is discovered (write to `memory/regressions.md` first, then update the model file).
-- **`orchestration-strategy.md`:** Update when a new task type emerges or routing proves wrong in practice. Document why in the changelog at the bottom.
-- **`models.yaml`:** Update when adding/removing a model. Bump `version` field.
-
-## Related
-
-- `reference/agent-prompt-template.md` — XML-tagged prompt scaffolding (now model-aware via routing table at top)
-- `reference/prompt-engineering-patterns.md` — Cross-cutting XML block library
-- `memory/regressions.md` — Failure-to-guardrail log; check before adding new prompt patterns
-- Optional local helper scripts can sit on top of this playbook, but the playbook itself is the source of truth.
+1. Update the live OpenClaw allowlist and fallback chain.
+2. Update `models.yaml` and bump its version.
+3. Align the prompt template and boot-context summaries.
+4. Run live model smokes and the core-workflow eval.
