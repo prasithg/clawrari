@@ -58,6 +58,25 @@ Two traps to avoid:
 - A process id captured at start is not a liveness signal. It belongs to the short-lived launcher, not the long-running work, so "is that pid alive?" answers the wrong question. Use marker freshness (last heartbeat vs. now) instead.
 - Build the external sweep with witnessed red→green evidence and positive/negative self-tests. A finalizer that never fires because its staleness window or state matching is subtly wrong is worse than none, because it looks like coverage.
 
+### An existence check is not an output check
+
+Launch confirmation has a subtler failure mode worth calling out on its own: **a file that exists is not the same as a file with content in it.** A verifier that confirms "the planned per-unit log exists" is satisfied by a zero-byte log — and an agent that started, wrote nothing, and exited immediately produces exactly that. The launch looks confirmed; the work never happened.
+
+The fix costs one extra predicate. After a grace window, require **process-alive AND non-empty output**, not just "the log path is there." An empty artifact fails the check the same as a missing one. This closes the gap where a crashed-on-startup worker slips past a launch gate that only inspects the filesystem, not what the worker actually did.
+
+The wider rule: when you assert that an autonomous unit launched, assert on evidence the unit itself had to produce, and make emptiness a failure. Presence of a container proves the orchestrator ran; content proves the worker did.
+
 The general principle generalizes past night work: **any autonomous agent that can die silently needs an external observer to close its books.** Self-cleanup is a best-effort convenience; it is never the guarantee.
+
+## When two agents share one working tree
+
+Running several agents in parallel is the obvious way to get more done overnight, and the obvious mistake is to point them all at the same checkout. Git state is process-global to a working tree: the branch, the index, and the working files are shared. When agent A checks out its branch to commit while agent B is mid-edit, B's next commit can silently land on A's branch, and untracked-file collisions and index races follow. The damage is usually recoverable, but only after a confusing morning of untangling which commit went where.
+
+Two clean options, in order of preference:
+
+1. **Isolate the tree.** Give each concurrent agent its own `git worktree` (or a full clone) on its own branch. `git worktree add` is cheap, shares the object store, and gives every agent an independent index and HEAD. This is the real fix — there is no shared mutable state left to race on.
+2. **Serialize the commits.** If isolation is not available, funnel all commits through a single lock so only one agent touches branch/index state at a time. This trades throughput for safety and is strictly worse than isolation, but it beats corruption.
+
+The trap to avoid is assuming a passing early liveness poll means the agents are safely partitioned. Liveness and isolation are different properties: two agents can both be healthily alive and still be stepping on each other's git state. Provision the isolation at spawn time, before any agent starts writing.
 
 See [Night Work](../night-work.md) for the broader operating doctrine this pipeline sits inside, and the [Regression Suite](regression-suite.md) for what a good test stage calls.
