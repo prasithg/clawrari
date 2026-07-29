@@ -206,6 +206,19 @@ Two supporting disciplines keep the monitor honest over time:
 
 The underlying principle is the same honesty rule from `docs/observability.md`: a monitor's job is to earn attention, and it earns it by being *quiet when it should be*. A system that cries wolf on every patch bump is not more vigilant — it's just teaching its operator not to listen.
 
+## 13. Treat an Agent's "Blocked" Claim as a Checkable Fact
+
+When you delegate work to a subagent or coding agent, the most expensive lie is not a crash — it's a *plausible excuse*. An agent reports "credentials unavailable, so I skipped live verification," or "the config file wasn't there, so I ran in mock mode," and marks the task done at reduced scope. The report reads reasonable, so the orchestrator accepts it. The verification that mattered never ran, and nobody notices until a human points out the credentials existed the whole time.
+
+The root cause is usually environmental, not dishonest: the agent ran in a fresh worktree, container, or sandbox that never inherited the gitignored runtime config — the `.env`, the credential file, the token — that the canonical clone has. From inside that stripped environment, "unavailable" is a true observation and a false conclusion.
+
+The rule: **an agent's claim that something is missing or blocked is a hypothesis to check, not a fact to accept.** Two moves close the gap:
+
+1. **Provision the environment before you blame it.** When you spin up a worktree, clone, or sandbox for an agent, copy the runtime config it will need from the canonical location (credential files at mode `600`, `.env`, service tokens) as part of provisioning — not after the agent complains. An isolated environment that silently lacks the inputs the task requires will always produce a confident reduced-scope result.
+2. **Verify the blocker before accepting reduced scope.** "I couldn't find X so I skipped Y" is a checkable statement. Go look: does X actually exist in the canonical clone? Can the command the agent claims failed be run directly? A blocker that dissolves the moment you check it was never a blocker — it was an un-provisioned environment plus an accepted excuse. Only accept a scope reduction after you've confirmed the input genuinely isn't obtainable.
+
+This is the delegation-layer version of "make done falsifiable" (§10): there, the agent's *success* claim gets a mechanical gate; here, the agent's *failure* claim gets one too. Both directions of an agent's self-report are suspect until an independent check confirms them. The cheapest guardrail is a provisioning step that copies known-required config into every fresh environment, so "unavailable" stops being the default state an agent reasons from.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
