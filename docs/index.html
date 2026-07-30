@@ -58,12 +58,22 @@
           <a class="btn btn-primary" href="https://github.com/prasithg/clawrari">View on GitHub</a>
           <a class="btn btn-ghost" href="#quickstart">Quick start</a>
         </div>
+        <p class="hero-proof-inline" aria-label="Production snapshot">
+          <span>Skills <b>8</b></span>
+          <span>Docs <b>44</b></span>
+          <span>CI selftests <b>4</b></span>
+          <a href="https://github.com/prasithg/clawrari/actions/workflows/ci.yml">Live CI ↗</a>
+        </p>
       </div>
-      <div class="hero-plate" aria-hidden="true">
-        <span class="plate-mark">clawrari<span class="cursor"></span></span>
-        <span class="plate-rule"></span>
-        <span class="plate-meta"><span>v0.5<span class="u">.0</span></span><span>open source</span><span>MIT</span></span>
-      </div>
+      <aside class="hero-plate hero-proof" aria-label="Production snapshot">
+        <span class="plate-label">Production snapshot</span>
+        <dl>
+          <div><dt>Skills</dt><dd>8</dd></div>
+          <div><dt>Docs</dt><dd>44</dd></div>
+          <div><dt>CI selftests</dt><dd>4</dd></div>
+        </dl>
+        <a href="https://github.com/prasithg/clawrari/actions/workflows/ci.yml">View live CI ↗</a>
+      </aside>
     </div>
   </header>
 
@@ -118,7 +128,12 @@
     <div class="wrap">
       <p class="section-label">Quick start</p>
       <h2>Clone and bootstrap</h2>
-      <div class="code"><span class="c"># clone it</span>
+      <div class="code-shell">
+        <button class="copy-command" type="button" aria-label="Copy clone command">
+          <span class="copy-dot" aria-hidden="true"></span>
+          <span class="copy-label">Copy</span>
+        </button>
+        <div class="code"><span class="c"># clone it</span>
 git clone https://github.com/prasithg/clawrari.git
 cd clawrari
 
@@ -127,6 +142,7 @@ cd clawrari
 
 <span class="c"># then read the build playbook</span>
 open docs/playbook.md</div>
+      </div>
       <p class="proof-note">The bootstrap generates the core files from templates. The playbook covers connectors, cron setup, night work, and upgrades.</p>
     </div>
   </section>
@@ -142,15 +158,11 @@ open docs/playbook.md</div>
         <div class="stat"><div class="n">4</div><div class="l">executable CI selftests</div></div>
         <div class="stat"><div class="n ver">v0.5<span class="u">.0</span></div><div class="l">current release</div></div>
       </div>
-      <div class="badge-row">
-        <a href="https://github.com/prasithg/clawrari/actions/workflows/ci.yml">
-          <img src="https://github.com/prasithg/clawrari/actions/workflows/ci.yml/badge.svg" alt="CI status">
-        </a>
-      </div>
       <p class="proof-note">
         55 commits since February 2026, work landing on 15 of the last 30 days.
         Counts verified from the repo tree; see the
-        <a href="https://github.com/prasithg/clawrari/blob/main/CHANGELOG.md">changelog</a>.
+        <a href="https://github.com/prasithg/clawrari/blob/main/CHANGELOG.md">changelog</a> and
+        <a href="https://github.com/prasithg/clawrari/actions/workflows/ci.yml">live CI workflow ↗</a>.
       </p>
     </div>
   </section>
@@ -187,6 +199,45 @@ open docs/playbook.md</div>
       <span><a href="https://github.com/prasithg/clawrari/blob/main/LICENSE">MIT License</a> · built by <a href="https://prasithg.github.io">Prasith</a></span>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var btn = document.querySelector('.copy-command');
+      if (!btn) return;
+      var CMD = 'git clone https://github.com/prasithg/clawrari.git\ncd clawrari';
+      var label = btn.querySelector('.copy-label');
+      var resetTimer;
+      function flash() {
+        btn.classList.add('copied');
+        if (label) label.textContent = 'Copied';
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(function () {
+          btn.classList.remove('copied');
+          if (label) label.textContent = 'Copy';
+        }, 1600);
+      }
+      function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'absolute';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+      btn.addEventListener('click', function () {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(CMD).then(flash, function () {
+            fallbackCopy(CMD); flash();
+          });
+        } else {
+          fallbackCopy(CMD); flash();
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>
