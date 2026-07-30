@@ -81,7 +81,11 @@ out=""
 
 while IFS= read -r f; do
   [ -n "$f" ] || continue
-  mt=$(stat -f %m "$f" 2>/dev/null || stat -c %Y "$f" 2>/dev/null || echo 0)
+  # Portable mtime: GNU stat first (Linux), BSD stat fallback (macOS).
+  # NOTE: on Linux, BSD-style `stat -f %m` SUCCEEDS but returns filesystem text,
+  # so BSD-first ordering poisons $mt with a non-integer (CI failure 2026-07-29).
+  mt=$(stat -c %Y "$f" 2>/dev/null || stat -f %m "$f" 2>/dev/null || echo 0)
+  case "$mt" in ''|*[!0-9]*) mt=0 ;; esac
   [ "$mt" -ge "$cutoff" ] || continue
 
   prio_line=$(grep -iE '\*\*Priority:\*\*' "$f" 2>/dev/null | head -1 || true)
