@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Clawrari</title>
+  <meta name="description" content="Why Clawrari exists, the two-repo model, and the honest scope: one operator's production OpenClaw setup, opinionated by design.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Clawrari">
+  <meta property="og:title" content="About — Clawrari">
+  <meta property="og:description" content="Why it exists, the two-repo model, and honest scope: one operator's production OpenClaw setup.">
+  <meta property="og:url" content="https://clawrari.com/about.html">
+  <meta property="og:image" content="https://clawrari.com/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About — Clawrari">
+  <meta name="twitter:description" content="Why it exists, the two-repo model, and honest scope.">
+  <meta name="twitter:image" content="https://clawrari.com/assets/og.png">
+
+  <link rel="canonical" href="https://clawrari.com/about.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap">
+      <a class="wordmark" href="./" aria-label="clawrari home">clawrari<span class="cursor" aria-hidden="true"></span></a>
+      <div class="nav-links">
+        <a href="./">Home</a>
+        <a href="https://github.com/prasithg/clawrari">GitHub</a>
+        <a href="playbook.md">Docs</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" style="padding-bottom:24px">
+    <div class="wrap">
+      <p class="eyebrow">About</p>
+      <h1 class="title" style="font-size:clamp(36px,6vw,58px)">The story<span class="cursor" aria-hidden="true"></span></h1>
+      <p class="lede">A setup, not a framework. Built for one operator, kept honest by daily use.</p>
+    </div>
+  </header>
+
+  <section style="border-top:none;padding-top:0">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Why it exists</h2>
+        <p>
+          Most assistant setups fail the same way. They forget everything between sessions,
+          they pile up brittle prompts with no operating system around them, or they automate
+          isolated tricks instead of building a durable loop.
+        </p>
+        <p>
+          Clawrari is the opposite bet. It treats the assistant like infrastructure: file-first
+          memory as the system of record, git as the audit log, explicit rules for startup and
+          approvals, and review loops that catch drift before it ships. The point is not a single
+          clever prompt. It is a small set of reliable systems that compound.
+        </p>
+
+        <h2>The two-repo model</h2>
+        <p>Clawrari is split on purpose.</p>
+        <div class="callout">
+          <b>clawrari</b> is the setup itself: skills, memory architecture, model playbooks,
+          harness, and crons. Clone it and bootstrap a fresh install.
+        </div>
+        <div class="callout">
+          <b>clawrari-context</b> is how it gets built: the FRDs, blueprints, and process behind
+          the decisions. The product-development context, open-sourced.
+        </div>
+        <p>
+          The setup shows you the <em>what</em>. The context repo shows you the <em>how</em> and
+          the <em>why</em>. Read both:
+          <a href="https://github.com/prasithg/clawrari">clawrari</a> and
+          <a href="https://github.com/prasithg/clawrari-context">clawrari-context</a>.
+        </p>
+
+        <h2>Who builds it</h2>
+        <p>
+          Prasith runs Clawrari as his own daily driver. It is not a side demo; it is the system
+          he uses to do real work, which is why the choices are opinionated and the numbers are
+          verifiable. More at <a href="https://prasithg.github.io">prasithg.github.io</a>.
+        </p>
+
+        <h2>Honest scope</h2>
+        <p>
+          This is one operator's production setup, opinionated by design. It is not a neutral
+          starter template and it does not try to please everyone. Some choices will not fit your
+          workflow, and that is fine. Take the patterns that hold up, leave the rest, and keep
+          what compounds.
+        </p>
+        <p style="margin-top:28px">
+          <a class="btn btn-primary" href="https://github.com/prasithg/clawrari">View on GitHub</a>
+          <a class="btn btn-ghost" href="./" style="margin-left:8px">Back home</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>Clawrari · one operator's production OpenClaw setup</span>
+      <span><a href="https://github.com/prasithg/clawrari/blob/main/LICENSE">MIT License</a> · built by <a href="https://prasithg.github.io">Prasith</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>

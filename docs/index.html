@@ -3,127 +3,188 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clawrari — The Ferrari of OpenClaw Setups</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono&display=swap');
-    body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #e5e5e5; }
-    code, .mono { font-family: 'JetBrains Mono', monospace; }
-    .gradient-text {
-      background: linear-gradient(135deg, #ef4444 0%, #f97316 50%, #eab308 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .card { background: #141414; border: 1px solid #262626; }
-    .card:hover { border-color: #404040; }
-    .glow { box-shadow: 0 0 60px rgba(239, 68, 68, 0.1); }
-  </style>
+  <title>Clawrari — The Ferrari of OpenClaw setups</title>
+  <meta name="description" content="An opinionated, battle-tested OpenClaw setup: memory architecture, meta-learning loops, a content engine, and agent-orchestration playbooks. One operator's production system, open-sourced.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Clawrari">
+  <meta property="og:title" content="Clawrari — The Ferrari of OpenClaw setups">
+  <meta property="og:description" content="An opinionated, battle-tested OpenClaw setup: memory architecture, meta-learning loops, a content engine, and agent-orchestration playbooks.">
+  <meta property="og:url" content="https://clawrari.com">
+  <meta property="og:image" content="https://clawrari.com/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Clawrari — The Ferrari of OpenClaw setups">
+  <meta name="twitter:description" content="An opinionated, battle-tested OpenClaw setup, open-sourced.">
+  <meta name="twitter:image" content="https://clawrari.com/assets/og.png">
+
+  <link rel="canonical" href="https://clawrari.com">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
 </head>
-<body class="min-h-screen">
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <div class="wrap">
+      <a class="wordmark" href="./" aria-label="clawrari home">clawrari<span class="cursor" aria-hidden="true"></span></a>
+      <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="https://github.com/prasithg/clawrari">GitHub</a>
+        <a href="playbook.md">Docs</a>
+      </div>
+    </div>
+  </nav>
 
   <!-- Hero -->
-  <div class="max-w-5xl mx-auto px-6 pt-32 pb-20">
-    <div class="text-center">
-      <p class="mono text-sm text-neutral-500 tracking-widest uppercase mb-6">v0.4.0</p>
-      <h1 class="text-6xl md:text-8xl font-black tracking-tight mb-6">
-        <span class="gradient-text">Clawrari</span>
-      </h1>
-      <p class="text-xl md:text-2xl text-neutral-400 max-w-2xl mx-auto mb-4">
-        The Ferrari of OpenClaw setups.
-      </p>
-      <p class="text-lg text-neutral-500 max-w-xl mx-auto mb-12">
-        An opinionated, battle-tested, open source AI operations system.
-        Point a fresh install at it and get a second brain in minutes.
-      </p>
-      <div class="flex gap-4 justify-center">
-        <a href="https://github.com/prasithg/clawrari" class="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-neutral-200 transition">
-          View on GitHub
-        </a>
-        <a href="#quickstart" class="border border-neutral-700 px-8 py-3 rounded-lg font-semibold hover:border-neutral-500 transition">
-          Quick Start
-        </a>
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">v0.5<span class="u">.0</span> · open source · MIT</p>
+        <h1 class="title">clawrari<span class="cursor" aria-hidden="true"></span></h1>
+        <p class="lede"><strong>The Ferrari of OpenClaw setups.</strong></p>
+        <p class="subline">
+          An opinionated, battle-tested OpenClaw setup: a memory architecture,
+          meta-learning loops, a content engine, and agent-orchestration playbooks.
+          One operator's production system, open-sourced.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="https://github.com/prasithg/clawrari">View on GitHub</a>
+          <a class="btn btn-ghost" href="#quickstart">Quick start</a>
+        </div>
       </div>
-      <div class="mt-10 grid gap-3 md:grid-cols-3 text-sm text-neutral-400 max-w-4xl mx-auto">
-        <div class="card rounded-xl px-4 py-3">New in v0.4.0: a real build playbook for fresh installs.</div>
-        <div class="card rounded-xl px-4 py-3">Published model playbook with routing, overlays, and prompting notes.</div>
-        <div class="card rounded-xl px-4 py-3">Persona and identity-channel patterns now documented publicly.</div>
+      <div class="hero-plate" aria-hidden="true">
+        <span class="plate-mark">clawrari<span class="cursor"></span></span>
+        <span class="plate-rule"></span>
+        <span class="plate-meta"><span>v0.5<span class="u">.0</span></span><span>open source</span><span>MIT</span></span>
       </div>
     </div>
-  </div>
+  </header>
 
-  <!-- What You Get -->
-  <div class="max-w-5xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold mb-12 text-center">What You Get</h2>
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="card rounded-xl p-6 transition">
-        <div class="text-2xl mb-3">🧠</div>
-        <h3 class="font-bold text-lg mb-2">Second Brain</h3>
-        <p class="text-neutral-400 text-sm">Structured memory with daily logs, semantic search, and auto-curation. Your AI remembers what matters.</p>
-      </div>
-      <div class="card rounded-xl p-6 transition">
-        <div class="text-2xl mb-3">✍️</div>
-        <h3 class="font-bold text-lg mb-2">Content Engine</h3>
-        <p class="text-neutral-400 text-sm">Research, draft, review, publish. Multi-platform. Topic rotation and voice consistency built in.</p>
-      </div>
-      <div class="card rounded-xl p-6 transition">
-        <div class="text-2xl mb-3">⚡</div>
-        <h3 class="font-bold text-lg mb-2">Proactive Intelligence</h3>
-        <p class="text-neutral-400 text-sm">Morning briefings, calendar prep, responsive scans. Your AI anticipates, not just responds.</p>
-      </div>
-      <div class="card rounded-xl p-6 transition">
-        <div class="text-2xl mb-3">🔁</div>
-        <h3 class="font-bold text-lg mb-2">Self-Improvement</h3>
-        <p class="text-neutral-400 text-sm">RLHF from your feedback. Daily self-audits. Auto-skill updates. Gets better every day.</p>
-      </div>
-      <div class="card rounded-xl p-6 transition">
-        <div class="text-2xl mb-3">🔌</div>
-        <h3 class="font-bold text-lg mb-2">Connectors</h3>
-        <p class="text-neutral-400 text-sm">Slack, Calendar, Gmail, GitHub, Reddit, X. The pipes are already laid.</p>
-      </div>
-      <div class="card rounded-xl p-6 transition">
-        <div class="text-2xl mb-3">🔒</div>
-        <h3 class="font-bold text-lg mb-2">Security First</h3>
-        <p class="text-neutral-400 text-sm">Local-first. Weekly audits. Clear permissions. Your data stays yours.</p>
+  <!-- Philosophy -->
+  <section id="philosophy">
+    <div class="wrap">
+      <p class="section-label">Philosophy</p>
+      <h2>Five things it believes</h2>
+      <div class="tenets">
+        <div class="tenet"><b>Opinionated defaults.</b> <span>Not 47 options. One setup, with a reason for every choice.</span></div>
+        <div class="tenet"><b>Battle-tested.</b> <span>Everything here runs in production. If it is in Clawrari, it is in use.</span></div>
+        <div class="tenet"><b>Your AI should have a personality.</b> <span>Not a corporate drone, not a sycophant. A sharp partner with opinions.</span></div>
+        <div class="tenet"><b>Memory is the foundation.</b> <span>An assistant that forgets everything between sessions is just a search box.</span></div>
+        <div class="tenet"><b>Errors are bugs.</b> <span>A failed cron is not a footnote. It is something to fix now.</span></div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Quick Start -->
-  <div id="quickstart" class="max-w-5xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold mb-8 text-center">Quick Start</h2>
-    <div class="card rounded-xl p-8 glow max-w-2xl mx-auto">
-      <pre class="mono text-sm text-neutral-300 leading-relaxed"><span class="text-neutral-500"># Clone it</span>
+  <!-- What's inside -->
+  <section id="inside">
+    <div class="wrap">
+      <p class="section-label">What's inside</p>
+      <h2>The map</h2>
+      <p class="section-intro">Four layers, wired together. Read the source; nothing is hidden state.</p>
+      <div class="grid">
+        <div class="card">
+          <p class="k">/skills</p>
+          <h3>Skills</h3>
+          <p>Reusable workflows for coding, review, night work, publishing, and loop-scouting.</p>
+        </div>
+        <div class="card">
+          <p class="k">/reference</p>
+          <h3>Playbooks</h3>
+          <p>Model routing, prompt guides, agent templates, and the effort ladder that decides what runs where.</p>
+        </div>
+        <div class="card">
+          <p class="k">/docs</p>
+          <h3>Memory + harness</h3>
+          <p>File-first memory, the dreaming-pass promotion, observability, and an executable selftest harness.</p>
+        </div>
+        <div class="card">
+          <p class="k">/crons</p>
+          <h3>Crons</h3>
+          <p>The content engine and background jobs that run on a schedule, with payloads checked into the repo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick start -->
+  <section id="quickstart">
+    <div class="wrap">
+      <p class="section-label">Quick start</p>
+      <h2>Clone and bootstrap</h2>
+      <div class="code"><span class="c"># clone it</span>
 git clone https://github.com/prasithg/clawrari.git
 cd clawrari
 
-<span class="text-neutral-500"># Run the bootstrap (2 minutes)</span>
-./bootstrap/init.sh
+<span class="c"># run the bootstrap</span>
+<span class="p">./bootstrap/init.sh</span>
 
-<span class="text-neutral-500"># Then follow the playbook</span>
-open docs/playbook.md</pre>
+<span class="c"># then read the build playbook</span>
+open docs/playbook.md</div>
+      <p class="proof-note">The bootstrap generates the core files from templates. The playbook covers connectors, cron setup, night work, and upgrades.</p>
     </div>
-    <p class="text-center text-neutral-500 mt-6 text-sm">
-      The bootstrap generates the core files. The playbook covers connectors, cron setup, night work, and upgrades.
-    </p>
-  </div>
+  </section>
 
-  <!-- Philosophy -->
-  <div class="max-w-5xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold mb-8 text-center">Philosophy</h2>
-    <div class="max-w-2xl mx-auto space-y-6 text-neutral-400">
-      <p><strong class="text-neutral-200">Opinionated defaults.</strong> Not 47 options. THE setup, with rationale for every choice.</p>
-      <p><strong class="text-neutral-200">Battle-tested.</strong> Everything here runs in production daily. If it's in Clawrari, it works.</p>
-      <p><strong class="text-neutral-200">Your AI should have a personality.</strong> Not a corporate drone. Not a sycophant. A sharp partner with opinions.</p>
-      <p><strong class="text-neutral-200">Memory is the foundation.</strong> An AI that forgets everything between sessions is just a search engine.</p>
-      <p><strong class="text-neutral-200">Errors are bugs.</strong> If a cron job fails, that's not a footnote. That's something to fix now.</p>
+  <!-- Proof -->
+  <section id="proof">
+    <div class="wrap">
+      <p class="section-label">Proof</p>
+      <h2>Real numbers</h2>
+      <div class="proof">
+        <div class="stat hot"><div class="n">8</div><div class="l">production skills</div></div>
+        <div class="stat"><div class="n">44</div><div class="l">docs pages</div></div>
+        <div class="stat"><div class="n">4</div><div class="l">executable CI selftests</div></div>
+        <div class="stat"><div class="n ver">v0.5<span class="u">.0</span></div><div class="l">current release</div></div>
+      </div>
+      <div class="badge-row">
+        <a href="https://github.com/prasithg/clawrari/actions/workflows/ci.yml">
+          <img src="https://github.com/prasithg/clawrari/actions/workflows/ci.yml/badge.svg" alt="CI status">
+        </a>
+      </div>
+      <p class="proof-note">
+        55 commits since February 2026, work landing on 15 of the last 30 days.
+        Counts verified from the repo tree; see the
+        <a href="https://github.com/prasithg/clawrari/blob/main/CHANGELOG.md">changelog</a>.
+      </p>
     </div>
-  </div>
+  </section>
 
-  <!-- Footer -->
-  <footer class="max-w-5xl mx-auto px-6 py-12 border-t border-neutral-800">
-    <div class="flex justify-between items-center text-sm text-neutral-500">
-      <p>Clawrari — opinionated OpenClaw reference config</p>
-      <p>MIT License</p>
+  <!-- Links -->
+  <section id="links">
+    <div class="wrap">
+      <p class="section-label">Go deeper</p>
+      <h2>Links</h2>
+      <div class="links">
+        <a class="link-card" href="https://github.com/prasithg/clawrari">
+          <span class="t">clawrari <span class="arrow">→</span></span>
+          <span class="d">The setup. Skills, playbooks, memory architecture, crons.</span>
+        </a>
+        <a class="link-card" href="https://github.com/prasithg/clawrari-context">
+          <span class="t">clawrari-context <span class="arrow">→</span></span>
+          <span class="d">How we actually build it. FRDs, blueprints, and process, open-sourced.</span>
+        </a>
+        <a class="link-card" href="about.html">
+          <span class="t">About <span class="arrow">→</span></span>
+          <span class="d">Why it exists, the two-repo model, and honest scope.</span>
+        </a>
+        <span class="link-card" style="opacity:.7;cursor:default">
+          <span class="t">Your repo can rot <span class="soon">soon</span></span>
+          <span class="d">A field note on keeping a setup like this alive. Coming soon.</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>Clawrari · one operator's production OpenClaw setup</span>
+      <span><a href="https://github.com/prasithg/clawrari/blob/main/LICENSE">MIT License</a> · built by <a href="https://prasithg.github.io">Prasith</a></span>
     </div>
   </footer>
 
