@@ -2,6 +2,8 @@
 
 Use for any work beyond a quick fix. Self-contained, living document. Based on OpenAI's Codex execution plans.
 
+**Trigger policy:** ExecPlan required when work spans >1 session/run, OR needs >2 coordinated agents, OR touches a production system where rollback is nontrivial. Single-session/single-agent: the prompt file with EARS ACs IS the spec.
+
 > **XML sections** (`<context>`, `<constraints>`, `<acceptance_criteria>`) are machine-parsed by coding agents.
 > Keep them tight and unambiguous — no prose padding. Markdown sections are for humans.
 
@@ -45,12 +47,52 @@ Current state: [What exists today that's relevant. Embed the knowledge — don't
 </constraints>
 
 <acceptance_criteria>
-This work is complete when:
-- [ ] [Observable behavior 1 — testable by a human or command]
-- [ ] [Observable behavior 2]
-- [ ] [Command: `<verification command>` → Expected output: `<exact or described output>`]
-- [ ] No regressions in [related areas]
+EARS acceptance-criteria convention (required):
+- Write every criterion as a testable EARS requirement: `WHEN <trigger>, the <system or artifact> SHALL <observable result>.`
+- Use `WHILE` for a state, `WHERE` for a scoped feature, or `IF` for a condition; every criterion SHALL contain `SHALL` and at least one trigger keyword (`WHEN`, `WHILE`, `WHERE`, or `IF`).
+- Give every criterion its own `Verification:` command and expected pass signal. A criterion without a runnable command is incomplete.
+- Do not use soft adjectives such as "robust", "clean", "good", or "properly". Replace them with measurable behavior, exact output, an exit status, a threshold, or another observable result.
+
+Worked before/after examples:
+
+1. Before (soft/vague): `The parser handles malformed input robustly.`
+   After (EARS): `WHEN the parser receives malformed JSON, it SHALL exit with status 2 and print "invalid JSON" to stderr.`
+   Verification: `parse-config fixtures/malformed.json >/tmp/parse.out 2>/tmp/parse.err; test $? -eq 2 && grep -F "invalid JSON" /tmp/parse.err` → exits 0.
+2. Before (soft/vague): `The warm cache performs well.`
+   After (EARS): `WHILE the cache is warm, the benchmark SHALL report p95 latency of 50 ms or less across 20 requests.`
+   Verification: `cache-bench --warm --requests 20 --max-p95-ms 50` → exits 0.
+3. Before (soft/vague): `The generated documentation is clean and properly formatted.`
+   After (EARS): `WHEN the documentation generator runs, it SHALL create a non-empty build/api.md that passes markdownlint.`
+   Verification: `docs-build && test -s build/api.md && markdownlint build/api.md` → exits 0.
+
+This work is complete when every item follows that convention:
+- [ ] AC-1: WHEN [trigger], [system or artifact] SHALL [observable result].
+      Verification: `[command]` → [expected pass signal].
+- [ ] AC-2: IF/WHILE/WHERE [condition, state, or scope], [system or artifact] SHALL [observable result].
+      Verification: `[command]` → [expected pass signal].
 </acceptance_criteria>
+
+---
+
+## Risks & Assumptions
+
+_Required for any ExecPlan born from a PRD/FRD. Populate by running a premortem (structured red-team) on the plan before implementation starts. Paste the premortem's ExecPlan-Ready Insert here._
+
+**Top 3 failure modes we are betting against:**
+1. [Failure 1] — mitigation: [how we prevent / detect it]
+2. [Failure 2] — mitigation: [how we prevent / detect it]
+3. [Failure 3] — mitigation: [how we prevent / detect it]
+
+**Hidden assumption to validate before build starts:**
+- [The assumption the premortem surfaced]
+- Validation: [specific, concrete test]
+
+**Pre-build checklist** (blocks the move from `review` → `in-progress`):
+- [ ] [Item 1]
+- [ ] [Item 2]
+- [ ] [Item 3]
+
+**Premortem transcript:** `reports/premortem/[slug]-YYYY-MM-DD.md`
 
 ---
 
@@ -70,13 +112,15 @@ _(This section is the human-readable expansion of the `<context>` block above. K
 
 ## Plan of Work
 
+**Stable unit IDs:** Label plan units `U1`..`Un` in execution order (for example, `### U1 — [Name]`). Once assigned, do not renumber or reuse an ID; append new units with the next unused ID so reviews and follow-ups can cite them unambiguously.
+
 _Prose description of the sequence of edits and additions. For each edit:_
 - _Name files with full repo-relative paths_
 - _Name functions and modules precisely_
 - _Show exact commands with working directory_
 - _State expected outputs_
 
-### Milestone 1: [Name]
+### U1 — [Name]
 
 **Scope:** _What will exist after this milestone that didn't before._
 
@@ -84,7 +128,7 @@ _Prose description of the sequence of edits and additions. For each edit:_
 
 **Verification:** _Commands to run, expected output. Behavior a human can verify — not just "struct exists."_
 
-### Milestone 2: [Name]
+### U2 — [Name]
 
 _Same structure..._
 
