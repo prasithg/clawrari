@@ -18,6 +18,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 INIT_SH="$REPO_ROOT/bootstrap/init.sh"
 QUESTIONS="$REPO_ROOT/bootstrap/questions.json"
+TEMPLATES_DIR="$REPO_ROOT/bootstrap/templates"   # canonical template source init.sh renders from
 
 for f in "$INIT_SH" "$QUESTIONS"; do
   if [ ! -f "$f" ]; then
@@ -25,6 +26,10 @@ for f in "$INIT_SH" "$QUESTIONS"; do
     exit 2
   fi
 done
+if [ ! -d "$TEMPLATES_DIR" ]; then
+  echo "FATAL: canonical templates dir missing: $TEMPLATES_DIR" >&2
+  exit 2
+fi
 if ! command -v jq >/dev/null 2>&1; then
   echo "FATAL: jq is required but not found in PATH." >&2
   exit 2
@@ -140,7 +145,20 @@ echo ""
 echo "-- Assertions --"
 
 # 1. Rendered root templates must all exist.
-ROOT_TEMPLATE_FILES=(AGENTS.md HEARTBEAT.md IDENTITY.md MEMORY.md SOUL.md TOOLS.md USER.md context-holds.md predictions.md regressions.md)
+# Parity is against the CANONICAL template set, derived the same way init.sh
+# does (loop bootstrap/templates/*.tmpl, strip .tmpl). Deriving instead of
+# hardcoding means adding/removing a canonical template is caught here rather
+# than silently passing a frozen checklist.
+ROOT_TEMPLATE_FILES=()
+for tmpl in "$TEMPLATES_DIR"/*.tmpl; do
+  [ -e "$tmpl" ] || continue
+  ROOT_TEMPLATE_FILES+=("$(basename "$tmpl" .tmpl)")
+done
+if [ "${#ROOT_TEMPLATE_FILES[@]}" -eq 0 ]; then
+  bad "no *.tmpl templates found in $TEMPLATES_DIR"
+else
+  echo "  (canonical templates: ${#ROOT_TEMPLATE_FILES[@]} → ${ROOT_TEMPLATE_FILES[*]})"
+fi
 for f in "${ROOT_TEMPLATE_FILES[@]}"; do assert_file "$f"; done
 
 # 2. Seeded memory/tasks/ideas files must exist.
