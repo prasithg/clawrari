@@ -74,6 +74,21 @@ This work is complete when every item follows that convention:
 
 ---
 
+## Research / Pitfall Preflight
+
+_Complete before implementation research is considered done and before any build/code agent is spawned._
+
+1. Form a query from the target repository, component, task type, and named failure modes, plus `[type:pitfall] build code`.
+2. Run `memory_recall` with that query. If `memory_recall` is unavailable, run `memory_search` with the same query.
+3. Record the exact query, top relevant hits, and source paths below. Ignore unrelated hits; record an explicit no-hit result rather than inventing one.
+4. Copy every relevant hit into `<context>` under `Prior pitfalls (preflight)` and into the build prompt before acceptance criteria. State both the failure mode and preventive action.
+
+- **Query:** [exact memory_recall/memory_search query]
+- **Relevant hits:** [pitfall + preventive action + source, or `no relevant hits`]
+- **Prompt injection point:** [prompt path + section]
+
+---
+
 ## Risks & Assumptions
 
 _Required for any ExecPlan born from a PRD/FRD. Populate by running a premortem (structured red-team) on the plan before implementation starts. Paste the premortem's ExecPlan-Ready Insert here._
