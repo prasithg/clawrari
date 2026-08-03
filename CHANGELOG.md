@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-03
+
+### Added
+- **A run's status is separate from the work it did** (`docs/self-improvement.md` §14) — a tool-heavy scheduled agent run can report `error` ("couldn't generate a response") while all of its commits, messages, and state edits already landed. The cause is structural, not a crash: the agent's final turn ended on a tool call or thinking block with no closing plain-text message, so the wrapper had nothing to return and marked the turn empty. Documents the fingerprint (no correlation with token volume, not a timeout, output tokens are non-zero, model fallbacks never fire because empty-terminal-content isn't a provider error) and the two fixes cheapest-first: require a terminal plain-text line on every path in the prompt (purely additive, can't regress the work), then reduce terminal-turn pressure (lower thinking effort / a runtime "require final text" retry). Generalizes §10 from the other direction — there a green self-report is untrustworthy because the work might not have happened; here a red run status is untrustworthy because the work did happen. A run's exit state and its side effects are separate facts.
+
 ## v0.5.0 — 2026-07-27
 
 The proof-and-execution release. The public model playbook is resynced with the live stack (`effort-ladder.md`, per-model prompt guides, updated overlays and orchestration routing, a Fable long-horizon pack), and four production skills ship sanitized for reuse: `cross-review`, `night-work`, `coding-agent`, and `loop-watcher`. The harness set matured — the night-work pipeline now survives a dead orchestrator via an external finalizer, and the regression suite, six-axis eval scorecard, and "no eval = not Done" skill gate are wired in. Adds agent observability (`trace → usage → scorecard → report` with a zero-dependency morning report), memory promotion (the dreaming pass) plus reusable templates, and ~13 distilled field-tested pattern docs landed since v0.4. Dated entries below carry the detail.

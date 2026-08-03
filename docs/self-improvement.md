@@ -219,6 +219,26 @@ The rule: **an agent's claim that something is missing or blocked is a hypothesi
 
 This is the delegation-layer version of "make done falsifiable" (§10): there, the agent's *success* claim gets a mechanical gate; here, the agent's *failure* claim gets one too. Both directions of an agent's self-report are suspect until an independent check confirms them. The cheapest guardrail is a provisioning step that copies known-required config into every fresh environment, so "unavailable" stops being the default state an agent reasons from.
 
+## 14. A Run's Status Is Separate From the Work It Did
+
+A scheduled, tool-heavy agent run can flip to `error` while every deliverable it was supposed to produce already landed. The tell is a status like "agent couldn't generate a response" on a run whose commits, messages, and state edits all went through. This is not a crash and it is not the work failing — it is the *run wrapper* reporting failure because the agent's final turn ended on a tool call or a thinking block with no closing plain-text message, so the harness had nothing to return and marked the turn empty.
+
+The failure has a fingerprint worth learning, because the obvious explanations are all wrong:
+
+- **It does not correlate with token volume.** The largest, slowest run can succeed while a small, fast one fails. If you go hunting for context overflow you will find nothing, because overflow was never the cause.
+- **It is not a timeout.** Runs finish well under their cap.
+- **The model did produce output** — you can see non-zero output tokens on the failing run. It was generating right up to the end; it just never emitted a terminal text turn.
+- **Model fallbacks do not save you.** An empty-terminal-content condition is not a provider error, so failover to a backup model never triggers. Adding more fallbacks is wasted effort here.
+
+The cause is structural: heavy tool-driven work plus extended thinking makes it *nondeterministic* whether the model closes with plain text after its last tool call. Sometimes it does, sometimes the thinking or the tool call consumes the terminal turn. That is why the failures alternate for no visible reason.
+
+Two levers, cheapest first:
+
+1. **Require a terminal plain-text line on every path.** Make the closing summary a hard instruction in the run's prompt — "a terminal plain-text line is REQUIRED on every path, after all tool calls." This removes the exact condition the wrapper errors on and is purely additive: it cannot regress the work the run already does. Bounding tool output in the same prompt reduces the chance that thinking and context starve the final turn.
+2. **Reduce terminal-turn pressure.** If it still recurs, lower the reasoning/thinking effort on that job (less thinking-token pressure on the last turn) or add a runtime-level "require final text" retry that re-prompts once for a closing message instead of failing.
+
+The general lesson generalizes §10 from the other direction: there, a green self-report was untrustworthy because the work might not have happened. Here, a red run status is untrustworthy because the work *did* happen — the status is measuring "did the model say something last," not "did the job succeed." Before you debug the work, confirm which one your status signal is actually reporting. A run's exit state and its side effects are separate facts, and a tool-heavy agent is exactly where they diverge.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
