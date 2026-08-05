@@ -29,6 +29,8 @@ Necessary but not sufficient. These are the surface-level vocabulary fingerprint
 | v1.21-in-conclusion | P0 | `\bin conclusion\b` | drop |
 | v1.22-to-summarize | P0 | `\bto summarize\b` | drop |
 | v1.23-as-an-ai | P0 | `\bas an ai\b` | drop entire sentence |
+| v1.24-seamless | P1 | `\bseamless(?:ly)?\b` | specify what changed or drop |
+| v1.25-at-end-of-day | P0 | `\bat the end of the day\b` | drop the wrap-up throat-clear |
 
 ## Banned openers
 
