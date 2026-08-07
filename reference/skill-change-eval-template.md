@@ -46,6 +46,8 @@ One of: **ship** | **iterate** | **rollback**.
 - iterate — keep but with named follow-up fixes (list them in Gaps + Fixes).
 - rollback — revert the change; the new version is worse than the baseline on the task set.
 
+**Untested surface (MANDATORY):** before the verdict, state in one or two lines what this eval did NOT exercise — scenarios not run, assumptions simulated rather than tested, behavior under load/edge/adversarial input left unchecked. A change that goes "green" on a thin task set is satisfying the verifier, not proven correct (green ≠ correct). Naming the blind spot is required for ship/iterate verdicts.
+
 ## Artifact Path
 
 Where the raw eval run output lives — fixtures, transcripts, JSON snapshots, model outputs. Inline the path even if the evidence is also embedded above; future agents grep by path.
