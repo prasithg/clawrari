@@ -1,7 +1,22 @@
 # Bootstrap-parity harness — run note
 
 **Harness:** `scripts/test-bootstrap-parity.sh`
-**Last run:** 2026-08-01 — **RESULT: PASS (63/63 assertions), exit 0, temp dir cleaned up.**
+**Last run:** 2026-08-08 — **RESULT: PASS (68/68 assertions), exit 0, temp dir cleaned up.**
+**Wired into CI:** `.github/workflows/ci.yml` (syntax check + selftest run).
+
+### 2026-08-08 hardening (+5 assertions, 63 → 68)
+Closed coverage gaps for question-driven values that were answered but never asserted:
+- **`wake_time`** → asserted in `HEARTBEAT.md` ("Morning Briefing (daily, …)").
+- **`pronouns`** → asserted the `USER.md` label line renders on the empty-optional path.
+- **Personality conditional branch** → `SOUL.md`: the branch matching `E_AI_PERSONALITY`
+  survives and the other two are stripped (new `assert_not_contains` helper; markers
+  derived from the personality so it stays correct if the default flips). This catches a
+  wrong-branch render that `assert_no_unrendered` (marker-only) cannot.
+- Added the harness to CI's `harness-selftests` job (`bash -n` + full run).
+
+**Known dead value (not a harness gap):** `PLATFORMS` is collected by `init.sh` and
+substituted in `render_template`, but no template contains `{{PLATFORMS}}` — it lands in
+no generated file, so there is nothing to assert. Latent init.sh quirk, left as-is.
 
 ## What it does
 

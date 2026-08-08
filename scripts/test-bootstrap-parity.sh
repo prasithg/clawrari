@@ -126,6 +126,12 @@ assert_contains() {
   if [ ! -f "$WS/$rel" ]; then bad "$label (file $rel missing)"; return; fi
   if grep -Fq -- "$needle" "$WS/$rel"; then ok "$label"; else bad "$label — '$needle' not found in $rel"; fi
 }
+# assert_not_contains <relpath> <literal-substring> <label> — needle must be ABSENT.
+assert_not_contains() {
+  local rel="$1" needle="$2" label="$3"
+  if [ ! -f "$WS/$rel" ]; then bad "$label (file $rel missing)"; return; fi
+  if grep -Fq -- "$needle" "$WS/$rel"; then bad "$label — '$needle' unexpectedly present in $rel"; else ok "$label"; fi
+}
 assert_json_valid() {
   if [ ! -f "$WS/$1" ]; then bad "json missing: $1"; return; fi
   if jq -e . "$WS/$1" >/dev/null 2>&1; then ok "valid JSON: $1"; else bad "invalid JSON: $1"; fi
@@ -183,6 +189,9 @@ assert_contains IDENTITY.md "**Human:** $E_NAME"     "IDENTITY.md human = $E_NAM
 assert_contains IDENTITY.md "**Born:** $TODAY"       "IDENTITY.md born date = $TODAY"
 
 assert_contains USER.md "**Name:** $E_NAME"          "USER.md name"
+# Pronouns default is empty; assert the label line still renders cleanly so the
+# field stays wired even on the empty-optional path.
+assert_contains USER.md "**Pronouns:**"              "USER.md pronouns label"
 assert_contains USER.md "**Timezone:** $E_TIMEZONE"  "USER.md timezone"
 assert_contains USER.md "**Notes:** $E_ROLE"         "USER.md role/notes"
 assert_contains USER.md "1. $E_PRIORITY_1"           "USER.md priority 1"
@@ -197,6 +206,32 @@ assert_contains "memory/session-brief.md" "Secondary focus: $E_PRIORITY_2" "sess
 assert_contains "memory/session-brief.md" "Personality set to $E_AI_PERSONALITY" "session-brief personality"
 
 assert_contains "memory/$TODAY.md" "Clawrari bootstrap completed" "daily note setup line"
+
+# wake_time lands only in HEARTBEAT.md's Morning Briefing header.
+assert_contains HEARTBEAT.md "Morning Briefing (daily, $E_WAKE_TIME)" "HEARTBEAT.md wake time"
+
+# 4b. Personality conditional rendering (SOUL.md): the branch matching the
+# chosen personality must survive and the OTHER two must be stripped entirely.
+# assert_no_unrendered only proves no {{...}} markers remain — it can't catch a
+# render bug that keeps the wrong branch's prose. Expected markers are selected
+# from E_AI_PERSONALITY so this stays correct if questions.json's default flips.
+SHARP_MARK="holy shit"
+WARM_MARK="real partner, not a tool"
+NEUTRAL_MARK="Minimal personality injection"
+case "$E_AI_PERSONALITY" in
+  sharp)   KEEP="$SHARP_MARK";   DROP=("$WARM_MARK" "$NEUTRAL_MARK") ;;
+  warm)    KEEP="$WARM_MARK";    DROP=("$SHARP_MARK" "$NEUTRAL_MARK") ;;
+  neutral) KEEP="$NEUTRAL_MARK"; DROP=("$SHARP_MARK" "$WARM_MARK") ;;
+  *)       KEEP=""; DROP=() ;;
+esac
+if [ -n "$KEEP" ]; then
+  assert_contains SOUL.md "$KEEP" "SOUL.md $E_AI_PERSONALITY vibe block kept"
+  for d in "${DROP[@]}"; do
+    assert_not_contains SOUL.md "$d" "SOUL.md non-$E_AI_PERSONALITY vibe stripped ('$d')"
+  done
+else
+  bad "unknown personality '$E_AI_PERSONALITY' — no SOUL.md branch assertion possible"
+fi
 
 # 5. heartbeat-state.json must be valid JSON.
 assert_json_valid memory/heartbeat-state.json

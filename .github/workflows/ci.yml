@@ -24,6 +24,7 @@ jobs:
           bash -n scripts/content-engine-run.sh
           bash -n scripts/night-work-pipeline.sh
           bash -n scripts/peer-blocker-watch.sh
+          bash -n scripts/test-bootstrap-parity.sh
 
       - name: Run harness selftests
         run: |
@@ -31,3 +32,4 @@ jobs:
           bash scripts/peer-blocker-watch.sh --selftest
           node scripts/regression-check.mjs --selftest
           node scripts/eval-scorecard.mjs --selftest
+          bash scripts/test-bootstrap-parity.sh
