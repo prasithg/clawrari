@@ -239,6 +239,22 @@ Two levers, cheapest first:
 
 The general lesson generalizes §10 from the other direction: there, a green self-report was untrustworthy because the work might not have happened. Here, a red run status is untrustworthy because the work *did* happen — the status is measuring "did the model say something last," not "did the job succeed." Before you debug the work, confirm which one your status signal is actually reporting. A run's exit state and its side effects are separate facts, and a tool-heavy agent is exactly where they diverge.
 
+## 15. Don't Weaken the Gate to Turn a Test Green
+
+When an eval or regression suite that was passing suddenly goes red, the fastest way to "fix" it is to lower the threshold until the number clears. Resist that reflex. A gate that just went red is usually reporting a *real* downstream effect of an upstream problem — not evidence that the gate was set too high.
+
+The pattern shows up cleanly during any state-management incident. A pipeline that publishes on a "last healthy" snapshot can quietly freeze on stale state after a few upstream write violations. Once it does, everything *downstream* of publication starts failing at once: retrieval quality slides, ranking gates drop below their floor, a named regression reappears. Every one of those looks like an independent quality regression you could paper over by relaxing a threshold. All of them were the same root cause — stale published state — and all of them recovered the moment the source was fixed, with **no gate touched**.
+
+That gives a concrete diagnostic order:
+
+1. **Cluster the failures before you act on any single one.** If multiple independent gates went red in the same window, suspect one shared upstream cause, not N separate quality drops. Independent regressions rarely arrive together.
+2. **Find the earliest thing in the chain that changed.** Fix that. Then re-run the whole suite before deciding anything about the gates.
+3. **Only after the source is repaired** do you ask whether a still-red gate is genuinely mis-calibrated. Usually it isn't.
+
+Why the discipline matters: a gate's entire value is that a red result means something. Lower it once to escape an incident and you have permanently traded away the signal to save an afternoon — the next real regression now slips under the new, looser bar silently. Recovering the metric by fixing the cause keeps the gate trustworthy; lowering the bar to match a broken reality destroys it.
+
+A companion habit keeps you honest: when a fixture or denominator legitimately changes (a reviewed source move, a renamed item), *keep it in the denominator and document why* rather than quietly dropping it to smooth the number. "We recovered 27/27 without editing a single threshold" is a stronger claim than "we're green again," precisely because it proves you fixed the system instead of the scoreboard.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
