@@ -11,6 +11,7 @@ A heavier complement to `reference/eval-artifact-template.md` — use this one f
 - **Change under test:** one-line description + links to changed files / commits / PRs / ticket.
 - **Surface class:** skill | core workflow | orchestration playbook | prompt template | cron policy | other.
 - **Linked ticket:** <TICKET-ID> (or N/A + reason). Example shown below uses a Linear-style ID for clarity; substitute your issue tracker's format.
+- **Fault side (if this change fixes a failure):** which component was actually at fault — `model` | `harness` | `memory` | `tool` | `grader` | `owner` | `environment`. State the interaction edge + fault side, e.g. `tool—model · fault:harness`. Route the repair to that component; do NOT patch a harness/tool/grader fault with a model-side prose reminder (that class of fix cannot work). Source: Raj et al., "Model or Harness?" (arXiv:2607.28802). See your regression log's fault-localization convention.
 
 ## Task Set
 
@@ -38,6 +39,10 @@ Pick what fits the surface. Don't over-instrument:
 - Latency (wall-clock per task; per-lane if a council)
 - Cost (tokens / $ if material)
 - Qualitative verdict (1–2 sentence judgement on whether the new behavior is actually better)
+
+## Grader / Eval-Fault Check (MANDATORY before verdict)
+
+Before blaming the agent for any failed task, ask: **is the eval itself wrong?** Tag each failure fault-side. If `fault:grader` (broken success criterion, spec-gaming the check, flaky/wrong fixture, `fault:environment`) the repair is to **fix the eval, not the agent** — record that and do not tune the agent to a broken grader. Green ≠ correct; a passing broken grader is still a grader fault. Only failures with `fault:model` / `fault:harness` / `fault:memory` / `fault:tool` justify an agent-side change.
 
 ## Verdict
 
