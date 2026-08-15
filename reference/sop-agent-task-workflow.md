@@ -18,6 +18,8 @@ Before work starts, the task must have:
 
 Claim means "someone owns the outcome," not just "someone looked at it."
 
+**Premortem gate (high-stakes plans only):** before a task backed by a PRD/FRD or other high-stakes plan moves into implementation, run a premortem (structured red-team: "it's six months later and this failed — why?") on the plan and keep the transcript as an artifact. Copy the resulting risks and assumptions into the plan's Risks section. No premortem, no build. This applies wherever the cost of being wrong is high: feature launches, pricing changes, architecture pivots, hires, partnerships. Bug fixes, maintenance, and quick turnarounds are exempt.
+
 ### 2. Work
 
 During execution:
@@ -25,6 +27,7 @@ During execution:
 - keep status in `in-progress`
 - append progress notes or comments on meaningful changes
 - attach artifacts when they exist: commits, files, reports, screenshots
+- for schema / migration / identity-normalization diffs, attach a visual diff recap by default — a rendered summary of the diff makes it reviewable at a glance and surfaces invariant/blast-radius risk. On-demand only for logic-only or small diffs.
 - if the executor is an agent, keep the human or reviewer visible in the task metadata
 
 The executor model writes. The board records the evidence.
@@ -63,6 +66,16 @@ Recommended pairings:
 - Agent writes, human reviews for high-risk changes
 
 The reviewer should challenge correctness, regressions, tests, and scope creep. "Looks fine" is not review.
+
+## Goal-Mode Auto-Routing (Long Coding Runs)
+
+When a coding-agent task is expected to run long (>2h wall-clock) OR has a linked spec with explicit scope, acceptance criteria, and invariants, default the executor to a **goal/constraint workflow** (e.g. Codex `/goal`, or a wrapper that prepends a canonical constraint preamble to `codex exec`) rather than a plain prompt. The goal spec carries: scope = files in play, gating tests = the verification commands, invariants = what must not break. The constraint preamble keeps scope and gating tests honored across turns.
+
+Skip goal mode and use a plain prompt when: expected runtime <30 min, no verifiable gating test exists, scope spans multiple repos, or the task is drafting/brainstorming rather than a code change.
+
+Autonomous promotion flow: when an unattended scheduler moves a ticket to in-progress, if the ticket references a spec or plan artifact, generate the goal-spec file from it and launch in goal mode; otherwise fall back to the standard prompt flow.
+
+Hard rule: do not mix goal mode with plan mode in the same Codex session (known upstream stall, issue #20656).
 
 ## Validation Gate (Post-Build, Pre-Present)
 
