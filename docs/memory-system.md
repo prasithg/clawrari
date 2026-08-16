@@ -169,6 +169,21 @@ When you blend two retrieval signals — e.g. a lexical/keyword pass for exact-t
 
 Use **Reciprocal Rank Fusion (RRF)** instead: fuse on each result's *rank* within its own list, not its raw score, so the two scales stop fighting. This is the ecosystem-standard hybrid approach for exactly this reason. In a real bake-off, switching additive→RRF recovered the exact-token miss with zero regressions on the golden set. Caveat: hybrid only fires when the *query itself* carries a token shape — a natural-language question that never mentions the id still needs query-side expansion.
 
+### 4. Treat extracted claims as proposals, not truth
+
+LLM extraction is not deterministic just because temperature is zero. Entity names, predicates, and even the chosen claims can drift between identical runs. A graph edge without an exact source span is therefore a suggestion, not durable memory.
+
+Promote an extracted claim only when it carries:
+
+- a content-hashed source id,
+- an exact, verified source span,
+- a deterministic assertion id,
+- observation and validity times where relevant,
+- review state and extractor version, and
+- a tombstone path that preserves the audit trail.
+
+Fail closed when the span is missing or does not support the claim. Cache raw structured responses by source hash plus extractor version so projections are reproducible. Measure **cached reproducibility** separately from **fresh-extraction stability**; a stable cache does not prove the model will extract the same claims again.
+
 **Meta-lesson:** every one of these is an eval-gated change. "It returns results" is not "retrieval is proven." Green means "beats baseline on a fixed golden set," and the untested surface (live path under load, fault-injected fallback, fusion-constant sensitivity) gets named explicitly, not assumed.
 
 ## Rules of Thumb
