@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-16
+
+### Changed
+- **Strongest-tested-default routing** (`reference/model-playbook/effort-ladder.md`) — routine ticket and agent execution now starts on Fable 5 medium, with GPT-5.6 Sol and Kimi as cross-provider fallbacks. The reusable rule is broader than this roster: do not reserve your strongest reliable reasoning route for emergencies while quietly taxing every normal task with a weaker default. Keep cheap models in explicit fast/bulk lanes, and use the strongest tested route for work that owns an outcome. The linked eval (`reports/evals/2026-08-16-strongest-tested-default-routing.md`) matched baseline quality at 13.8% fewer reported tokens across seven paired task classes.
+
 ## 2026-08-03
 
 ### Added
