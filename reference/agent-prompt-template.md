@@ -35,6 +35,14 @@ Current state:
 [What exists today. Embed the knowledge — no "see the docs" references.]
 </context>
 
+<audience_contract>
+- Primary audience: [who will use the result]
+- Use context: [decision memo | implementation | research brief | public draft]
+- This is NOT: [adjacent artifact to avoid]
+- Reader knows: [relevant domain knowledge]
+- Reader does not need: [background, jargon, or implementation detail to omit]
+</audience_contract>
+
 <constraints>
 - Do NOT delete or overwrite existing files unless explicitly listed as a task step.
 - Do NOT add new dependencies without documenting rationale in the handoff note.
@@ -42,13 +50,29 @@ Current state:
 - [Any other hard limits]
 </constraints>
 
+<code_change_discipline>
+- Think first: state the smallest plan and the checks that prove it worked.
+- Prefer the smallest boring solution. Do not add speculative abstractions.
+- Make surgical changes only. Avoid drive-by refactors and dependency churn.
+- Trace every changed line to the task, an acceptance criterion, or a named bug.
+- Run the narrowest meaningful test, lint, or build command before handoff.
+</code_change_discipline>
+
 <acceptance_criteria>
-This work is complete when:
-- [ ] [Observable behavior — testable by a human or command]
-- [ ] [Verification: `<command>` → Expected output: `<exact or described output>`]
-- [ ] No regressions in [related areas]
-- [ ] Handoff note written to notes/<task-name>-handoff.md
+Write each criterion as an observable requirement with its own verification:
+- [ ] AC-1: WHEN [trigger], [system or artifact] SHALL [observable result].
+      Verification: `[command]` → [expected pass signal].
+- [ ] AC-2: IF/WHILE/WHERE [condition, state, or scope], [system or artifact] SHALL [observable result].
+      Verification: `[command]` → [expected pass signal].
 </acceptance_criteria>
+
+<pre_completion_checklist>
+- [ ] Expected output files exist and are non-empty.
+- [ ] Every acceptance criterion has been verified, or its exact blocker is named.
+- [ ] Tests, lint, and build checks relevant to the changed surface pass.
+- [ ] Untested surface is stated in one line; a green check is not proof beyond its scope.
+- [ ] Handoff records decisions, surprises, test results, and remaining work.
+</pre_completion_checklist>
 
 <output>
 Primary deliverable: [file path or description of what gets created/changed]
@@ -66,6 +90,15 @@ Handoff note: notes/<task-name>-handoff.md (required — document decisions, sur
 ---
 
 ## XML Block Reference
+
+### `<audience_contract>` — Artifact-Fit Guard
+Use when the result has a reader or decision-maker. Name who the result is for, how they will use it, what they already know, and the adjacent artifact the agent must not accidentally produce. This prevents technically complete work that is wrong for its audience.
+
+### `<code_change_discipline>` — Surgical Implementation
+Use for code changes. Require a minimal plan, a small solution, traceability from edits to requirements, and a narrow verification command. This limits speculative abstractions and unrelated cleanup.
+
+### `<pre_completion_checklist>` — Completion Proof
+Use when a task can look finished before it has been verified. Require output existence, per-criterion checks, relevant gates, a named untested surface, and a concise handoff.
 
 ### `<persistence>` — Full Autonomy Mode
 Use when you want the agent to run to completion without checking in:
@@ -126,8 +159,11 @@ Use when giving coding agents rules for an existing codebase:
 |---|---|
 | `<goal>` | Always — unambiguous statement of what needs to be done and why |
 | `<context>` | Always — files, state, recent decisions |
+| `<audience_contract>` | Any result with a reader, user, or decision-maker |
 | `<constraints>` | Always — hard limits, what NOT to touch |
+| `<code_change_discipline>` | Code changes — small scope, traceable edits, concrete verification |
 | `<acceptance_criteria>` | Always — explicit, testable done conditions |
+| `<pre_completion_checklist>` | Tasks where file creation can be mistaken for completion |
 | `<output>` | Always — where results go, what gets created |
 | `<persistence>` | Long autonomous tasks; anything going to full-auto mode |
 | `<context_gathering>` | Large codebases where over-exploration is a risk |
