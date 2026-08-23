@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-23
+
+### Changed
+- **Risk-specific eval requirements** (`reference/skill-change-eval-template.md`) — guardrails now require an explicit false-alarm cost and owner, while human-facing writing changes require fixed golden exemplars and a stable rubric instead of relying on paired rewrites alone. This makes the evaluator check the failure mode that matters for each surface: alert fatigue for automated gates and absolute quality for subjective writing. Validated in `reports/evals/2026-08-23-risk-specific-eval-requirements.md`.
+
 ## 2026-08-16
 
 ### Changed

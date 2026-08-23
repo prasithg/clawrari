@@ -63,6 +63,13 @@ Where the raw eval run output lives — fixtures, transcripts, JSON snapshots, m
 - Date: YYYY-MM-DD
 - Linked from: change PR / ticket / regression entry
 
+## Risk-Specific Additions
+
+Add these checks when the changed surface carries the matching risk:
+
+- **Validators, scanners, and alerts:** state the expected false-alarm cost and who pays it. A noisy guardrail trains people to ignore the real signal, so precision is part of the specification.
+- **Human-facing writing:** grade against fixed golden exemplars and a stable rubric. A paired rewrite comparison alone can show that one draft is better than another without proving either draft meets the real quality bar.
+
 ---
 
 ## Example (filled-out, retroactive)
