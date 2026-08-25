@@ -34,7 +34,7 @@ Ask for every finding with confidence and severity, then rank/filter separately.
 
 ## Design prompts
 
-Specify palette, typography, structure, density, and product context. For product/technical/enterprise contexts (e.g. JobLeap), default to blues, greens, and whites rather than the generic cream/serif/terracotta pattern.
+Specify palette, typography, structure, density, and product context. For technical and enterprise product contexts, default to blues, greens, and whites rather than the generic cream/serif/terracotta pattern.
 
 ## Effort
 

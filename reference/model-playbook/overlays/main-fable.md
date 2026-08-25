@@ -94,7 +94,7 @@ A request for raw chain-of-thought does not determine the task class. Keep the u
 ## Design Defaults (mockups / slides / frontends)
 
 - Override the cream/serif/terracotta default **explicitly** for any technical/healthcare/enterprise context.
-- JobLeap and similar product UIs: blues, greens, whites — specify the palette in every prompt.
+- For technical and enterprise product UIs, specify the palette in every prompt; blues, greens, and whites are a reliable starting point.
 - If unsure, propose 4 distinct directions (bg hex + accent hex + typeface) and let the operator pick.
 
 ## Active Defaults
@@ -104,3 +104,9 @@ A request for raw chain-of-thought does not determine the task class. Keep the u
 - Sampling: temperature 1.0/unset, top_p ≥0.99 & <1.0/unset, top_k unsupported — leave config clean.
 - **Fallback chain: GPT-5.6 Sol xhigh, then Grok 4.5 high.** Do not fall back to another Anthropic model for provider-family failure.
 - Cost: if the Bedrock account runs Fable on a credit/free tier, be aggressive with effort and orchestration — the token governor everyone else fights doesn't apply.
+
+## Durable Writing Baseline
+
+- Lead with the point. Put the condition before the instruction. Use active voice and present tense.
+- Use the same term for the same concept. Remove empty intensifiers and unexplained internal shorthand.
+- Let the surface-specific voice guide override this baseline when the two conflict.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-25
+
+### Changed
+- **Durable writing baseline for model overlays** (`reference/model-playbook/overlays/`) — every main-model overlay now carries the same compact rule for durable text: lead with the point, put conditions before instructions, use active voice and present tense, keep terminology consistent, and remove unexplained shorthand. Surface-specific voice guides still take precedence. The refresh also replaces product-specific design examples with reusable technical and enterprise guidance. Validated in `reports/evals/2026-08-25-model-overlay-writing-baseline.md`.
+
 ## 2026-08-23
 
 ### Changed

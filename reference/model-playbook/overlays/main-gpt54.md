@@ -106,3 +106,9 @@ You don't need to print these — they're your operating contract.
 - Reasoning: Sol `medium` for conversational/light work, `high` for review/coding, or `xhigh` for hard autonomous/coding backup.
 - Verbosity: low/medium per task
 - Fallback: Grok 4.5 high if both the intended Anthropic route and OpenAI route are unavailable.
+
+## Durable Writing Baseline
+
+- Lead with the point. Put the condition before the instruction. Use active voice and present tense.
+- Use the same term for the same concept. Remove empty intensifiers and unexplained internal shorthand.
+- Let the surface-specific voice guide override this baseline when the two conflict.

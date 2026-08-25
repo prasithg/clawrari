@@ -72,3 +72,9 @@ Claude models can become hedgier and more agreeable when a session opens with ho
 - Low or medium effort for routine work; increase only for harder tasks.
 - Minimal delegation; independent review for consequential artifacts.
 - Tests and external verification stay mandatory where the workflow requires them.
+
+## Durable Writing Baseline
+
+- Lead with the point. Put the condition before the instruction. Use active voice and present tense.
+- Use the same term for the same concept. Remove empty intensifiers and unexplained internal shorthand.
+- Let the surface-specific voice guide override this baseline when the two conflict.

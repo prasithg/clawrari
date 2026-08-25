@@ -62,7 +62,7 @@ Source: Amanda Askell (Anthropic) Apr 2026 interview, summarized by @itsolelehma
 ## Design Defaults (when generating mockups, slides, frontends)
 
 - Newer Opus can fall back to cream/serif/terracotta. Override **explicitly** for any technical/healthcare/enterprise context.
-- For JobLeap and similar product UIs: blues, greens, whites. Specify palette in every prompt.
+- For technical and enterprise product UIs, specify the palette in every prompt; blues, greens, and whites are a reliable starting point.
 - If unsure, propose 4 distinct visual directions (bg hex + accent hex + typeface) and ask the operator to pick.
 
 ## Active Defaults
@@ -70,3 +70,9 @@ Source: Amanda Askell (Anthropic) Apr 2026 interview, summarized by @itsolelehma
 - Reasoning: `medium` by default; named routes own any escalation.
 - Cost awareness: 4.8 is premium per token. Don't over-spawn heavyweight work.
 - Fallback: Sol medium, then Grok 4.5 high. Raise Sol to high for review/coding and xhigh for hard autonomous backup.
+
+## Durable Writing Baseline
+
+- Lead with the point. Put the condition before the instruction. Use active voice and present tense.
+- Use the same term for the same concept. Remove empty intensifiers and unexplained internal shorthand.
+- Let the surface-specific voice guide override this baseline when the two conflict.
