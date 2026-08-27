@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-27
+
+### Changed
+- **Long-horizon goal specs** (`reference/agent-prompt-template.md`) — multi-turn work now gets an explicit scope fence, required side effects, exact verification, invariants, bounded stop rules, and stable sources of truth for recovery. This keeps persistence from becoming scope drift and makes the finish state observable. Validated in `reports/evals/2026-08-27-long-horizon-goal-spec.md`.
+
 ## 2026-08-25
 
 ### Changed

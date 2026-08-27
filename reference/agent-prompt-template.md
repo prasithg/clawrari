@@ -89,6 +89,56 @@ Handoff note: notes/<task-name>-handoff.md (required — document decisions, sur
 
 ---
 
+## Long-Horizon Goal Spec
+
+Use this stricter block when work may span multiple agent turns and has a verifiable end state. Keep it to one objective. If you cannot fill every section, tighten the plan or use the base template instead.
+
+```text
+Complete <ONE-LINE OBJECTIVE> without stopping until <VERIFIABLE END STATE>.
+
+Scope fence:
+- In scope:
+  - <path-or-component> — <allowed change>
+- Out of scope:
+  - <path-or-component> — <what must not change>
+- If a useful adjacent fix falls outside this fence, record it as follow-up work and do not implement it.
+
+Required side effects:
+- Tool or service: <none | name>
+  Purpose: <why this write is part of completion>
+
+Verification:
+- `<exact command>` → <expected pass signal>
+- `<exact command>` → <expected pass signal>
+
+Invariants:
+- <public API, data, compatibility, dependency, or safety rule that must remain true>
+- No external writes except the required side effects listed above.
+
+Stop and continue rules:
+- Continue while work remains inside the scope fence and no stop condition has fired.
+- Finish only when every verification passes, every invariant holds, and required side effects are complete.
+- Stop for a revised spec if the objective requires an out-of-scope change.
+- Stop and report a blocker after the same failure repeats three times, or when a required fixture, environment, service, or tool remains unavailable after one retry.
+- At the time limit, write a resumable progress record and stop without publishing partial work.
+
+Sources of truth:
+- Requirements: <path-or-link>
+- Execution plan: <path-or-link>
+- Work item: <path-or-link>
+```
+
+Why each field exists:
+
+- **Scope fence** prevents a long-running agent from turning nearby cleanup into hidden scope.
+- **Required side effects** separates necessary external writes from accidental ones.
+- **Verification** makes the finish state observable instead of confidence-based.
+- **Invariants** name what a green test suite might still miss.
+- **Stop and continue rules** make persistence bounded and recovery explicit.
+- **Sources of truth** give a resumed run stable orientation after context loss.
+
+---
+
 ## XML Block Reference
 
 ### `<audience_contract>` — Artifact-Fit Guard
@@ -169,6 +219,8 @@ Use when giving coding agents rules for an existing codebase:
 | `<context_gathering>` | Large codebases where over-exploration is a risk |
 | `<self_reflection>` | Zero-to-one builds, content, any output where quality > speed |
 | `<code_editing_rules>` | Coding tasks in established codebases with existing conventions |
+
+For multi-turn work with a machine-checkable end state, use the **Long-Horizon Goal Spec** in addition to the relevant XML blocks.
 
 ---
 
