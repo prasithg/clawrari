@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-08-29
+
+### Changed
+- **Memory writes now have a trust receipt** (`docs/memory-system.md`) — canonical file edits and derived retrieval state advance together through validation, a before/after hash journal, atomic apply, rebuild, and verification. The pattern also requires a bounded adoption path so fail-closed bypass detection cannot strand the index on stale truth.
+- **Temporary handoffs expire** (`docs/memory-system.md`) — short session-resume phrases live in a canonical registry with exact matching, registration dates, expiry, consume-on-use cleanup, and a deterministic sweep instead of decaying in daily notes.
+- **Prompt constraints name both the boundary and the likely miss** (`reference/agent-prompt-template.md`) — the public prompt template now separates hard negative constraints from known failure modes, helping executors avoid a technically complete artifact that is wrong for its audience. Validated in `reports/evals/2026-08-29-memory-integrity-and-prompt-constraints.md`.
+
 ## 2026-08-27
 
 ### Changed

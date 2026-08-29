@@ -141,6 +141,37 @@ That keeps the system:
 - portable
 - recoverable after failures
 
+## Journal Canonical Writes Before Publishing Them
+
+When a derived index trusts content hashes or a publication manifest, a direct edit to an authoritative file can create a nasty split: the file on disk is current, but retrieval still serves the last trusted version. Treat every canonical write as a transaction, not a loose file edit.
+
+A safe write path should:
+
+1. validate that the writer is allowed to change the target,
+2. record the before and after hashes in an append-only journal,
+3. apply the file change atomically,
+4. rebuild the derived index, and
+5. verify that the published manifest now contains the new hash.
+
+Fail closed when an authoritative file changes without a matching journal entry. Do not silently index it as trusted truth. But pair that guard with a bounded **adoption path** for legitimate direct edits: record the observed content as a journaled no-op, then rebuild and verify. A fail-closed gate with no recovery route turns one bypass into a permanent stale-index deadlock.
+
+The reusable rule is simple: **authoritative content and derived retrieval state advance together, with a receipt.** The index remains disposable; the journal makes every trusted transition explainable.
+
+## Give Temporary Handoff Aliases an Expiry
+
+Short phrases are useful session handoffs: “resume the migration review” can restore a large context bundle without making the human repeat it. They are also ambiguous and easy to strand in a daily note that the next session never loads.
+
+Register each handoff alias in the smallest canonical file that every relevant session reads. Store four fields:
+
+- the exact phrase,
+- the context or action it resolves to,
+- the registration date, and
+- an expiry date.
+
+When a session receives an unfamiliar short phrase, check the handoff registry before improvising an interpretation. Remove the alias when consumed, and run a deterministic expiry sweep on a schedule. If no explicit expiry exists, use a short default such as seven days and report entries that cannot be parsed.
+
+This makes temporary continuity deterministic without letting stale aliases become permanent hidden instructions.
+
 ## Hardening the Retrieval Layer
 
 A semantic index is a piece of infrastructure, and infrastructure fails quietly. Three patterns, learned the hard way, keep a local retrieval layer honest.

@@ -58,6 +58,19 @@ Current state:
 - Run the narrowest meaningful test, lint, or build command before handoff.
 </code_change_discipline>
 
+<negative_constraints>
+- Do NOT produce [the adjacent but wrong artifact class].
+- Do NOT drift into [internal language, customer language, hype, or vague summary].
+- Do NOT omit [the critical comparison, recommendation, citation behavior, or rollout caveat].
+- Do NOT overstate certainty beyond the available evidence.
+</negative_constraints>
+
+<failure_modes_to_avoid>
+- Common failure: [writing the wrong layer of document for the named audience].
+- Common failure: [optimizing for completeness instead of decision usefulness].
+- Common failure: [creating a file that exists but does not fit its purpose].
+</failure_modes_to_avoid>
+
 <acceptance_criteria>
 Write each criterion as an observable requirement with its own verification:
 - [ ] AC-1: WHEN [trigger], [system or artifact] SHALL [observable result].
