@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-08-31
+
+### Added
+- **Source-aware summarization skill** (`skills/summarize/`) — routes article, document, podcast, and video requests to the `summarize` CLI, keeps full extraction distinct from summarization, and treats incomplete transcripts as gaps to disclose rather than text to invent. The public port is provider-neutral and includes supported commands for web pages, local files, and timestamped YouTube transcripts. Validated in `reports/evals/summarize-skill-port-2026-08-31.md`.
+
 ## 2026-08-29
 
 ### Changed
