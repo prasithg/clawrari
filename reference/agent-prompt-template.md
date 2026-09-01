@@ -10,6 +10,34 @@ XML blocks are machine-parsed; Markdown sections are for human readability.
 
 ---
 
+## Compile the Request Before Delegating
+
+People should not have to speak in templates. Convert a casual request into a complete
+task contract before you route it to an agent. Compile these fields silently when the
+request already provides enough evidence:
+
+- **Outcome:** the concrete artifact or state that must exist at the end.
+- **Sources:** the files, systems, and decisions that define truth for the task.
+- **Scope:** what may change, what must not change, and where adjacent work stops.
+- **Done:** observable acceptance criteria and the commands that verify them.
+- **Authority:** allowed internal changes, required external side effects, and actions
+  that still require a human decision.
+- **Effort:** expected depth, time limit, and whether the task warrants parallel work.
+- **Execution:** direct work, delegated work, review, or a long-horizon supervised run.
+- **Recovery:** the durable plan, state record, or handoff needed to resume without
+  silently starting over.
+
+Expose the compiled contract only when the request is materially underspecified, two
+constraints conflict, or a consequential choice belongs to the human. Otherwise, use
+it to author the prompt and start work. This preserves conversational input without
+passing ambiguity downstream.
+
+For long independent runs, record the prompt digest, parent and child identities,
+heartbeats, and exactly one terminal outcome. Recovery reads that record and resumes
+the existing run; it does not launch an untracked duplicate.
+
+---
+
 ## Base Template
 
 ```
