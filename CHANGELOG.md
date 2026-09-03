@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-03
+
+### Changed
+- **Fable 5.1 is the primary model route** (`reference/model-playbook/`) — main sessions and routine agent work now start on Fable 5.1 at medium effort, GPT-5.6 Sol owns the backup/review/coding lane, and Opus 4.8 is retained only as a retired prompting reference. The Fable guide and overlay include the 5.1 migration hazards: conversation-bound thinking blocks, weaker implicit tool batching, quieter long-run progress, and lower retrieval at low effort.
+
+### Added
+- **Executable routing-drift guard** (`scripts/validate-model-playbook.mjs`) — a zero-dependency validator now rejects missing model references, retired or experimental models in production intents, duplicate aliases, missing prompt guides, invalid effort maps, and stale main-route documentation. Its four-fixture self-test and the model-switch comparison are documented in `reports/evals/2026-09-03-fable51-routing-refresh.md`.
+
 ## 2026-08-31
 
 ### Added

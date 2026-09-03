@@ -1,7 +1,7 @@
-# Claude Fable 5 — Operating Pack (prompt library)
+# Claude Fable 5 family — Operating Pack (prompt library)
 
 Source: Every, https://every.to/p/claude-fable-5-prompt-library (2026-07-02).
-A pre-Fable discovery prompt + 13 templates from Every's Fable runs, Power User Camp, and Mike Krieger's interview. Companion to `models/fable.md` (behavioral learnings).
+A pre-Fable discovery prompt + 13 templates from public Fable runs and interviews. The templates remain useful on Fable 5.1; apply the migration deltas in `models/fable.md`.
 
 > **⚠️ Adaptation note:** Every's pack assumes **Claude Code + the Compound Engineering "LFG" plugin + CLAUDE.md**. This playbook targets **OpenClaw**. Translate before use:
 > - "Claude Code / cursor" → OpenClaw main session on `/model fable` (+ Codex `gpt` as executor).

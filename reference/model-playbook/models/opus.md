@@ -1,12 +1,12 @@
-# Claude Opus 4.8
+# Claude Opus 4.8 — Retired reference
 
-**Runtime id:** `amazon-bedrock/us.anthropic.claude-opus-4-8` · **alias:** `opus`
+**Runtime id:** `amazon-bedrock/us.anthropic.claude-opus-4-8` · **legacy alias:** `opus-legacy`
 
 ## Routing
 
-Opus 4.8 at **medium** is the default interactive/generalist route for orchestration, planning, research synthesis, content, and voice. Its fallback chain is GPT-5.6 Sol medium, then Kimi K3 high.
+Opus 4.8 is retired from active routing. Keep this file only as a historical prompting reference for old transcripts and deliberate migration comparisons. No active intent in `models.yaml` may use it as a primary, secondary, or fallback.
 
-Do not use another Anthropic model as an outage fallback. Fable is a role-specific hard-autonomous model, not an Opus availability substitute.
+Current work should follow `models.yaml` instead of silently reviving this route.
 
 ## Prompt shape
 
@@ -38,6 +38,5 @@ Specify palette, typography, structure, density, and product context. For techni
 
 ## Effort
 
-- `medium`: standing default.
-- `high`: bounded difficult judgment or review.
-- Hard autonomous work belongs on Fable xhigh rather than routine Opus escalation.
+- Historical runs used `medium` for routine work and `high` for bounded difficult judgment.
+- New work belongs on an active route; retirement is incomplete while any intent still references Opus 4.8.

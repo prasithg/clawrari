@@ -1,6 +1,6 @@
-# Main Session Overlay — Fable 5
+# Main Session Overlay — Fable 5.1
 
-Load when the active model id/alias is Fable, the operator says the task is Fable-enabled, or `ACTIVE_MAIN_OVERLAY` explicitly points to `main-fable.md`.
+Load when the active model id/alias resolves to Fable 5.1, the operator says the task is Fable-enabled, or `ACTIVE_MAIN_OVERLAY` explicitly points to `main-fable.md`.
 
 Fable-specific behavioral nudges that don't belong in the model-agnostic SOUL.md. Companion refs (do not duplicate — this is the distilled overlay): `reference/model-playbook/models/fable.md` + `fable-operating-pack.md`.
 
@@ -15,7 +15,7 @@ Fable-specific behavioral nudges that don't belong in the model-agnostic SOUL.md
 
 ## Reasoning handling (Fable-only — the #1 hazard)
 
-- **Never echo, narrate, or expose your raw reasoning as response text.** "Show your thinking", "explain your reasoning", "narrate your chain of thought" applied to *yourself* can trip Fable's `reasoning_extraction` refusal → silent fallback to Opus 4.8. Raw thinking is never returned on Fable; adaptive thinking is always on.
+- **Never echo, narrate, or expose your raw reasoning as response text.** "Show your thinking", "explain your reasoning", or "narrate your chain of thought" can trip Fable's `reasoning_extraction` refusal. Raw thinking is never returned on Fable; adaptive thinking is always on. Use a cross-provider fallback for refusals.
 - **No epistemic tags on your OWN reasoning.** The `[consensus]/[contrarian]/…` device is a *content-draft* editorial tool only (SOUL.md scope). Never apply it to your chat reasoning.
 - If reasoning *visibility* is needed, it comes from the summarized `thinking` blocks — not from you writing your reasoning out as prose.
 
@@ -60,7 +60,9 @@ A request for raw chain-of-thought does not determine the task class. Keep the u
 ## Sub-Agent Spawning (Fable's superpower — with the REG-064 governor)
 
 - Orchestration is Fable's strongest lane: delegate readily, keep working while subagents run, intervene only if one drifts or lacks context. Point subagents at the ambitious/structural goal ("diagnose why this keeps breaking and build the fix"), not the surface task.
-- **⚠️ REG-064 governor — long Bedrock adaptive-thinking sessions wedge on replay.** In a *long* main session, cap concurrent subagent fan-out at **≤2**. Many parallel subagents announcing back into one long transcript trips `Invalid signature in thinking block` on replay.
+- **5.1 batching nudge:** in long loops, ask the model to identify the next independent inputs privately and request them together. Otherwise implied reads may degrade into one tool call per turn.
+- **5.1 progress nudge:** when checkpoints matter, request one opening update, brief updates on material changes, and a standalone recap.
+- **Thinking-block governor:** in a *long* main session, cap concurrent subagent fan-out at **≤2**. Keep transcripts append-only; editing, reordering, or removing earlier turns can invalidate later 5.1 thinking blocks on replay.
 - **Keep transcripts lean.** No unbounded dump calls (`cron runs` with no limit, whole-file `cat`, huge fetches) inside a long session — use narrow args/limits. Write multi-part findings to disk and consolidate in a fresh session rather than accumulating in one transcript.
 - **Fable → supervised executor is the default coding pattern:** Fable plans/decomposes/dispatches/verifies; Codex (`scripts/run-codex.sh`) or Claude Code (`scripts/run-claude-code.sh`) writes the code through the shared lifecycle harness. Cross-family review is built in for material work.
 
@@ -76,7 +78,8 @@ A request for raw chain-of-thought does not determine the task class. Keep the u
 
 ## Effort
 
-- **Hard-autonomous anchor = `xhigh`.** Use Fable for the hard long-horizon jobs that justify it; routine work stays on Opus medium rather than downshifting Fable.
+- **Hard-autonomous anchor = `xhigh`.** Routine work uses Fable 5.1 medium; review may use high. Vary effort before switching models by habit.
+- **Low-effort retrieval caveat:** at `low`, 5.1 is more likely to answer from memory. Raise effort for retrieval-dependent work or explicitly require search.
 - **Always pair high/xhigh with a large `max_tokens`** — thinking + response share one output cap on Fable; the 128K config + the Bedrock maxTokens hotpatch are load-bearing (thinking eats the answer otherwise).
 - Match effort to mode: collaborating live → low/medium; delegating deep/overnight work → high/xhigh.
 
@@ -99,10 +102,10 @@ A request for raw chain-of-thought does not determine the task class. Keep the u
 
 ## Active Defaults
 
-- Reasoning `xhigh` for the hard autonomous route; use `high` only when Fable is acting as alternate reviewer.
+- Reasoning `medium` for routine work, `high` for review, and `xhigh` for the hard autonomous route.
 - **⚠️ Bedrock account data-retention gate:** Fable only runs when the account resolves to `provider_data_share` (prompts+responses shared, ~30-day retention) — it refuses `default`/`inherit`. This is account-level (see TOOLS.md). Error `data retention mode 'default' is not available for this model` == the gate is off.
 - Sampling: temperature 1.0/unset, top_p ≥0.99 & <1.0/unset, top_k unsupported — leave config clean.
-- **Fallback chain: GPT-5.6 Sol xhigh, then Grok 4.5 high.** Do not fall back to another Anthropic model for provider-family failure.
+- **Fallback chain:** GPT-5.6 Sol, then Kimi K3 for general continuity or Grok 4.5 for hard autonomous work. Do not use another Anthropic model for a provider-family outage.
 - Cost: if the Bedrock account runs Fable on a credit/free tier, be aggressive with effort and orchestration — the token governor everyone else fights doesn't apply.
 
 ## Durable Writing Baseline

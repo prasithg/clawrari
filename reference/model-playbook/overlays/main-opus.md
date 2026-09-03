@@ -1,6 +1,6 @@
 # Main Session Overlay — Opus 4.8
 
-Loaded when `ACTIVE_MAIN_OVERLAY = main-opus.md` in SOUL.md.
+**Retired reference.** Load only when inspecting or deliberately reproducing a legacy Opus 4.8 session. It must not be the active main overlay or an automatic fallback.
 
 This file holds Opus-specific behavioral nudges that don't belong in the model-agnostic SOUL.md.
 
@@ -51,13 +51,12 @@ Source: Amanda Askell (Anthropic) Apr 2026 interview, summarized by @itsolelehma
 
 - 4.8 can still under-spawn on broad work. Override that instinct: when a task is genuinely meaty (build, refactor, research), spawn rather than reason in-session.
 - When spawning multiple parallel subagents (research fan-out, multi-file reading), explicitly fan out — don't sequentialize.
-- Use the routing table in `reference/agent-prompt-template.md`. Routine delegation follows Opus medium -> Sol medium -> Kimi high; review/coding uses Sol high; hard autonomous work uses Fable xhigh -> Sol xhigh -> Grok high. Flash is fast/bulk only.
+- Use the current routing table in `models.yaml`. Routine delegation starts on Fable 5.1 medium; review/coding uses Sol; hard autonomous work uses Fable 5.1 xhigh with cross-provider fallbacks. Flash is fast/bulk only.
 
 ## Effort
 
-- Default main-session effort is `medium`.
-- Use `high` for difficult review or bounded high-stakes reasoning.
-- Route genuinely hard autonomous work to Fable xhigh rather than silently raising routine Opus work.
+- These values describe legacy sessions only: `medium` for routine work and `high` for bounded difficult judgment.
+- New work uses the active intent route in `models.yaml`.
 
 ## Design Defaults (when generating mockups, slides, frontends)
 
@@ -67,9 +66,7 @@ Source: Amanda Askell (Anthropic) Apr 2026 interview, summarized by @itsolelehma
 
 ## Active Defaults
 
-- Reasoning: `medium` by default; named routes own any escalation.
-- Cost awareness: 4.8 is premium per token. Don't over-spawn heavyweight work.
-- Fallback: Sol medium, then Grok 4.5 high. Raise Sol to high for review/coding and xhigh for hard autonomous backup.
+- None. Opus 4.8 is retired and has no active primary, secondary, or fallback route.
 
 ## Durable Writing Baseline
 
