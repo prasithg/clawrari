@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-09-05
+
+### Changed
+- **Pre-build alignment review** (`reference/agent-prompt-template.md`) adds a read-only check between writing an implementation brief and starting the build. It checks requirement traceability, file paths, constraint conflicts, run size, and verification coverage, then cites the smallest correction for each mismatch. The three-case instruction-coverage eval is in `reports/evals/2026-09-05-pre-build-alignment-review.md`.
+
 ## 2026-09-03
 
 ### Changed

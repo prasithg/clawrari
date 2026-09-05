@@ -180,6 +180,50 @@ Why each field exists:
 
 ---
 
+## Pre-Build Alignment Review
+
+Run this read-only review after the implementation brief is written and before build
+work starts. Use it inline for a small change or give it to a short-lived reviewer for
+larger work.
+
+The review checks five failure points:
+
+- Trace every acceptance criterion to a source requirement.
+- Confirm that referenced existing paths exist and mark planned paths as new.
+- Find conflicts between the brief, its source requirements, and architecture rules.
+- Confirm that the scope fits the assigned run; split work that does not.
+- Match every acceptance criterion to a runnable check and expected result.
+
+Use this prompt:
+
+```text
+Review this implementation brief against its source requirements before work starts.
+
+Inputs:
+- Implementation brief: <path-or-link>
+- Source requirements: <path-or-link>
+- Architecture rules: <path-or-link-or-none>
+
+Check:
+1. Every acceptance criterion traces to a source requirement.
+2. Every referenced existing path exists; planned paths are marked as new.
+3. The brief does not conflict with its sources or architecture rules.
+4. The scope fits one assigned run, or the brief names a safe split.
+5. Every acceptance criterion has a runnable check and expected result.
+
+Return one result:
+- PASS: all five checks hold.
+- FAIL: cite each mismatch by section and give the smallest correction.
+
+Keep the review read-only. Do not implement the work or rewrite the brief.
+```
+
+A failed review blocks implementation until the cited mismatch is corrected. This
+keeps the build agent focused on execution instead of discovering an unusable brief
+after code changes have started.
+
+---
+
 ## XML Block Reference
 
 ### `<audience_contract>` — Artifact-Fit Guard
