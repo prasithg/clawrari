@@ -1,6 +1,6 @@
 # avoid-ai-writing — AWDS (AI-Writing Defense System)
 
-**Status:** v0.1
+**Status:** v0.2
 **Source of truth:** This skill is the single, canonical home for Clawrari's anti-AI-tell voice rules. This file + `patterns/` + `CHANGELOG.md` define the rules, scoring, and workflow. Every other voice/writing-style/persona/publish doc in this repo **defers to this skill and loses on any conflict.** Build your own rules from your own observations — synthesize from external work, but the patterns, scoring, and corpus are yours and evolve continuously.
 
 ## Purpose

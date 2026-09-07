@@ -2,6 +2,15 @@
 
 Skill versioning: minor bump for pattern file edits, major bump for scoring rubric or workflow shifts. Every change should carry a linked eval artifact (the repo's "no eval = not Done" rule, `reports/evals/`).
 
+## v0.2 — 2026-09-07
+
+**Shipped:**
+- Added three sanitized, reusable candidates to `patterns/v4-emerging.md`: recycled credential callbacks, confession-shaped reversals, and first-person receipts that end in generic open questions.
+- Kept all three candidates observation-only. They do not change verdict scoring unless fresh corpus evidence earns promotion into the stable pattern layer.
+- Added synthetic positive and boundary examples so future promotion decisions have a fixed comparison set.
+
+**Eval:** `reports/evals/2026-09-07-awds-emerging-pattern-refresh.md`.
+
 ## v0.1
 
 **Inception.** The documented single source of truth for Clawrari's anti-AI-tell voice rules.

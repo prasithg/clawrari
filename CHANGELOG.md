@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-09-07
+
+### Changed
+- **Emerging voice-pattern refresh** (`skills/avoid-ai-writing/patterns/v4-emerging.md`) adds three candidate checks for recurring corpus drift: recycling one credential as proof for unrelated claims, repeating a confession-shaped reversal, and ending first-person receipts with generic open questions. They remain observation-only candidates and do not affect publish verdicts until fresh recurrence justifies promotion. Synthetic positive and boundary cases are documented in `reports/evals/2026-09-07-awds-emerging-pattern-refresh.md`.
+
 ## 2026-09-05
 
 ### Changed

@@ -125,6 +125,76 @@ Operators prune false positives by adding entries to `patterns/v4-rejected.md` (
 
 **Promotion candidate:** Y
 
+---
+
+### v4.06-recycled-credential-callback — One credential reused as universal proof
+
+**Detected:** 2026-09-06 by model-b
+**Severity proposal:** P1
+**Confidence:** weak (one reviewer)
+
+**Detect rule:** Across a rolling seven-day corpus, normalize each first-person credential claim into its role-and-scale phrase. Flag when the same credential callback appears in at least three distinct bodies and supports different theses. Ignore one biographical use, quoted source text, and separate concrete incidents that merely share a topic.
+
+**Rewrite:** Replace the authority callback with evidence from the incident being discussed. `I led a large platform team, so agent reviews work the same way.` → `The second reviewer caught an invalid migration because it had not seen the implementation prompt.`
+
+**Synthetic positive examples:**
+- `I led a large platform team. Agent review has the same problem.`
+- `When I managed a large platform team, alert fatigue worked the same way.`
+- `Running a large platform team taught me the same lesson about memory.`
+
+**Boundary examples:**
+- One profile post explains the author's background once. Do not flag.
+- Three posts quote the same credential from a source article. Do not flag.
+
+**Promotion candidate:** N (requires recurrence in fresh corpus)
+
+---
+
+### v4.07-confession-shaped-reversal — Stock setup followed by self-correction
+
+**Detected:** 2026-09-06 by model-b
+**Severity proposal:** P1
+**Confidence:** weak (one reviewer)
+
+**Detect rule:** Batch-level structural rule. Flag when at least three bodies in seven days establish an obvious fix or blamed culprit, then reverse it into a first-person correction within the next two sentences. Setup markers include `the obvious fix was`, `the working theory was`, `I blamed`, and `I made the mistake`. Reversal markers include `I was wrong`, `it was us`, `so I did the opposite`, and `that made it worse`. Both phases must describe the same incident. A single genuine correction is not a batch pattern.
+
+**Rewrite:** State the observed mechanism and repair directly. `I blamed the model. I was wrong.` → `A missing retry condition dropped the request before the model ran; adding the condition restored delivery.`
+
+**Synthetic positive examples:**
+- `The obvious fix was more context. That made it worse.`
+- `I blamed the model. I was wrong.`
+- `The working theory was provider instability. It was our retry policy.`
+
+**Boundary examples:**
+- `The first hypothesis failed after the latency trace contradicted it.` Do not flag without the recurring confession template.
+- One post says `I was wrong` once. Do not flag at batch level.
+
+**Promotion candidate:** N (requires recurrence in fresh corpus)
+
+---
+
+### v4.08-receipt-to-open-question-tail — First-person proof followed by a generic question
+
+**Detected:** 2026-09-06 by model-b
+**Severity proposal:** P1
+**Confidence:** weak (one reviewer)
+
+**Detect rule:** Reply-level structural rule. Identify a multi-sentence reply with a first-person receipt before the final sentence and an open question as the final sentence. Flag the batch at three distinct replies in seven days or at least 40% of one batch. Exclude question-only replies, questions that present two concrete alternatives with `or`, and questions whose answer is required for the next action.
+
+**Rewrite:** End on the concrete observation or state the unresolved fact directly. Ask a question only when its answer changes what happens next. `My reviewer caught this last week. How are you handling it?` → `My reviewer caught the same failure last week; the fix was to test the handoff, not just the output.`
+
+**Synthetic positive examples:**
+- `My reviewer caught this last week. How are you handling it?`
+- `We moved the check before deployment. What changed for you?`
+- `I use a separate model for review. Curious how you split the work?`
+
+**Boundary examples:**
+- `Do you want the fast path or the audited path?` Do not flag; the answer selects the next action.
+- `What failed?` Do not flag; there is no preceding receipt.
+- One receipt-backed question in a seven-day corpus. Do not flag at batch level.
+
+**Promotion candidate:** N (requires recurrence in fresh corpus)
+
 ## Promoted to v3
 
 _(empty — entries move to `patterns/v3-structural.md` and the entry here is replaced with a stub linking to the v3 id.)_
