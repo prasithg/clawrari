@@ -255,6 +255,20 @@ Why the discipline matters: a gate's entire value is that a red result means som
 
 A companion habit keeps you honest: when a fixture or denominator legitimately changes (a reviewed source move, a renamed item), *keep it in the denominator and document why* rather than quietly dropping it to smooth the number. "We recovered 27/27 without editing a single threshold" is a stronger claim than "we're green again," precisely because it proves you fixed the system instead of the scoreboard.
 
+## 16. Treat Eval Fixtures as Controlled Evidence
+
+An evaluation can stay green while its evidence quietly rots. A golden row may still match by semantic luck after its cited source was deleted. A runner may report the wrong denominator because the expected fixture count is hardcoded in two places. Fixing either problem casually is dangerous: changing a question, expected answer, and source together can turn a repair into an unreviewed rewrite of the test.
+
+Treat golden fixtures like controlled evidence:
+
+1. **Keep the tested claim separate from its citation.** A source-path repair may change only the citation when a new canonical file still supports the same claim. If the fact itself disappeared, stop. Retire or replace the row through the normal review path instead of pointing it at a vaguely related document.
+2. **Make golden edits explicit exceptions.** Keep the fixture read-only to ordinary build lanes. Require a named, narrow approval for any edit, record the exact rows in scope, and preserve the question and expected answer unless the approval explicitly covers changing the test.
+3. **Derive counts from the fixture.** The runner and policy report should parse the current fixture count from one source of truth. A hardcoded denominator can make a dry run look healthy while the policy and dataset disagree.
+4. **Audit provenance, not only scores.** Check that every cited source exists and still contains the load-bearing fact. A passing retrieval score does not prove the row is grounded in the file it claims to test.
+5. **Classify the fault before tuning the system.** A dead citation or stale denominator is a grader fault. Repair the evaluator and rerun the unchanged quality thresholds. Do not train the agent around broken evidence.
+
+The finish state is stronger than “all rows pass”: the fixture count is derived, every citation is live, each repaired row still tests the same claim, and unresolved facts remain visibly unresolved rather than being forced green.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

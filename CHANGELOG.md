@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-09-09
+
+### Added
+- **Golden fixtures are controlled evidence** (`docs/self-improvement.md` §16) separates the claim under test from its citation, allows citation-only repair only when the same fact survives in a canonical source, leaves vanished facts unresolved for review, derives denominators from the fixture, and classifies stale provenance as an evaluator fault before any model or threshold tuning. The three-case procedure eval is in `reports/evals/2026-09-09-eval-fixture-integrity.md`.
+
 ## 2026-09-07
 
 ### Changed
