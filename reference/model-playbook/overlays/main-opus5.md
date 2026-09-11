@@ -1,6 +1,6 @@
 # Main Session Overlay — Opus 5
 
-Load this overlay when the active main model resolves to Claude Opus 5.
+Load this overlay when the active main model resolves to Claude Opus 5 (`amazon-bedrock/us.anthropic.claude-opus-5`, alias `opus5`). In the current roster Opus 5 is the **same-family backup** for a Fable-specific outage while the provider is still available. It is not a council seat and not part of the cross-provider chain; see `../effort-ladder.md`.
 
 Opus 5 works well with prompts written for Opus 4.8, but three behaviors invert the older guidance: it self-verifies readily, expands scope, and delegates more often. The adjustments below keep those strengths without turning them into waste.
 

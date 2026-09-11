@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-09-11
+
+### Changed
+
+- **Model-routing example refreshed** (`reference/model-playbook/`): Fable 5.1 remains the general default; GPT-6 Astra replaces retired coding and review routes. Current guidance separates task-specific effort, cross-provider fallback, and comparison-only models. [Evaluation](reports/evals/2026-09-11-model-playbook-refresh.md).
+
+### Added
+
+- **Verify returned record identity** (`docs/self-improvement.md` §17): match the full identifier and relevant scope, require one result, and use only its verified stable ID downstream.
+- **Coordinate shared settings edits** (`docs/self-improvement.md` §18): detect intervening writers before applying or restoring a snapshot, verify intended fields, and distinguish a client-side revision check from an atomic update. [Evaluation for both lessons](reports/evals/2026-09-11-identity-and-shared-state.md).
+
 ## 2026-09-09
 
 ### Added

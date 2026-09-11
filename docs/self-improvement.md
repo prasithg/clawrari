@@ -269,6 +269,37 @@ Treat golden fixtures like controlled evidence:
 
 The finish state is stronger than “all rows pass”: the fixture count is derived, every citation is live, each repaired row still tests the same claim, and unresolved facts remain visibly unresolved rather than being forced green.
 
+## 17. Verify the Identity Returned by a Lookup
+
+A successful lookup can return the wrong record. Human-readable identifiers often combine a namespace with a local number, while a resolver may search only the number. One request can then return records from several teams. A plausible title or the first result is insufficient evidence of identity.
+
+Before reading details or using a returned ID in a write:
+
+1. Keep the full requested identifier, including its namespace.
+2. Select a result whose returned identifier exactly matches the request. Check the tenant or project too when the identifier is unique only within that scope.
+3. Require exactly one match. Treat zero matches or multiple exact matches as unresolved; do not choose an arbitrary record.
+4. Use only that verified record's stable ID downstream. Check the identity again when fetching its details.
+
+For a synthetic request for `OPS-42`, a response containing `WEB-42` and `OPS-42` yields only the second record. A response containing only `WEB-42` must stop the lookup. The same rule applies to repositories, documents, accounts, and inventory items with locally unique names.
+
+A later correct response does not prove an intermittent resolver fault is fixed. Keep the check at the response boundary. A written instruction asks an agent to perform it; a wrapper that rejects mismatches enforces it. Report which protection you actually have.
+
+## 18. Check for Another Writer Before Restoring Shared Settings
+
+Two agents can edit the same scheduled job seconds apart. Each sees a before/after difference and assumes its own command caused every changed field. A restore from either agent's old snapshot can then undo the other's valid work.
+
+A settings snapshot records what existed. It does not establish who caused a later change. Use this procedure for shared configuration:
+
+1. Capture the target's version or revision with the fields you plan to change. Treat a missing revision as insufficient evidence to overwrite shared state.
+2. Immediately before applying the change, read the revision again. If it moved, stop and reconcile with the new state.
+3. Change only the intended fields. After the write, read them back and record the resulting revision for the next operation.
+4. If an unrelated field changed, investigate other writers before restoring it or blaming the tool. Reproduce the command on an isolated, disposable target when attribution is uncertain.
+5. Restore only when you can establish that the current version is still the one you own. Otherwise reconcile instead of replaying the old snapshot.
+
+A client-side read followed by a write still has a race window. It detects changes that happened before the check; it cannot prevent a competing write immediately afterward. Use an atomic conditional update when the service supports it, or serialize writers through a shared owner or lock. A version timestamp alone also cannot reconstruct every intermediate write.
+
+The useful finish state is an intended change with verified fields and an owned version, plus an explicit conflict when ownership is uncertain.
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

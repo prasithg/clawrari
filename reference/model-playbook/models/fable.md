@@ -42,13 +42,13 @@ Sources: Anthropic's "Migrating to Claude Fable 5.1" and "Prompting Claude Fable
 
 - **Delegate readily.** Fable is markedly better at dispatching + sustaining **parallel subagents** and peer-agent comms. `Delegate independent subtasks to subagents and keep working while they run. Intervene if one goes off track or lacks context.`
 - **Fresh-context verifier subagents > self-critique.** For long runs: `Establish a method to check your own work at interval [X]; run it every [X], verifying against the spec with subagents.`
-- **Fable → Codex executor pattern (the default for requirements-driven coding work):** Fable plans, decomposes, dispatches, and verifies; **Codex (`gpt` alias, `run-codex.sh`) is the executor** that writes code. Cross-family review built in.
+- **Fable → Codex executor pattern (the default for requirements-driven coding work):** Fable plans, decomposes, dispatches, and verifies; **Codex on GPT-6 Astra (through a Codex wrapper such as `run-codex.sh`) is the executor** that writes code. Cross-family review built in.
 - **Memory system it rewards:** one lesson per file, one-line summary at top, record corrections + confirmed approaches + *why*, no duplicates, delete wrong notes. Bootstrap: "reflect on past sessions via subagents, extract themes/lessons, store in [file]."
 
 ## OpenClaw wiring / working model
 
 - **Drive the main session:** `/model fable`; the alias should resolve to Fable 5.1. Keep the older `fable5` alias comparison-only.
-- **Fallback:** follow `models.yaml`: GPT-5.6 Sol, then Kimi K3 for general continuity or Grok 4.5 for hard autonomous work.
+- **Fallback:** follow `models.yaml`: **GPT-6 Astra at matching effort**, then **Grok 4.5 high → Muse Spark 1.3 high only after both primaries fail**. Opus 5 high is the same-family backup for a Fable-specific outage while the provider is still up; provider-family failures cross to Astra.
 - **Effort exposure:** confirm how OpenClaw maps `thinking`/effort onto the Bedrock Converse path for Fable before relying on `xhigh`. [verify TODO]
 - **Sampling:** temperature 1.0/unset, top_p ≥0.99 & <1.0/unset, top_k unsupported — leave config clean, add no overrides.
 - **Scaffolding to revisit:** older skills/overlays built for prior models are often too prescriptive → review/prune when driving with Fable (Fable also updates skills on the fly). A `send_to_user`-style verbatim-delivery pattern helps for long async agents.

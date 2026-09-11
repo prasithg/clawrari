@@ -1,6 +1,8 @@
-# Main Session Overlay — GPT-5.6 Family
+# Main Session Overlay — GPT-5.6 Family — Retired 2026-09-09
 
-Loaded for GPT-5.6 Sol main sessions. The filename is retained for compatibility.
+> RETIRED MODEL GUIDE. Historical behavior and routing below are preserved for reference only; no standing route loads this overlay. Superseded by `main-gpt6.md` (GPT-6 Astra). Load this file only for an explicit Sol comparison session.
+
+Loaded for retired GPT-5.6 Sol main sessions. The filename is retained for compatibility.
 
 This file holds GPT-5.6-family behavioral nudges that don't belong in the model-agnostic SOUL.md.
 

@@ -4,7 +4,7 @@
 
 ## Routing
 
-Kimi K3 is an **explicit user-selected and comparison route** through OpenRouter. Invoke it with `/model kimi` when you want Kimi specifically or when an eval benefits from another model family. It must not enter the default, reviewer, coding, autonomous, or outage fallback chains without a separate promotion eval.
+Kimi K3 is **comparison-only**. Invoke it with `/model kimi` for an explicit user-selected run or when an eval benefits from another model family. It was removed from every fallback chain on 2026-09-09; resilience is Grok 4.5 high → Muse Spark 1.3 high after both primaries fail, and Muse also took over the optional fourth council lane. Never include Kimi in a fallback list without a separate promotion eval.
 
 ## Runtime facts
 
@@ -20,4 +20,4 @@ Use a compact outcome contract: name the deliverable, relevant source material, 
 
 ## Verification
 
-Record the exact provider/model identity, effort, latency, and whether fallback occurred. A picker/config change is not complete until a real Kimi inference succeeds and the authenticated Control UI renders `Kimi K3` under OpenRouter.
+For an explicit comparison run, record the exact provider/model identity, effort, and latency. A routing change that only removes Kimi from chains does not require a Kimi execution; adding it back anywhere does.

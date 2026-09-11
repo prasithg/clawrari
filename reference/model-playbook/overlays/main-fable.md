@@ -64,7 +64,7 @@ A request for raw chain-of-thought does not determine the task class. Keep the u
 - **5.1 progress nudge:** when checkpoints matter, request one opening update, brief updates on material changes, and a standalone recap.
 - **Thinking-block governor:** in a *long* main session, cap concurrent subagent fan-out at **≤2**. Keep transcripts append-only; editing, reordering, or removing earlier turns can invalidate later 5.1 thinking blocks on replay.
 - **Keep transcripts lean.** No unbounded dump calls (`cron runs` with no limit, whole-file `cat`, huge fetches) inside a long session — use narrow args/limits. Write multi-part findings to disk and consolidate in a fresh session rather than accumulating in one transcript.
-- **Fable → supervised executor is the default coding pattern:** Fable plans/decomposes/dispatches/verifies; Codex (`scripts/run-codex.sh`) or Claude Code (`scripts/run-claude-code.sh`) writes the code through the shared lifecycle harness. Cross-family review is built in for material work.
+- **Fable → supervised executor is the default coding pattern:** Fable plans/decomposes/dispatches/verifies; GPT-6 Astra via Codex (a wrapper such as `scripts/run-codex.sh`) writes the code, with Fable 5.1 via Claude Code (`scripts/run-claude-code.sh`) as the alternate through the shared lifecycle harness. Cross-family review is built in for material work.
 
 ## Durable Execution & Recovery
 
@@ -102,10 +102,10 @@ A request for raw chain-of-thought does not determine the task class. Keep the u
 
 ## Active Defaults
 
-- Reasoning `medium` for routine work, `high` for review, and `xhigh` for the hard autonomous route.
+- Reasoning varies by task: `low` for light interaction, `medium` for routine work, `high` for difficult judgment or alternate review, `xhigh` for hard autonomous work.
 - **⚠️ Bedrock account data-retention gate:** Fable only runs when the account resolves to `provider_data_share` (prompts+responses shared, ~30-day retention) — it refuses `default`/`inherit`. This is account-level (see TOOLS.md). Error `data retention mode 'default' is not available for this model` == the gate is off.
 - Sampling: temperature 1.0/unset, top_p ≥0.99 & <1.0/unset, top_k unsupported — leave config clean.
-- **Fallback chain:** GPT-5.6 Sol, then Kimi K3 for general continuity or Grok 4.5 for hard autonomous work. Do not use another Anthropic model for a provider-family outage.
+- **Fallback chain: GPT-6 Astra at matching effort, then Grok 4.5 high → Muse Spark 1.3 high only after both primaries fail.** Do not fall back to another Anthropic model for a provider-family outage; Opus 5 covers only a Fable-specific outage while the provider is still up.
 - Cost: if the Bedrock account runs Fable on a credit/free tier, be aggressive with effort and orchestration — the token governor everyone else fights doesn't apply.
 
 ## Durable Writing Baseline

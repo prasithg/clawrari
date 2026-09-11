@@ -1,10 +1,12 @@
-# GPT-5.6 Sol
+# GPT-5.6 Sol — Retired from routing 2026-09-09
+
+> RETIRED MODEL GUIDE. Historical model behavior and routing below are preserved for reference only. No standing route loads this guide. Superseded by GPT-6 Astra (`gpt-6-astra.md`); the `sol` alias is kept for explicit A/B comparisons only and never enters a default, fallback, reviewer, or cron route. The "simplify prompts first" and "reserve absolutes for invariants" lessons below still apply to Astra.
 
 **Runtime id:** `openai/gpt-5.6-sol` · **alias:** `sol`
 
 ## Routing
 
-- **Sol, medium:** conversational/light GPT work and first cross-provider fallback for the default Opus route.
+- **Sol, medium:** conversational/light GPT work and first cross-provider fallback for the then-default Opus route (historical).
 - **Sol, high:** normal reviewer, code-review, eval, and difficult coding model.
 - **Sol, xhigh:** backup for Fable on hard autonomous work.
 

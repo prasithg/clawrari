@@ -4,14 +4,14 @@ Source: Every, https://every.to/p/claude-fable-5-prompt-library (2026-07-02).
 A pre-Fable discovery prompt + 13 templates from public Fable runs and interviews. The templates remain useful on Fable 5.1; apply the migration deltas in `models/fable.md`.
 
 > **⚠️ Adaptation note:** Every's pack assumes **Claude Code + the Compound Engineering "LFG" plugin + CLAUDE.md**. This playbook targets **OpenClaw**. Translate before use:
-> - "Claude Code / cursor" → OpenClaw main session on `/model fable` (+ Codex `gpt` as executor).
+> - "Claude Code / cursor" → OpenClaw main session on `/model fable` (+ Codex on GPT-6 Astra as executor).
 > - "LFG pipeline" → the night-work/coding-agent flow + `cross-review` + eval-before-Done gate.
 > - "CLAUDE.md" → `SOUL.md` / `AGENTS.md` / `USER.md` / `MEMORY.md` + `memory/` register.
 > - "skills" → the `skills/` system (same concept). "subagents/loops/dynamic workflows" → `sessions_spawn` + crons.
 > - Compound Engineering plugin: https://github.com/EveryInc/compound-engineering-plugin (evaluate; not installed).
 
 ## When Fable is worth the wait
-Use Fable when the job pulls from several sources, can keep moving without constant input, and ends in something testable. Use Codex/Claude Code (or a faster model) when you'll steer every few minutes or need a quick draft/answer/change.
+Use Fable when the job pulls from several sources, can keep moving without constant input, and ends in something testable. Use Fable 5.1 low/medium for live steering and quick drafts; use GPT-6 Astra with task-appropriate effort for coding, artifacts, and computer-use work.
 
 ---
 

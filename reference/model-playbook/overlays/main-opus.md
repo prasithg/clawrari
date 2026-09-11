@@ -51,7 +51,7 @@ Source: Amanda Askell (Anthropic) Apr 2026 interview, summarized by @itsolelehma
 
 - 4.8 can still under-spawn on broad work. Override that instinct: when a task is genuinely meaty (build, refactor, research), spawn rather than reason in-session.
 - When spawning multiple parallel subagents (research fan-out, multi-file reading), explicitly fan out — don't sequentialize.
-- Use the current routing table in `models.yaml`. Routine delegation starts on Fable 5.1 medium; review/coding uses Sol; hard autonomous work uses Fable 5.1 xhigh with cross-provider fallbacks. Flash is fast/bulk only.
+- Use the current routing table in `models.yaml`. Routine delegation starts on Fable 5.1 medium; review/coding uses GPT-6 Astra; hard autonomous work uses Fable 5.1 xhigh with cross-provider fallbacks. Flash is fast/bulk only.
 
 ## Effort
 

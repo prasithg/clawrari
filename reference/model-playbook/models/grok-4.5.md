@@ -4,13 +4,12 @@
 
 ## Routing
 
-Use Grok 4.5 at **high** effort for:
+Use Grok 4.5 at **high** effort for exactly two things:
 
-- Explicit specialist escalation.
-- A third-family judgment after Anthropic and OpenAI.
-- Terminal provider fallback when both the default Anthropic and OpenAI routes are unavailable.
+- **Standing council third seat.** The third-family judgment alongside Fable 5.1 and GPT-6 Astra. A seated model is never the sole synthesizer.
+- **Resilience fallback #2.** Invoked only after **both** Fable 5.1 and Astra have failed; Muse Spark 1.3 follows it. Record the degraded route and verify the result.
 
-Do not use it as the routine default, reviewer, or cheap/bulk lane.
+It is not a chosen task lane: no standing default, reviewer, specialist, coding, or cron route selects it. Specialist escalation stays on Astra high or Fable 5.1 high. Grok 4.6 is pinned out of standing routing and is comparison-only until re-tested on at least three tasks.
 
 ## Prompt shape
 

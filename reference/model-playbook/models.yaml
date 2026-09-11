@@ -1,68 +1,141 @@
 # Model Playbook — Single Source of Truth
-# Version: 14
-# Last updated: 2026-09-03
+# Version: 15
+# Last updated: 2026-09-11
 #
 # Read by: reference docs and optional workspace routing helpers
 # Update protocol: bump version, update runtime configuration, run the linked eval,
 # and run scripts/validate-model-playbook.mjs.
+#
+# This roster is an example. It records one working stack; it does not imply that
+# every user has access to every provider or model listed here.
 
-version: 14
+version: 15
 
 models:
-  opus-4-8:
-    display_name: Opus 4.8
-    aliases: [opus-legacy, opus-4.8, claude-opus-4-8]
-    provider: amazon-bedrock
-    full_id: amazon-bedrock/us.anthropic.claude-opus-4-8
-    status: retired
-    role: legacy-reference-only
-    capabilities: { reasoning: top, coding: top, tool_use: high, long_context: 1M, vision: high, multimodal: image }
-    prompt_style: claude-xml-or-markdown
-    effort_default: medium
-    cost_tier: premium
-    notes: "Retired from active routing on 2026-09-02. Retained only as a migration and prompting reference; no intent may point here."
-    prompt_file: models/opus.md
-
-  gpt-5-6-sol:
-    display_name: GPT-5.6 Sol
-    aliases: [sol, gpt-sol, gpt-5.6-sol]
-    provider: openai
-    full_id: openai/gpt-5.6-sol
-    status: active
-    role: default-cross-provider-fallback | reviewer | coding | hard-work-backup | eval
-    capabilities: { reasoning: top, coding: top, tool_use: top, long_context: 272k, vision: high, multimodal: image }
-    prompt_style: gpt5-xml-blocks
-    effort_default: max
-    cost_tier: Codex OAuth
-    notes: "Use max for backup, review, and coding when the runtime supports it. Use xhigh where max is unavailable."
-    prompt_file: models/gpt-5.6.md
-
-  gpt-5-6-luna:
-    display_name: GPT-5.6 Luna
-    aliases: [luna, gpt-luna, gpt-5.6-luna]
-    provider: openai
-    full_id: openai/gpt-5.6-luna
-    status: active
-    role: quick-interactive-explicit
-    capabilities: { reasoning: high, coding: high, tool_use: high, long_context: 1M, vision: high, multimodal: image }
-    prompt_style: gpt5-xml-blocks
-    effort_default: low
-    cost_tier: OpenAI API
-    notes: "Explicit quick/light interactive route. Not part of the default, review, coding, or autonomous fallback chains."
-    prompt_file: models/gpt-5.6.md
-
   fable-5-1:
     display_name: Fable 5.1
     aliases: [fable, fable-5.1, claude-fable-5-1]
     provider: amazon-bedrock
     full_id: amazon-bedrock/us.anthropic.claude-fable-5-1
     status: active
-    role: default-orchestrator | primary-generalist | hard-autonomous-primary | reviewer
+    role: default-orchestrator | primary-generalist | hard-autonomous-primary | alternate-reviewer | voice
     capabilities: { reasoning: top, coding: top, tool_use: top, long_context: 1M, vision: high, multimodal: image }
     prompt_style: fable-outcome-contract
     effort_default: medium
     cost_tier: premium
-    notes: "Primary route. Vary effort by task: medium for routine work, high for review, and xhigh for hard autonomous work."
+    notes: "Primary route for main/default sessions, crons, routine delegation, research synthesis, and voice-sensitive work. Vary effort by task: low for light interaction, medium for routine work, high for difficult judgment or alternate review, xhigh for hard autonomous work. Never ask it to expose raw chain-of-thought."
+    prompt_file: models/fable.md
+
+  gpt-6-astra:
+    display_name: GPT-6 Astra
+    aliases: [astra, gpt-astra, gpt-6-astra, gpt6]
+    provider: openai
+    full_id: openai/gpt-6-astra
+    status: active
+    role: default-cross-provider-fallback | reviewer | coding | artifacts | computer-use | hard-work-backup | eval
+    capabilities: { reasoning: top, coding: top, tool_use: top, long_context: 1M, vision: high, multimodal: image, computer_use: top }
+    prompt_style: astra-outcome-autonomy-contract
+    effort_default: xhigh
+    cost_tier: Codex OAuth (CLI) or OpenAI API
+    notes: "OpenAI lane since 2026-09-09; replaces GPT-5.6 Sol. Owns coding, review, artifact, and computer-use lanes with effort varied by task: xhigh for substantial coding and hard-work backup, high for review and evals, medium for routine implementation and as fallback #1 for Fable, low as the light-task floor. Always include the autonomy preamble in unattended lanes. No temperature/top_p; no none effort."
+    prompt_file: models/gpt-6-astra.md
+
+  grok-4-5:
+    display_name: Grok 4.5
+    aliases: [grok, grok-4.5]
+    provider: openrouter
+    full_id: openrouter/x-ai/grok-4.5
+    status: active
+    role: council-third-seat | resilience-fallback-2
+    capabilities: { reasoning: top, coding: high, tool_use: high, long_context: 500k, vision: high, multimodal: image }
+    prompt_style: concise-markdown-contract
+    effort_default: high
+    cost_tier: paid OpenRouter
+    notes: "Standing third-family council seat and resilience fallback #2. Invoke as a fallback only after BOTH Fable 5.1 and GPT-6 Astra have failed; never as a chosen task lane."
+    prompt_file: models/grok-4.5.md
+
+  muse-spark-1-3:
+    display_name: Muse Spark 1.3
+    aliases: [muse, muse-spark, muse-spark-1.3]
+    provider: openrouter
+    full_id: openrouter/meta/muse-spark-1.3
+    status: active
+    role: resilience-fallback-3 | council-fourth-strategy-positioning
+    capabilities: { reasoning: high, coding: high, tool_use: unverified, long_context: unverified, vision: unverified, multimodal: text }
+    prompt_style: concise-markdown-evidence-contract
+    effort_default: high
+    cost_tier: paid OpenRouter
+    notes: "Resilience fallback #3 after both primaries and Grok 4.5. Optional fourth council lane for strategy/positioning provocation; not for correctness-critical review. Tool-enabled work was not verified by the source evaluation."
+    prompt_file: models/muse-spark-1.3.md
+
+  gemini-3-7-flash:
+    display_name: Gemini 3.7 Flash
+    aliases: [flash, gemini-flash, gemini-3.7-flash]
+    provider: google
+    full_id: google/gemini-3.7-flash
+    status: active
+    role: fast-bulk-only
+    capabilities: { reasoning: true, coding: high, tool_use: high, long_context: 1M, vision: high, multimodal: image }
+    prompt_style: gemini-single-format
+    effort_default: low
+    cost_tier: low
+    notes: "Bounded classification, extraction, and OCR only. Never route summaries, synthesis, strategy, voice, review, or autonomous work here. A task merely mentioning bulk or speed does not qualify."
+    prompt_file: models/gemini-3.7-flash.md
+
+  opus-5:
+    display_name: Opus 5
+    aliases: [opus5, opus-5, claude-opus-5]
+    provider: amazon-bedrock
+    full_id: amazon-bedrock/us.anthropic.claude-opus-5
+    status: active
+    role: anthropic-family-backup
+    capabilities: { reasoning: top, coding: top, tool_use: top, long_context: 1M, vision: high, multimodal: image }
+    prompt_style: claude-xml-or-markdown
+    effort_default: high
+    cost_tier: premium
+    notes: "Same-family backup for Fable-specific outages while the provider is still available. Not an independent council seat and not part of the cross-provider chains. Behavior deltas live in overlays/main-opus5.md."
+    prompt_file: models/fable.md
+
+  glm-5-3:
+    display_name: GLM 5.3
+    aliases: [glm, glm-5.3]
+    provider: openrouter
+    full_id: openrouter/z-ai/glm-5.3
+    status: experimental
+    role: fast-bulk-candidate | product-integration-comparison
+    capabilities: { reasoning: top, coding: top, tool_use: high, long_context: 1M, vision: none, multimodal: text }
+    prompt_style: openai-compatible-thinking-toggle
+    effort_default: high
+    cost_tier: low-paid OpenRouter
+    notes: "Comparison and utility candidate for bounded extraction/classification pending its own utility eval. Never a live default or fallback; Flash remains the utility default."
+    prompt_file: models/glm-5.3.md
+
+  kimi-k3:
+    display_name: Kimi K3
+    aliases: [kimi, kimi-k3, kimik3]
+    provider: openrouter
+    full_id: openrouter/moonshotai/kimi-k3
+    status: comparison-only
+    role: explicit-comparison
+    capabilities: { reasoning: top, coding: top, tool_use: high, long_context: 1M, vision: high, multimodal: image }
+    prompt_style: openai-compatible-outcome-contract
+    effort_default: high
+    cost_tier: paid OpenRouter ($3 input / $15 output per 1M tokens)
+    notes: "Explicit user-selected comparisons only. Removed from every fallback chain on 2026-09-09; never include it in a fallback list."
+    prompt_file: models/kimi-k3.md
+
+  sonnet-5:
+    display_name: Sonnet 5
+    aliases: [sonnet, sonnet-5, claude-sonnet-5]
+    provider: amazon-bedrock
+    full_id: amazon-bedrock/us.anthropic.claude-sonnet-5
+    status: comparison-only
+    role: explicit-comparison
+    capabilities: { reasoning: high, coding: high, tool_use: high, long_context: 1M, vision: high, multimodal: image }
+    prompt_style: claude-xml-or-markdown
+    effort_default: low
+    cost_tier: premium
+    notes: "Comparison or explicit user request only; no standing route."
     prompt_file: models/fable.md
 
   fable-5:
@@ -79,176 +152,226 @@ models:
     notes: "Previous Fable generation. Keep only for controlled comparisons; no production intent may point here."
     prompt_file: models/fable.md
 
-  sonnet-5:
-    display_name: Sonnet 5
-    aliases: [sonnet, sonnet-5, claude-sonnet-5]
-    provider: amazon-bedrock
-    full_id: amazon-bedrock/us.anthropic.claude-sonnet-5
-    status: active
-    role: quick-interactive-explicit
-    capabilities: { reasoning: high, coding: high, tool_use: high, long_context: 1M, vision: high, multimodal: image }
-    prompt_style: claude-xml-or-markdown
-    effort_default: low
-    cost_tier: premium (Bedrock credits)
-    notes: "Explicit fast Anthropic route. Keep the stable sonnet alias pinned to the latest approved Sonnet version. Not part of fallback chains."
-    prompt_file: models/opus.md
-
-  grok-4-5:
-    display_name: Grok 4.5
-    aliases: [grok, grok-4.5]
+  grok-4-6:
+    display_name: Grok 4.6
+    aliases: [grok-4.6]
     provider: openrouter
-    full_id: openrouter/x-ai/grok-4.5
-    status: active
-    role: specialist-escalation | terminal-cross-provider-fallback
-    capabilities: { reasoning: top, coding: high, tool_use: high, long_context: 500k, vision: high, multimodal: image }
+    full_id: openrouter/x-ai/grok-4.6
+    status: comparison-only
+    role: explicit-comparison
     prompt_style: concise-markdown-contract
     effort_default: high
     cost_tier: paid OpenRouter
-    notes: "Specialist escalation at high effort and final provider-family fallback after OpenAI."
+    notes: "Pinned out of standing routing. Re-test on at least three tasks before promoting over Grok 4.5."
     prompt_file: models/grok-4.5.md
 
-  kimi-k3:
-    display_name: Kimi K3
-    aliases: [kimi, kimi-k3, kimik3]
-    provider: openrouter
-    full_id: openrouter/moonshotai/kimi-k3
-    status: active
-    role: emergency-general-fallback | explicit-comparison
+  gpt-5-6-sol:
+    display_name: GPT-5.6 Sol
+    aliases: [sol, gpt-sol, gpt-5.6-sol]
+    provider: openai
+    full_id: openai/gpt-5.6-sol
+    status: retired
+    role: retired-comparison-reference
+    capabilities: { reasoning: top, coding: top, tool_use: top, long_context: 1M, vision: high, multimodal: image }
+    prompt_style: gpt5-xml-blocks
+    effort_default: medium
+    cost_tier: Codex OAuth
+    notes: "Retired from routing on 2026-09-09; superseded by GPT-6 Astra. Alias kept for explicit A/B comparisons only; never in a default, fallback, reviewer, or cron route."
+    prompt_file: models/gpt-5.6.md
+
+  gpt-5-6-luna:
+    display_name: GPT-5.6 Luna
+    aliases: [luna, gpt-luna, gpt-5.6-luna]
+    provider: openai
+    full_id: openai/gpt-5.6-luna
+    status: retired
+    role: retired-comparison-reference
+    capabilities: { reasoning: high, coding: high, tool_use: high, long_context: 1M, vision: high, multimodal: image }
+    prompt_style: gpt5-xml-blocks
+    effort_default: low
+    cost_tier: OpenAI API
+    notes: "Retired from routing on 2026-09-09. Use GPT-6 Astra low for light OpenAI tasks."
+    prompt_file: models/gpt-5.6.md
+
+  opus-4-8:
+    display_name: Opus 4.8
+    aliases: [opus-legacy, opus-4.8, claude-opus-4-8]
+    provider: amazon-bedrock
+    full_id: amazon-bedrock/us.anthropic.claude-opus-4-8
+    status: retired
+    role: legacy-reference-only
     capabilities: { reasoning: top, coding: top, tool_use: high, long_context: 1M, vision: high, multimodal: image }
-    prompt_style: openai-compatible-outcome-contract
-    effort_default: high
-    cost_tier: paid OpenRouter ($3 input / $15 output per 1M tokens)
-    notes: "Third-place emergency general fallback after Fable 5.1 and GPT-5.6 Sol; also available for explicit comparisons."
-    prompt_file: models/kimi-k3.md
+    prompt_style: claude-xml-or-markdown
+    effort_default: medium
+    cost_tier: premium
+    notes: "Retired from active routing on 2026-09-02. Retained only as a migration and prompting reference; no intent may point here."
+    prompt_file: models/opus.md
 
   gemini-3-5-flash:
     display_name: Gemini 3.5 Flash
-    aliases: [flash, gemini-flash, gemini-3.5-flash]
+    aliases: [gemini-3.5-flash]
     provider: google
     full_id: google/gemini-3.5-flash
-    status: active
-    role: fast-bulk-only
-    capabilities: { reasoning: true, coding: high, tool_use: high, long_context: 1M, vision: high, multimodal: image }
+    status: retired
+    role: legacy-reference-only
     prompt_style: gemini-single-format
     effort_default: low
     cost_tier: low
-    notes: "Use only for fast/bulk work: classification, extraction, OCR/vision quick passes, lightweight summarization, and broad fan-out. Never route hard reasoning, strategy, voice, or autonomous work here."
+    notes: "Retired utility model; Gemini 3.7 Flash owns the flash alias and the fast/bulk lane."
     prompt_file: models/gemini-3.5-flash.md
 
   glm-5-2:
     display_name: GLM 5.2
-    aliases: [glm, glm-5.2]
+    aliases: [glm-5.2]
     provider: openrouter
     full_id: openrouter/z-ai/glm-5.2
-    status: experimental
-    role: experimental-only
-    capabilities: { reasoning: top, coding: top, tool_use: high, long_context: 1M, vision: none, multimodal: text }
+    status: retired
+    role: legacy-reference-only
     prompt_style: openai-compatible-thinking-toggle
     effort_default: high
     cost_tier: low-paid OpenRouter
-    notes: "Experimental and explicit-invocation only. Never place in a production fallback chain until it passes a dedicated eval."
+    notes: "Retired on 2026-09-09; GLM 5.3 is the current comparison/utility candidate."
     prompt_file: models/glm-5.2.md
 
 # Routing intents. Intent-level effort overrides the model default.
+# Chains are three deep: primary, the other primary, then Grok 4.5 and Muse Spark 1.3
+# strictly as resilience after BOTH primaries fail.
 intents:
   main_session:
     primary: fable-5-1
     effort: medium
-    fallbacks: [gpt-5-6-sol, kimi-k3]
-    fallback_effort: { gpt-5-6-sol: max, kimi-k3: high }
-    rationale: "Use the strongest tested general model as the default, then cross provider boundaries for continuity."
+    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Default interactive chain: Fable 5.1 first, GPT-6 Astra second, then Grok 4.5 and Muse Spark 1.3 only after both primaries fail."
 
   deep_research:
     primary: fable-5-1
     effort: medium
-    fallbacks: [gpt-5-6-sol, kimi-k3]
-    fallback_effort: { gpt-5-6-sol: max, kimi-k3: high }
-    rationale: "Strong-model synthesis only; bounded extraction may use the fast lane, but final synthesis does not."
+    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Strong-model synthesis only; Flash may do bounded extraction but never owns the hard synthesis."
 
   websearch_heavy:
     primary: fable-5-1
-    effort: high
-    fallbacks: [gpt-5-6-sol, kimi-k3]
-    fallback_effort: { gpt-5-6-sol: max, kimi-k3: high }
-    rationale: "Use explicit retrieval instructions and raise effort because low-effort Fable 5.1 tends to search less."
-
-  coding_heavy_build:
-    primary: gpt-5-6-sol
-    effort: max
-    fallbacks: [fable-5-1, grok-4-5]
-    fallback_effort: { fable-5-1: xhigh, grok-4-5: high }
-    rationale: "Sol is the coding lane; use xhigh when the runtime does not expose max."
-
-  coding_review:
-    primary: gpt-5-6-sol
-    effort: max
-    fallbacks: [fable-5-1, grok-4-5]
-    fallback_effort: { fable-5-1: high, grok-4-5: high }
-    rationale: "Sol owns independent review; Fable provides the alternate model-family judgment."
-
-  hard_autonomous_work:
-    primary: fable-5-1
-    effort: xhigh
-    fallbacks: [gpt-5-6-sol, grok-4-5]
-    fallback_effort: { gpt-5-6-sol: max, grok-4-5: high }
-    rationale: "Hard autonomous work starts on Fable xhigh, crosses to Sol, then uses Grok as the terminal specialist fallback."
-
-  long_horizon_autonomous_coding:
-    primary: fable-5-1
-    effort: xhigh
-    fallbacks: [gpt-5-6-sol, grok-4-5]
-    fallback_effort: { gpt-5-6-sol: max, grok-4-5: high }
-    rationale: "Fable plans and supervises; substantial code execution uses the Sol coding lane."
+    effort: medium
+    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "The search provider supplies evidence; the reasoning/synthesis route stays on frontier models. State explicitly when retrieval is required because Fable 5.1 searches less at low effort."
 
   subagent_default:
     primary: fable-5-1
     effort: medium
-    fallbacks: [gpt-5-6-sol, kimi-k3]
-    fallback_effort: { gpt-5-6-sol: max, kimi-k3: high }
-    rationale: "Routine delegation follows the same two-model operational core as the main session."
+    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Routine delegation follows the same general chain as the main session."
 
   content_drafting:
     primary: fable-5-1
     effort: medium
-    fallbacks: [gpt-5-6-sol, kimi-k3]
-    fallback_effort: { gpt-5-6-sol: max, kimi-k3: high }
-    rationale: "Use Fable for the first draft, then enforce the publication-specific voice gate independently."
+    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Fable 5.1 is the voice default; Astra medium is the first cross-provider fallback."
 
-  fast_bulk:
-    primary: gemini-3-5-flash
-    effort: low
-    fallbacks: [fable-5-1]
-    fallback_effort: { fable-5-1: medium }
-    rationale: "Flash is strictly bounded to fast/bulk work and never owns hard judgment or final synthesis."
+  hard_autonomous_work:
+    primary: fable-5-1
+    effort: xhigh
+    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: xhigh, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Hard autonomous work is Fable 5.1 xhigh, then Astra xhigh, with Grok then Muse only after both primaries fail."
+
+  coding_heavy_build:
+    primary: gpt-6-astra
+    effort: xhigh
+    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
+    fallback_effort: { fable-5-1: xhigh, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Astra (Codex, xhigh) is the coding lane; Fable 5.1 is the cross-family backup for the hardest build work."
+
+  long_horizon_autonomous_coding:
+    primary: gpt-6-astra
+    effort: xhigh
+    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
+    fallback_effort: { fable-5-1: xhigh, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Fable plans and supervises; substantial code execution uses the Astra-backed Codex wrapper."
+
+  coding_review:
+    primary: gpt-6-astra
+    effort: high
+    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
+    fallback_effort: { fable-5-1: high, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Default cross-family reviewer; use Fable when a second Anthropic judgment is useful."
 
   specialist_escalation:
-    primary: grok-4-5
+    primary: gpt-6-astra
     effort: high
-    fallbacks: [gpt-5-6-sol, fable-5-1]
-    fallback_effort: { gpt-5-6-sol: max, fable-5-1: high }
-    rationale: "Grok is the explicit specialist route; the operational core remains available as fallback."
+    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
+    fallback_effort: { fable-5-1: high, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Difficult specialist judgment stays on the two primaries; Grok then Muse only after both fail."
 
   ab_testing_evals:
-    primary: gpt-5-6-sol
-    effort: max
-    fallbacks: [fable-5-1, grok-4-5]
-    fallback_effort: { fable-5-1: high, grok-4-5: high }
-    rationale: "Sol runs evals; Fable and Grok provide cross-family comparison."
+    primary: gpt-6-astra
+    effort: high
+    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
+    fallback_effort: { fable-5-1: high, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Astra runs evals; Fable 5.1 is the alternate. Grok then Muse are resilience fallbacks after both fail."
 
   cross_model_review:
-    primary: gpt-5-6-sol
-    effort: max
+    primary: gpt-6-astra
+    effort: high
     secondary: fable-5-1
     secondary_effort: high
-    rationale: "Sol is the normal reviewer; Fable is the alternate reviewer and orchestration peer."
+    rationale: "Astra is the normal reviewer; Fable 5.1 is the alternate reviewer when stronger autonomous judgment is warranted."
 
-  experimental:
-    primary: glm-5-2
+  artifact_creation:
+    primary: gpt-6-astra
+    effort: medium
+    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
+    fallback_effort: { fable-5-1: medium, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Astra subagent lane; vary effort by task. Grok then Muse only after both primaries fail."
+
+  computer_use:
+    primary: gpt-6-astra
+    effort: medium
+    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
+    fallback_effort: { fable-5-1: medium, grok-4-5: high, muse-spark-1-3: high }
+    rationale: "Astra subagent lane; vary effort by task. Grok then Muse only after both primaries fail."
+
+  fast_bulk:
+    primary: gemini-3-7-flash
+    effort: low
+    fallbacks: [gpt-6-astra, fable-5-1]
+    fallback_effort: { gpt-6-astra: low, fable-5-1: low }
+    rationale: "Flash is strictly bounded to classification, extraction, and OCR; it never appears in hard-work routes."
+
+  council_third_seat:
+    primary: grok-4-5
+    effort: high
+    rationale: "Standing third-family council seat. Synthesis: a non-seated model, or dual Fable xhigh + Astra xhigh grading with the grader gap reported."
+
+  council_fourth_strategy:
+    primary: muse-spark-1-3
+    effort: high
+    rationale: "Optional strategy/positioning provocateur; not correctness-critical review. Dual-grader rule unchanged."
+
+  anthropic_family_backup:
+    primary: opus-5
+    effort: high
+    rationale: "Fable-specific outage while the provider is still available; never a council seat."
+
+  experimental_fast_bulk_candidate:
+    primary: glm-5-3
     effort: high
     fallbacks: []
-    rationale: "Explicit experiments only; no production fallback behavior."
+    rationale: "Candidate for bounded extraction/classification; utility eval pending, Flash default unchanged. Explicit experiments only."
 
 # Changelog
+# 15 (2026-09-11): GPT-6 Astra replaces GPT-5.6 Sol as the OpenAI lane and owns
+#   coding/review/artifact/computer-use with task-varied effort. Fable 5.1 remains
+#   main/general/voice. Chains are three deep: other primary, then Grok 4.5 high,
+#   then Muse Spark 1.3 high only after both primaries fail. Kimi K3 and Sonnet 5
+#   are comparison-only; Opus 5 is the same-family backup; Gemini 3.7 Flash replaces
+#   3.5 as the bounded utility lane; GLM 5.3 is an experimental utility candidate;
+#   Sol, Luna, Gemini 3.5 Flash, and GLM 5.2 are retired.
+#   Eval: reports/evals/2026-09-11-model-playbook-refresh.md
 # 14 (2026-09-03): Promoted Fable 5.1 to the primary route, made Sol max the
 #   backup/reviewer/coding lane, retired Opus 4.8, and kept Kimi as the
 #   third-place emergency fallback. Added status fields for enforceable retirement.

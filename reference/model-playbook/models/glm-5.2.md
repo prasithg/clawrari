@@ -1,10 +1,12 @@
+> RETIRED MODEL GUIDE (2026-09-09): historical version; current candidate guide: `glm-5.3.md`.
+
 # GLM 5.2
 
 **Runtime id:** `openrouter/z-ai/glm-5.2` · **alias:** `glm`
 
 ## Routing
 
-GLM 5.2 is **experimental only**. Invoke it explicitly for model comparisons, harness tests, or bounded evaluations. It must not appear in the main, autonomous, reviewer, or production fallback chains until a dedicated eval promotes it.
+GLM 5.2 is **retired**; it was experimental only while active. Invoke it, if at all, only for a deliberate historical comparison. It must not appear in the main, autonomous, reviewer, or production fallback chains; GLM 5.3 is the current candidate.
 
 ## Prompt shape
 
