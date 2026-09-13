@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-09-13
+
+### Added
+
+- **Command help without side effects** (`docs/self-improvement.md` §19): parse arguments before work, reject invalid selections, and keep focused diagnostics from sending alerts.
+- **Fresh-checkout dependencies and durable evidence** (`docs/self-improvement.md` §20): review untracked runtime dependencies, test ignore rules against fixtures and disposable output, and retain deferred inventories.
+- **Validated attachment downloads** (`docs/self-improvement.md` §21): check response type and length before saving, distinguish skips from failures, and preserve output when the feature is off.
+
+### Changed
+
+- **Steer existing child runs** (`reference/agent-prompt-template.md`): resolve stable handles before messaging, identify repeated corrections, and inspect existing output before replacing a missing worker. This refresh covers one existing public template; runtime-specific wrappers remain outside the port.
+
+[Evaluation and untested surfaces](reports/evals/2026-09-13-tool-contracts-and-child-steering.md).
+
 ## 2026-09-11
 
 ### Changed

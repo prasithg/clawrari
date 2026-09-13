@@ -38,6 +38,38 @@ the existing run; it does not launch an untracked duplicate.
 
 ---
 
+## Steer an Existing Child
+
+Keep a stable task handle for each delegated run. A readable handle such as
+`docs-reviewer-20260913` identifies the work; the runtime-assigned session key
+identifies the process to inspect or message. Record both, with the task scope,
+output path, and status, in the parent run's durable record.
+
+When requirements change or the parent resumes:
+
+1. Resolve the handle and confirm one matching child before sending instructions.
+   Inspect its state and output to distinguish running, completed, and missing work.
+   An admission receipt confirms that a child started; it is not the result.
+2. Send a scoped correction to the existing child. Include a unique correction ID
+   and instruct the child to treat a repeated ID as a no-op. This is a receiver
+   convention, not a guarantee that the transport delivers exactly once.
+3. Do independent work while the child runs. Use the runtime's completion event or
+   yield mechanism when waiting; avoid a loop of status requests.
+4. If the handle is ambiguous, resolve the ambiguity before messaging or replacing
+   the child. If the child is gone, inspect its durable output before starting a
+   replacement with a distinct handle and a resumable brief. A slow acknowledgement
+   alone does not prove the child is gone.
+5. Record the terminal outcome in the same run record after inspecting the result.
+
+Use an isolated child context for a self-contained brief. Inherit the parent
+transcript only when the task needs that history. Adapt handle resolution and
+waiting to the tools your runtime exposes; a label is not interchangeable with a
+session key.
+
+[Three-case evaluation](../reports/evals/2026-09-13-tool-contracts-and-child-steering.md#child-steering-cases).
+
+---
+
 ## Base Template
 
 ```

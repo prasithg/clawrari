@@ -300,6 +300,48 @@ A client-side read followed by a write still has a race window. It detects chang
 
 The useful finish state is an intended change with verified fields and an owned version, plus an explicit conflict when ownership is uncertain.
 
+## 19. Command Help Must Have No Side Effects
+
+A maintenance runner treated `--help` as an unknown argument, ignored it, and ran its full checks and alert path. A request for usage information sent notifications. Fix this at the command boundary:
+
+1. Parse arguments before starting checks, loading services, or writing reports. Both `--help` and `-h` print usage and exit successfully.
+2. Reject unknown, missing, duplicate, and invalid selection arguments before doing work. An invalid selection must not broaden into a full run or produce a zero-check success.
+3. Keep focused diagnostic runs local by default. A failing selected check still returns failure, but does not send an alert. Preserve the scheduled full-run notification behavior separately.
+4. Verify observable effects in an isolated fixture: exit status, report writes, and sender calls. Include a failing scheduled-run control that reaches a fake sender, so an inert test double cannot make every case look safe.
+
+When the old implementation is available, run the same controls against it and confirm they detect the original failure. Checking a help string alone does not establish that asking for help is harmless.
+
+## 20. Track the Files a Fresh Checkout Needs
+
+A working installation can depend on files that were never committed. Local success hides the omission until another machine or a clean checkout needs those files.
+
+Inventory untracked code against the entrypoints and maintained instructions that use it. Prefer path-qualified references when ranking candidates; common basenames such as `run.js` can create misleading matches. Treat an absent text reference as a review signal, since dynamic imports and configuration can still make a file necessary.
+
+Classify each candidate as track, defer with a reason, or exclude. Review code, tests, configuration, prompts, and evidence individually for credentials and publication scope. Keep sensitive journals in a private store; their durability is not permission to publish them.
+
+Ignore known disposable locations, such as caches and scratch output. Blanket rules for `*.json`, `data/`, or `reports/` can hide required fixtures and evidence. Test proposed ignore rules against both disposable and durable examples in a temporary repository. Existing tracked files remain tracked when an ignore rule is added; changing their retention requires a separate decision.
+
+Keep deferred inventories and evidence needed to justify completion in a durable location. A report that points only into an ignored, pruned log directory loses its proof.
+
+## 21. Validate Attachment Downloads Before Saving Them
+
+An authenticated download can return a login page with a successful HTTP status. A saved filename and a successful request do not establish that the attachment was retrieved.
+
+For an optional attachment-fetch feature:
+
+- Define allowed file types and a byte limit. Refuse unsupported or oversized metadata before fetching.
+- Check the response status and content type. Reject login HTML, including when the status indicates success.
+- Check the received length against the expected size and the configured limit before writing a file.
+- Build filenames from a sanitized basename and a stable file identifier. Restrict the local directory and files to the account running the job.
+- Report saved files only after validation succeeds. Distinguish a policy skip from a failed fetch; return failure when a requested, supported attachment could not be retrieved.
+- Keep the existing text and structured output unchanged when the option is off. Add saved-file metadata only when it is requested.
+
+Use synthetic downloads to exercise forbidden types, oversize metadata, authentication failures, successful-status HTML, length mismatches, and a valid file. Compare old and new output with the option off. If the service changes incidental fields between requests, use a same-code repeated-request control before attributing that difference to the implementation.
+
+These checks establish the download contract. They do not establish that file contents are safe to execute or that response headers authenticate the file format.
+
+[Evaluation of these three patterns](../reports/evals/2026-09-13-tool-contracts-and-child-steering.md).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
