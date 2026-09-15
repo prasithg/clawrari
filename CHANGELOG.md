@@ -4,11 +4,13 @@
 
 ### Added
 
+- **Repair outdated regression checks** ([Self-Improvement §24](docs/self-improvement.md#24-repair-regression-checks-against-the-current-contract)): preserve the property under test when runtime contracts change, distinguish valid failure receipts from successful work, and leave unresolved failures visible.
 - **Service activation evidence** ([Self-Improvement §22](docs/self-improvement.md#22-verify-service-activation-before-grading-a-change)): distinguish missing inspection tools from absent services, verify activation before grading, and invalidate results collected against the wrong process.
 - **Shared-workspace branch protection** ([Self-Improvement §23](docs/self-improvement.md#23-keep-branch-changes-out-of-the-shared-workspace)): isolate task branches, check the shared checkout and related worktrees, and distinguish warning hooks from enforcement.
 
 ### Changed
 
+- **Task completion evidence** ([agent workflow](reference/sop-agent-task-workflow.md#3-complete)): surface the existing eval requirement in the completion checklist and require an owner plus due date for deferred verification. This refresh covers one mapped public artifact. [Documentation evaluation](reports/evals/2026-09-15-check-contracts-and-workflow.md).
 - **Session handoffs** ([agent prompt template](reference/agent-prompt-template.md#record-what-the-next-session-needs)): carry discoveries, all changed files, cross-system effects, actionable remaining work, and verification results in a durable record. This refresh covers one mapped public artifact.
 
 [Documentation evaluation and untested surfaces](reports/evals/2026-09-15-activation-branches-and-handoffs.md).

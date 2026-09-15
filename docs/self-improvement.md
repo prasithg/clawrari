@@ -373,6 +373,22 @@ A branch check does not serialize edits or isolate files. Agents sharing a check
 
 [Documentation evaluation and limits](../reports/evals/2026-09-15-activation-branches-and-handoffs.md).
 
+## 24. Repair Regression Checks Against the Current Contract
+
+After a runtime upgrade, several checks can fail because their assumptions are stale. A storage field moved, the executable became a launcher, or a producer gained a documented terminal status. Those failures need repair, but a higher pass count alone cannot show whether the system improved.
+
+Triage each failure against current evidence:
+
+1. **Classify the failure before changing the check.** Separate a real behavior defect, a superseded requirement, and a broken inspection method. Cite the installed contract or the decision that changed the requirement. An inspection error leaves the result unknown; it does not establish healthy behavior.
+2. **Preserve the property being checked.** If data moved into a different structure, update how the check reads it while keeping the same predicate. If a launcher hides the installation, resolve the installed implementation before inspecting it. Prefer supported interfaces; checks that inspect private bundle layouts need explicit version limits and a clear failure when discovery is ambiguous.
+3. **Keep receipt validity separate from task success.** A producer may legitimately report `done`, `partial`, `blocked`, or `failed`. Validate the producer's documented vocabulary, then grade the outcome separately. A valid failure receipt proves the worker reported its outcome; it still reports unsuccessful work. Missing, malformed, and unknown-status receipts remain invalid.
+4. **Prove the repair still detects failure.** Pair a valid case with a relevant negative control, such as an unknown receipt status or a violated predicate in the new data layout. An assertion that only recognizes the new happy path can silently stop detecting the original defect.
+5. **Report remaining failures explicitly.** Keep the assertion inventory and quality thresholds stable during the repair. Show before/after results, identify any assertion whose meaning changed, and record unresolved defects with their evidence and next action. A documented remaining failure is still a failure.
+
+When an expected answer conflicts with its cited source, apply the [fixture-evidence rules](#16-treat-eval-fixtures-as-controlled-evidence). Keep implementation repairs and expectation changes separately reviewable. A check repair can be correct while the broader system remains unhealthy.
+
+[Documentation evaluation and limits](../reports/evals/2026-09-15-check-contracts-and-workflow.md).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

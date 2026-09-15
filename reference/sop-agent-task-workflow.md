@@ -39,6 +39,7 @@ A task is not complete when code exists. It is complete when:
 - a reviewer has checked it
 - review status is approved
 - lessons learned are captured
+- for a skill or core-workflow change, the change note links an eval artifact following the [eval template](skill-change-eval-template.md)
 - the task is moved to `done`
 
 If review finds issues, move it back to `in-progress` or keep it in `review` with `changes-requested`.
@@ -47,9 +48,11 @@ If review finds issues, move it back to `in-progress` or keep it in `review` wit
 
 Any change to a `skills/*/SKILL.md`, a workflow reference doc, an orchestration playbook, a prompt template, a cron policy, or another core operating rule is **not Done** until an eval artifact exists (see `reference/skill-change-eval-template.md`) and is linked from the change note. The artifact must include: change under test, a ≥3-task task set, baseline vs new behavior, metrics, a verdict (ship / iterate / rollback), the artifact path, and sign-off.
 
-No eval artifact linked → the task cannot move to `review` or `done`. Ship-without-eval on these surfaces is a regression — log it. If a real run is impossible right now (quota, time, external dependency), mark the change `[provisional]`, file a dated eval TODO with an owner, and link it from the change note — never silently treat docs-updated as done.
+No eval artifact linked → the task cannot move to `review` or `done`. Ship-without-eval on these surfaces is a regression — log it. If a real run is impossible right now (quota, time, external dependency), mark the change `[provisional]`, file a dated eval TODO with an owner and due date, and link it from the change note — never silently treat docs-updated as done.
 
 Applies to agent-driven and human-driven changes alike.
+
+[Documentation refresh evaluation](../reports/evals/2026-09-15-check-contracts-and-workflow.md#workflow-refresh-cases).
 
 ## Cross-Model Review
 
