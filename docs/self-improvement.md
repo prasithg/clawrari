@@ -342,6 +342,37 @@ These checks establish the download contract. They do not establish that file co
 
 [Evaluation of these three patterns](../reports/evals/2026-09-13-tool-contracts-and-child-steering.md).
 
+## 22. Verify Service Activation Before Grading a Change
+
+A detached maintenance run can have a smaller command-search path than an interactive shell. In one repair, a missing inspection utility was interpreted as an absent service. The restart did nothing, and later health checks measured the process that was already running.
+
+Before attributing a health result to a deployed change:
+
+1. Resolve required inspection and service-control tools through trusted paths. Check that each tool is executable. Report a missing tool as an inspection failure; it does not establish that the service is absent.
+2. Record the running process identity before activation. If the procedure requires a restart, require evidence that the process changed before running the acceptance checks. Keep process identity separate from evidence of the loaded revision: a different process alone does not prove it loaded the intended code.
+3. Record activation and health results separately. When activation is unverified, retain the health output but mark it invalid as evidence for the candidate change.
+4. Exercise the control path under the scheduler's restricted environment. Include a missing-tool case and a restart that leaves the process unchanged, so a successful health response cannot hide a skipped activation.
+5. Correct the shared control helpers and their callers. Clearly label earlier results that measured the wrong process so later reviews cannot reuse them as release evidence.
+
+A reload-only service needs its own observable activation evidence. A process-change assertion applies to a restart; it cannot establish that a hot reload succeeded.
+
+## 23. Keep Branch Changes Out of the Shared Workspace
+
+Git branch selection belongs to a checkout. If several agents write into one checkout, one agent's branch switch changes the context for all of them. Subsequent commits can accumulate on an unexpected branch even while every individual command succeeds.
+
+Keep the primary shared checkout on its designated branch. Give work that needs a different branch a separate worktree or clone, and name that boundary in the agent's write scope.
+
+Make the invariant observable:
+
+- Check the primary checkout's branch and whether another worktree holds the designated branch. Report the offending branch and worktree when either condition is wrong.
+- Treat a detached checkout or an unreadable repository as a condition to investigate. An inspection failure cannot establish that the branch is correct.
+- Put any checkout warning hook under version control with an installer. Describe a warning-only hook as a warning: it does not block a branch switch. A scheduled assertion detects drift after it happens.
+- Exercise the check in disposable repositories: the expected branch, a wrong branch, a detached checkout, another worktree holding the designated branch, and unrelated worktrees that should remain valid.
+
+A branch check does not serialize edits or isolate files. Agents sharing a checkout still need coordinated write scopes. When drift appears, inspect the other writers and preserve their work before reconciling branches; an automatic reset or stash can damage work the checking agent does not own.
+
+[Documentation evaluation and limits](../reports/evals/2026-09-15-activation-branches-and-handoffs.md).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

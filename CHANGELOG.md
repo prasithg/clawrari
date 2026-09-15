@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-15
+
+### Added
+
+- **Service activation evidence** ([Self-Improvement §22](docs/self-improvement.md#22-verify-service-activation-before-grading-a-change)): distinguish missing inspection tools from absent services, verify activation before grading, and invalidate results collected against the wrong process.
+- **Shared-workspace branch protection** ([Self-Improvement §23](docs/self-improvement.md#23-keep-branch-changes-out-of-the-shared-workspace)): isolate task branches, check the shared checkout and related worktrees, and distinguish warning hooks from enforcement.
+
+### Changed
+
+- **Session handoffs** ([agent prompt template](reference/agent-prompt-template.md#record-what-the-next-session-needs)): carry discoveries, all changed files, cross-system effects, actionable remaining work, and verification results in a durable record. This refresh covers one mapped public artifact.
+
+[Documentation evaluation and untested surfaces](reports/evals/2026-09-15-activation-branches-and-handoffs.md).
+
 ## 2026-09-13
 
 ### Added

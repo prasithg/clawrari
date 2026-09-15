@@ -70,6 +70,30 @@ session key.
 
 ---
 
+## Record What the Next Session Needs
+
+Write a durable session handoff before a coding run ends. The existing handoff note can carry this record; a separate episode file is useful only when the workspace already uses that convention.
+
+Record each of these fields:
+
+| Field | What to record |
+| --- | --- |
+| Task | State the goal and the result reached. |
+| Discoveries | Record observed behavior and the evidence that supports it. |
+| Conclusions | Explain the decisions made from those discoveries. |
+| Files touched | List every created, modified, or deleted file with a short description. |
+| State changes | Name changes that affect other repositories or systems, including interface, schema, configuration, and infrastructure changes. Write `None` when there are none. |
+| Remaining work | Name the next concrete action and its file, component, or acceptance criterion. |
+| Test results | Record the commands, observed results, and specific gaps in verification. |
+
+Keep cross-system effects explicit even when the local task is complete. The next session needs to know which consumers or other agents must account for a changed contract. A handoff records those effects; it does not prove they were deployed or that another agent received them.
+
+Use observed facts in the discoveries section and actionable steps in remaining work. Keep the record in the task's durable repository or approved private store, with sensitive operational details excluded from public handoffs.
+
+[Three-case documentation evaluation](../reports/evals/2026-09-15-activation-branches-and-handoffs.md#handoff-cases).
+
+---
+
 ## Base Template
 
 ```
@@ -149,7 +173,7 @@ Write each criterion as an observable requirement with its own verification:
 
 <output>
 Primary deliverable: [file path or description of what gets created/changed]
-Handoff note: notes/<task-name>-handoff.md (required — document decisions, surprises, test results)
+Handoff note: notes/<task-name>-handoff.md (required; include task, discoveries, conclusions, files touched, cross-system state changes, remaining work, and test results)
 </output>
 
 <persistence>
