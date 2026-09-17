@@ -333,7 +333,7 @@ For an optional attachment-fetch feature:
 - Check the response status and content type. Reject login HTML, including when the status indicates success.
 - Check the received length against the expected size and the configured limit before writing a file.
 - Build filenames from a sanitized basename and a stable file identifier. Restrict the local directory and files to the account running the job.
-- Report saved files only after validation succeeds. Distinguish a policy skip from a failed fetch; return failure when a requested, supported attachment could not be retrieved.
+- Report saved files only after validation succeeds. Distinguish a policy skip from a failed fetch, and determine run success from the caller's required output.
 - Keep the existing text and structured output unchanged when the option is off. Add saved-file metadata only when it is requested.
 
 Use synthetic downloads to exercise forbidden types, oversize metadata, authentication failures, successful-status HTML, length mismatches, and a valid file. Compare old and new output with the option off. If the service changes incidental fields between requests, use a same-code repeated-request control before attributing that difference to the implementation.
@@ -341,6 +341,16 @@ Use synthetic downloads to exercise forbidden types, oversize metadata, authenti
 These checks establish the download contract. They do not establish that file contents are safe to execute or that response headers authenticate the file format.
 
 [Evaluation of these three patterns](../reports/evals/2026-09-13-tool-contracts-and-child-steering.md).
+
+### Keep Optional Attachment Failures Local
+
+When attachments supplement a message read, one inaccessible file should leave the completed message read usable. Validate each file independently, retain good downloads, and report each skip or failure with a safe identifier and reason. Summarize downloaded, skipped, and failed counts separately. Failure to retrieve the message page still fails the read. If the caller requires every attachment, a missing file still makes that task incomplete.
+
+Before sending credentials, check the file's hosting classification and the destination allowed for those credentials. A file object can represent a link to another provider. Skip that external file, or use a separately authorized adapter for its provider; visibility in the message service does not grant download access elsewhere. Apply the credential boundary to redirected requests too.
+
+Exercise a mixed batch with one failed file, a failed message-page request, and an external link that receives no credentialed request. A deliberate skip list needs a recorded reason and durable storage. It must not conceal an attachment the caller requires.
+
+[Documentation evaluation and limits](../reports/evals/2026-09-17-failure-boundaries-and-run-records.md#attachment-cases).
 
 ## 22. Verify Service Activation Before Grading a Change
 
@@ -388,6 +398,30 @@ Triage each failure against current evidence:
 When an expected answer conflicts with its cited source, apply the [fixture-evidence rules](#16-treat-eval-fixtures-as-controlled-evidence). Keep implementation repairs and expectation changes separately reviewable. A check repair can be correct while the broader system remains unhealthy.
 
 [Documentation evaluation and limits](../reports/evals/2026-09-15-check-contracts-and-workflow.md).
+
+## 25. Recover the Measurement Without Changing the Score
+
+A health probe can fail before it measures the system. Retrying that failed measurement may help; retrying an unfavorable score until it passes invalidates the evaluation.
+
+1. Capture the command's exit or signal and its structured error, including errors returned on standard output. Keep raw prompts, credentials, and sensitive payloads out of diagnostics.
+2. Retry only recognized transient failures in a read-only probe, within a fixed attempt budget. Use a fresh isolated session when the previous session may be damaged. Authentication, invalid arguments, and missing executables need repair, not repeated attempts. Unknown failures remain unresolved.
+3. Clean up probe-owned sessions after failed attempts and terminal failure as well as success. Keep other workers' sessions untouched, and preserve the attempt evidence outside the disposable session.
+4. If retries are exhausted, report the measurement as unavailable. Dependent checks have no valid measurement; they have neither passed nor established a behavioral defect. Keep any protective action conservative without changing the scoring threshold.
+5. Retain failed-attempt counts even when a later attempt completes. State separately whether retry and cleanup worked and whether a complete scored report exists.
+
+Exercise transient recovery, deterministic failure without retries, and exhaustion with cleanup. Read-only probe retries do not authorize replaying writes whose effects are uncertain.
+
+## 26. Diagnose Timed-Out Work From Its Transcript
+
+A quiet gateway log does not prove a provider stalled. The timed-out session may contain repeated tool calls that the gateway log never records.
+
+Correlate timeout records with the session's stable run identifiers, tool calls, results, and timing. Distinguish repeated work, provider errors, queue waits, and unknown causes. Several tool records from one run are not several independent incidents. Preserve unknown classifications when evidence is missing.
+
+Repair the demonstrated cause. Repeated status checks may need a shared check budget and an enabled loop detector; a provider timeout requires provider evidence. Keep prompt instructions distinct from runtime enforcement: a model can disobey a one-check instruction, and a detector for identical calls can miss rephrased commands.
+
+Verify effective configuration, including per-agent overrides, and exercise the actual scheduled path. Record configuration preservation, short behavioral checks, and the required reliability observation period separately. A configuration check can pass while historical runtime failures remain in the observation window. Keep those failures visible and retain the full required window before claiming reliability.
+
+[Documentation evaluation and limits for both patterns](../reports/evals/2026-09-17-failure-boundaries-and-run-records.md).
 
 ## Governance Rules
 

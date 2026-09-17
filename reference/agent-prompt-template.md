@@ -36,6 +36,16 @@ For long independent runs, record the prompt digest, parent and child identities
 heartbeats, and exactly one terminal outcome. Recovery reads that record and resumes
 the existing run; it does not launch an untracked duplicate.
 
+Keep raw prompt text out of command-line arguments and the lifecycle ledger. Use
+the digest to identify the prompt; retain any prompt body needed for recovery in
+an access-controlled task artifact. Before launch, reject an already-active
+matching run. If a duplicate-prevention lock is uncertain, refuse the new launch
+until inspection resolves its ownership and the existing run's status. A status or recovery inspection
+must remain read-only; it must not silently launch a replacement. These are
+requirements for the launcher, not guarantees that a prompt alone can enforce.
+
+[Run-record documentation evaluation](../reports/evals/2026-09-17-failure-boundaries-and-run-records.md#run-record-cases).
+
 ---
 
 ## Steer an Existing Child

@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-09-17
+
+### Changed
+
+- **Optional attachment failures** ([Self-Improvement §21](docs/self-improvement.md#keep-optional-attachment-failures-local)): keep a completed message read usable, report individual file failures, and restrict credentials to their authorized provider.
+- **Run-record safeguards** ([agent prompt template](reference/agent-prompt-template.md#compile-the-request-before-delegating)): keep raw prompts out of process arguments and lifecycle records, reject duplicate launches, and make recovery inspection read-only. This refresh covers one mapped public artifact.
+
+### Added
+
+- **Measurement recovery** ([Self-Improvement §25](docs/self-improvement.md#25-recover-the-measurement-without-changing-the-score)): bound transient read-only retries, clean up failed probes, and keep unavailable measurements separate from behavioral scores.
+- **Timeout diagnosis** ([Self-Improvement §26](docs/self-improvement.md#26-diagnose-timed-out-work-from-its-transcript)): classify from session evidence and distinguish an applied repair from a completed reliability observation period.
+
+[Documentation evaluation and untested surfaces](reports/evals/2026-09-17-failure-boundaries-and-run-records.md).
+
 ## 2026-09-15
 
 ### Added
