@@ -290,6 +290,20 @@ after code changes have started.
 
 ---
 
+## Post-Build Validation
+
+For substantial coding work, assign a reviewer from a different model family after the builder finishes. Provide the original acceptance criteria, relevant architecture rules, changed artifacts, handoff, and test evidence. The reviewer checks criterion satisfaction, architecture consistency, test coverage, and remaining risks against the output itself.
+
+The builder's handoff must distinguish passed checks, failed checks, and untested behavior. State which results came from synthetic fixtures, recorded responses, or live calls. A passing local suite cannot satisfy a criterion that requires an unperformed live experiment.
+
+Record the review verdict and any required corrections before claiming completion. Keep acceptance criteria with missing evidence open, even when a narrower implementation slice is ready. Review output is evidence for the completion decision; the builder's self-report alone is insufficient.
+
+The orchestrator must launch and collect the reviewer. Adding this section to a prompt does not install automatic validation. If required review is missing, report that gap explicitly.
+
+[Documentation evaluation and limits](../reports/evals/2026-09-19-fixture-evidence-and-review.md).
+
+---
+
 ## XML Block Reference
 
 ### `<audience_contract>` — Artifact-Fit Guard

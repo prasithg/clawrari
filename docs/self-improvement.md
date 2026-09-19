@@ -461,6 +461,26 @@ Exercise the boundaries with an unchanged queued defect, a premature completion 
 
 [Documentation evaluation and limits](../reports/evals/2026-09-19-bounded-exceptions.md).
 
+## 30. Separate Fixture Tests From Live Evaluation
+
+Offline fixtures let you build a client and its evaluation reports before a service is available. A passing fixture suite establishes the local behavior it exercised. Authentication, current service behavior, model quality, and production reliability still need their own evidence.
+
+Keep the origin of each result attached to its claims:
+
+| Evidence | What it can establish | What remains unverified |
+| --- | --- | --- |
+| Synthetic answers | Parsing, output shape, calculations, and tested failure paths | Model accuracy, service latency, and actual usage |
+| Replay of recorded answers | Compatibility with the captured examples | Current endpoint behavior and current model quality |
+| Live responses | Observed behavior for the named inputs, version, and run | General reliability outside the measured conditions |
+
+Label the mode in the report heading and retain provenance per result. If a report includes several modes, keep their summaries separate. Mark calculated usage estimates as estimates; leave unavailable measurements unknown. A simulated agreement score cannot justify choosing a model or changing a quality threshold.
+
+Exercise the command that users will run and inspect its returned values, output, and exit status. A file-existence assertion alone cannot establish that the command works. Use synthetic or sanitized inputs in shareable fixtures; replayability does not authorize copying private source text into a public artifact.
+
+Track local implementation and live acceptance separately. When a required service is unavailable, record the passing local checks, name the missing live cases, and assign an owner and a review date. Keep those acceptance criteria open. Completing a useful offline slice does not complete a parent task that requires live results.
+
+[Read the documentation evaluation for evidence and limitations](../reports/evals/2026-09-19-fixture-evidence-and-review.md).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
