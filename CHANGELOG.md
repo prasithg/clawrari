@@ -4,11 +4,14 @@
 
 ### Added
 
+- **Known-defect exceptions** ([Self-Improvement §29](docs/self-improvement.md#29-keep-known-defect-exceptions-separate-from-acceptance)): bind a temporary exception to the exact rejected work and its latest review. A recurring check can acknowledge the defect without accepting the task.
+
 - **Preserved run evidence** ([Self-Improvement §27](docs/self-improvement.md#27-preserve-evidence-and-check-the-exact-run)): prevent same-day overwrites, pass the exact returned artifact path downstream, and verify current-run identity, empty outcomes, and quality verdicts separately.
 - **Check completion and coverage** ([Self-Improvement §28](docs/self-improvement.md#28-count-completed-checks-separately-from-passing-checks)): distinguish a completed negative verdict from an unavailable measurement, and require the full expected check inventory before an all-clear.
 
 ### Changed
 
+- **Model-update acknowledgements** ([effort ladder](reference/model-playbook/effort-ladder.md#weekly-model-freshness-check)): acknowledge only an exact version pair, keep later releases visible, and report missing catalog evidence as incomplete coverage. This refresh covers one mapped public artifact. [Documentation evaluation](reports/evals/2026-09-19-bounded-exceptions.md).
 - **Measurement failure reporting** ([Self-Improvement §25](docs/self-improvement.md#25-recover-the-measurement-without-changing-the-score)): group missing-score consequences under their cause without suppressing genuine failures from valid measurements.
 - **Execution-plan verification** ([ExecPlan template](reference/execplan-template.md)): label automated checks, independent review, and human sign-off with their required evidence. The labels are a planning convention; runner enforcement must be implemented and tested separately. This refresh covers one mapped public artifact.
 

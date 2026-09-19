@@ -37,7 +37,13 @@ The last two items in each chain are resilience only: invoke them after both pri
 
 ### Weekly model-freshness check
 
-Once a week, compare every configured, aliased, or allowlisted model ID against newer same-provider or same-family catalog versions, then check an independent model index for discovery gaps. Record explicit version acknowledgements with the decision and reason so a known-and-declined upgrade stops re-alerting. Review findings and smoke upgrades; never auto-promote or change a council seat from the check alone.
+Once a week, compare every configured, aliased, or allowlisted model ID against newer same-provider or same-family catalog versions, then check an independent model index for discovery gaps.
+
+When declining an upgrade, record the exact current/newer version pair, decision, reason, and date. Verify both versions against the required catalog before treating that acknowledgement as effective. Keep the acknowledged pair visible in the report while suppressing its repeated upgrade alert. A later version needs a new decision; an acknowledgement must never exempt an entire model family or provider.
+
+Report an unavailable required catalog or an unverified version pair as incomplete coverage. A declined upgrade and an inability to check for upgrades are different outcomes. Preserve any confirmed upgrade findings alongside the coverage gap. Review findings and smoke upgrades; never auto-promote or change a council seat from the check alone.
+
+[Documentation refresh evaluation](../../reports/evals/2026-09-19-bounded-exceptions.md#version-acknowledgement-cases).
 
 ## Resilience fallback
 

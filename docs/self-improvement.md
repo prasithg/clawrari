@@ -447,6 +447,20 @@ Report the failed checks and the unavailable checks by name. Group consequences 
 
 [Documentation evaluation and limits](../reports/evals/2026-09-19-evidence-and-verification.md).
 
+## 29. Keep Known-Defect Exceptions Separate From Acceptance
+
+A regression check can acknowledge an existing defect while still preventing it from being accepted as finished work. That exception needs a narrower contract than an ordinary passing result.
+
+First compare the documented behavior with the tool's output. A successful validation command cannot prove it printed a promised summary. Repair the behavior or the claim. If the repair remains queued, preserve the failed review and make any temporary exception explicit.
+
+Bind the exception to the exact defect, its owning task, the permitted unfinished states, and the latest relevant review or completion record. An older failed review cannot justify an exception after a newer record claims completion. If the task moves into acceptance, the promise changes, another defect appears, or the supporting record cannot be verified, withhold the exception.
+
+Report an acknowledged defect separately from a passing task. The exception can keep a recurring check from repeatedly rediscovering the same openly rejected work; it cannot authorize release, close the task, or lower its acceptance criteria.
+
+Exercise the boundaries with an unchanged queued defect, a premature completion claim, a changed promise, and missing supporting evidence. Also verify the ordinary recovery paths: the promised output exists, or the unsupported promise has been removed. Retire the exception when the contract is repaired.
+
+[Documentation evaluation and limits](../reports/evals/2026-09-19-bounded-exceptions.md).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
