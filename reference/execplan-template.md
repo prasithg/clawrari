@@ -50,27 +50,40 @@ Current state: [What exists today that's relevant. Embed the knowledge — don't
 EARS acceptance-criteria convention (required):
 - Write every criterion as a testable EARS requirement: `WHEN <trigger>, the <system or artifact> SHALL <observable result>.`
 - Use `WHILE` for a state, `WHERE` for a scoped feature, or `IF` for a condition; every criterion SHALL contain `SHALL` and at least one trigger keyword (`WHEN`, `WHILE`, `WHERE`, or `IF`).
-- Give every criterion its own `Verification:` command and expected pass signal. A criterion without a runnable command is incomplete.
+- Tag every criterion `[programmatic]`, `[judge]`, or `[human]`.
+  `[programmatic]`: give it its own `Verification:` command and expected pass signal.
+  `[judge]`: give it `Rubric:` (named criteria) and `Judge:` (model family ≠ the implementer).
+  `[human]`: give it `Sign-off:` (named person). Agents may not self-complete a `[human]` criterion.
+- A criterion without a runnable command, a rubric+judge, or a named sign-off is incomplete.
+- At least one criterion per ExecPlan is `[programmatic]`.
+- These tags describe required evidence. Automated enforcement depends on your runner; review the tags manually until that behavior is implemented and tested. A passing syntax check alone does not prove review or sign-off occurred.
 - Do not use soft adjectives such as "robust", "clean", "good", or "properly". Replace them with measurable behavior, exact output, an exit status, a threshold, or another observable result.
 
 Worked before/after examples:
 
 1. Before (soft/vague): `The parser handles malformed input robustly.`
-   After (EARS): `WHEN the parser receives malformed JSON, it SHALL exit with status 2 and print "invalid JSON" to stderr.`
+   After (EARS) [programmatic]: `WHEN the parser receives malformed JSON, it SHALL exit with status 2 and print "invalid JSON" to stderr.`
    Verification: `parse-config fixtures/malformed.json >/tmp/parse.out 2>/tmp/parse.err; test $? -eq 2 && grep -F "invalid JSON" /tmp/parse.err` → exits 0.
 2. Before (soft/vague): `The warm cache performs well.`
-   After (EARS): `WHILE the cache is warm, the benchmark SHALL report p95 latency of 50 ms or less across 20 requests.`
+   After (EARS) [programmatic]: `WHILE the cache is warm, the benchmark SHALL report p95 latency of 50 ms or less across 20 requests.`
    Verification: `cache-bench --warm --requests 20 --max-p95-ms 50` → exits 0.
 3. Before (soft/vague): `The generated documentation is clean and properly formatted.`
-   After (EARS): `WHEN the documentation generator runs, it SHALL create a non-empty build/api.md that passes markdownlint.`
+   After (EARS) [programmatic]: `WHEN the documentation generator runs, it SHALL create a non-empty build/api.md that passes markdownlint.`
    Verification: `docs-build && test -s build/api.md && markdownlint build/api.md` → exits 0.
+4. Before (soft/vague): `The migration guide reads well.`
+   After (EARS) [judge]: `WHEN the migration guide is published, it SHALL contain the sections Prerequisites, Steps, Rollback, and Verification, each answering its heading.`
+   Rubric: required-sections=[Prerequisites, Steps, Rollback, Verification]; each section non-empty and on-topic. Judge: a reviewer from a different model family than the implementer.
 
 This work is complete when every item follows that convention:
-- [ ] AC-1: WHEN [trigger], [system or artifact] SHALL [observable result].
+- [ ] AC-1 [programmatic]: WHEN [trigger], [system or artifact] SHALL [observable result].
       Verification: `[command]` → [expected pass signal].
-- [ ] AC-2: IF/WHILE/WHERE [condition, state, or scope], [system or artifact] SHALL [observable result].
+- [ ] AC-2 [programmatic]: IF/WHILE/WHERE [condition, state, or scope], [system or artifact] SHALL [observable result].
       Verification: `[command]` → [expected pass signal].
+- [ ] AC-3 [judge]: WHEN [trigger], [artifact] SHALL [observable result].
+      Rubric: [named criteria]. Judge: [model family ≠ implementer].
 </acceptance_criteria>
+
+[Documentation evaluation and limits](../reports/evals/2026-09-19-evidence-and-verification.md).
 
 ---
 

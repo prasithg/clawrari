@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-09-19
+
+### Added
+
+- **Preserved run evidence** ([Self-Improvement §27](docs/self-improvement.md#27-preserve-evidence-and-check-the-exact-run)): prevent same-day overwrites, pass the exact returned artifact path downstream, and verify current-run identity, empty outcomes, and quality verdicts separately.
+- **Check completion and coverage** ([Self-Improvement §28](docs/self-improvement.md#28-count-completed-checks-separately-from-passing-checks)): distinguish a completed negative verdict from an unavailable measurement, and require the full expected check inventory before an all-clear.
+
+### Changed
+
+- **Measurement failure reporting** ([Self-Improvement §25](docs/self-improvement.md#25-recover-the-measurement-without-changing-the-score)): group missing-score consequences under their cause without suppressing genuine failures from valid measurements.
+- **Execution-plan verification** ([ExecPlan template](reference/execplan-template.md)): label automated checks, independent review, and human sign-off with their required evidence. The labels are a planning convention; runner enforcement must be implemented and tested separately. This refresh covers one mapped public artifact.
+
+[Documentation evaluation and untested surfaces](reports/evals/2026-09-19-evidence-and-verification.md).
+
 ## 2026-09-17
 
 ### Changed

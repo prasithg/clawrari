@@ -406,7 +406,7 @@ A health probe can fail before it measures the system. Retrying that failed meas
 1. Capture the command's exit or signal and its structured error, including errors returned on standard output. Keep raw prompts, credentials, and sensitive payloads out of diagnostics.
 2. Retry only recognized transient failures in a read-only probe, within a fixed attempt budget. Use a fresh isolated session when the previous session may be damaged. Authentication, invalid arguments, and missing executables need repair, not repeated attempts. Unknown failures remain unresolved.
 3. Clean up probe-owned sessions after failed attempts and terminal failure as well as success. Keep other workers' sessions untouched, and preserve the attempt evidence outside the disposable session.
-4. If retries are exhausted, report the measurement as unavailable. Dependent checks have no valid measurement; they have neither passed nor established a behavioral defect. Keep any protective action conservative without changing the scoring threshold.
+4. If retries are exhausted, report the measurement as unavailable. Dependent checks have no valid measurement; they have neither passed nor established a behavioral defect. Keep any protective action conservative without changing the scoring threshold. Report one measurement failure with its affected checks, instead of emitting a separate defect alert for each missing score. Once a valid measurement exists, genuine failures still receive their own results.
 5. Retain failed-attempt counts even when a later attempt completes. State separately whether retry and cleanup worked and whether a complete scored report exists.
 
 Exercise transient recovery, deterministic failure without retries, and exhaustion with cleanup. Read-only probe retries do not authorize replaying writes whose effects are uncertain.
@@ -422,6 +422,30 @@ Repair the demonstrated cause. Repeated status checks may need a shared check bu
 Verify effective configuration, including per-agent overrides, and exercise the actual scheduled path. Record configuration preservation, short behavioral checks, and the required reliability observation period separately. A configuration check can pass while historical runtime failures remain in the observation window. Keep those failures visible and retain the full required window before claiming reliability.
 
 [Documentation evaluation and limits for both patterns](../reports/evals/2026-09-17-failure-boundaries-and-run-records.md).
+
+## 27. Preserve Evidence and Check the Exact Run
+
+Two successful runs can destroy each other's evidence when both write to a date-only filename. Giving each workload a name helps, but repeated runs of the same workload still collide.
+
+1. **Name the workload and preserve every attempt.** Include a bounded workload label in the artifact name. Create files exclusively; if the name exists, choose another suffix and retry the exclusive creation. An existence check followed by an ordinary write leaves a race between writers.
+2. **Return the path that was written.** Include it in both human-readable output and structured results. Pass that path to downstream checks instead of reconstructing a filename or selecting the newest date match.
+3. **Verify identity as well as existence.** Check the exact expected item identifiers and count, and reject evidence older than the current run. Use a producer run identifier when available; a timestamp alone cannot distinguish concurrent runs.
+4. **Record an empty result explicitly.** A run that finds nothing eligible can produce an artifact with an empty item set and a reason. Validate that outcome against the expected empty set; a missing file is still missing evidence.
+5. **Keep evidence separate from permission to publish.** A complete artifact may contain a failed quality verdict. Checking its identity and freshness cannot turn that verdict into a pass.
+
+Exercise a same-name second run and compare the first file byte for byte. Also try a stale file with matching item identifiers, a missing item, an explicit empty result, and a complete artifact with a failed verdict. Test concurrent writers separately before claiming the storage path is race-safe.
+
+## 28. Count Completed Checks Separately From Passing Checks
+
+A check that returns a defined failure verdict completed its measurement. A check that never ran, crashed before producing a verdict, or could not read its inputs did not. Reporting both as an unfinished run hides the repair that is needed.
+
+Define each check's result contract, including which exit codes represent completed positive or negative verdicts and which mean the measurement was unavailable. Record completion and verdict separately. Do not infer those meanings from a universal rule that every nonzero exit is a crash.
+
+Keep an expected check inventory independent of the returned results. Compare expected identifiers with completed identifiers as well as counts: three passes out of four required checks cannot produce an all-clear, and a duplicate result cannot replace a missing check. Preserve any genuine negative verdicts even when another check is unavailable.
+
+Report the failed checks and the unavailable checks by name. Group consequences of a missing upstream measurement under that one cause. A healthy report requires complete coverage and the contract's passing verdicts; a completed run alone is insufficient.
+
+[Documentation evaluation and limits](../reports/evals/2026-09-19-evidence-and-verification.md).
 
 ## Governance Rules
 
