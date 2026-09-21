@@ -1,0 +1,8 @@
+Documentation validation — 2026-09-21
+Method: Python standard-library inspection of edited documentation.
+PASS: four edited Markdown files are non-empty and have balanced fenced code blocks.
+PASS: added and refreshed text across four Markdown files contains none of the checked private-reference patterns.
+PASS: 13 local link references in the new and refreshed sections resolve to files and, where present, headings; self-linked validation output is created by this run.
+Scope: document structure, changed-section links, and a bounded privacy scan of added/refreshed content only; unchanged history is outside this scan.
+Manual scenario decisions and their limitations are recorded in the companion evaluation.
+No runtime interruption, delivery, concurrency, model, performance, or live-service experiment was run.

@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-21
+
+### Added
+
+- **Interrupted-job recovery** ([Self-Improvement §31](docs/self-improvement.md#31-recover-interrupted-jobs-from-verified-effects)): distinguish attempts from external actions, reconcile uncertain delivery before retrying, and test interruptions between destination acceptance and local receipt storage. A receipt alone is not a guarantee against duplicate publication.
+- **Configuration comparison contracts** ([Self-Improvement §32](docs/self-improvement.md#32-define-what-must-match-before-comparing-configuration)): define byte-level versus functional comparison in advance, preserve generated metadata in evidence, and keep unrelated defects open.
+
+### Changed
+
+- **Observable acceptance criteria** ([agent prompt template](reference/agent-prompt-template.md#turn-vague-requirements-into-checks)): refresh one mapped public artifact with worked parser, performance, and documentation examples from its source. Examples identify required evidence without claiming that checks ran.
+
+[Documentation evaluation and untested surfaces](reports/evals/2026-09-21-retry-boundaries-and-contracts.md).
+
 ## 2026-09-19
 
 ### Added

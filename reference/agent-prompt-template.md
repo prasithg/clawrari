@@ -167,6 +167,9 @@ Current state:
 
 <acceptance_criteria>
 Write each criterion as an observable requirement with its own verification:
+- Use WHEN for an event, WHILE for a state, WHERE for a scoped feature, or IF for a condition.
+- Replace vague adjectives with exact output, an exit status, a threshold, or another observable result.
+- For each automated criterion, give a verification command and expected pass signal; for review or sign-off, name the required evidence as described below. Keep missing verification visible.
 - [ ] AC-1: WHEN [trigger], [system or artifact] SHALL [observable result].
       Verification: `[command]` → [expected pass signal].
 - [ ] AC-2: IF/WHILE/WHERE [condition, state, or scope], [system or artifact] SHALL [observable result].
@@ -193,6 +196,22 @@ Handoff note: notes/<task-name>-handoff.md (required; include task, discoveries,
 - Do not ask for confirmation — decide, proceed, document assumptions in the handoff note.
 </persistence>
 ```
+
+---
+
+## Turn Vague Requirements Into Checks
+
+The condition-and-result format above makes a requirement inspectable. These examples adapt the source template's parser, performance, and documentation cases:
+
+| Vague requirement | Observable requirement | Evidence to attach |
+| --- | --- | --- |
+| The parser handles malformed input robustly. | WHEN the parser receives malformed JSON, it SHALL exit with status 2 and print `invalid JSON` to standard error. | The project's parser command, malformed fixture, observed exit status, and captured error output. |
+| The warm cache performs well. | WHILE the cache is warm, the benchmark SHALL report p95 latency of 50 ms or less across 20 requests. | The actual benchmark command, warm-up conditions, request count, and measured result. |
+| Generated documentation is clean. | WHEN the documentation generator runs, it SHALL create a non-empty API reference that passes the project's Markdown linter. | The generator and lint commands, output path, non-empty-file check, and results. |
+
+The numbers and output strings are illustrative contracts, not universal defaults or results from this repository. Replace them with the task's agreed requirements and executable project commands. A formatting check establishes only formatting; content accuracy needs its own criterion and review evidence. For criteria requiring judgment or human sign-off, use the verification types in the [execution-plan template](execplan-template.md) and name the required reviewer or decision. Never present a written criterion as a completed check.
+
+[Documentation refresh evaluation](../reports/evals/2026-09-21-retry-boundaries-and-contracts.md#template-refresh-cases).
 
 ---
 

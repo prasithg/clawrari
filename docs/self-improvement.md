@@ -481,6 +481,37 @@ Track local implementation and live acceptance separately. When a required servi
 
 [Read the documentation evaluation for evidence and limitations](../reports/evals/2026-09-19-fixture-evidence-and-review.md).
 
+## 31. Recover Interrupted Jobs From Verified Effects
+
+A timeout can arrive after a job has published its result. Restarting the whole job can then publish it again. A longer timeout may reduce interruptions, but it does not make retries safe.
+
+Track the scheduled occurrence separately from each execution attempt. Give every external action a stable operation key that survives retries. Keep publication and its status message as separate actions: a verified publication with a missing summary needs only the summary, not another publication.
+
+Record intent before an external action and retain the destination's confirmation afterward. Store the operation key, result identifier, and evidence time in a durable record. Validate required fields before trusting that record. Missing or malformed evidence means the outcome is unknown; it cannot establish either success or permission to repeat the action. A repeated record update must report the same state that a subsequent read returns.
+
+**A local receipt alone cannot guarantee one external action.** The process can stop after the destination accepts the action but before the receipt is saved. An atomic file write protects the file from partial contents; it does not close that gap between systems. Prefer a destination-supported idempotency key: repeated requests with the same key refer to the same operation. Otherwise, reconcile the exact operation against destination evidence before retrying. If that evidence is unavailable or ambiguous, preserve the uncertain state and require resolution instead of automatically repeating the write. Concurrent attempts also need an explicit ownership or deduplication mechanism.
+
+Test the boundaries, not only the record writer's happy path:
+
+- Interrupt before the action, after destination acceptance, and before and after recording confirmation.
+- Retry each case and count actual external effects as well as returned states.
+- Exercise missing confirmation identifiers, malformed records, repeated updates, and concurrent attempts.
+- Preserve independently reproduced failures even when the existing suite passes.
+
+Separate the implementation result from its live acceptance. A passing local suite, an increased time limit, or proof that a defective proposal is inactive cannot establish that interruption recovery works. Keep those claims separate until the corresponding cases have run.
+
+## 32. Define What Must Match Before Comparing Configuration
+
+A service may update a revision identifier or modification time when it applies one requested setting. A byte-for-byte comparison detects those changes, but it cannot decide whether they violate the intended contract.
+
+Before making the change, name the required comparison: exact bytes, selected settings, or structured configuration with explicitly allowed service-generated metadata. Preserve the original before and after snapshots. If metadata is excluded from the functional comparison, list each excluded field and retain its values in the evidence. Do not ignore every field with a convenient name or relax the comparison after an unexpected failure.
+
+For example, changing a job's time limit may legitimately update its revision and modification time. Verify that the requested limit changed and every other functional setting stayed the same. A changed destination, schedule, or message remains an unintended change even when the metadata also changed. Read back the live configuration; a prepared patch does not prove activation.
+
+Keep literal requirements literal. If the contract requires identical bytes, a removed trailing newline still fails that criterion. Record the mismatch and resolve the contract; do not silently rename a semantic match as a byte match. A corrected comparison also cannot repair unrelated implementation defects or supply missing live evidence.
+
+[Documentation evaluation and limits](../reports/evals/2026-09-21-retry-boundaries-and-contracts.md).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
