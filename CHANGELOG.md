@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-09-23
+
+### Added
+
+- **Saved-identifier checks** ([Self-Improvement §17](docs/self-improvement.md#audit-saved-identifiers-where-instructions-teach-them)): validate the type, ownership, and lifecycle of IDs taught by reference documents. Keep read-only evidence separate from successful writes.
+- **Delivery verification** ([Self-Improvement §31](docs/self-improvement.md#verify-complete-delivery-and-regenerate-retry-inputs)): read back all parts of long messages and regenerate next-period inputs when testing duplicate suppression.
+- **Quoted-content notifications** ([Self-Improvement §33](docs/self-improvement.md#33-separate-quoted-names-from-notification-targets)): preserve quoted names while keeping intentional recipients and sender checks explicit.
+- **Backup boundaries** ([Self-Improvement §34](docs/self-improvement.md#34-check-backup-boundaries-before-an-update)): check resolved link targets and verify dependent callers before relying on an archive for recovery.
+
+### Changed
+
+- **Delegation verification scope** ([agent prompt template](reference/agent-prompt-template.md#long-horizon-goal-spec)): declare check paths separately from editable paths, make shared-fixture reads explicit, and distinguish a written contract from launcher enforcement. This refresh covers one mapped public artifact.
+
+The [documentation evaluation](reports/evals/2026-09-23-identifiers-delivery-and-scope.md) records the manual cases and untested runtime behavior.
+
 ## 2026-09-21
 
 ### Added

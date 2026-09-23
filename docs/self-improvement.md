@@ -284,6 +284,18 @@ For a synthetic request for `OPS-42`, a response containing `WEB-42` and `OPS-42
 
 A later correct response does not prove an intermittent resolver fault is fixed. Keep the check at the response boundary. A written instruction asks an agent to perform it; a wrapper that rejects mismatches enforces it. Report which protection you actually have.
 
+### Audit Saved Identifiers Where Instructions Teach Them
+
+A stable ID can resolve successfully while referring to the wrong team, record type, or project state. If an agent copies that ID from a reference document, correcting one failed request leaves the source of the next failure intact.
+
+Inventory the identifiers taught by active instructions. Use read-only service lookups to compare each one with its documented type, name, owning team or tenant, and relevant lifecycle state. Batch the lookups where possible. Report a mismatch with its source location and expected relationship; keep an unavailable lookup distinct from an invalid ID.
+
+Test the check against a nonexistent ID and a valid ID owned by another team. Confirm that a valid same-team mapping passes. An archived or canceled project may still resolve, so existence alone cannot establish that it is an appropriate default.
+
+Correct the canonical reference and the examples that copy it. Read-only evidence verifies the mappings and supported request shapes; it does not prove that a create or update operation succeeded. State that limit when writes were not exercised.
+
+[Documentation evaluation](../reports/evals/2026-09-23-identifiers-delivery-and-scope.md#saved-identifier-cases).
+
 ## 18. Check for Another Writer Before Restoring Shared Settings
 
 Two agents can edit the same scheduled job seconds apart. Each sees a before/after difference and assumes its own command caused every changed field. A restore from either agent's old snapshot can then undo the other's valid work.
@@ -500,6 +512,18 @@ Test the boundaries, not only the record writer's happy path:
 
 Separate the implementation result from its live acceptance. A passing local suite, an increased time limit, or proof that a defective proposal is inactive cannot establish that interruption recovery works. Keep those claims separate until the corresponding cases have run.
 
+### Verify Complete Delivery and Regenerate Retry Inputs
+
+One logical send can become several physical messages. A transport receipt may list fewer IDs than the destination ultimately displays. Before calling a long message delivered, read back the destination, verify the expected sender, and compare the complete ordered content, including its final instruction. Permit only named presentation transformations, such as whitespace or emoji rendering. Preserve the original content for comparison.
+
+If readback is incomplete, record delivery as uncertain and investigate the missing parts. Repeating the whole send can duplicate parts that already arrived.
+
+Test duplicate suppression with regenerated inputs from the next scheduled period. Changing a batch label alone can miss identifiers that embed a date elsewhere in the payload. In a separate duplicate comparison, normalize only specifically identified time-derived fields that do not change the requested operation. Retain meaningful identity, prior values, content, and source fingerprints in that comparison. Preserve saved operations, authorization hashes, and approval records; the comparison must not manufacture authorization for a changed operation. A meaningful change must remain eligible for a new delivery with valid authorization.
+
+Exercise the production branch that reads the delivery record. A preview that exits before that branch cannot prove duplicate suppression. Verify both zero sender calls for an unchanged pending operation and an allowed send for a genuine change. Concurrency and the gap between a successful send and saving its receipt remain separate cases to test.
+
+[Documentation evaluation](../reports/evals/2026-09-23-identifiers-delivery-and-scope.md#delivery-cases).
+
 ## 32. Define What Must Match Before Comparing Configuration
 
 A service may update a revision identifier or modification time when it applies one requested setting. A byte-for-byte comparison detects those changes, but it cannot decide whether they violate the intended contract.
@@ -511,6 +535,32 @@ For example, changing a job's time limit may legitimately update its revision an
 Keep literal requirements literal. If the contract requires identical bytes, a removed trailing newline still fails that criterion. Record the mismatch and resolve the contract; do not silently rename a semantic match as a byte match. A corrected comparison also cannot repair unrelated implementation defects or supply missing live evidence.
 
 [Documentation evaluation and limits](../reports/evals/2026-09-21-retry-boundaries-and-contracts.md).
+
+## 33. Separate Quoted Names From Notification Targets
+
+A report may quote a person without asking them to act. A sender that turns every known name into a mention can notify people who were only discussed. A sender that rejects every plain name can block an otherwise valid report.
+
+Give the sender an explicit distinction between quoted content and addressees:
+
+- Preserve quoted names as text. Use verified mention tokens for people who own an action, receive a question, or must respond.
+- In quoted-content mode, relax only the plain-name check. Keep sender-identity checks, directory verification, and unresolved-token checks active.
+- Verify the exact draft before sending. After delivery, inspect the rendered content for unintended notifications.
+
+Quoted-content mode does not mean that nobody can be notified. Explicit mention tokens can still notify their recipients. State which behavior was verified, and retain the saved draft when delivery fails so recovery can inspect the original text.
+
+[Documentation evaluation](../reports/evals/2026-09-23-identifiers-delivery-and-scope.md#quoted-content-cases).
+
+## 34. Check Backup Boundaries Before an Update
+
+A backup can fail because a symlink inside the workspace resolves outside the archive's declared assets. Rewriting an absolute link as a relative link does not change its destination.
+
+Before updating the runtime, inspect links using the backup tool's boundary rules and exclusions. For each escaping link, identify the owner and whether the target is essential state or a reconstructable dependency. Preserve the inventory before changing the layout.
+
+For reconstructable environments, use a supported self-contained layout or move them outside the backed-up tree and update their callers. Verify that those callers still work. Avoid blanket link deletion or copying platform interpreters without checking their runtime dependencies.
+
+Run the supported backup verification and retain the resulting archive location and evidence. If only a limited rescue set is available, name its omissions and whether it satisfies the update's recovery requirement. Archive integrity verification does not prove a successful restore; record restore testing separately.
+
+[Documentation evaluation](../reports/evals/2026-09-23-identifiers-delivery-and-scope.md#backup-cases).
 
 ## Governance Rules
 

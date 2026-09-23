@@ -233,9 +233,14 @@ Required side effects:
 - Tool or service: <none | name>
   Purpose: <why this write is part of completion>
 
+Verification scope:
+- `<exact path or explicitly permitted glob>`: <behavior this check covers>
+- `<shared fixture path, if needed>`: <why this read is required>
+
 Verification:
 - `<exact command>` → <expected pass signal>
 - `<exact command>` → <expected pass signal>
+- Match each command's paths and globs to the declared verification scope before running it.
 
 Invariants:
 - <public API, data, compatibility, dependency, or safety rule that must remain true>
@@ -258,10 +263,15 @@ Why each field exists:
 
 - **Scope fence** prevents a long-running agent from turning nearby cleanup into hidden scope.
 - **Required side effects** separates necessary external writes from accidental ones.
-- **Verification** makes the finish state observable instead of confidence-based.
+- **Verification scope** names what the checks may examine. Keep it separate from the edit scope: a shared fixture can be read without authorizing changes to it. Declare globs explicitly; a similarly named directory is not an equivalent target.
+- **Verification** makes the finish state observable instead of confidence-based. A passing command against the wrong files does not satisfy the requirement.
 - **Invariants** name what a green test suite might still miss.
 - **Stop and continue rules** make persistence bounded and recovery explicit.
 - **Sources of truth** give a resumed run stable orientation after context loss.
+
+A goal prompt states this contract; it does not enforce it. If your launcher validates command paths or required side effects, test that validation against an out-of-scope command and an undeclared write. Otherwise, check them during review and record that the protection is manual. Listing an external write in the spec does not supply authorization to perform it.
+
+[Three-case documentation evaluation](../reports/evals/2026-09-23-identifiers-delivery-and-scope.md#delegation-template-refresh).
 
 ---
 
