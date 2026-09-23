@@ -11,6 +11,7 @@
 
 ### Changed
 
+- **Model playbook: content lane → Opus 5.5** ([effort ladder](reference/model-playbook/effort-ladder.md#runtime-routes), [models.yaml](reference/model-playbook/models.yaml)): Opus 5.5 becomes the drafting primary for public-content / voice surfaces only (chain Opus 5.5 → Fable 5.1 high → GPT-6 Astra high), on operator direction after an 8-lane blind bake-off split 4–4 where it won the voice task but overran hard format caps. Every content prompt now states a count-before-returning length cap; style/AWDS gates and graders keep their models; main/default, Astra lanes, and the Opus 5 family backup are unchanged. Provisional pending n>=3 per prompt type.
 - **Model playbook: Grok 4.7** ([effort ladder](reference/model-playbook/effort-ladder.md#council-third-seat), [models.yaml](reference/model-playbook/models.yaml), [`models/grok-4.7.md`](reference/model-playbook/models/grok-4.7.md)): Grok 4.7 replaces Grok 4.5 as the standing third council seat and resilience fallback #2 on operator direction. Grok 4.5 becomes comparison-only (`grok45`); Grok 4.6 is skipped. Provisional pending an n>=3 third-seat re-test.
 - **Delegation verification scope** ([agent prompt template](reference/agent-prompt-template.md#long-horizon-goal-spec)): declare check paths separately from editable paths, make shared-fixture reads explicit, and distinguish a written contract from launcher enforcement. This refresh covers one mapped public artifact.
 

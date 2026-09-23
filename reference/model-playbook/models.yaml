@@ -1,5 +1,5 @@
 # Model Playbook — Single Source of Truth
-# Version: 15
+# Version: 17
 # Last updated: 2026-09-11
 #
 # Read by: reference docs and optional workspace routing helpers
@@ -9,7 +9,7 @@
 # This roster is an example. It records one working stack; it does not imply that
 # every user has access to every provider or model listed here.
 
-version: 15
+version: 17
 
 models:
   fable-5-1:
@@ -108,6 +108,20 @@ models:
     effort_default: high
     cost_tier: premium
     notes: "Same-family backup for Fable-specific outages while the provider is still available. Not an independent council seat and not part of the cross-provider chains. Behavior deltas live in overlays/main-opus5.md."
+    prompt_file: models/fable.md
+
+  opus-5-5:
+    display_name: Opus 5.5
+    aliases: [opus55, opus-5.5, claude-opus-5-5]
+    provider: amazon-bedrock
+    full_id: amazon-bedrock/us.anthropic.claude-opus-5-5
+    status: active
+    role: content-lane-drafting-primary
+    capabilities: { reasoning: top, coding: top, tool_use: high, long_context: 1M, vision: high, multimodal: image }
+    prompt_style: claude-xml-or-markdown
+    effort_default: high
+    cost_tier: premium
+    notes: "2026-09-23 (operator direction): drafting primary for public-content / voice lanes only (replies medium, originals high). Blind bake-off voice task +6.5 /40, AWDS 10 vs 8; overruns hard length caps, so every content prompt states a count-before-returning cap and the style/AWDS gates stay mechanical. Not main/default, not the Anthropic-family backup (Opus 5), same family as Fable: never a council seat or grader of its own drafts. Provisional pending n>=3 per prompt type."
     prompt_file: models/fable.md
 
   glm-5-3:
@@ -280,11 +294,11 @@ intents:
     rationale: "Routine delegation follows the same general chain as the main session."
 
   content_drafting:
-    primary: fable-5-1
-    effort: medium
-    fallbacks: [gpt-6-astra, grok-4-7, muse-spark-1-3]
-    fallback_effort: { gpt-6-astra: medium, grok-4-7: high, muse-spark-1-3: high }
-    rationale: "Fable 5.1 is the voice default; Astra medium is the first cross-provider fallback."
+    primary: opus-5-5
+    effort: high
+    fallbacks: [fable-5-1, gpt-6-astra]
+    fallback_effort: { fable-5-1: high, gpt-6-astra: high }
+    rationale: "Content lane (2026-09-23, operator direction): Opus 5.5 drafts public content (medium for reply-length pieces, high otherwise); Fable 5.1 high is the family fallback, Astra high the cross-family fallback. Three deep; the Grok/Muse resilience tail is dropped here. Prompts must carry an explicit hard length cap; gates and graders keep their own models."
 
   hard_autonomous_work:
     primary: fable-5-1
@@ -378,6 +392,7 @@ intents:
     rationale: "Candidate for bounded extraction/classification; utility eval pending, Flash default unchanged. Explicit experiments only."
 
 # Changelog
+# 17 (2026-09-23, operator direction): Content lane -> Opus 5.5. New opus-5-5 entry (alias opus55, role content-lane-drafting-primary); content_drafting intent primary opus-5-5 high, fallbacks fable-5-1 high -> gpt-6-astra high. Every other intent, main/default, Astra lanes, Opus 5 backup unchanged. Provisional pending n>=3 per prompt type.
 # 16 (2026-09-23, operator direction): Grok 4.7 replaces Grok 4.5 as third seat / fallback #2 in every intent; grok-4-5 -> comparison-only (alias grok45); Grok 4.6 skipped. Provisional pending an n>=3 third-seat re-test.
 # 15 (2026-09-11): GPT-6 Astra replaces GPT-5.6 Sol as the OpenAI lane and owns
 #   coding/review/artifact/computer-use with task-varied effort. Fable 5.1 remains

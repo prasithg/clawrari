@@ -25,8 +25,9 @@ Set effort explicitly; the classified task difficulty overrides route defaults. 
 - **Hard autonomous work:** Fable 5.1 xhigh → GPT-6 Astra xhigh → Grok 4.7 high → Muse Spark 1.3 high.
 - **Quick interactive:** Fable 5.1 low → GPT-6 Astra low → Grok 4.7 high → Muse Spark 1.3 high.
 - **Specialist escalation:** GPT-6 Astra high → Fable 5.1 high → Grok 4.7 high → Muse Spark 1.3 high.
+- **Content lane (public drafting):** Opus 5.5 high → Fable 5.1 high → GPT-6 Astra high. Drafting only: social replies, LinkedIn/X originals, internal-channel notes, personal-brand copy (2026-09-23, operator direction; blind bake-off voice task +6.5 /40, AWDS 10 vs 8). Reply-length pieces run Opus 5.5 `medium`. Every content prompt carries an explicit hard length cap ("N words/lines/characters — count before returning"): Opus 5.5 overruns caps without it. Style/AWDS gates and grader/audit runs keep their existing models; Opus 5.5 never grades its own drafts (dual-grader rule).
 
-The last two items in each chain are resilience only: invoke them after both primaries have failed, never as a chosen task lane. Main/default and voice keep Fable; the coding, review, artifact, and computer-use task lanes choose Astra with task-appropriate effort.
+The last two items in each chain are resilience only: invoke them after both primaries have failed, never as a chosen task lane. Main/default keeps Fable; operator-facing voice (chat, briefings, call sheets) keeps Fable; public-content drafting chooses Opus 5.5 through the content lane; the coding, review, artifact, and computer-use task lanes choose Astra with task-appropriate effort.
 
 ## Utility lanes
 
@@ -50,6 +51,8 @@ Report an unavailable required catalog or an unverified version pair as incomple
 Grok 4.7 high (`openrouter/x-ai/grok-4.7`, alias `grok`) is fallback #2 after **both** Fable 5.1 and Astra fail; Muse Spark 1.3 high (`openrouter/meta/muse-spark-1.3`) is fallback #3. GLM 5.3 is a ladder-only candidate, never in live fallback chains (keep them three deep). An Astra-primary job tries Fable first; a Fable-primary job tries Astra first. No self-fallbacks. Record the degraded route and verify its result. Scheduled jobs keep their existing primary and first fallback; any leftover GLM fallback is replaced by Muse. The default/main chain ends at Muse.
 
 **Anthropic-family backup:** Opus 5 high (`amazon-bedrock/us.anthropic.claude-opus-5`) covers Fable-specific outages while the provider is still available. Same family as Fable: never a council seat, never a substitute for the cross-provider chain. The `fable5` alias remains comparison-only.
+
+**Opus 5.5** (`amazon-bedrock/us.anthropic.claude-opus-5-5`, alias `opus55`) is the content-lane drafting primary only (see Runtime routes). It is not main/default, not the Anthropic-family backup (Opus 5 keeps that role), and same family as Fable: never a council seat or a grader of its own drafts.
 
 Kimi K3 high is comparison-only for explicit user-selected runs; Muse replaces its former optional fourth council role. Never include Kimi in a fallback chain. Sonnet 5 remains comparison-only.
 
@@ -78,6 +81,7 @@ Retired from live routing: Opus 4.8 and earlier Opus, GPT-5.6 Sol, GPT-5.6 Luna,
 
 Prior states, preserved for context. The live sections above govern execution.
 
+- **2026-09-23:** Content lane → Opus 5.5 on operator direction: Opus 5.5 becomes the drafting primary for public-content / voice surfaces only (chain Opus 5.5 → Fable 5.1 high → GPT-6 Astra high), after an 8-lane blind bake-off split 4–4 (254–254 /320) where Opus 5.5 won the voice task (+6.5, AWDS 10 vs 8) but overran hard caps on format-bound tasks. Every content prompt now states a count-before-returning length cap; gates and graders keep their models. Main/default, Astra lanes, Opus 5 backup unchanged. Provisional pending n>=3 per prompt type.
 - **2026-09-23:** Grok 4.7 replaces Grok 4.5 as the standing third council seat and fallback #2 on operator direction; Grok 4.5 stays as a comparison alias, Grok 4.6 is skipped. Provisional pending an n>=3 re-test.
 - **2026-09-10:** Muse Spark 1.3 becomes fallback #3 and the optional fourth strategy/positioning council lane after its provider attestation cleared. GLM 5.3 drops to a ladder-only utility candidate. Kimi stays comparison-only.
 - **2026-09-09:** Grok 4.5 high becomes the standing third council seat and fallback #2; Kimi K3 leaves every fallback chain; Opus 5 becomes the same-family backup; GLM 5.2 retires in favor of GLM 5.3; Grok 4.6 is pinned pending re-test.
