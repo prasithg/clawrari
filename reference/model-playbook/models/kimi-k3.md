@@ -4,7 +4,7 @@
 
 ## Routing
 
-Kimi K3 is **comparison-only**. Invoke it with `/model kimi` for an explicit user-selected run or when an eval benefits from another model family. It was removed from every fallback chain on 2026-09-09; resilience is Grok 4.5 high → Muse Spark 1.3 high after both primaries fail, and Muse also took over the optional fourth council lane. Never include Kimi in a fallback list without a separate promotion eval.
+Kimi K3 is **comparison-only**. Invoke it with `/model kimi` for an explicit user-selected run or when an eval benefits from another model family. It was removed from every fallback chain on 2026-09-09; resilience is Grok 4.7 high → Muse Spark 1.3 high after both primaries fail (Grok 4.7 replaced 4.5 on 2026-09-23), and Muse also took over the optional fourth council lane. Never include Kimi in a fallback list without a separate promotion eval.
 
 ## Runtime facts
 

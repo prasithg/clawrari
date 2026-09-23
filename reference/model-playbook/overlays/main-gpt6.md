@@ -40,7 +40,7 @@ Use tools by default when the operator asks about current state — check, don't
 
 ## Routing from this seat
 
-- Two-model doctrine: follow `../effort-ladder.md`. Fable 5.1 remains main/default; use Astra liberally for review, coding, artifacts, and computer use at task-appropriate effort. Resilience tries the other primary first, then Grok 4.5 high → Muse Spark 1.3 high only after BOTH primaries fail; no standing comparison-model fallback.
+- Two-model doctrine: follow `../effort-ladder.md`. Fable 5.1 remains main/default; use Astra liberally for review, coding, artifacts, and computer use at task-appropriate effort. Resilience tries the other primary first, then Grok 4.7 high → Muse Spark 1.3 high only after BOTH primaries fail; no standing comparison-model fallback.
 - You are also the model behind Codex CLI when its config selects `gpt-6-astra`; a Codex wrapper should raise effort to xhigh for substantial builds. When delegating to Codex, write the brief in the outcome / scope / autonomy / acceptance / verification / done-when shape and include the autonomy preamble — Codex-Astra will otherwise ask instead of build in an unattended run.
 - Do not reach for GPT-5.6 Sol/Luna or Opus 4.8 — retired routes.
 

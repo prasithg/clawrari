@@ -1,15 +1,10 @@
-# Grok 4.5
+# Grok 4.5 (comparison-only since 2026-09-23)
 
-**Runtime id:** `openrouter/x-ai/grok-4.5` · **alias:** `grok`
+**Runtime id:** `openrouter/x-ai/grok-4.5` · **alias:** `grok45` (the `grok` alias now points at Grok 4.7 — see `grok-4.7.md`)
 
 ## Routing
 
-Use Grok 4.5 at **high** effort for exactly two things:
-
-- **Standing council third seat.** The third-family judgment alongside Fable 5.1 and GPT-6 Astra. A seated model is never the sole synthesizer.
-- **Resilience fallback #2.** Invoked only after **both** Fable 5.1 and Astra have failed; Muse Spark 1.3 follows it. Record the degraded route and verify the result.
-
-It is not a chosen task lane: no standing default, reviewer, specialist, coding, or cron route selects it. Specialist escalation stays on Astra high or Fable 5.1 high. Grok 4.6 is pinned out of standing routing and is comparison-only until re-tested on at least three tasks.
+Grok 4.5 is comparison or explicit-user-request only. It held the standing council third seat and resilience fallback #2 from 2026-09-09 until Grok 4.7 replaced it on 2026-09-23 (see `grok-4.7.md`). No standing default, reviewer, specialist, coding, cron, or fallback route selects it. Grok 4.6 was skipped and is also comparison-only. For an authorized comparison, set effort explicitly (normally high).
 
 ## Prompt shape
 

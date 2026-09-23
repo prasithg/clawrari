@@ -48,7 +48,7 @@ Sources: Anthropic's "Migrating to Claude Fable 5.1" and "Prompting Claude Fable
 ## OpenClaw wiring / working model
 
 - **Drive the main session:** `/model fable`; the alias should resolve to Fable 5.1. Keep the older `fable5` alias comparison-only.
-- **Fallback:** follow `models.yaml`: **GPT-6 Astra at matching effort**, then **Grok 4.5 high → Muse Spark 1.3 high only after both primaries fail**. Opus 5 high is the same-family backup for a Fable-specific outage while the provider is still up; provider-family failures cross to Astra.
+- **Fallback:** follow `models.yaml`: **GPT-6 Astra at matching effort**, then **Grok 4.7 high → Muse Spark 1.3 high only after both primaries fail**. Opus 5 high is the same-family backup for a Fable-specific outage while the provider is still up; provider-family failures cross to Astra.
 - **Effort exposure:** confirm how OpenClaw maps `thinking`/effort onto the Bedrock Converse path for Fable before relying on `xhigh`. [verify TODO]
 - **Sampling:** temperature 1.0/unset, top_p ≥0.99 & <1.0/unset, top_k unsupported — leave config clean, add no overrides.
 - **Scaffolding to revisit:** older skills/overlays built for prior models are often too prescriptive → review/prune when driving with Fable (Fable also updates skills on the fly). A `send_to_user`-style verbatim-delivery pattern helps for long async agents.

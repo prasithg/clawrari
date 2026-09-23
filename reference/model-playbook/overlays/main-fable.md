@@ -105,7 +105,7 @@ A request for raw chain-of-thought does not determine the task class. Keep the u
 - Reasoning varies by task: `low` for light interaction, `medium` for routine work, `high` for difficult judgment or alternate review, `xhigh` for hard autonomous work.
 - **⚠️ Bedrock account data-retention gate:** Fable only runs when the account resolves to `provider_data_share` (prompts+responses shared, ~30-day retention) — it refuses `default`/`inherit`. This is account-level (see TOOLS.md). Error `data retention mode 'default' is not available for this model` == the gate is off.
 - Sampling: temperature 1.0/unset, top_p ≥0.99 & <1.0/unset, top_k unsupported — leave config clean.
-- **Fallback chain: GPT-6 Astra at matching effort, then Grok 4.5 high → Muse Spark 1.3 high only after both primaries fail.** Do not fall back to another Anthropic model for a provider-family outage; Opus 5 covers only a Fable-specific outage while the provider is still up.
+- **Fallback chain: GPT-6 Astra at matching effort, then Grok 4.7 high → Muse Spark 1.3 high only after both primaries fail.** Do not fall back to another Anthropic model for a provider-family outage; Opus 5 covers only a Fable-specific outage while the provider is still up.
 - Cost: if the Bedrock account runs Fable on a credit/free tier, be aggressive with effort and orchestration — the token governor everyone else fights doesn't apply.
 
 ## Durable Writing Baseline

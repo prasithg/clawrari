@@ -15,7 +15,8 @@ The roster here is an example of one working stack. It does not assume every use
 | `orchestration-strategy.md` | Human-readable routing table, decision tree, prompt styles, council, enforcement. |
 | `models/fable.md` | Fable 5.1 prompting, migration notes, and long-horizon constraints. |
 | `models/gpt-6-astra.md` | GPT-6 Astra (OpenAI lane since 2026-09-09): effort tiers, behavior deltas, verbatim autonomy/precedence/testing snippets. |
-| `models/grok-4.5.md` | Grok 4.5: standing council third seat and resilience fallback #2. |
+| `models/grok-4.7.md` | Grok 4.7: standing council third seat and resilience fallback #2 (since 2026-09-23). |
+| `models/grok-4.5.md` | Grok 4.5: comparison-only; superseded by 4.7. |
 | `models/muse-spark-1.3.md` | Muse Spark 1.3: resilience fallback #3 and optional fourth council lane. |
 | `models/gemini-3.7-flash.md` | Flash-only fast/bulk lane (classification, extraction, OCR). |
 | `models/glm-5.3.md` | GLM 5.3: experimental utility candidate, never a live route. |
@@ -34,13 +35,13 @@ The roster here is an example of one working stack. It does not assume every use
 ## Active roster
 
 - Default main/crons/delegation/voice: Fable 5.1; task effort low/medium/high/xhigh.
-- Default fallback: GPT-6 Astra medium, then Grok 4.5 high → Muse Spark 1.3 high only after both primaries fail.
+- Default fallback: GPT-6 Astra medium, then Grok 4.7 high → Muse Spark 1.3 high only after both primaries fail.
 - Reviewer/coding/Codex/SWE/artifact/computer-use: GPT-6 Astra; vary low/medium/high/xhigh by task. Fable 5.1 is the alternate.
-- Hard autonomous: Fable 5.1 xhigh, then GPT-6 Astra xhigh, then Grok 4.5 high → Muse Spark 1.3 high only after both primaries fail.
+- Hard autonomous: Fable 5.1 xhigh, then GPT-6 Astra xhigh, then Grok 4.7 high → Muse Spark 1.3 high only after both primaries fail.
 - Fast/bulk only: Gemini 3.7 Flash low (classification, extraction, OCR), then Astra low, then Fable 5.1 low.
-- Council: Fable 5.1, GPT-6 Astra, Grok 4.5 high; optional fourth lane Muse Spark 1.3 (strategy) or GLM 5.3 (product/integration).
+- Council: Fable 5.1, GPT-6 Astra, Grok 4.7 high; optional fourth lane Muse Spark 1.3 (strategy) or GLM 5.3 (product/integration).
 - Same-family backup: Opus 5 high for Fable-specific outages; never a council seat.
-- Comparison-only: Kimi K3, Sonnet 5, Fable 5, Grok 4.6. Experimental utility candidate: GLM 5.3.
+- Comparison-only: Kimi K3, Sonnet 5, Fable 5, Grok 4.5 (`grok45`), Grok 4.6. Experimental utility candidate: GLM 5.3.
 - Retired: Opus 4.8, GPT-5.6 Sol, GPT-5.6 Luna, Gemini 3.5 Flash, GLM 5.2.
 
 A search provider remains a search provider, not a reasoning-model route.

@@ -4,7 +4,7 @@
 
 ## Routing
 
-- **Resilience fallback #3**: after Fable 5.1, GPT-6 Astra, and Grok 4.5 have all failed. Never a chosen task lane.
+- **Resilience fallback #3**: after Fable 5.1, GPT-6 Astra, and Grok 4.7 have all failed. Never a chosen task lane.
 - **Optional fourth council lane** for strategy and positioning: an independent angle and a useful provocateur. Not for correctness-critical review.
 - The council dual-grader rule applies unchanged: a seated model must not be the sole synthesizer.
 

@@ -19,12 +19,12 @@ Set effort explicitly; the classified task difficulty overrides route defaults. 
 
 ### Runtime routes
 
-- **Ticket/agent execution default:** Fable 5.1 medium → GPT-6 Astra medium → Grok 4.5 high → Muse Spark 1.3 high.
-- **Main interactive session default:** Fable 5.1 medium → GPT-6 Astra medium → Grok 4.5 high → Muse Spark 1.3 high.
-- **Backup / reviewer / coding:** GPT-6 Astra high → Fable 5.1 high → Grok 4.5 high → Muse Spark 1.3 high.
-- **Hard autonomous work:** Fable 5.1 xhigh → GPT-6 Astra xhigh → Grok 4.5 high → Muse Spark 1.3 high.
-- **Quick interactive:** Fable 5.1 low → GPT-6 Astra low → Grok 4.5 high → Muse Spark 1.3 high.
-- **Specialist escalation:** GPT-6 Astra high → Fable 5.1 high → Grok 4.5 high → Muse Spark 1.3 high.
+- **Ticket/agent execution default:** Fable 5.1 medium → GPT-6 Astra medium → Grok 4.7 high → Muse Spark 1.3 high.
+- **Main interactive session default:** Fable 5.1 medium → GPT-6 Astra medium → Grok 4.7 high → Muse Spark 1.3 high.
+- **Backup / reviewer / coding:** GPT-6 Astra high → Fable 5.1 high → Grok 4.7 high → Muse Spark 1.3 high.
+- **Hard autonomous work:** Fable 5.1 xhigh → GPT-6 Astra xhigh → Grok 4.7 high → Muse Spark 1.3 high.
+- **Quick interactive:** Fable 5.1 low → GPT-6 Astra low → Grok 4.7 high → Muse Spark 1.3 high.
+- **Specialist escalation:** GPT-6 Astra high → Fable 5.1 high → Grok 4.7 high → Muse Spark 1.3 high.
 
 The last two items in each chain are resilience only: invoke them after both primaries have failed, never as a chosen task lane. Main/default and voice keep Fable; the coding, review, artifact, and computer-use task lanes choose Astra with task-appropriate effort.
 
@@ -47,7 +47,7 @@ Report an unavailable required catalog or an unverified version pair as incomple
 
 ## Resilience fallback
 
-Grok 4.5 high (`openrouter/x-ai/grok-4.5`) is fallback #2 after **both** Fable 5.1 and Astra fail; Muse Spark 1.3 high (`openrouter/meta/muse-spark-1.3`) is fallback #3. GLM 5.3 is a ladder-only candidate, never in live fallback chains (keep them three deep). An Astra-primary job tries Fable first; a Fable-primary job tries Astra first. No self-fallbacks. Record the degraded route and verify its result. Scheduled jobs keep their existing primary and first fallback; any leftover GLM fallback is replaced by Muse. The default/main chain ends at Muse.
+Grok 4.7 high (`openrouter/x-ai/grok-4.7`, alias `grok`) is fallback #2 after **both** Fable 5.1 and Astra fail; Muse Spark 1.3 high (`openrouter/meta/muse-spark-1.3`) is fallback #3. GLM 5.3 is a ladder-only candidate, never in live fallback chains (keep them three deep). An Astra-primary job tries Fable first; a Fable-primary job tries Astra first. No self-fallbacks. Record the degraded route and verify its result. Scheduled jobs keep their existing primary and first fallback; any leftover GLM fallback is replaced by Muse. The default/main chain ends at Muse.
 
 **Anthropic-family backup:** Opus 5 high (`amazon-bedrock/us.anthropic.claude-opus-5`) covers Fable-specific outages while the provider is still available. Same family as Fable: never a council seat, never a substitute for the cross-provider chain. The `fable5` alias remains comparison-only.
 
@@ -55,9 +55,9 @@ Kimi K3 high is comparison-only for explicit user-selected runs; Muse replaces i
 
 ## Council third seat
 
-Standing seats: Fable 5.1, GPT-6 Astra, and **Grok 4.5 high**. Optional fourth lane: Muse Spark 1.3 high for strategy/positioning, or GLM 5.3 high for product/integration. A seated model must not be the sole synthesizer: use a non-seated synthesizer or dual Fable 5.1 xhigh + Astra xhigh grading and report the gap.
+Standing seats: Fable 5.1, GPT-6 Astra, and **Grok 4.7 high**. Optional fourth lane: Muse Spark 1.3 high for strategy/positioning, or GLM 5.3 high for product/integration. A seated model must not be the sole synthesizer: use a non-seated synthesizer or dual Fable 5.1 xhigh + Astra xhigh grading and report the gap.
 
-**Grok 4.6 is pinned out of standing routing: re-test on at least three tasks before promoting.** Comparison-only until that decision changes. **Muse Spark 1.3 is runnable** once the OpenRouter account attestation is complete. Independent angle / best provocateur; not correctness-critical review. Never use a contributor or data-sharing tier for workspace material.
+**Grok 4.6 was skipped; Grok 4.7 adopted 2026-09-23 on operator direction** (smoke-tested; provisional until an n>=3 third-seat re-test with the dual-grader method). Grok 4.5 (`grok45`) and 4.6 are comparison-only. **Muse Spark 1.3 is runnable** once the OpenRouter account attestation is complete. Independent angle / best provocateur; not correctness-critical review. Never use a contributor or data-sharing tier for workspace material.
 
 ## Retired
 
@@ -66,8 +66,8 @@ Retired from live routing: Opus 4.8 and earlier Opus, GPT-5.6 Sol, GPT-5.6 Luna,
 ## Guardrails
 
 - Flash never owns strategy, architecture, voice-critical writing, code review, or autonomous work.
-- Kimi K3, Sonnet 5, Fable 5, and Grok 4.6 never enter default, review/coding, or autonomous fallback chains; invoke them explicitly for comparisons.
-- Grok 4.5 and Muse are resilience, not lanes. A job that "prefers" Grok is a routing bug.
+- Kimi K3, Sonnet 5, Fable 5, Grok 4.5, and Grok 4.6 never enter default, review/coding, or autonomous fallback chains; invoke them explicitly for comparisons.
+- Grok 4.7 and Muse are resilience, not lanes. A job that "prefers" Grok is a routing bug.
 - Routine agent execution starts on the strongest tested default route. A cheaper model belongs in bounded fast/bulk lanes, not as an invisible quality tax on every task.
 - Hard autonomous work never silently drops below Fable xhigh or Astra xhigh; if both are unavailable, record the degraded route before continuing on Grok.
 - Main-session outages cross provider families: Anthropic → OpenAI → OpenRouter (xAI, then Meta). Same-family Opus 5 is only for a Fable-specific outage with the provider still up.
@@ -78,6 +78,7 @@ Retired from live routing: Opus 4.8 and earlier Opus, GPT-5.6 Sol, GPT-5.6 Luna,
 
 Prior states, preserved for context. The live sections above govern execution.
 
+- **2026-09-23:** Grok 4.7 replaces Grok 4.5 as the standing third council seat and fallback #2 on operator direction; Grok 4.5 stays as a comparison alias, Grok 4.6 is skipped. Provisional pending an n>=3 re-test.
 - **2026-09-10:** Muse Spark 1.3 becomes fallback #3 and the optional fourth strategy/positioning council lane after its provider attestation cleared. GLM 5.3 drops to a ladder-only utility candidate. Kimi stays comparison-only.
 - **2026-09-09:** Grok 4.5 high becomes the standing third council seat and fallback #2; Kimi K3 leaves every fallback chain; Opus 5 becomes the same-family backup; GLM 5.2 retires in favor of GLM 5.3; Grok 4.6 is pinned pending re-test.
 - **2026-09-09:** GPT-6 Astra replaces the now-retired GPT-5.6 Sol as the OpenAI lane in every default, fallback, reviewer, and cron route. Sol and Luna stay reachable as comparison aliases only. Astra asks more, follows skill files harder, and over-tests small changes; read `models/gpt-6-astra.md` before writing an Astra prompt. Astra does not replace Fable 5.1 as main/default; use it liberally everywhere else.

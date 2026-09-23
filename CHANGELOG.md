@@ -11,6 +11,7 @@
 
 ### Changed
 
+- **Model playbook: Grok 4.7** ([effort ladder](reference/model-playbook/effort-ladder.md#council-third-seat), [models.yaml](reference/model-playbook/models.yaml), [`models/grok-4.7.md`](reference/model-playbook/models/grok-4.7.md)): Grok 4.7 replaces Grok 4.5 as the standing third council seat and resilience fallback #2 on operator direction. Grok 4.5 becomes comparison-only (`grok45`); Grok 4.6 is skipped. Provisional pending an n>=3 third-seat re-test.
 - **Delegation verification scope** ([agent prompt template](reference/agent-prompt-template.md#long-horizon-goal-spec)): declare check paths separately from editable paths, make shared-fixture reads explicit, and distinguish a written contract from launcher enforcement. This refresh covers one mapped public artifact.
 
 The [documentation evaluation](reports/evals/2026-09-23-identifiers-delivery-and-scope.md) records the manual cases and untested runtime behavior.

@@ -6,15 +6,15 @@
 
 | Task | Primary | Recovery |
 |---|---|---|
-| Main/default, crons, routine delegation, research synthesis, voice | Fable 5.1 medium | Astra medium, then Grok 4.5 high → Muse Spark 1.3 high only after both fail |
-| Hard autonomous work | Fable 5.1 xhigh | Astra xhigh, then Grok 4.5 high → Muse Spark 1.3 high only after both fail |
-| Coding/Codex/SWE, long-horizon autonomous coding | GPT-6 Astra xhigh | Fable 5.1 xhigh, then Grok 4.5 high → Muse Spark 1.3 high only after both fail |
-| Code review, evals, specialist escalation | GPT-6 Astra high | Fable 5.1 high, then Grok 4.5 high → Muse Spark 1.3 high only after both fail |
-| Artifact and computer-use subagents | GPT-6 Astra medium (vary by task) | Fable 5.1 medium, then Grok 4.5 high → Muse Spark 1.3 high only after both fail |
+| Main/default, crons, routine delegation, research synthesis, voice | Fable 5.1 medium | Astra medium, then Grok 4.7 high → Muse Spark 1.3 high only after both fail |
+| Hard autonomous work | Fable 5.1 xhigh | Astra xhigh, then Grok 4.7 high → Muse Spark 1.3 high only after both fail |
+| Coding/Codex/SWE, long-horizon autonomous coding | GPT-6 Astra xhigh | Fable 5.1 xhigh, then Grok 4.7 high → Muse Spark 1.3 high only after both fail |
+| Code review, evals, specialist escalation | GPT-6 Astra high | Fable 5.1 high, then Grok 4.7 high → Muse Spark 1.3 high only after both fail |
+| Artifact and computer-use subagents | GPT-6 Astra medium (vary by task) | Fable 5.1 medium, then Grok 4.7 high → Muse Spark 1.3 high only after both fail |
 | Bounded bulk classification, extraction, OCR | Gemini 3.7 Flash low | Astra low, then Fable 5.1 low |
 | Search evidence | Search provider (Perplexity here) | Fable or Astra owns final synthesis |
 | Fable-specific outage, provider still up | Opus 5 high | Cross-provider chain if the provider is also down |
-| Explicit comparison run | Kimi K3 high, Sonnet 5, Fable 5, or Grok 4.6 | none |
+| Explicit comparison run | Kimi K3 high, Sonnet 5, Fable 5, Grok 4.5, or Grok 4.6 | none |
 | Experimental utility candidate | GLM 5.3 high | none |
 
 Light work uses low effort, routine work medium, difficult work high, and hard autonomous work xhigh. Substantial Codex builds default to xhigh; task-specific overrides are encouraged. Fable remains main/default even when Astra subagents do much of the work.
@@ -23,15 +23,15 @@ Light work uses low effort, routine work medium, difficult work high, and hard a
 
 ```text
 Task arrives
-├─ Hard, long-horizon, autonomous orchestration? -> Fable 5.1 xhigh -> Astra xhigh -> (Grok 4.5 -> Muse, resilience only)
-├─ Coding, review, eval, artifact, or computer use? -> Astra at task effort -> Fable 5.1 -> (Grok 4.5 -> Muse, resilience only)
+├─ Hard, long-horizon, autonomous orchestration? -> Fable 5.1 xhigh -> Astra xhigh -> (Grok 4.7 -> Muse, resilience only)
+├─ Coding, review, eval, artifact, or computer use? -> Astra at task effort -> Fable 5.1 -> (Grok 4.7 -> Muse, resilience only)
 ├─ Bounded high-volume classification/extraction/OCR? -> Flash low -> Astra low -> Fable 5.1 low
-├─ Explicit comparison (Kimi / Sonnet / Fable 5 / Grok 4.6)? -> that model, recorded as a comparison
+├─ Explicit comparison (Kimi / Sonnet / Fable 5 / Grok 4.5 / Grok 4.6)? -> that model, recorded as a comparison
 ├─ Explicit GLM utility experiment? -> GLM 5.3 high, recorded as an experiment
-└─ Everything else -> Fable 5.1 medium -> Astra medium -> (Grok 4.5 -> Muse, resilience only)
+└─ Everything else -> Fable 5.1 medium -> Astra medium -> (Grok 4.7 -> Muse, resilience only)
 ```
 
-Flash may prepare intermediate evidence for a hard task, but it never owns the hard judgment or final synthesis. Grok 4.5 and Muse are never a chosen lane; a job that prefers them is a routing bug.
+Flash may prepare intermediate evidence for a hard task, but it never owns the hard judgment or final synthesis. Grok 4.7 and Muse are never a chosen lane; a job that prefers them is a routing bug.
 
 ## Prompt styles
 
@@ -40,7 +40,7 @@ Flash may prepare intermediate evidence for a hard task, but it never owns the h
 | Fable 5.1 | Outcome, scope, observable completion, durable checkpoints; no raw chain-of-thought requests. `models/fable.md`. |
 | GPT-6 Astra | Outcome, autonomy preamble, instruction precedence, scope, calibrated verification, done-when. `models/gpt-6-astra.md`. |
 | Opus 5 (same-family backup) | Claude XML or Markdown; concision, scope, and delegation limits from `overlays/main-opus5.md`. |
-| Grok 4.5 via OpenRouter | Concise Markdown; disputed question, evidence, decision, flip condition. |
+| Grok 4.7 via OpenRouter | Concise Markdown; disputed question, evidence, decision, flip condition. |
 | Muse Spark 1.3 via OpenRouter | Bounded evidence packet, observed/inferred/speculative labels, committed verdict, flip condition. |
 | Google Flash | One format only; exact schema; sample/validate bulk results mechanically. |
 | Comparison and experimental models | Read the matching guide; record exact model, effort, and comparison context. |
@@ -49,7 +49,7 @@ Flash may prepare intermediate evidence for a hard task, but it never owns the h
 ## Provider policy
 
 - Keep the operational core small: Fable 5.1 primary for main/general/voice, GPT-6 Astra for coding/review/artifacts/computer use. Other models have bounded roles.
-- Resilience chain: the other primary first, then Grok 4.5 high, then Muse Spark 1.3 high. Three deep, no self-fallbacks, and the degraded route is recorded.
+- Resilience chain: the other primary first, then Grok 4.7 high, then Muse Spark 1.3 high. Three deep, no self-fallbacks, and the degraded route is recorded.
 - Kimi K3 and Sonnet 5 are comparison-only. GLM 5.3 is an experimental utility candidate. None of them enters a live chain.
 - Opus 5 is a same-family backup for a Fable-specific outage, not an independent seat or a cross-provider fallback.
 - Retiring a model means removing every active intent reference, not merely changing the prose default.
@@ -61,7 +61,7 @@ Use councils only when disagreement materially improves a high-stakes decision. 
 
 1. Fable 5.1 for judgment and adversarial synthesis.
 2. GPT-6 Astra for implementation realism and verification.
-3. Grok 4.5 high as the standing third-family seat.
+3. Grok 4.7 high as the standing third-family seat (since 2026-09-23; Grok 4.5 comparison-only).
 
 Optional fourth lane: Muse Spark 1.3 high for strategy/positioning provocation, or GLM 5.3 high for product/integration. A seated model must not be the sole synthesizer: use a non-seated synthesizer, or dual Fable xhigh + Astra xhigh grading, and report the grader gap. Flash may collect evidence, never vote on the hard conclusion. Resilience position does not confer a council seat; Opus 5 is same-family and never seated.
 

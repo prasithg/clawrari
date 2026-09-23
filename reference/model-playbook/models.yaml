@@ -40,18 +40,32 @@ models:
     notes: "OpenAI lane since 2026-09-09; replaces GPT-5.6 Sol. Owns coding, review, artifact, and computer-use lanes with effort varied by task: xhigh for substantial coding and hard-work backup, high for review and evals, medium for routine implementation and as fallback #1 for Fable, low as the light-task floor. Always include the autonomy preamble in unattended lanes. No temperature/top_p; no none effort."
     prompt_file: models/gpt-6-astra.md
 
-  grok-4-5:
-    display_name: Grok 4.5
-    aliases: [grok, grok-4.5]
+  grok-4-7:
+    display_name: Grok 4.7
+    aliases: [grok, grok-4.7]
     provider: openrouter
-    full_id: openrouter/x-ai/grok-4.5
+    full_id: openrouter/x-ai/grok-4.7
     status: active
     role: council-third-seat | resilience-fallback-2
     capabilities: { reasoning: top, coding: high, tool_use: high, long_context: 500k, vision: high, multimodal: image }
     prompt_style: concise-markdown-contract
     effort_default: high
     cost_tier: paid OpenRouter
-    notes: "Standing third-family council seat and resilience fallback #2. Invoke as a fallback only after BOTH Fable 5.1 and GPT-6 Astra have failed; never as a chosen task lane."
+    notes: "Standing third-family council seat and resilience fallback #2 since 2026-09-23 (replaces Grok 4.5 on operator direction; provisional until an n>=3 third-seat re-test). Invoke as a fallback only after BOTH Fable 5.1 and GPT-6 Astra have failed; never as a chosen task lane."
+    prompt_file: models/grok-4.7.md
+
+  grok-4-5:
+    display_name: Grok 4.5
+    aliases: [grok45, grok-4.5]
+    provider: openrouter
+    full_id: openrouter/x-ai/grok-4.5
+    status: comparison-only
+    role: explicit-comparison
+    capabilities: { reasoning: top, coding: high, tool_use: high, long_context: 500k, vision: high, multimodal: image }
+    prompt_style: concise-markdown-contract
+    effort_default: high
+    cost_tier: paid OpenRouter
+    notes: "Superseded by Grok 4.7 on 2026-09-23; comparison-only. Was third seat / fallback #2 from 2026-09-09."
     prompt_file: models/grok-4.5.md
 
   muse-spark-1-3:
@@ -65,7 +79,7 @@ models:
     prompt_style: concise-markdown-evidence-contract
     effort_default: high
     cost_tier: paid OpenRouter
-    notes: "Resilience fallback #3 after both primaries and Grok 4.5. Optional fourth council lane for strategy/positioning provocation; not for correctness-critical review. Tool-enabled work was not verified by the source evaluation."
+    notes: "Resilience fallback #3 after both primaries and Grok 4.7. Optional fourth council lane for strategy/positioning provocation; not for correctness-critical review. Tool-enabled work was not verified by the source evaluation."
     prompt_file: models/muse-spark-1.3.md
 
   gemini-3-7-flash:
@@ -162,7 +176,7 @@ models:
     prompt_style: concise-markdown-contract
     effort_default: high
     cost_tier: paid OpenRouter
-    notes: "Pinned out of standing routing. Re-test on at least three tasks before promoting over Grok 4.5."
+    notes: "Pinned out of standing routing; skipped in favor of Grok 4.7 on 2026-09-23. Comparison-only."
     prompt_file: models/grok-4.5.md
 
   gpt-5-6-sol:
@@ -234,84 +248,84 @@ models:
     prompt_file: models/glm-5.2.md
 
 # Routing intents. Intent-level effort overrides the model default.
-# Chains are three deep: primary, the other primary, then Grok 4.5 and Muse Spark 1.3
+# Chains are three deep: primary, the other primary, then Grok 4.7 and Muse Spark 1.3
 # strictly as resilience after BOTH primaries fail.
 intents:
   main_session:
     primary: fable-5-1
     effort: medium
-    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
-    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
-    rationale: "Default interactive chain: Fable 5.1 first, GPT-6 Astra second, then Grok 4.5 and Muse Spark 1.3 only after both primaries fail."
+    fallbacks: [gpt-6-astra, grok-4-7, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-7: high, muse-spark-1-3: high }
+    rationale: "Default interactive chain: Fable 5.1 first, GPT-6 Astra second, then Grok 4.7 and Muse Spark 1.3 only after both primaries fail."
 
   deep_research:
     primary: fable-5-1
     effort: medium
-    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
-    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [gpt-6-astra, grok-4-7, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Strong-model synthesis only; Flash may do bounded extraction but never owns the hard synthesis."
 
   websearch_heavy:
     primary: fable-5-1
     effort: medium
-    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
-    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [gpt-6-astra, grok-4-7, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-7: high, muse-spark-1-3: high }
     rationale: "The search provider supplies evidence; the reasoning/synthesis route stays on frontier models. State explicitly when retrieval is required because Fable 5.1 searches less at low effort."
 
   subagent_default:
     primary: fable-5-1
     effort: medium
-    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
-    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [gpt-6-astra, grok-4-7, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Routine delegation follows the same general chain as the main session."
 
   content_drafting:
     primary: fable-5-1
     effort: medium
-    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
-    fallback_effort: { gpt-6-astra: medium, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [gpt-6-astra, grok-4-7, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: medium, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Fable 5.1 is the voice default; Astra medium is the first cross-provider fallback."
 
   hard_autonomous_work:
     primary: fable-5-1
     effort: xhigh
-    fallbacks: [gpt-6-astra, grok-4-5, muse-spark-1-3]
-    fallback_effort: { gpt-6-astra: xhigh, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [gpt-6-astra, grok-4-7, muse-spark-1-3]
+    fallback_effort: { gpt-6-astra: xhigh, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Hard autonomous work is Fable 5.1 xhigh, then Astra xhigh, with Grok then Muse only after both primaries fail."
 
   coding_heavy_build:
     primary: gpt-6-astra
     effort: xhigh
-    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
-    fallback_effort: { fable-5-1: xhigh, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [fable-5-1, grok-4-7, muse-spark-1-3]
+    fallback_effort: { fable-5-1: xhigh, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Astra (Codex, xhigh) is the coding lane; Fable 5.1 is the cross-family backup for the hardest build work."
 
   long_horizon_autonomous_coding:
     primary: gpt-6-astra
     effort: xhigh
-    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
-    fallback_effort: { fable-5-1: xhigh, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [fable-5-1, grok-4-7, muse-spark-1-3]
+    fallback_effort: { fable-5-1: xhigh, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Fable plans and supervises; substantial code execution uses the Astra-backed Codex wrapper."
 
   coding_review:
     primary: gpt-6-astra
     effort: high
-    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
-    fallback_effort: { fable-5-1: high, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [fable-5-1, grok-4-7, muse-spark-1-3]
+    fallback_effort: { fable-5-1: high, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Default cross-family reviewer; use Fable when a second Anthropic judgment is useful."
 
   specialist_escalation:
     primary: gpt-6-astra
     effort: high
-    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
-    fallback_effort: { fable-5-1: high, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [fable-5-1, grok-4-7, muse-spark-1-3]
+    fallback_effort: { fable-5-1: high, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Difficult specialist judgment stays on the two primaries; Grok then Muse only after both fail."
 
   ab_testing_evals:
     primary: gpt-6-astra
     effort: high
-    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
-    fallback_effort: { fable-5-1: high, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [fable-5-1, grok-4-7, muse-spark-1-3]
+    fallback_effort: { fable-5-1: high, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Astra runs evals; Fable 5.1 is the alternate. Grok then Muse are resilience fallbacks after both fail."
 
   cross_model_review:
@@ -324,15 +338,15 @@ intents:
   artifact_creation:
     primary: gpt-6-astra
     effort: medium
-    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
-    fallback_effort: { fable-5-1: medium, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [fable-5-1, grok-4-7, muse-spark-1-3]
+    fallback_effort: { fable-5-1: medium, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Astra subagent lane; vary effort by task. Grok then Muse only after both primaries fail."
 
   computer_use:
     primary: gpt-6-astra
     effort: medium
-    fallbacks: [fable-5-1, grok-4-5, muse-spark-1-3]
-    fallback_effort: { fable-5-1: medium, grok-4-5: high, muse-spark-1-3: high }
+    fallbacks: [fable-5-1, grok-4-7, muse-spark-1-3]
+    fallback_effort: { fable-5-1: medium, grok-4-7: high, muse-spark-1-3: high }
     rationale: "Astra subagent lane; vary effort by task. Grok then Muse only after both primaries fail."
 
   fast_bulk:
@@ -343,9 +357,9 @@ intents:
     rationale: "Flash is strictly bounded to classification, extraction, and OCR; it never appears in hard-work routes."
 
   council_third_seat:
-    primary: grok-4-5
+    primary: grok-4-7
     effort: high
-    rationale: "Standing third-family council seat. Synthesis: a non-seated model, or dual Fable xhigh + Astra xhigh grading with the grader gap reported."
+    rationale: "Standing third-family council seat (Grok 4.7 since 2026-09-23). Synthesis: a non-seated model, or dual Fable xhigh + Astra xhigh grading with the grader gap reported."
 
   council_fourth_strategy:
     primary: muse-spark-1-3
@@ -364,6 +378,7 @@ intents:
     rationale: "Candidate for bounded extraction/classification; utility eval pending, Flash default unchanged. Explicit experiments only."
 
 # Changelog
+# 16 (2026-09-23, operator direction): Grok 4.7 replaces Grok 4.5 as third seat / fallback #2 in every intent; grok-4-5 -> comparison-only (alias grok45); Grok 4.6 skipped. Provisional pending an n>=3 third-seat re-test.
 # 15 (2026-09-11): GPT-6 Astra replaces GPT-5.6 Sol as the OpenAI lane and owns
 #   coding/review/artifact/computer-use with task-varied effort. Fable 5.1 remains
 #   main/general/voice. Chains are three deep: other primary, then Grok 4.5 high,
