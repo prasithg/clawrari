@@ -562,6 +562,39 @@ Run the supported backup verification and retain the resulting archive location 
 
 [Documentation evaluation](../reports/evals/2026-09-23-identifiers-delivery-and-scope.md#backup-cases).
 
+## 35. Keep Ownership of Writes After a Deadline
+
+A timer can reject a write while the writer continues changing files. Restoring the original bytes immediately is unsafe: the unfinished writer can overwrite that restoration. A rollback receipt returned only on success also leaves partial failures without a recovery handle.
+
+Capture the original state and establish exclusive write ownership before starting the mutation. Keep the restore operation available independently of the writer's return value. At a deadline, retain ownership through this sequence:
+
+1. Signal cancellation and prevent downstream work from starting.
+2. Wait for the writer and its cleanup to finish. If cancellation is unsupported, use an isolated worker with a bounded termination-and-join path.
+3. Restore the original state only after the writer can no longer mutate it. Release only locks and temporary files owned by this operation.
+4. Verify the restored state before exposing the failure to the caller. Suppress publication and success records for the rejected operation.
+
+If the writer cannot be stopped or restoration cannot be verified, report unresolved state and block dependent writes. A timeout alone cannot establish that rollback completed. External effects require their own cancellation or reconciliation contract.
+
+Exercise writers that finish before, at, and after the deadline. Include partial writes, rejection without a receipt, delayed cleanup, and ignored cancellation. Inspect state when rejection becomes visible and again after the late writer would have finished. Also retain a successful-write control and an ordinary downstream-failure rollback case.
+
+[Documentation evaluation and limits](../reports/evals/2026-09-25-write-ownership-and-selection.md#deadline-cases).
+
+## 36. Make Quiet Decisions Preserve the Normal Workflow
+
+A classifier that suppresses an agent run can hide work when its input is incomplete or stale. Treat a quiet decision as a narrow optimization with an explicit fallback.
+
+Keep the selector disabled until its behavior has been evaluated. Disabled mode should perform no input reads, provider calls, or state writes. In enabled mode, take a complete bounded snapshot and validate the returned choice, numeric confidence, and input freshness. Recheck the relevant state before accepting quiet. Reader warnings, oversized input, changed state, invalid output, timeouts, and missing decision records should all retain the normal workflow.
+
+A command called “peek” may initialize missing state. Inspect the reader's implementation and compare state before and after evaluation. A snapshot check reduces risk but cannot close every race with a remote producer; stronger suppression guarantees need coordination with that producer.
+
+Record the input fingerprint, selected outcome, confidence, fallback reason, and evidence needed to pair the decision with the normal workflow's result. Keep private source text out of public evidence. A valid non-quiet selection still runs the normal workflow; it does not grant permission to execute an action.
+
+Start with shadow evaluation: record selections while continuing the normal workflow on every case. Measure missed work against independent labels or observed outcomes before enabling suppression. A provider's confidence and agreement between two automated graders cannot substitute for that evidence. Preserve unlabeled cases as unknown and report them outside the graded denominator.
+
+Test empty input, an important pending item, unreadable state, and a state change during selection. Include a receipt-write failure and a provider timeout. Passing those fixtures verifies local fallback behavior; it does not prove that the classifier recognizes every important item.
+
+[Documentation evaluation and limits](../reports/evals/2026-09-25-write-ownership-and-selection.md#selection-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

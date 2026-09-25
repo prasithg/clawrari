@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-25
+
+### Added
+
+- **Write ownership at deadlines** ([Self-Improvement §35](docs/self-improvement.md#35-keep-ownership-of-writes-after-a-deadline)): stop and join a timed-out writer before restoring state, then verify recovery before returning failure.
+- **Conservative quiet decisions** ([Self-Improvement §36](docs/self-improvement.md#36-make-quiet-decisions-preserve-the-normal-workflow)): retain the normal workflow when classification or input state is uncertain, and measure shadow decisions before enabling suppression.
+
+### Changed
+
+- **Delegation template** ([authorized work and verification](reference/agent-prompt-template.md#calibrate-authorized-work-and-verification)): carry forward task authorization, prepare reviewable decisions, and match verification effort to the changed behavior. This refresh covers one mapped public artifact.
+
+The [documentation evaluation](reports/evals/2026-09-25-write-ownership-and-selection.md) records the synthetic walkthroughs and untested runtime behavior.
+
 ## 2026-09-23
 
 ### Added

@@ -104,6 +104,18 @@ Use observed facts in the discoveries section and actionable steps in remaining 
 
 ---
 
+## Calibrate Authorized Work and Verification
+
+State what the agent may finish independently and which decisions remain outside its authority. Carry forward authorization already given for the task. For unresolved choices, complete the authorized preparation so the decision concerns an inspectable result. Continue independent work while a required decision remains open.
+
+Resolve conflicting local skill guidance against the user's current instructions within the runtime's higher-priority rules. Name the conflict in the handoff. A reusable procedure cannot silently expand scope or revoke authorization already supplied by the user.
+
+Set a verification budget appropriate to the change. For a document edit, inspect accuracy, links, and privacy. For a behavioral fix, exercise the failure and a relevant successful case. For higher-risk changes, state the additional integration or recovery checks. Run required checks and report their evidence. Broaden testing when a new change, failure, or unresolved concern warrants it; avoid tests that merely repeat the implementation.
+
+These instructions guide the agent. Runtime permissions and enforcement remain separate from the prompt.
+
+[Documentation evaluation](../reports/evals/2026-09-25-write-ownership-and-selection.md#delegation-cases).
+
 ## Base Template
 
 ```
@@ -150,6 +162,7 @@ Current state:
 - Make surgical changes only. Avoid drive-by refactors and dependency churn.
 - Trace every changed line to the task, an acceptance criterion, or a named bug.
 - Run the narrowest meaningful test, lint, or build command before handoff.
+- State the verification budget for this change; broaden it when new evidence warrants further checks.
 </code_change_discipline>
 
 <negative_constraints>
@@ -190,10 +203,10 @@ Handoff note: notes/<task-name>-handoff.md (required; include task, discoveries,
 </output>
 
 <persistence>
-- Keep going until all acceptance_criteria are checked off.
-- Only terminate when you are sure the problem is solved.
-- Never hand back on uncertainty — research and continue.
-- Do not ask for confirmation — decide, proceed, document assumptions in the handoff note.
+- Finish authorized work within scope and verify each acceptance criterion.
+- Resolve routine uncertainty from the available evidence and document assumptions.
+- When a required decision is outside your authority, prepare the reviewable result and name the exact blocker.
+- Continue independent authorized work while that decision remains open.
 </persistence>
 ```
 
@@ -344,14 +357,14 @@ Use for code changes. Require a minimal plan, a small solution, traceability fro
 ### `<pre_completion_checklist>` — Completion Proof
 Use when a task can look finished before it has been verified. Require output existence, per-criterion checks, relevant gates, a named untested surface, and a concise handoff.
 
-### `<persistence>` — Full Autonomy Mode
-Use when you want the agent to run to completion without checking in:
+### `<persistence>` — Authorized Completion
+Use when the agent should finish independently within the task's authority and scope:
 ```xml
 <persistence>
-- Keep going until the task is completely resolved.
-- Only terminate when you are sure the problem is solved.
-- Never hand back on uncertainty — research or deduce the most reasonable approach and continue.
-- Do not ask for confirmation — decide, proceed, document assumptions afterward.
+- Finish authorized work within scope and verify each acceptance criterion.
+- Resolve routine uncertainty from the available evidence and document assumptions.
+- When a required decision is outside your authority, prepare the reviewable result and name the exact blocker.
+- Continue independent authorized work while that decision remains open.
 </persistence>
 ```
 
@@ -506,8 +519,11 @@ Handoff: notes/export-active-users-handoff.md
 </output>
 
 <persistence>
-- Keep going until all acceptance_criteria pass.
-- If you hit a schema uncertainty, inspect the table and adapt.
+- Finish authorized work within scope and verify each acceptance criterion.
+- Resolve routine uncertainty from the available evidence and document assumptions.
+- When a required decision is outside your authority, prepare the reviewable result and name the exact blocker.
+- Continue independent authorized work while that decision remains open.
+- If you hit a schema uncertainty, inspect the table within the declared read scope and adapt.
 - Document any schema surprises in the handoff note.
 </persistence>
 
