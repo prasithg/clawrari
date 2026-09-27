@@ -15,7 +15,22 @@ The roster below is an example stack. It shows how one workspace routes work; it
 | `high` | Difficult synthesis, voice polish, alternate independent review | Code/security review, complex implementation, eval analysis |
 | `xhigh` | Hard autonomous orchestration and consequential long-horizon synthesis | Hard autonomous coding, difficult SWE, substantial artifact/computer-use work |
 
-Set effort explicitly; the classified task difficulty overrides route defaults. Codex wrappers default to `xhigh` for substantial coding. An explicit `max` override remains available on runtimes that expose it; it is not an extra model lane. Unattended Astra prompts carry the autonomy, instruction-precedence, and testing-calibration guidance in `models/gpt-6-astra.md`.
+Set effort explicitly; the classified task difficulty overrides route defaults. Codex wrappers in this example stack default to `xhigh` for substantial unattended coding. For attended work, set the build and verification phases separately as described below. An explicit `max` override remains available on runtimes that expose it; it is not an extra model lane. Unattended Astra prompts carry the autonomy, instruction-precedence, and testing-calibration guidance in `models/gpt-6-astra.md`.
+
+### Allocate Effort by Failure Mode and Phase
+
+Treat effort as a budget for checking assumptions, exploring edge cases, and reviewing results. Raising it cannot establish that the chosen approach or success criterion is correct. Before increasing effort, distinguish two problems:
+
+- **Edge cases are easy to miss:** parsers, sanitizers, concurrency, and security reviews can justify `high` or `xhigh` effort with explicit boundary and failure cases.
+- **The approach is uncertain:** first improve the specification, inspect the relevant evidence, or obtain an independent review. More work on the same mistaken premise may preserve the mistake.
+
+For an attended, bounded feature with a clear specification, start the implementation at `medium`. Keep the operator's consequential choices visible. Run a separate `high` or `xhigh` verification pass against the acceptance criteria and likely failure modes. Keep edge-case-heavy implementation at a higher level when the risk warrants it; the phase split is not a blanket downgrade.
+
+Substantial unattended work retains the stronger effort default in this example stack because no operator is present to steer intermediate choices. That effort does not grant additional authority or replace acceptance evidence. Use only levels supported by the selected model, and preserve required retrieval even for a task that appears simple.
+
+Record the build effort, verification effort, checks performed, and unresolved assumptions in the handoff. Evaluate the split on representative tasks before claiming equal quality, lower cost, or improved reliability. The current refresh documents a routing policy; it does not establish those performance claims.
+
+[Documentation evaluation and limits](../../reports/evals/2026-09-27-evidence-and-effort.md#effort-cases).
 
 ### Runtime routes
 

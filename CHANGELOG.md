@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-09-27
+
+### Added
+
+- **Truthful dry-run evidence** ([Self-Improvement §37](docs/self-improvement.md#37-keep-dry-runs-from-creating-result-evidence)): keep shell redirection out of skipped capture paths and preserve the distinction between an absent measurement and a valid empty result.
+- **Size checks at the writer** ([Self-Improvement §38](docs/self-improvement.md#38-check-shared-size-limits-at-the-writer)): check the combined input budget before reporting workflow success, while distinguishing detection from prevention.
+
+### Changed
+
+- **Shared-workspace safety** ([Self-Improvement §23](docs/self-improvement.md#23-keep-branch-changes-out-of-the-shared-workspace)): run baseline comparisons in isolation without stashing other writers' unfinished work.
+- **Model-effort guidance** ([effort ladder](reference/model-playbook/effort-ladder.md#allocate-effort-by-failure-mode-and-phase)): distinguish uncertain approaches from missed edge cases and allocate effort separately to attended builds and verification. This is one targeted refresh within the mapped model-playbook artifact; other differences remain for later review.
+
+The [documentation evaluation](reports/evals/2026-09-27-evidence-and-effort.md) records twelve manual walkthroughs and the behavior that remains untested.
+
 ## 2026-09-25
 
 ### Added

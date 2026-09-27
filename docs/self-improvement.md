@@ -393,6 +393,10 @@ Make the invariant observable:
 
 A branch check does not serialize edits or isolate files. Agents sharing a checkout still need coordinated write scopes. When drift appears, inspect the other writers and preserve their work before reconciling branches; an automatic reset or stash can damage work the checking agent does not own.
 
+Do not use a workspace-wide `git stash`, hard reset, or checkout restore to prepare a baseline test in a shared working tree. A stash removes other writers' uncommitted changes while they are still using them. Restoring it later can conflict with changes made during the gap. Run the baseline in an isolated worktree or temporary copy, and leave the shared files in place. If isolation is unavailable, record that the baseline was not run instead of borrowing the entire workspace.
+
+[Documentation evaluation](../reports/evals/2026-09-27-evidence-and-effort.md#shared-workspace-cases).
+
 [Documentation evaluation and limits](../reports/evals/2026-09-15-activation-branches-and-handoffs.md).
 
 ## 24. Repair Regression Checks Against the Current Contract
@@ -594,6 +598,30 @@ Start with shadow evaluation: record selections while continuing the normal work
 Test empty input, an important pending item, unreadable state, and a state change during selection. Include a receipt-write failure and a provider timeout. Passing those fixtures verifies local fallback behavior; it does not prove that the classifier recognizes every important item.
 
 [Documentation evaluation and limits](../reports/evals/2026-09-25-write-ownership-and-selection.md#selection-cases).
+
+## 37. Keep Dry Runs From Creating Result Evidence
+
+A command wrapper can skip execution while the shell still creates or truncates its redirected output. In `run collect > results.json`, the shell opens the file before `run` decides whether to execute `collect`. A successful dry run can therefore leave an empty file that later looks like a failed capture.
+
+Put the dry-run branch outside the redirection and any result-file creation. Print the planned command without opening its capture destination. Keep an explicitly labeled plan or rehearsal log separate from files reserved for executed measurements.
+
+A skipped capture has no result. An executed capture that found nothing may have a valid empty result under its documented format. Preserve that distinction; writing a made-up success object into an empty file would conceal the defect.
+
+Exercise the command's entry point in a temporary directory with a collector stub that fails if invoked. Verify that a dry run neither calls it nor creates result files, and leaves any pre-existing result bytes unchanged. Retain an executed-capture control. Keep historical malformed artifacts as evidence of the original failure; a later repair does not make the earlier run successful.
+
+[Documentation evaluation](../reports/evals/2026-09-27-evidence-and-effort.md#dry-run-cases).
+
+## 38. Check Shared Size Limits at the Writer
+
+A periodic audit can repeatedly report an oversized startup context after the writer that enlarged it has already reported success. Connect the same budget check to that writer's completion path so the problem is attributed to the operation that introduced it.
+
+Measure the complete configured input set, not only the file being edited. Report the observed total, the limit, and the largest contributors. Run the check after the canonical write and before reporting workflow success. If the measurement is unavailable, report it as unverified rather than within budget.
+
+Be explicit about the guarantee. A post-write check detects an oversized write; it does not prevent it or roll it back. If invalid content must never become visible, validation and publication need a coordinated design that also handles concurrent writers. Keep periodic auditing as coverage for other writers and later changes.
+
+Trim stale summaries into durable references while retaining current decisions and unresolved work. Test under-limit and over-limit inputs through the configured audit path, plus an unavailable measurement. Treat headroom as an operational choice; do not invent a universal token limit.
+
+[Documentation evaluation](../reports/evals/2026-09-27-evidence-and-effort.md#size-limit-cases).
 
 ## Governance Rules
 
