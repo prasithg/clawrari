@@ -6,6 +6,14 @@ Structured workflow for agent-executed tasks in this workspace. This adapts the 
 
 Without explicit workflow state, agent tasks rot in chat, review gets skipped, and the same mistakes repeat. The board is the contract.
 
+## Keep Repository Conventions in One Reference
+
+Before delegating work, identify the repository's maintained guidance for branch names, commit messages, pull requests, base branches, and testing. Link that reference from the task brief. Keep task-specific scope and acceptance criteria in the brief without copying the shared conventions into another independently maintained rule set.
+
+For work spanning repositories, identify the applicable reference for each checkout. If the reference is missing or conflicts with the authorized task, make the unresolved rule or explicit exception visible before the affected action. A link is a discovery aid; it does not prove that the executor read or followed the conventions.
+
+This is a targeted refresh from the source workflow. Other differences remain for separate review. [Documentation evaluation](../reports/evals/2026-09-29-assertions-context-and-feasibility.md#workflow-reference-cases).
+
 ## Lifecycle
 
 ### 1. Claim

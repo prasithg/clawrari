@@ -415,6 +415,18 @@ When an expected answer conflicts with its cited source, apply the [fixture-evid
 
 [Documentation evaluation and limits](../reports/evals/2026-09-15-check-contracts-and-workflow.md).
 
+### Prove Absence Assertions Through the Main Runner
+
+A fixture can declare that an unwanted finding must be absent while its runner checks only the expected verdict and required findings. Every fixture may pass even though the absence check never runs.
+
+When adding an assertion, give it a deliberate failing control. Keep the expected verdict and required findings correct, then forbid a finding that the detector emits. Run that fixture through the normal evaluation entry point and verify the diagnostic, failure count, and exit status. The old runner should accept the control for the missing assertion; the repaired runner should reject it for that assertion alone.
+
+Define exact identifiers and any supported prefix syntax separately. Reject malformed expectations instead of silently skipping them. If scoring applies credits or exemptions, assert against the effective result that the contract promises to check.
+
+Keep intentionally failing controls outside the default passing suite and expose them through an explicit option. Compare the unchanged suite before and after the repair. A temporary side checker remains useful until all of its distinct cases have moved into the maintained runner.
+
+[Documentation evaluation](../reports/evals/2026-09-29-assertions-context-and-feasibility.md#assertion-cases).
+
 ## 25. Recover the Measurement Without Changing the Score
 
 A health probe can fail before it measures the system. Retrying that failed measurement may help; retrying an unfavorable score until it passes invalidates the evaluation.
@@ -622,6 +634,32 @@ Be explicit about the guarantee. A post-write check detects an oversized write; 
 Trim stale summaries into durable references while retaining current decisions and unresolved work. Test under-limit and over-limit inputs through the configured audit path, plus an unavailable measurement. Treat headroom as an operational choice; do not invent a universal token limit.
 
 [Documentation evaluation](../reports/evals/2026-09-27-evidence-and-effort.md#size-limit-cases).
+
+## 39. Check Data Coverage Before Building a Retrieval Fix
+
+A proposed search improvement may depend on links or answer records that the corpus does not contain. Establish whether the proposed mechanism can reach the required evidence before changing retrieval code.
+
+For each failed case, check whether the expected answer still exists, whether it has an indexed record, and whether the permitted link direction and hop limit can reach it. Then apply the rest of the acceptance contract: rank limits, source authority, required secondary evidence, and exclusions. Reachable evidence alone does not establish that a repair can make the case pass.
+
+Set the minimum coverage needed to justify implementation before inspecting the results. Report reachable cases separately from cases the constrained repair could plausibly fix. Keep missing records, absent links, stale expectations, ranking defects, and policy conflicts as distinct causes.
+
+If the prerequisite fails, preserve the diagnosis and leave the implementation unchanged. Route missing records and links to corpus maintenance; correct stale expectations only against current authoritative evidence. Re-evaluate coverage after those repairs. A local retrieval probe does not verify the live tool path, and projected gains remain projections until measured.
+
+[Documentation evaluation](../reports/evals/2026-09-29-assertions-context-and-feasibility.md#retrieval-cases).
+
+## 40. Trim Startup Instructions From Observed Use
+
+Repeatedly appending instructions can crowd useful guidance out of the context an agent receives. Review representative session evidence before deciding which material to move out of startup context.
+
+Separate human-driven, scheduled, and delegated sessions using their provenance. Inspect the loaded payload, including ordering and truncation, rather than assuming every source file reached the model. Support proposed edits with verifiable excerpts from distinct sessions and keep those private excerpts outside public reports.
+
+Distinguish a harmful instruction from one that the agent failed to follow. Repeated noncompliance without demonstrated harm is a reason to improve visibility or enforcement. A relevance grader's failure to find a quotation is also weak evidence for removing implicit tone, identity, or safety guidance.
+
+Move specialized procedures into durable references without losing their content. Keep short discovery triggers and necessary authority boundaries in the always-loaded material. Apply the workspace's existing approval rules to protected instructions; an optimization proposal grants no additional authority.
+
+Measure the payload served to each audience after the change. Exercise rare actionable branches as well as routine quiet runs. Report token savings separately from behavioral improvement, and leave compliance gains unverified until follow-up observations support them. Preserve unrelated baseline failures in the evaluation.
+
+[Documentation evaluation](../reports/evals/2026-09-29-assertions-context-and-feasibility.md#context-cases).
 
 ## Governance Rules
 

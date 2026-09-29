@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-09-29
+
+### Added
+
+- **Assertion failure controls** ([Self-Improvement §24](docs/self-improvement.md#prove-absence-assertions-through-the-main-runner)): prove that forbidden findings affect the main runner's diagnostics, counts, and exit status while preserving the default passing suite.
+- **Retrieval feasibility** ([Self-Improvement §39](docs/self-improvement.md#39-check-data-coverage-before-building-a-retrieval-fix)): measure answer and link coverage before implementing a repair, then account for ranking and authority constraints.
+- **Evidence-based context pruning** ([Self-Improvement §40](docs/self-improvement.md#40-trim-startup-instructions-from-observed-use)): review actual loaded instructions and session evidence, preserve discovery triggers, and separate token savings from unmeasured behavioral gains.
+
+### Changed
+
+- **Shared repository conventions** ([task workflow](reference/sop-agent-task-workflow.md#keep-repository-conventions-in-one-reference)): point task briefs to the maintained repository reference. This refresh covers one mapped public artifact; no skills are ported in this cycle.
+
+The [documentation evaluation](reports/evals/2026-09-29-assertions-context-and-feasibility.md) records twelve manual cases and the runtime behavior left untested.
+
 ## 2026-09-27
 
 ### Added
