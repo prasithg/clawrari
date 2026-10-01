@@ -661,6 +661,47 @@ Measure the payload served to each audience after the change. Exercise rare acti
 
 [Documentation evaluation](../reports/evals/2026-09-29-assertions-context-and-feasibility.md#context-cases).
 
+## 41. Attribute Validation to the Worker That Made the Change
+
+Concurrent workers can share a directory while producing unrelated files. A finishing worker's validation may encounter a sibling's half-written artifact if it scans everything newer than its start time. The resulting failure identifies a timing overlap, not necessarily a defect in the finishing worker's output.
+
+Prefer a complete record of files created, changed, or deleted by the worker. Keep this ownership record separate from the paths it may edit and the paths its tests may read. A mentioned path, a shared working-tree change, or a recent modification time does not establish who wrote a file.
+
+When the runner accepts a declared file list:
+
+- Validate every applicable owned file, including one whose name resembles another task.
+- Treat a missing or unreadable list as unavailable scope evidence. An empty list represents an explicit claim of no writes; it is trustworthy only if the producer recorded the complete run.
+- Record deletions separately and check their required effects. A deleted file cannot pass a parser check by disappearing.
+- Preserve separately required checks, such as an explicit claims manifest, even when they inspect paths beyond the write list.
+
+A task-name filter can be a temporary fallback when ownership records are unavailable. Show each exclusion and state the naming assumptions. Untagged sibling files and misleading names remain failure modes. Report that limitation instead of claiming complete isolation.
+
+Verify both sides of the boundary: a valid owned file beside an unfinished sibling must avoid false rejection, while a broken owned file must still fail. Include absent scope evidence and an explicitly owned file with a sibling-looking name. Record how the file list is produced; a passing parser cannot establish that the list is complete.
+
+[Read the documentation evaluation and its untested runtime limits](../reports/evals/2026-10-01-ownership-sources-and-review.md#ownership-cases).
+
+## 42. Measure Retrieved Sources Separately From Matching Answers
+
+A retrieval result can contain the expected words while missing the source that supports the answer. Report answer correctness and source retrieval as separate measurements.
+
+Declare the expected source before measuring the candidate. Verify that the source is admitted by the corpus policy and still supports the unchanged question. If a citation is stale, repair it against independent evidence or preserve the unresolved case for review. Selecting whichever source happens to rank would hide a retrieval defect.
+
+Check source identity within the agreed result limit using explicit path-normalization rules. A file match requires the complete normalized path; a directory match requires a path boundary. A substring match can credit an unrelated source with a similar name.
+
+Keep the denominators visible:
+
+| Measurement | Eligible cases |
+| --- | --- |
+| Answer correctness | Cases with a defined answer or abstention expectation |
+| Source retrieval | Positive cases that declare a required source |
+| Negative controls | Cases that require abstention; source retrieval is not applicable |
+
+When an authorized exception permits a known source miss, retain the measured miss and record its reason, date, and scope. The exception may affect acceptance; it must not increase the source-hit numerator. A passing overall verdict can therefore coexist with incomplete source coverage, which the report must still show.
+
+Exercise a matching answer from the wrong source, a correct answer from the declared source, an abstention case, and a documented exception. Preserve these separate results in the report consumed by release decisions. Improving a grader's honesty does not establish that retrieval improved.
+
+[Read the documentation evaluation and its untested runtime limits](../reports/evals/2026-10-01-ownership-sources-and-review.md#source-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

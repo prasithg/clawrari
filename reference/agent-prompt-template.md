@@ -116,6 +116,18 @@ These instructions guide the agent. Runtime permissions and enforcement remain s
 
 [Documentation evaluation](../reports/evals/2026-09-25-write-ownership-and-selection.md#delegation-cases).
 
+## Check Architecture and Known Regressions
+
+Before completion, consult the repository's maintained architecture guide and regression record when they exist. Identify which module boundaries and known failure areas the change touches. Attach the relevant check results, or state the precise gap when a required check is unavailable.
+
+Keep this review proportional to the change. A documentation-only update does not require an unrelated full test suite. If the repository has no architecture guide or regression record, say so; do not invent evidence of review. The brief requests these checks, while the runner and reviewer establish whether they happened.
+
+This targeted refresh carries the source template's architecture and regression checks into the public checklist. Other differences remain for separate review.
+
+[Documentation evaluation](../reports/evals/2026-10-01-ownership-sources-and-review.md#template-cases).
+
+---
+
 ## Base Template
 
 ```
@@ -193,6 +205,8 @@ Write each criterion as an observable requirement with its own verification:
 - [ ] Expected output files exist and are non-empty.
 - [ ] Every acceptance criterion has been verified, or its exact blocker is named.
 - [ ] Tests, lint, and build checks relevant to the changed surface pass.
+- [ ] Changed module boundaries have been checked against the maintained architecture guide, when one exists.
+- [ ] Relevant known regressions have targeted verification evidence, or the missing check is recorded.
 - [ ] Untested surface is stated in one line; a green check is not proof beyond its scope.
 - [ ] Handoff records decisions, surprises, test results, and remaining work.
 </pre_completion_checklist>

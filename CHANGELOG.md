@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-01
+
+### Added
+
+- **Worker-owned validation** ([Self-Improvement §41](docs/self-improvement.md#41-attribute-validation-to-the-worker-that-made-the-change)): distinguish complete write records from shared timestamps, preserve owned-file failures, and expose fallback limitations.
+- **Retrieval source coverage** ([Self-Improvement §42](docs/self-improvement.md#42-measure-retrieved-sources-separately-from-matching-answers)): score source identity independently of answer matches, exclude abstention cases from the source denominator, and preserve measured misses under exceptions.
+
+### Changed
+
+- **Architecture and regression review** ([agent prompt template](reference/agent-prompt-template.md#check-architecture-and-known-regressions)): include targeted review of module boundaries and known failures before completion. This refresh covers one mapped public artifact; no skills are ported in this cycle.
+
+The [documentation evaluation](reports/evals/2026-10-01-ownership-sources-and-review.md) records eleven manual cases and the runtime behavior left untested.
+
 ## 2026-09-29
 
 ### Added
