@@ -702,6 +702,58 @@ Exercise a matching answer from the wrong source, a correct answer from the decl
 
 [Read the documentation evaluation and its untested runtime limits](../reports/evals/2026-10-01-ownership-sources-and-review.md#source-cases).
 
+## 43. Make Clearer Writing Preserve the Facts
+
+A clearer update can still be wrong. Replacing "daily" with "every weekday" changes a schedule even when every number remains unchanged. Review readability and factual accuracy separately.
+
+1. Name the reader and the decision or action the message must support. Start with what happened and its practical effect.
+2. Replace internal shorthand with ordinary words. When an exact identifier is needed, give it a plain label and a usable link. Explain unfamiliar technical terms on first use.
+3. Write complete sentences. For actions the reader must perform, put one action in each numbered step and say where to perform it.
+4. Compare the rewrite against the source. Preserve numbers, dates, frequency, time zones, conditions, ownership, uncertainty, and requests. A check for retained numbers cannot detect every change in meaning.
+5. Review the final text against an accepted example for that audience. A preference over a worse draft is useful evidence, but does not by itself establish adequate quality.
+
+Keep one maintained set of writing rules with audience-specific exceptions. Agent instructions can retain exact tool names and concise technical vocabulary. Human-facing results still need the reader's context. Public short-form writing may keep its natural rhythm without importing unexplained internal shorthand.
+
+A vocabulary checker can flag likely jargon. Treat it as an aid: quoted examples, common industry terms, and missing explanations require judgment. Separately check that scheduled messages, reports, and templates reference the intended rules. Instruction coverage proves that the rule is present; it does not prove that later writing is clearer or factually correct.
+
+[Documentation evaluation and limitations](../reports/evals/2026-10-03-clear-writing-and-safe-recovery.md#writing-cases).
+
+## 44. Isolate Tests Before Loading Side-Effecting Code
+
+A test can reach real systems when the older code under test ignores a newly added dependency override. Passing a fake client is insufficient if another path can still start the real command.
+
+Establish isolation before importing the module or running a baseline comparison:
+
+1. Put test data and configuration in disposable locations. Check how each dependency actually selects its state directory; changing one environment variable may leave other discovery paths active.
+2. Block real subprocesses and network clients at the lowest boundary the test can reach. Install that block before imports can capture a live function reference or execute startup work.
+3. Exercise a deliberate attempt to use the blocked boundary. An unexpected call must stop the test before contacting a real service or changing real state.
+4. Exercise an implementation that ignores the proposed override, as an older version might. It must remain inside the same isolation boundary.
+5. Distinguish an expected assertion failure from a safety failure. If real state changes, stop the responsible test processes, preserve evidence, and investigate recovery within the task's authority. The accidental action is not successful live verification.
+
+Use explicit, authorized integration tests when real service behavior is required. A mocked command boundary establishes only the behavior covered by that mock. Filesystem writes, child processes, alternate imports, and native clients each need their own isolation evidence when reachable.
+
+[Documentation evaluation and limitations](../reports/evals/2026-10-03-clear-writing-and-safe-recovery.md#isolation-cases).
+
+## 45. Check Unattended Work Without Relying on Completion Messages
+
+A worker may finish while its completion message is lost. Another worker may stop without producing its artifact. Unattended work needs an independent scheduled check that can resume the authorized task.
+
+Before starting long-running workers, save the expected deliverables and how to verify each one. Verify the artifact at its destination: a worker's success message or a local list of links cannot prove that the required review, publication, or record exists.
+
+Register the scheduled check before yielding control. Bind it to the intended task or session and specify its notification destination. Confirm that the schedule has a next run, then inspect an actual execution. Registration establishes that a job exists. A separate execution must demonstrate worker inspection, continued work, and alert delivery.
+
+On each scheduled check:
+
+1. Inspect every required deliverable and identify what is still missing.
+2. Inspect worker state and saved output. Collect finished work even when its completion message was not delivered.
+3. Before replacing a missing worker, inspect destination evidence to determine whether uncertain external actions already happened. Resume only missing, authorized work without creating duplicate publications.
+4. Perform the remaining review and verification steps. Keep an active scheduled check while work remains, or record the precise reason continuation is blocked.
+5. After verifying the final artifacts and required report, remove the temporary schedules so they cannot keep restarting completed work.
+
+Allow time for review and recovery before the deadline. Test lost completion messages, stopped workers, incorrect session targeting, undeliverable notifications, and artifacts that exist but fail acceptance. A delivered notification alone does not prove successful recovery.
+
+This is a scheduling and verification design. It does not install a recovery service or establish its live reliability. [Documentation evaluation and limitations](../reports/evals/2026-10-03-clear-writing-and-safe-recovery.md#continuation-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

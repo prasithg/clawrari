@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-03
+
+### Added
+
+- **Clear writing with unchanged facts** ([Self-Improvement §43](docs/self-improvement.md#43-make-clearer-writing-preserve-the-facts)): explain outcomes before internal names, review meaning separately from readability, and distinguish rule coverage from better writing.
+- **Test isolation before import** ([Self-Improvement §44](docs/self-improvement.md#44-isolate-tests-before-loading-side-effecting-code)): block real commands before loading code, including older implementations that ignore test overrides.
+- **Independent checks for unattended work** ([Self-Improvement §45](docs/self-improvement.md#45-check-unattended-work-without-relying-on-completion-messages)): verify destination artifacts on a schedule, recover missing work, and distinguish registration, notification delivery, and actual recovery.
+
+### Changed
+
+- **Audience-aware delegation** ([agent prompt template](reference/agent-prompt-template.md#match-instructions-and-results-to-their-readers)): separate executable agent instructions from understandable human-facing results. This refresh covers one mapped public artifact; no skills are ported in this cycle.
+
+The [documentation evaluation](reports/evals/2026-10-03-clear-writing-and-safe-recovery.md) records twelve manual cases and the runtime behavior left untested.
+
 ## 2026-10-01
 
 ### Added

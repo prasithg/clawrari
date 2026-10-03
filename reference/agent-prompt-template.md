@@ -128,6 +128,20 @@ This targeted refresh carries the source template's architecture and regression 
 
 ---
 
+## Match Instructions and Results to Their Readers
+
+Write agent procedures as numbered actions with an observable completion check for each step. Put the condition before the action when it changes what the agent should do. Use one term for each concept and retain the exact paths or tool names required to execute the task.
+
+Treat human-facing results as a separate writing task. State what happened and why it matters before implementation details. Label unfamiliar identifiers, link the relevant artifact, and make any requested action explicit. An agent's technical vocabulary should not leak into a report without explanation.
+
+When simplifying the report, compare it with the evidence again. Preserve dates, frequency, time zones, numbers, conditions, uncertainty, and requested decisions. If a necessary explanation is unavailable, name the missing context instead of inventing it. A vocabulary check cannot replace this meaning check.
+
+Use the repository's maintained audience-specific writing rules when available. The prompt requests these checks; it does not enforce them automatically.
+
+This targeted refresh brings the source template's distinction between agent instructions and human-facing output into the public copy. Other mapped differences remain for separate review.
+
+[Documentation evaluation](../reports/evals/2026-10-03-clear-writing-and-safe-recovery.md#template-cases).
+
 ## Base Template
 
 ```
@@ -159,6 +173,7 @@ Current state:
 - This is NOT: [adjacent artifact to avoid]
 - Reader knows: [relevant domain knowledge]
 - Reader does not need: [background, jargon, or implementation detail to omit]
+- Human-facing result: [plain outcome, labeled references, explicit action, and facts checked against the source]
 </audience_contract>
 
 <constraints>
@@ -209,6 +224,7 @@ Write each criterion as an observable requirement with its own verification:
 - [ ] Relevant known regressions have targeted verification evidence, or the missing check is recorded.
 - [ ] Untested surface is stated in one line; a green check is not proof beyond its scope.
 - [ ] Handoff records decisions, surprises, test results, and remaining work.
+- [ ] Human-facing results match the reader's context and preserve the source facts after simplification.
 </pre_completion_checklist>
 
 <output>
