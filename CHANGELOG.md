@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-05
+
+### Added
+
+- **Worker evidence before cleanup** ([Self-Improvement §46](docs/self-improvement.md#46-collect-worker-results-before-deleting-the-worker)): collect host-generated results after completion, preserve evidence, and test when records are unavailable.
+- **Repeated-failure detection** ([Self-Improvement §47](docs/self-improvement.md#47-detect-repeated-failures-separately-from-overdue-work)): distinguish failure counts from overdue results, preserve uncertainty in incomplete history, and keep private inputs out of alerts.
+
+### Changed
+
+- **Historical-writing limits** ([writing skill](skills/avoid-ai-writing/SKILL.md#treat-past-writing-as-reference-material)): allow only supported cosmetic preferences, without treating recurring substantive mistakes as approved style. This targeted refresh covers one mapped public artifact; other differences remain for later review. No new skills or detection tools are included.
+
+The [documentation evaluation](reports/evals/2026-10-05-worker-evidence-and-repeat-failures.md) records twelve manual cases and the runtime behavior left untested.
+
 ## 2026-10-03
 
 ### Added

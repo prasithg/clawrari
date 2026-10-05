@@ -754,6 +754,36 @@ Allow time for review and recovery before the deadline. Test lost completion mes
 
 This is a scheduling and verification design. It does not install a recovery service or establish its live reliability. [Documentation evaluation and limitations](../reports/evals/2026-10-03-clear-writing-and-safe-recovery.md#continuation-cases).
 
+## 46. Collect Worker Results Before Deleting the Worker
+
+A background task can complete its work before the host saves all of its execution records. A check performed inside that task may therefore ask for evidence that cannot exist yet. Deleting the task immediately after completion can remove the evidence before its parent reads it.
+
+Give the parent responsibility for the full sequence:
+
+1. Start the worker with automatic deletion disabled when later verification needs its saved records. Record the exact worker identity.
+2. Let the worker save results that are available during execution. Leave collection of host-generated completion records to the parent.
+3. Wait for the worker to finish, then collect the expected records for that worker and attempt. If persistence is delayed, use a bounded retry and report missing evidence when the deadline expires.
+4. Verify the required contents and save the result outside the worker's temporary state. A finished status alone does not establish that the records exist or are complete.
+5. Save diagnostic evidence for a failed attempt before cleanup. Delete only resources owned by this check, after retaining the required evidence.
+
+Test the host's lifecycle, including its unavailable states. A fake host that returns completion records while a worker is still running can make an impossible sequence pass. Include a running worker with no completion records, a finished worker with valid records, missing or delayed records, and cleanup limited to owned resources.
+
+These tests establish the modeled ordering. A separate live check must confirm when the actual host persists records and whether completed workers remain readable. [Documentation evaluation and limitations](../reports/evals/2026-10-05-worker-evidence-and-repeat-failures.md#worker-lifecycle-cases).
+
+## 47. Detect Repeated Failures Separately From Overdue Work
+
+A scheduled job can fail several times before its last successful result becomes old enough to trigger an overdue alert. Check consecutive failed runs as well as result age. Keep the two measurements separate.
+
+1. Record a compact outcome for each completed run. Include its identity, time, run type, and result. Bound both stored history and the amount a reader can load.
+2. Define which outcomes belong to the scheduled sequence. Diagnostic attempts must not inflate it. Record successful recovery explicitly, and define which successful or intentionally skipped runs reset the count.
+3. Include a newer last-run record without counting the same run twice. When history is missing, one failure record proves at most one failure. Missing or malformed evidence cannot establish an uninterrupted sequence.
+4. Set warning levels for the job's actual schedule and cost of delayed detection. An early warning and an urgent warning can use different counts; neither count is a universal default.
+5. Keep history-writing failures separate from the job's result. A failed telemetry write must not replace a successful operation with a failure, or hide a failed operation.
+
+Report only approved diagnostic fields, such as a known error category, phase, or duration. Limit message size and exclude arbitrary error text or input content, which may contain private data. An alert about repeated failures is not evidence of data damage; any automatic pause or recovery action needs its own explicit policy and verification.
+
+Test an isolated failure, repeated failures, recovery, manual diagnostics, duplicate records, missing history, malformed history, and failed history writes. Synthetic checks establish counting behavior. They do not prove live delivery or durability under concurrent writes. [Documentation evaluation and limitations](../reports/evals/2026-10-05-worker-evidence-and-repeat-failures.md#repeated-failure-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

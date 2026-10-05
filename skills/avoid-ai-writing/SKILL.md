@@ -35,6 +35,22 @@ For every candidate piece:
 
 4. **Log** — append every gate run to a corpus ledger (`corpus/flagged/<date>-<piece-id>.json`) with: original text, flags, verdict, rewrite (if any), final ship status. This becomes training data for autoresearch. The corpus is operator-local — treat it as append-only and keep it out of version control if it contains private drafts.
 
+## Treat Past Writing as Reference Material
+
+Historical writing helps identify an author's rhythm and preferences. Repetition does not make every old habit a quality standard. Past posts can contain formulaic writing, unexplained internal vocabulary, or mistakes.
+
+If an operator adds learned preferences to the review process:
+
+1. Separate cosmetic preferences from substantive writing problems. Limit learned exemptions to cosmetic rules already classified as advisory P1 or P2. A frequent example cannot exempt a high-severity P0 rule.
+2. Keep unexplained internal vocabulary visible, even when it is common in the author's history. Replace it or explain it for the reader; a low severity does not make it an eligible preference.
+3. Scope each preference to the author and publication format supported by the samples. Retain the sample count, eligibility criteria, and evidence for the decision. Do not apply one author's reply habits to another author or to a different format.
+4. When preference data is missing, malformed, or insufficient, apply the existing rules without learned exemptions. Preserve both detected problems and any permitted exemptions in the review record.
+5. Evaluate cosmetic preferences, substantive problems, unfamiliar vocabulary, and a different author or format as separate cases. Confirm that personalization preserves the substantive checks.
+
+This is a targeted documentation refresh. It does not install a preference-learning tool, enable exemptions, or change existing pattern severities and scoring. Use improved examples of the author's writing as references; copying a recurring mistake does not reproduce good voice.
+
+[Documentation evaluation and limitations](../../reports/evals/2026-10-05-worker-evidence-and-repeat-failures.md#historical-writing-cases).
+
 ## Pattern files
 
 - `patterns/v1-lexical.md` — banned vocab, em-dashes, hype words, emoji caps. Legacy v1 rules. Necessary, not sufficient.

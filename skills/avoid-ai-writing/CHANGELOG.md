@@ -2,6 +2,14 @@
 
 Skill versioning: minor bump for pattern file edits, major bump for scoring rubric or workflow shifts. Every change should carry a linked eval artifact (the repo's "no eval = not Done" rule, `reports/evals/`).
 
+## 2026-10-05: Historical-Writing Guidance
+
+The skill now explains how historical samples can support cosmetic preferences for a specific author and publication format. Substantive problems and unexplained internal vocabulary still require review, regardless of how often they occur in old posts.
+
+The instructions require supporting evidence and preserve the existing rules when preference data is unusable. This documentation update leaves pattern severities, scoring, and the v0.2 rule set unchanged. It includes no preference-learning implementation or private writing samples.
+
+The [documentation evaluation](../../reports/evals/2026-10-05-worker-evidence-and-repeat-failures.md#historical-writing-cases) records the synthetic cases and untested behavior.
+
 ## v0.2 — 2026-09-07
 
 **Shipped:**
