@@ -784,6 +784,36 @@ Report only approved diagnostic fields, such as a known error category, phase, o
 
 Test an isolated failure, repeated failures, recovery, manual diagnostics, duplicate records, missing history, malformed history, and failed history writes. Synthetic checks establish counting behavior. They do not prove live delivery or durability under concurrent writes. [Documentation evaluation and limitations](../reports/evals/2026-10-05-worker-evidence-and-repeat-failures.md#repeated-failure-cases).
 
+## 48. Measure the Final Outcome of a Multi-Step Process
+
+A component can pass its test while the complete process still misses its purpose. A detector may find an object yet leave part of it outside the applied mask. A text extractor may find a line but remove spaces that the next rule needs.
+
+1. Define the user-visible outcome before comparing components. Record detection, downstream classification, and final output coverage separately, with a denominator for each measurement.
+2. Save intermediate outputs with the inputs and expected results. Attribute each miss to the stage where it first occurs, so a downstream failure does not trigger an unrelated detector change.
+3. Check how the metric treats merged or split outputs. A single region covering two expected regions can fail a one-to-one matching score while covering both. Keep both measurements when they answer different questions; do not replace a failed measure just to improve the headline.
+4. Include negative examples and inspect over-processing, such as masking unrelated content. Better coverage can come with a cost that a success-only dataset hides.
+5. Regenerate summary tables from the saved results. Keep the measured result, the recommendation, and the untested behavior distinct.
+
+Synthetic data can make comparisons reproducible, but it limits the conclusion. Record whether the same author built the test data and tuned the method, and which input variations are absent. Mask coverage alone does not establish that hidden information cannot be recovered. A local demonstration does not establish real-world privacy or readiness for deployment.
+
+[Documentation evaluation and limitations](../reports/evals/2026-10-07-outcome-evidence-and-source-authority.md#outcome-cases).
+
+## 49. Keep Generated Summaries Below Their Supporting Sources
+
+A generated summary can resemble a question more closely than the record it summarizes. Combining several search results can amplify that advantage when repeated matches from one document count as independent evidence.
+
+For a question whose answer must come from an authoritative record, make that requirement part of retrieval ordering:
+
+1. Verify that the supporting record still contains the relevant fact and is valid for the question's time and scope. Preserve historical retrieval when the question asks about the past.
+2. Record each candidate's source and whether it is a generated summary. Check how multiple matches from the same document contribute to its score. More matches from one document do not create more independent sources.
+3. Apply the declared source-ordering rule when a summary competes with its supporting record. Retain the summary as useful context without letting its wording alone determine authority.
+4. Test a case where the summary scores higher before the authority rule is applied. Also test a case with no summary, so the repair preserves the intended ordering of ordinary results.
+5. Exercise changed summary wording across updates. Keep the expected source and acceptance standard fixed during the ranking comparison.
+
+A narrow ordering repair can prevent a summary from taking first place while leaving duplicate score contributions unresolved. Report those as separate issues. Verify the running service after deployment before describing local comparison results as a live improvement.
+
+[Documentation evaluation and limitations](../reports/evals/2026-10-07-outcome-evidence-and-source-authority.md#source-ordering-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

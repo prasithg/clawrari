@@ -142,6 +142,18 @@ This targeted refresh brings the source template's distinction between agent ins
 
 [Documentation evaluation](../reports/evals/2026-10-03-clear-writing-and-safe-recovery.md#template-cases).
 
+## Declare the Evidence Behind Factual Claims
+
+A factual assignment needs an explicit source policy. Choose `web-grounded` for claims checked against retrieved external sources, `context-grounded` for claims supported by the supplied material, or `mixed` when both are required. Name the permitted sources and how the result must cite them.
+
+Put this policy in the task's `<grounding_contract>`. A source label alone does not verify a claim: the cited material must support it. If the required source is unavailable or does not establish the claim, mark the claim `[unverified]` and explain the missing evidence. Keep observations, inferences, and recommendations distinguishable.
+
+Check the finished artifact against its purpose as well as its citations. A file can exist and cite relevant material while leaving the requested decision unanswered. Require the comparison, recommendation, or other result the reader needs, and state which evidence would change it.
+
+This targeted refresh carries the source template's evidence modes and artifact-fitness guidance into the public copy. Other mapped differences remain for separate review.
+
+[Documentation evaluation and limitations](../reports/evals/2026-10-07-outcome-evidence-and-source-authority.md#evidence-contract-cases).
+
 ## Base Template
 
 ```
@@ -166,6 +178,12 @@ Recent decisions relevant to this task:
 Current state:
 [What exists today. Embed the knowledge — no "see the docs" references.]
 </context>
+
+<grounding_contract>
+- Evidence mode: [web-grounded | context-grounded | mixed].
+- Sources: [permitted sources and required citations].
+- Uncertainty: mark unsupported claims [unverified]; separate observations from recommendations.
+</grounding_contract>
 
 <audience_contract>
 - Primary audience: [who will use the result]

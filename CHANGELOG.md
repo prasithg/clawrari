@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-07
+
+### Added
+
+- **Final-outcome measurement** ([Self-Improvement §48](docs/self-improvement.md#48-measure-the-final-outcome-of-a-multi-step-process)): separate component scores from final output coverage, inspect intermediate failures, and limit conclusions from synthetic data.
+- **Source authority in retrieval** ([Self-Improvement §49](docs/self-improvement.md#49-keep-generated-summaries-below-their-supporting-sources)): preserve supporting-source priority when generated summaries score higher, and distinguish an ordering repair from unresolved duplicate scoring.
+
+### Changed
+
+- **Evidence requirements for delegated work** ([agent prompt template](reference/agent-prompt-template.md#declare-the-evidence-behind-factual-claims)): declare permitted sources, citation requirements, unsupported claims, and the result the reader needs. This refresh covers one mapped public artifact; no new skills are included.
+
+The [documentation evaluation](reports/evals/2026-10-07-outcome-evidence-and-source-authority.md) records ten manual cases and the runtime behavior left untested.
+
 ## 2026-10-05
 
 ### Added
