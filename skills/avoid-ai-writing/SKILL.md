@@ -35,6 +35,21 @@ For every candidate piece:
 
 4. **Log** — append every gate run to a corpus ledger (`corpus/flagged/<date>-<piece-id>.json`) with: original text, flags, verdict, rewrite (if any), final ship status. This becomes training data for autoresearch. The corpus is operator-local — treat it as append-only and keep it out of version control if it contains private drafts.
 
+## Retain Drafts That Passed Review
+
+A passing detector result can still sound generic to a reader. Save the complete draft for every reviewed piece, including pieces with no detected problems. Saving only rejected text hides the examples needed to improve the detector.
+
+For each review attempt:
+
+1. Retain the original draft, detected problems, review result, rewrite if present, and publication status. Keep any applied author preferences visible in the record.
+2. Use a distinct run or piece identifier. When a same-name artifact already exists, save a new artifact and return its exact path. Preserve the earlier contents.
+3. Check that passing and rejected pieces both retain their text. Compare a repeated run's first artifact byte for byte to detect accidental replacement.
+4. Keep retained drafts in an approved private store when they contain private material. Publish only sanitized examples; a passing writing result is not permission to publish the source text.
+
+These instructions refine the existing logging step. They do not add a storage tool or change detector scoring. Concurrent writes, storage failures, and access controls need separate implementation checks.
+
+[Documentation evaluation and limits](../../reports/evals/2026-10-09-waiting-results-and-draft-retention.md#draft-retention-cases).
+
 ## Treat Past Writing as Reference Material
 
 Historical writing helps identify an author's rhythm and preferences. Repetition does not make every old habit a quality standard. Past posts can contain formulaic writing, unexplained internal vocabulary, or mistakes.

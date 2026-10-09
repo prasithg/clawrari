@@ -2,6 +2,14 @@
 
 Skill versioning: minor bump for pattern file edits, major bump for scoring rubric or workflow shifts. Every change should carry a linked eval artifact (the repo's "no eval = not Done" rule, `reports/evals/`).
 
+## 2026-10-09: Complete Draft Retention
+
+The logging instructions now explicitly retain passing drafts as well as rejected ones. Each attempt keeps its own artifact, and reviewers check that a later run does not replace an earlier record.
+
+Private drafts stay in an approved private store. This documentation update adds no storage implementation and leaves detector scoring and the v0.2 rule set unchanged.
+
+The [documentation evaluation](../../reports/evals/2026-10-09-waiting-results-and-draft-retention.md#draft-retention-cases) records four manual cases and the limits of that review.
+
 ## 2026-10-05: Historical-Writing Guidance
 
 The skill now explains how historical samples can support cosmetic preferences for a specific author and publication format. Substantive problems and unexplained internal vocabulary still require review, regardless of how often they occur in old posts.

@@ -814,6 +814,36 @@ A narrow ordering repair can prevent a summary from taking first place while lea
 
 [Documentation evaluation and limitations](../reports/evals/2026-10-07-outcome-evidence-and-source-authority.md#source-ordering-cases).
 
+## 50. Verify Waiting Limits Across the Whole Process
+
+A process can respect its own waiting limit while the command that launched it keeps running. A background child may keep an output pipe open, leaving a log reader waiting after the child-wait deadline has expired.
+
+1. Record each time limit separately: the tool's command limit, the overall job budget, the child wait, and output collection. Measure elapsed time through the launcher's final return.
+2. Check whether background work survives the agent's exit. A wait cannot recover a task the host already stopped. Keep required measurements in a tracked execution path supported by that host.
+3. When waiting for surviving work, identify only processes owned by that run. Account for children that change parent or process group. Bound output collection as well as process waiting, and preserve the original agent result.
+4. Define what happens when the deadline expires. Preserve available logs, report unfinished work, and apply only the authorized cancellation policy. Waiting does not itself authorize killing a task.
+5. Test the complete launcher with a child that inherits ordinary output, a child with redirected output, no remaining children, and an agent error. Exercise each supported output mode and the disabled-wait setting.
+6. Verify the required result files and their contents before reporting completion. Keep the real-workload check open when only simulated workers have run.
+
+A helper-only test cannot prove the overall time limit. Redirecting output in every test can also hide the connection that keeps the launcher alive. Report a reproduced failure as unresolved even when component tests pass.
+
+[Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-09-waiting-results-and-draft-retention.md#waiting-limit-cases).
+
+## 51. Keep Failed Searches Separate From Empty Results
+
+An empty task list can mean there is no matching work, or that the request never succeeded. Those outcomes require different reports.
+
+1. Read the tool's supported parameters. Use structured filters for identities and states when the interface requires them; search syntax from a website may not work through its API.
+2. Check both the transport result and the returned error fields before counting records. Preserve raw errors as text. If a structured summary is needed, create valid structured data that explicitly records failure.
+3. Validate the response shape, requested identities, states, and pagination. A nonzero count alone does not prove that the filter worked. Apply any remaining local selection rules explicitly.
+4. Report zero matches only after a successful request with understood scope and complete pagination. Otherwise report the result as unavailable or incomplete.
+5. Correct the maintained instruction that taught the bad request. Check other active examples and scheduled instructions for the same mistake. Keep historical examples distinguishable from commands an agent should execute.
+6. Test the rejected request, a valid empty result, and a successful filtered result. Confirm the repaired behavior in the normal scheduled output when that is part of acceptance.
+
+A filename ending in `.json` does not make error text valid JSON. Keep the raw response and a parseable summary separate, and verify both before using them as completion evidence.
+
+[Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-09-waiting-results-and-draft-retention.md#search-result-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

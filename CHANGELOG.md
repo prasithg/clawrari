@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-09
+
+### Added
+
+- **Whole-process waiting limits** ([Self-Improvement §50](docs/self-improvement.md#50-verify-waiting-limits-across-the-whole-process)): include output readers in deadline tests and distinguish finished components from a finished job.
+- **Reliable search-result reporting** ([Self-Improvement §51](docs/self-improvement.md#51-keep-failed-searches-separate-from-empty-results)): validate request support, returned identities, response format, and pagination before declaring an empty result.
+
+### Changed
+
+- **Complete draft retention** ([writing skill](skills/avoid-ai-writing/SKILL.md#retain-drafts-that-passed-review)): preserve passing drafts as well as rejected ones, keep separate attempts, and retain private text outside the public repository. This refresh covers one mapped artifact; no new skills or runtime repairs are included.
+
+The [documentation evaluation](reports/evals/2026-10-09-waiting-results-and-draft-retention.md) records twelve manual cases and the behavior left untested.
+
 ## 2026-10-07
 
 ### Added
