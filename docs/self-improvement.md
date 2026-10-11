@@ -844,6 +844,36 @@ A filename ending in `.json` does not make error text valid JSON. Keep the raw r
 
 [Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-09-waiting-results-and-draft-retention.md#search-result-cases).
 
+## 52. Keep Small Test Runs From Replacing Full Reports
+
+A one-check success can hide unresolved failures if it overwrites the latest full report. Give diagnostic runs their own output location and record their coverage explicitly.
+
+1. Select the report destination from the run's scope before execution. Only a complete suite may replace the dated full report or the latest-full pointer.
+2. Save selected-check results separately. Record the selected checks, executed count, pass and fail counts, and run identity. Mark partial coverage in shared history so consumers can filter it.
+3. Preserve the full reports for both passing and failing diagnostic runs. If no full report exists, a partial run must leave it absent.
+4. Verify preservation by comparing the full reports byte-for-byte before and after a selected-check run. Exercise the main reporting command as well as its helpers, with isolated output paths.
+5. Keep unresolved failures visible. Repairing a faulty check can reveal a genuine defect; classify the remaining finding and retain its failure result.
+
+A report that says “one of one passed” describes one check. It provides no evidence about the checks that did not run. Separate output paths preserve that distinction only if the status page and history readers also respect the recorded scope.
+
+[Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-11-report-scope-and-executable-examples.md#report-scope-cases).
+
+## 53. Execute Published Setup Examples From a Fresh Folder
+
+A command can work in its author's workspace because a required folder already exists. Shell redirection may fail before the documented program even starts.
+
+1. Reproduce the example in a disposable folder or checkout containing only the stated prerequisites. Run the displayed commands in order, including directory creation.
+2. Use a harmless stand-in for a paid or externally connected program when checking shell behavior. Confirm that it was invoked and that the expected output was saved and parsed.
+3. Exercise the published timeout command. Record its exit status separately from the child program's status, and state any platform or option differences.
+4. Distinguish successful completion, timeout, and incomplete output in the instructions. A created file alone does not establish that the program finished successfully.
+5. If the guide is copied to another location, compare the final copies after the correction so readers receive the tested version.
+
+For example, GNU `timeout` normally returns 124 when its limit expires; a directly terminated child can report a different status. Options such as `--preserve-status` change that contract. Check the exact invocation documented for the intended platform.
+
+A stand-in proves the exercised command structure and file handling. It does not verify authentication, provider behavior, permissions, or a paid model run. State those limits beside the result.
+
+[Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-11-report-scope-and-executable-examples.md#setup-example-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

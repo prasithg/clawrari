@@ -396,6 +396,35 @@ The orchestrator must launch and collect the reviewer. Adding this section to a 
 
 ## XML Block Reference
 
+### Coding Completion Blocks
+
+For executable work, track implementation, runtime validation, and the final handoff separately. The blocks below carry those requirements into the task prompt. Use checks proportionate to the change.
+
+```xml
+<output_contract>
+1. Return the files and notes required by the task; identify each output.
+2. Report completion only after verifying the required output format and behavior.
+</output_contract>
+
+<completeness_contract>
+1. Record implementation, runtime validation, and handoff as separate checklist items, each with its evidence.
+2. Verify every acceptance criterion or mark its exact blocker; keep blocked criteria incomplete.
+</completeness_contract>
+
+<verification_loop>
+1. Run the program or the closest safe validation path; record which path ran and its result.
+2. Check the output location, format, and empty-result behavior against the task's requirements.
+3. Inspect the changed files and confirm that each change is within the authorized scope.
+4. Name the behavior that was not tested before making the final completion claim.
+</verification_loop>
+```
+
+A safe substitute can establish file handling while leaving live integration untested. Carry that distinction into the handoff. These instructions request evidence; they do not install an automatic verifier.
+
+This targeted refresh comes from the source template's coding completion blocks. It changes one mapped public artifact; other differences remain for separate review.
+
+[Documentation evaluation and limits](../reports/evals/2026-10-11-report-scope-and-executable-examples.md#coding-completion-cases).
+
 ### `<audience_contract>` — Artifact-Fit Guard
 Use when the result has a reader or decision-maker. Name who the result is for, how they will use it, what they already know, and the adjacent artifact the agent must not accidentally produce. This prevents technically complete work that is wrong for its audience.
 
@@ -467,6 +496,9 @@ Use when giving coding agents rules for an existing codebase:
 | `<audience_contract>` | Any result with a reader, user, or decision-maker |
 | `<constraints>` | Always — hard limits, what NOT to touch |
 | `<code_change_discipline>` | Code changes — small scope, traceable edits, concrete verification |
+| `<output_contract>` | Executable tasks with a required output format and behavior |
+| `<completeness_contract>` | Separate evidence for implementation, runtime validation, and handoff |
+| `<verification_loop>` | Check execution, output, scope, and behavior left untested |
 | `<acceptance_criteria>` | Always — explicit, testable done conditions |
 | `<pre_completion_checklist>` | Tasks where file creation can be mistaken for completion |
 | `<output>` | Always — where results go, what gets created |

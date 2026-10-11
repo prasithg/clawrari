@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-11
+
+### Added
+
+- **Full-report preservation** ([Self-Improvement §52](docs/self-improvement.md#52-keep-small-test-runs-from-replacing-full-reports)): give selected-check runs separate reports and coverage records, and verify that full reports remain unchanged.
+- **Executable setup examples** ([Self-Improvement §53](docs/self-improvement.md#53-execute-published-setup-examples-from-a-fresh-folder)): check prerequisites, redirection, timeout results, and copied guides using a fresh folder.
+
+### Changed
+
+- **Coding completion evidence** ([agent prompt template](reference/agent-prompt-template.md#coding-completion-blocks)): provide reusable blocks that separate implementation, runtime validation, and handoff. This refresh covers one mapped artifact; no new skills or runtime changes are included.
+
+The [documentation evaluation](reports/evals/2026-10-11-report-scope-and-executable-examples.md) records twelve manual cases and the behavior left untested.
+
 ## 2026-10-09
 
 ### Added
