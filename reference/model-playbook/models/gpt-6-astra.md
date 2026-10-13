@@ -18,12 +18,20 @@ Sources (fetched 2026-09-09):
 
 Astra owns the coding, review, artifact, and computer-use lanes. Fable 5.1 stays main/default and voice. Vary effort by task instead of adding a second OpenAI model:
 
-- **Astra, xhigh:** substantial coding (Codex wrapper default), hard-work backup for Fable 5.1 xhigh, difficult SWE, substantial artifact/computer-use work.
+- **Astra, xhigh:** substantial unattended coding (default for the Codex launch script), hard-work backup for Fable 5.1 xhigh, difficult SWE, substantial artifact/computer-use work.
 - **Astra, high:** code/security review, complex implementation, evals, specialist escalation.
 - **Astra, medium:** routine implementation, artifact creation, ordinary tool work, and fallback #1 for the Fable default chain.
 - **Astra, low:** small code edits, mechanical artifact checks, bounded computer use, and anything the retired Sol ran at `minimal`/`none` — OpenAI's migration note: start at `low` and compare.
 
 An explicit `max` override remains available on runtimes that expose it; Codex CLI caps at `xhigh`. Retired GPT-5.6 Sol/Luna stay reachable as `sol`/`luna` for comparisons only.
+
+### Separate Supervised Implementation From Verification
+
+For limited work with a clear specification and a reviewer between passes, start implementation at `medium` and run a separate `high` or `xhigh` verification pass. Keep edge-case-heavy implementation, such as parsers, sanitizers, concurrency, and credential handling, at `high` or above when the risk warrants it. Substantial unattended work retains its `xhigh` default.
+
+Use the central [effort guidance](../effort-ladder.md#allocate-effort-by-failure-mode-and-phase) to make this choice. Higher effort cannot repair a mistaken approach or an incorrect success criterion. This updates the model-specific instructions; it does not change a launcher or prove a performance gain.
+
+[Read the documentation evaluation for reviewed cases and limits](../../../reports/evals/2026-10-13-release-requirements-and-complete-records.md#supervision-cases).
 
 ## What changed vs GPT-5.6 Sol (read before writing prompts)
 

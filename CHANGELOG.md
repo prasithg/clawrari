@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-13
+
+### Added
+
+- **Release requirements and comparison baselines** ([Self-Improvement §15](docs/self-improvement.md#keep-release-requirements-separate-from-comparison-baselines)): preserve explicit release minimums when a fresh comparison shows that a defect predates the candidate, and limit claims from rejected-build checks.
+- **Complete-entry review** ([Self-Improvement §54](docs/self-improvement.md#54-review-the-full-entry-before-adding-a-lesson)): compare new lessons with the full record, retain only missing details, and verify a later successful run before claiming that resolved items stay resolved.
+
+### Changed
+
+- **Supervised implementation and verification** ([model guide](reference/model-playbook/models/gpt-6-astra.md#separate-supervised-implementation-from-verification)): align one model-specific guide with the existing effort guidance. Only this guide is refreshed; other source differences remain for review. No runtime changes or new skills are included.
+
+The [documentation evaluation](reports/evals/2026-10-13-release-requirements-and-complete-records.md) records nine manual cases and the behavior left untested.
+
 ## 2026-10-11
 
 ### Added

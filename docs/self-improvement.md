@@ -255,6 +255,19 @@ Why the discipline matters: a gate's entire value is that a red result means som
 
 A companion habit keeps you honest: when a fixture or denominator legitimately changes (a reviewed source move, a renamed item), *keep it in the denominator and document why* rather than quietly dropping it to smooth the number. "We recovered 27/27 without editing a single threshold" is a stronger claim than "we're green again," precisely because it proves you fixed the system instead of the scoreboard.
 
+### Keep Release Requirements Separate From Comparison Baselines
+
+A fresh before-and-after comparison can show that a defect predates a candidate. It cannot waive an explicit release minimum. Report both conclusions: whether the candidate caused a regression, and whether it satisfies the requirement.
+
+1. Record the required minimum and the comparison baseline before judging the candidate. Retain their source and the measured results separately.
+2. If the unchanged system also falls below the minimum, investigate that failure while keeping the candidate's release result unsuccessful. Obtain an explicit requirement revision through the authorized review process before using a different minimum.
+3. Preserve the rejected candidate and its evidence. If a recurring check detects its return, bind the check to the actual build identity and refuse unreadable identity evidence.
+4. State what the check proves. Absence of one rejected build does not establish that the restored version fixes the original quality problem or that a future build is acceptable.
+
+For a synthetic example, a candidate scoring 7 out of 10 still fails a required minimum of 8, even when the unchanged system also scores 7. The comparison limits causal blame; the minimum still determines release eligibility.
+
+[Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-13-release-requirements-and-complete-records.md#release-requirement-cases).
+
 ## 16. Treat Eval Fixtures as Controlled Evidence
 
 An evaluation can stay green while its evidence quietly rots. A golden row may still match by semantic luck after its cited source was deleted. A runner may report the wrong denominator because the expected fixture count is hardcoded in two places. Fixing either problem casually is dangerous: changing a question, expected answer, and source together can turn a repair into an unreviewed rewrite of the test.
@@ -873,6 +886,20 @@ For example, GNU `timeout` normally returns 124 when its limit expires; a direct
 A stand-in proves the exercised command structure and file handling. It does not verify authentication, provider behavior, permissions, or a paid model run. State those limits beside the result.
 
 [Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-11-report-scope-and-executable-examples.md#setup-example-cases).
+
+## 54. Review the Full Entry Before Adding a Lesson
+
+A review queue can make an old lesson look new by omitting the part of the existing record that already covers it. Read the complete entry, including dated additions, before deciding what to retain.
+
+1. Compare the candidate with the complete existing entry. Identify the exact requirement or operational detail that is missing.
+2. If nothing concrete is missing, record a reasoned skip without changing the entry. If a detail is missing, add only that detail within the authorized scope.
+3. Preserve historical wording when only an addition is authorized. Route contradictions and changes to authority through the appropriate review process.
+4. Verify the decision record, the resulting entry, and the item's resolved state. A passing unit test or an empty queue alone does not prove that the intended write occurred.
+5. If recurrence prevention is part of acceptance, wait for a verified successful scheduled run before checking that the resolved item stays absent. A zero count before that run proves nothing about recurrence.
+
+Keep one-time decisions separate from recurring automation. Resolving today's items does not install a consumer for tomorrow's queue.
+
+[Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-13-release-requirements-and-complete-records.md#complete-record-cases).
 
 ## Governance Rules
 
