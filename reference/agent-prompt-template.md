@@ -154,6 +154,18 @@ This targeted refresh carries the source template's evidence modes and artifact-
 
 [Documentation evaluation and limitations](../reports/evals/2026-10-07-outcome-evidence-and-source-authority.md#evidence-contract-cases).
 
+## Give Positive Instructions and Invite Supported Disagreement
+
+Start the task instructions with the desired outcome and observable result. Express ordinary requirements as actions the agent should take. Reserve prohibitions for hard boundaries such as protected data, destructive actions, and excluded scope.
+
+Invite the agent to challenge a mistaken premise with evidence: "If the requested approach conflicts with the source requirements, identify the conflict and recommend a correction." Ask what is missing when that judgment helps the outcome. Keep routine uncertainty within the authorized task; permission to disagree does not authorize a larger scope or require stopping independent work.
+
+For example, replace a list of prior mistakes with "Add the requested behavior, preserve the listed interfaces, and report the checks you ran." Retain any specific restriction that protects those interfaces or data. A constructive prompt still has measurable acceptance criteria.
+
+This targeted refresh carries the source template's positive-framing and disagreement guidance into the public copy. It changes instructions only; improved model behavior has not been measured here. Other source differences remain for separate review.
+
+[Documentation evaluation](../reports/evals/2026-10-15-live-completion-and-comparison-evidence.md#prompt-cases).
+
 ## Base Template
 
 ```

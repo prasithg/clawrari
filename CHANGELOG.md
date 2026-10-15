@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-15
+
+### Added
+
+- **Implementation and live completion** ([Self-Improvement §22](docs/self-improvement.md#separate-implementation-completion-from-live-deployment)): give implementation-only work separate acceptance criteria when service deployment remains deferred.
+- **Comparable test evidence** ([Self-Improvement §55](docs/self-improvement.md#55-compare-individual-results-on-verified-inputs)): verify the actual inputs, report individual gains and losses, and characterize unstable cases before changing the implementation.
+- **Repeated search labels** ([Self-Improvement §56](docs/self-improvement.md#56-keep-repeated-search-labels-from-multiplying-evidence)): limit duplicate alias contributions without changing unrelated scoring behavior.
+
+### Changed
+
+- **Constructive delegation instructions** ([agent prompt template](reference/agent-prompt-template.md#give-positive-instructions-and-invite-supported-disagreement)): state the desired actions, retain hard boundaries, and invite evidence-based disagreement. This refresh covers one mapped public artifact; no installed skills or runtime settings change.
+
+The [documentation evaluation](reports/evals/2026-10-15-live-completion-and-comparison-evidence.md) records twelve manual cases and what remains untested.
+
 ## 2026-10-13
 
 ### Added

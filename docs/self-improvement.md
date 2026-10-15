@@ -391,6 +391,16 @@ Before attributing a health result to a deployed change:
 
 A reload-only service needs its own observable activation evidence. A process-change assertion applies to a restart; it cannot establish that a hot reload succeeded.
 
+### Separate Implementation Completion From Live Deployment
+
+A task that requires the running service to use a fix remains open when the work only produces tested files. If deployment is deferred or outside the worker's authority, define a separately reviewable implementation task before starting. Give that task its own acceptance criteria and keep the service-level task open.
+
+Record what was tested locally, which version the service still uses, and what deployment and live checks remain. Preserve the tested candidate when it meets the implementation criteria; pending deployment does not by itself make the code defective. Complete the service-level task only after authorized deployment and a live check that identifies the intended version and demonstrates the required behavior.
+
+A completion check should distinguish three cases: a parent task that cannot meet its live requirement, a limited implementation task that can finish independently, and a task that includes deployment plus live verification. Passing local artifact checks proves only the limited implementation result.
+
+[Documentation evaluation](../reports/evals/2026-10-15-live-completion-and-comparison-evidence.md#completion-cases).
+
 ## 23. Keep Branch Changes Out of the Shared Workspace
 
 Git branch selection belongs to a checkout. If several agents write into one checkout, one agent's branch switch changes the context for all of them. Subsequent commits can accumulate on an unexpected branch even while every individual command succeeds.
@@ -900,6 +910,30 @@ A review queue can make an old lesson look new by omitting the part of the exist
 Keep one-time decisions separate from recurring automation. Resolving today's items does not install a consumer for tomorrow's queue.
 
 [Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-13-release-requirements-and-complete-records.md#complete-record-cases).
+
+## 55. Compare Individual Results on Verified Inputs
+
+An unchanged test total can hide one lost answer and one gained answer. A shared revision label can also hide changes to files that the evaluator actually reads.
+
+Before changing the implementation, record the comparison rule, target behavior, test runner, execution mode, and input data. Use the same verified input snapshot for the original and candidate versions. If the recorded revision omits mutable inputs, preserve a separate content snapshot or digest of those inputs. A matching label alone does not establish that the data stayed unchanged.
+
+Compare individual passing and failing cases as well as totals and categories. List newly passing and newly failing cases, and explain each tolerated difference under the declared rule. Keep [release requirements separate from comparison baselines](#keep-release-requirements-separate-from-comparison-baselines); a fresh comparison does not authorize a lower minimum or excuse a privacy failure.
+
+When a case changes outcome before the patch exists, characterize that instability on the unchanged implementation. Record the affected inputs and cases before judging the candidate. Report unstable cases separately; do not count their disappearance as an improvement or classify a newly failing case as pre-existing without evidence.
+
+[Documentation evaluation](../reports/evals/2026-10-15-live-completion-and-comparison-evidence.md#comparison-cases).
+
+## 56. Keep Repeated Search Labels From Multiplying Evidence
+
+A search index can overvalue an entry when several aliases repeat the same query word. Aliases are alternate labels for one entry, so repeated wording can outweigh a different entry that actually answers the question.
+
+Inspect the contribution from each indexed field before changing ranking. If alias repetition causes the error, count each distinct normalized token once within that entry's alias field. Keep body-text frequency and other field weights unchanged unless their behavior is separately shown to be wrong.
+
+Check the intended answer, an entry that matches more distinct query terms, and unaffected control queries. Compare individual results across the broader test set, including privacy checks. Keep local ranking results separate from claims about the running service.
+
+This is a field-specific repair, not a rule to remove all repeated words from an index. Test any use case that intentionally gives repeated aliases additional weight before adopting the change.
+
+[Documentation evaluation](../reports/evals/2026-10-15-live-completion-and-comparison-evidence.md#retrieval-cases).
 
 ## Governance Rules
 
