@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-17
+
+### Added
+
+- **Changing search inputs** ([Self-Improvement §55](docs/self-improvement.md#record-changes-to-the-data-being-searched)): record live source changes, repeat comparisons, retain unresolved differences, and report exclusions without hiding the original results.
+- **Optional integrations** ([Self-Improvement §30](docs/self-improvement.md#test-optional-integrations-when-enabled)): verify the enabled path separately from the default restriction and keep unfinished implementation distinct from missing live evidence.
+
+### Changed
+
+- **Structure, voice, and meaning review** ([writing skill](skills/avoid-ai-writing/SKILL.md#separate-structure-and-voice-revisions)): separate the two revision passes, preserve the supporting facts, and distinguish public articles from operational reports. This refresh covers one mapped public artifact; no runtime or installed skill changes are included.
+
+The [documentation evaluation](reports/evals/2026-10-17-changing-inputs-and-meaning-checks.md) records twelve manual cases and the behavior left untested.
+
 ## 2026-10-15
 
 ### Added

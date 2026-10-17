@@ -2,6 +2,14 @@
 
 Skill versioning: minor bump for pattern file edits, major bump for scoring rubric or workflow shifts. Every change should carry a linked eval artifact (the repo's "no eval = not Done" rule, `reports/evals/`).
 
+## 2026-10-17: Structure, Voice, and Meaning Review
+
+The rewrite guidance separates structural revision from author-style revision and requires a final comparison with the supporting facts. Article-level advice has explicit limits for short replies and operational reports.
+
+This documentation refresh leaves the v0.2 pattern set, scoring, and detector workflow unchanged. No detector implementation or private writing samples are included.
+
+The [documentation evaluation](../../reports/evals/2026-10-17-changing-inputs-and-meaning-checks.md#writing-cases) records three manual writing cases and the limits of the review.
+
 ## 2026-10-09: Complete Draft Retention
 
 The logging instructions now explicitly retain passing drafts as well as rejected ones. Each attempt keeps its own artifact, and reviewers check that a later run does not replace an earlier record.

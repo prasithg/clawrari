@@ -532,6 +532,16 @@ Track local implementation and live acceptance separately. When a required servi
 
 [Read the documentation evaluation for evidence and limitations](../reports/evals/2026-09-19-fixture-evidence-and-review.md).
 
+### Test Optional Integrations When Enabled
+
+A test that confirms an integration is disabled by default proves only the default restriction. Exercise the enabled path separately and verify that it reaches an implemented operation, processes a representative response, and handles a relevant failure.
+
+Keep local and live evidence distinct. A controlled test response can establish request construction and response handling without credentials or an external call. It cannot establish authentication, provider availability, or live performance.
+
+If explicit opt-in still reaches an unimplemented placeholder, record unfinished functionality. Do not describe it as a missing-credential problem without evidence. Preserve the passing disabled-mode check, but keep the enabled-path requirement open. Optional use does not make a promised implementation optional.
+
+[Documentation evaluation and limits](../reports/evals/2026-10-17-changing-inputs-and-meaning-checks.md#integration-cases).
+
 ## 31. Recover Interrupted Jobs From Verified Effects
 
 A timeout can arrive after a job has published its result. Restarting the whole job can then publish it again. A longer timeout may reduce interruptions, but it does not make retries safe.
@@ -922,6 +932,20 @@ Compare individual passing and failing cases as well as totals and categories. L
 When a case changes outcome before the patch exists, characterize that instability on the unchanged implementation. Record the affected inputs and cases before judging the candidate. Report unstable cases separately; do not count their disappearance as an improvement or classify a newly failing case as pre-existing without evidence.
 
 [Documentation evaluation](../reports/evals/2026-10-15-live-completion-and-comparison-evidence.md#comparison-cases).
+
+### Record Changes to the Data Being Searched
+
+Search results can change when another process edits the source collection. Record the implementation version and the files the search system reads, then check those files at the start and end of each measurement. Preserve per-question source identities alongside the answers. State which files the recording excludes.
+
+A published revision label may omit live edits. File sizes and modification times can reveal changes, but they are weaker evidence than content digests: touching a file can change its metadata without changing its text. Describe that limitation when metadata is all the measurement records.
+
+Compare repeated, independent runs before and after the intended change. If the task corrects stored information, distinguish that deliberate input change from unrelated edits made during the comparison. Keep the test questions and scoring rules fixed.
+
+A changed file can alter collection-wide ranking statistics even when it never appears among the returned sources. Its absence from the first few answers does not prove that it had no effect. Record unexplained changes as unresolved and investigate them on controlled inputs.
+
+Keep every changed outcome visible. If a declared comparison rule excludes unstable questions, exclude the same questions from both sides and report the original counts, adjusted counts, and denominators. Exclusion does not establish success or waive a privacy requirement.
+
+[Documentation evaluation and limits](../reports/evals/2026-10-17-changing-inputs-and-meaning-checks.md#measurement-cases).
 
 ## 56. Keep Repeated Search Labels From Multiplying Evidence
 

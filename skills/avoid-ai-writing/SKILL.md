@@ -13,6 +13,20 @@ This is a **system**, not a static skill: an autoresearch loop mines your own sh
 
 Mandatory pre-ship gate for every piece of content a generation step produces (originals, replies, hooks). Mandatory pre-ship gate for any agent-generated text headed for an external surface or a human-review channel. The content engine's draft pipeline runs this gate before any preview is posted (see `docs/content-engine.md`).
 
+## Separate Structure and Voice Revisions
+
+When a draft needs both structural and stylistic changes, review them in separate passes before scoring:
+
+1. Revise the structure. Put the concrete point first, remove unnecessary setup, and keep each section useful to the reader. For a public article, remove announcements about what the article will explain and a closing paragraph that only repeats the opening. End with the remaining question, action, or other new information. Keep useful summaries in operational reports; short replies do not need article-level restructuring.
+2. Refine voice and length. Apply the intended author's supported style preferences, vary repetitive sentence patterns, and trim to the requested length. Retain the restrictions in [historical-writing guidance](#treat-past-writing-as-reference-material).
+3. Check the meaning. Compare the revised draft with its evidence. Check quantities, dates, conditions, uncertainty, and the requested action. Restore any fact or qualification lost during rewriting before scoring the result.
+
+For example, shortening a measured result must preserve both its response time and the conditions under which it was measured. Better rhythm does not justify a stronger claim.
+
+This refresh adds editorial instructions only. It does not install a detector, add pattern files, change scoring, or demonstrate an improvement in model output.
+
+[Documentation evaluation and limits](../../reports/evals/2026-10-17-changing-inputs-and-meaning-checks.md#writing-cases).
+
 ## Workflow (the gate)
 
 For every candidate piece:
