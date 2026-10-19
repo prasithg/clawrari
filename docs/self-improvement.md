@@ -561,6 +561,28 @@ Test the boundaries, not only the record writer's happy path:
 
 Separate the implementation result from its live acceptance. A passing local suite, an increased time limit, or proof that a defective proposal is inactive cannot establish that interruption recovery works. Keep those claims separate until the corresponding cases have run.
 
+### Distinguish Unsent, Uncertain, and Confirmed Delivery
+
+A missing message identifier does not establish whether a send happened. Store delivery state separately from the optional identifier, with different meanings for each case:
+
+| Evidence | Required action on retry |
+| --- | --- |
+| Publication is verified, but sending has not started. | Reuse the published result. Prepare only the missing summary. |
+| Sending was recorded before the request, but no outcome was saved. | Check the destination before deciding whether to send again. |
+| The destination confirmed success without returning an identifier. | Record explicit completion. Do not treat the missing identifier as an unsent message. |
+| The destination confirmed success and returned an identifier. | Save the identifier with completion and skip another send. |
+| The saved record is malformed or unreadable. | Preserve it and withhold publication and sending until the evidence is resolved. |
+
+If a helper uses an optional confirmation argument, distinguish an omitted argument from an explicit successful-send marker. Omitting confirmation records only the completed publication. A successful-send marker is valid only after confirmed delivery. Repeating either update must return the same state that a fresh read returns.
+
+Save the verified publication identifier immediately. Immediately before sending, persist the sending state and require that write to succeed. This order lets a retry recover the existing publication while treating an interrupted send as uncertain.
+
+If destination history contains the matching summary, save its existing identifier. If no match appears, resend only when the successful history read covers the entire scheduled occurrence. Partial history, visibility delays, and unavailable reads leave delivery unresolved. Keep the original scheduled date and time zone across retries, including attempts after midnight.
+
+These records do not make publication, delivery, and local storage one atomic operation. Test the interruption windows and concurrent attempts separately.
+
+[Documentation evaluation and limits](../reports/evals/2026-10-19-delivery-states-and-review-findings.md#delivery-cases).
+
 ### Verify Complete Delivery and Regenerate Retry Inputs
 
 One logical send can become several physical messages. A transport receipt may list fewer IDs than the destination ultimately displays. Before calling a long message delivered, read back the destination, verify the expected sender, and compare the complete ordered content, including its final instruction. Permit only named presentation transformations, such as whitespace or emoji rendering. Preserve the original content for comparison.

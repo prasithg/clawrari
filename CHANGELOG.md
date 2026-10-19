@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-19
+
+### Added
+
+- **Distinct delivery states** ([self-improvement guide](docs/self-improvement.md#distinguish-unsent-uncertain-and-confirmed-delivery)): distinguish unsent summaries, uncertain sends, and confirmed delivery without an identifier. Require complete destination history before a resend and retain the original scheduled date across retries.
+
+### Changed
+
+- **Review findings with evidence and impact** ([agent prompt template](reference/agent-prompt-template.md#report-findings-with-impact-and-confidence)): report supported findings across severity levels, separate confidence from consequence, and keep uncertain concerns explicit. This refresh covers one mapped public artifact. No runtime or installed skill changes are included.
+
+The [documentation evaluation](reports/evals/2026-10-19-delivery-states-and-review-findings.md) records nine manual cases and the behavior left untested.
+
 ## 2026-10-17
 
 ### Added

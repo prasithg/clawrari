@@ -406,6 +406,20 @@ The orchestrator must launch and collect the reviewer. Adding this section to a 
 
 ---
 
+### Report Findings With Impact and Confidence
+
+Ask the reviewer to report every supported finding within the agreed scope. For each finding, state the affected location, supporting evidence, consequence, severity, and confidence. Severity describes the consequence if the defect exists. Confidence describes how strongly the evidence supports that conclusion.
+
+Include supported lower-severity defects even when they do not prevent release. Put the most consequential findings first and keep optional preferences separate from defects. If a concern remains uncertain, name the missing evidence instead of presenting it as a confirmed failure. An empty finding list is valid when no supported defect was found; still state the review's scope and untested behavior.
+
+The task's acceptance criteria determine which findings prevent completion. A review instruction changes what the reviewer should report; it does not establish that the review happened or that all defects were found.
+
+This targeted refresh carries the source template's request for findings with confidence and severity into the public review instructions. Other mapped differences remain for separate review.
+
+[Documentation evaluation and limits](../reports/evals/2026-10-19-delivery-states-and-review-findings.md#review-cases).
+
+---
+
 ## XML Block Reference
 
 ### Coding Completion Blocks
