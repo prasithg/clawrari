@@ -195,6 +195,53 @@ Operators prune false positives by adding entries to `patterns/v4-rejected.md` (
 
 **Promotion candidate:** N (requires recurrence in fresh corpus)
 
+## 2026-10-21: Generalized Writing-Review Candidates
+
+These candidates come from reviewed writing corrections. Examples below are synthetic; they are not product claims or quotes from private drafts. They guide manual review only. This update does not install detector rules or establish measured accuracy.
+
+### v4.55-everyone-vs-actually-reframe: Unsupported Crowd Contrast
+
+**Severity proposal:** P0, a high-priority candidate for review.
+**Status:** Candidate; not promoted or automatically enforced.
+
+**Detect rule:** Look for adjacent sentences that claim everyone focuses on one factor, then announce a different factor as decisive. Inspect a short closing fragment for the same unsupported contrast. Check the evidence for both claims.
+
+**Synthetic example:** `Everyone shops for storage capacity. The number that actually matters is access time. Only one matters.`
+
+**Rewrite:** State the supported relationship directly. For a measured case, `Access time limited this workload after its data fit in memory.` Keep any conditions the evidence requires.
+
+**Boundary:** A sourced comparison of two measured bottlenecks is not an unsupported crowd claim. Do not discard useful contrasts merely because two sentences compare factors.
+
+### v4.56-difference-between-feels-like: Unmeasured Analogy Contrast
+
+**Severity proposal:** P0, a high-priority candidate for review.
+**Status:** Candidate; not promoted or automatically enforced.
+
+**Detect rule:** Review a sentence built around `the difference between`, a sensory analogy such as `feels like`, and `one that feels like`. Ask whether the analogy replaces evidence needed for the comparison.
+
+**Synthetic example:** `That is the difference between a tool that feels like a conversation and one that feels like a queue.`
+
+**Rewrite:** State the observed behavior and its scope. If response-time measurements exist, report them. Otherwise, keep the comparison explicitly subjective or remove the unsupported claim.
+
+**Boundary:** Attributed user feedback can report how a tool feels. Preserve the attribution and avoid turning that feedback into a measured performance claim.
+
+### v4.57-adjective-thesis-opener: Decorative Claim Opener
+
+**Severity proposal:** P1, a review concern; P0 proposed for a paragraph opener.
+**Status:** Candidate; not promoted or automatically enforced.
+
+**Detect rule:** Review openers shaped like `The honest/real/actual catch/problem/trick is...`. Remove the adjective when it adds a claim of candor or importance without adding information.
+
+**Synthetic example:** `The honest catch is compatibility.`
+
+**Rewrite:** Name the constraint: `The tool does not support the required file format.` Verify that the stated limitation is supported.
+
+**Boundary:** Keep adjectives that carry a concrete distinction, such as an actual value compared with an estimated value. A word match alone cannot establish an empty opener.
+
+These are manual review criteria. Before promotion, evaluate recurring examples, attributed quotations, literal comparisons, and false positives. Preserve facts during every rewrite.
+
+[Documentation evaluation and limits](../../../reports/evals/2026-10-21-generated-exceptions-and-writing-patterns.md#writing-cases).
+
 ## Promoted to v3
 
 _(empty — entries move to `patterns/v3-structural.md` and the entry here is replaced with a stub linking to the v3 id.)_

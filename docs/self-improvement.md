@@ -981,6 +981,22 @@ This is a field-specific repair, not a rule to remove all repeated words from an
 
 [Documentation evaluation](../reports/evals/2026-10-15-live-completion-and-comparison-evidence.md#retrieval-cases).
 
+## 57. Keep Generated-File Exceptions Narrow
+
+A change audit can produce false alarms when scheduled jobs rewrite data beside maintained instructions. Excluding the whole folder can then hide an instruction edit. Classify the files and check every matched path before granting an exception.
+
+1. Identify the process that writes each candidate file. A snapshot commit's author does not establish whether the content is generated.
+2. Record a narrow path pattern, its reason, its generating job, and the date added. Reject missing metadata and patterns that exclude an entire instruction tree.
+3. Check each matched file's role before excluding it. Instruction documents and source code still need review, even inside a generated-data directory.
+4. Keep files with both generated output and maintained guidance under review. Separate those uses into different files when their ownership is unclear.
+5. Report every excluded path and its reason. If the exception list is unreadable or invalid, stop the audit and report incomplete verification.
+
+Test the boundary with generated data alone, an instruction file beside that data, source files nested in the same directory, and an invalid exception. Test an empty review window separately; an exception must not turn missing evidence into proof that the audit ran.
+
+File-type rules protect only the types they recognize. A hand-edited data file can still be misclassified. State that limitation and require separate review when a file's role changes. Keep local test results separate from any required observation of later scheduled runs.
+
+[Documentation evaluation](../reports/evals/2026-10-21-generated-exceptions-and-writing-patterns.md#exception-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

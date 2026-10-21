@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-21
+
+### Added
+
+- **Generated-file exceptions** ([self-improvement guide](docs/self-improvement.md#57-keep-generated-file-exceptions-narrow)): classify each matched file, keep instructions and source code under review inside generated directories, and report exceptions and limits.
+
+### Changed
+
+- **Writing-review candidates** ([pattern reference](skills/avoid-ai-writing/patterns/v4-emerging.md#2026-10-21-generalized-writing-review-candidates)): add unsupported crowd contrasts, unmeasured analogy contrasts, and decorative claim openers. Examples are synthetic. This refresh covers one mapped public artifact and does not install detector rules.
+
+The [documentation evaluation](reports/evals/2026-10-21-generated-exceptions-and-writing-patterns.md) records twelve manual cases and the behavior left untested.
+
 ## 2026-10-19
 
 ### Added
