@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-23
+
+### Added
+
+- **Stored scheduler results** ([self-improvement guide](docs/self-improvement.md#verify-the-stored-scheduler-result)): distinguish review findings from failed jobs, inspect transformed status messages, and state the limits of report-shaped error detection.
+- **Known diagnostic failures** ([self-improvement guide](docs/self-improvement.md#track-a-known-defect-without-calling-it-fixed)): keep stricter failures visible with an owner and clearing condition, validate saved evidence, and separate check implementation from system repair.
+
+### Changed
+
+- **Procedures in agent prompts** ([prompt template](reference/agent-prompt-template.md#write-procedures-with-conditions-and-completion-checks)): use numbered steps with conditions, actions, and observable completion checks. This refresh covers one mapped public artifact. No installed skill or runtime setting changes.
+
+The [documentation evaluation](reports/evals/2026-10-23-scheduler-results-and-owned-defects.md) records twelve manual cases and the behavior left untested.
+
 ## 2026-10-21
 
 ### Added

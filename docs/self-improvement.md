@@ -498,6 +498,18 @@ Report the failed checks and the unavailable checks by name. Group consequences 
 
 [Documentation evaluation and limits](../reports/evals/2026-09-19-evidence-and-verification.md).
 
+### Verify the Stored Scheduler Result
+
+A review can finish successfully while finding defective work. If its reply begins with a scheduler's reserved failure marker, the scheduler may record the review itself as failed. That changes retries and alerts even when the report is complete.
+
+Define the job's deliverable before assigning its run status. For a review job, a completed negative finding is a valid result. For a repair job, an unresolved defect can mean the requested deliverable is still missing. Keep the finding, run status, and delivery status separate; report each from its own evidence.
+
+Inspect the scheduler's stored result as well as the original reply. Some schedulers remove control markers before saving an error message, so the marker's absence in storage cannot prove that the agent omitted it. Trace the transformation or use an authorized, isolated trial. Keep that trial separate from proof that the normal job follows corrected instructions.
+
+A detector based on report length, headings, or links is a heuristic. A genuine failure can contain a long report, and a false failure can be one short sentence. Test both cases and prefer structured status fields when the scheduler exposes them. State which ambiguous cases remain unclassified.
+
+[Documentation evaluation](../reports/evals/2026-10-23-scheduler-results-and-owned-defects.md#scheduler-cases).
+
 ## 29. Keep Known-Defect Exceptions Separate From Acceptance
 
 A regression check can acknowledge an existing defect while still preventing it from being accepted as finished work. That exception needs a narrower contract than an ordinary passing result.
@@ -511,6 +523,18 @@ Report an acknowledged defect separately from a passing task. The exception can 
 Exercise the boundaries with an unchanged queued defect, a premature completion claim, a changed promise, and missing supporting evidence. Also verify the ordinary recovery paths: the promised output exists, or the unsupported promise has been removed. Retire the exception when the contract is repaired.
 
 [Documentation evaluation and limits](../reports/evals/2026-09-19-bounded-exceptions.md).
+
+### Track a Known Defect Without Calling It Fixed
+
+A system can meet its minimum operating threshold while a stricter diagnostic check still finds a defect. Report those results separately. The diagnostic check must preserve the failure until its own condition is met, even when the system remains usable.
+
+Give the failed check an owner, a named repair, a review date, and an observable condition for clearing it. If the reporting system supports a waiting section, show the known failure there with its owner. This changes how the work is routed; it does not turn the result into a pass or satisfy a release requirement.
+
+When a check reads a saved report, validate the score, required fields, and freshness against the check's declared contract. Report missing, malformed, or stale evidence separately from a measured defect, and never treat it as a pass. Preserve timestamped results when a later run can overwrite an earlier failure. Report case identifiers only when the evidence contains them.
+
+Test a failing score, a boundary score, a fully passing score, and unavailable evidence. Keep the parser's test result separate from the system's score. A passing parser test does not prove the defect was repaired, the running service changed, or a later scheduled check succeeded.
+
+[Documentation evaluation](../reports/evals/2026-10-23-scheduler-results-and-owned-defects.md#diagnostic-cases).
 
 ## 30. Separate Fixture Tests From Live Evaluation
 

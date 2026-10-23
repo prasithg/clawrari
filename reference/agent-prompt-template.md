@@ -166,6 +166,22 @@ This targeted refresh carries the source template's positive-framing and disagre
 
 [Documentation evaluation](../reports/evals/2026-10-15-live-completion-and-comparison-evidence.md#prompt-cases).
 
+## Write Procedures With Conditions and Completion Checks
+
+Write ordered procedures as numbered steps. Put the condition before the action so the agent can determine whether the step applies. Give each step one primary action and an observable completion check. Use the same term for the same file, result, or state throughout the procedure.
+
+For example, replace "update the settings and check everything" with these instructions:
+
+1. If the saved settings match the expected version, apply the authorized settings change. Confirm that the write command reports success.
+2. After the write succeeds, read the settings from the service. Confirm that the changed value matches the requested value and that unrelated settings remain unchanged.
+3. If the read-back differs, report the mismatch and the remaining work. Confirm that the handoff does not claim the change is verified.
+
+Keep the task's authority and stop conditions explicit. A completion check does not grant permission for a write. Missing evidence must remain visible, and independent authorized work can continue while a dependent step is blocked.
+
+These procedure rules guide the agent; they do not install a validator. Human-facing results still need plain language and facts checked against their sources. This targeted refresh carries the source template's procedure-writing rules into one mapped public artifact; other source differences remain for separate review.
+
+[Documentation evaluation](../reports/evals/2026-10-23-scheduler-results-and-owned-defects.md#procedure-cases).
+
 ## Base Template
 
 ```
@@ -212,6 +228,13 @@ Current state:
 - Do NOT change [specific system/file/API] — it is out of scope.
 - [Any other hard limits]
 </constraints>
+
+<procedure>
+1. [Condition, primary action, and observable completion check.]
+2. [Next condition, primary action, and observable completion check.]
+3. [Recovery condition, authorized action, and completion check.]
+Use the same names for files, results, and states across all steps.
+</procedure>
 
 <code_change_discipline>
 - Think first: state the smallest plan and the checks that prove it worked.
