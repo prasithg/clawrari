@@ -182,6 +182,16 @@ These procedure rules guide the agent; they do not install a validator. Human-fa
 
 [Documentation evaluation](../reports/evals/2026-10-23-scheduler-results-and-owned-defects.md#procedure-cases).
 
+## State the Recommendation's Time Horizon
+
+An immediate decision and a long-lived reference need different evidence. Name the period the artifact must serve in its audience contract, alongside its reader and purpose.
+
+For an immediate choice, state whether the evidence is recent enough for that choice. For a plan, name its time period and assumptions that need rechecking. For a durable reference, separate the reusable procedure from dated examples. Do not turn a snapshot into a claim of continuing validity.
+
+A stated time horizon is a review requirement. It does not refresh sources or schedule a later review automatically.
+
+This targeted refresh carries the source template's decision-horizon field into the public copy. Other mapped differences remain for separate review. [Documentation evaluation](../reports/evals/2026-10-25-fixed-windows-and-access.md#template-cases).
+
 ## Base Template
 
 ```
@@ -216,6 +226,7 @@ Current state:
 <audience_contract>
 - Primary audience: [who will use the result]
 - Use context: [decision memo | implementation | research brief | public draft]
+- Decision horizon: [immediate choice | named planning period | durable reference]; state evidence age and assumptions that need rechecking.
 - This is NOT: [adjacent artifact to avoid]
 - Reader knows: [relevant domain knowledge]
 - Reader does not need: [background, jargon, or implementation detail to omit]

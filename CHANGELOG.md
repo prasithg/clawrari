@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-25
+
+### Added
+
+- **Fixed reproduction windows** ([self-improvement guide](docs/self-improvement.md#58-preserve-the-time-window-that-reproduces-a-failure)): distinguish a repaired failure from an expired observation window, and keep later scheduled verification separate.
+- **Operation-specific access** ([self-improvement guide](docs/self-improvement.md#59-verify-access-to-the-requested-operation)): distinguish denied reads from empty results and preserve the age and limits of historical fallback data.
+
+### Changed
+
+- **Recommendation time horizons** ([agent prompt template](reference/agent-prompt-template.md#state-the-recommendations-time-horizon)): name the period a recommendation must serve and the assumptions that need rechecking. This refresh covers one mapped public artifact.
+
+The [documentation evaluation](reports/evals/2026-10-25-fixed-windows-and-access.md) records ten manual cases and the behavior left untested. No runtime or installed skill changes are included.
+
 ## 2026-10-23
 
 ### Added

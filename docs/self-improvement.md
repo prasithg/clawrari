@@ -1021,6 +1021,34 @@ File-type rules protect only the types they recognize. A hand-edited data file c
 
 [Documentation evaluation](../reports/evals/2026-10-21-generated-exceptions-and-writing-patterns.md#exception-cases).
 
+## 58. Preserve the Time Window That Reproduces a Failure
+
+A check can start passing because the failing change has become too old to inspect. An empty recent-history window does not prove a repair.
+
+1. Save the original failing interval, including its time zone, selected records, and expected failure. If the source expires, retain an authorized snapshot that can reproduce the case.
+2. Before editing, run the check against that fixed interval. Confirm that it fails for the intended reason. Report the ordinary rolling-window result separately.
+3. After the repair, repeat the fixed case with the same selection rules. Keep a negative control that still rejects missing evidence.
+4. Check the current window too. State how many applicable records it contains; zero records cannot demonstrate that a repaired writer now supplies evidence.
+5. If acceptance requires a later scheduled run, keep that requirement open until the run happens and its output is inspected.
+
+For example, a change audit can pass today with no applicable edits while still rejecting an earlier instruction change that has no supporting record. Adding the missing record can resolve that historical case. It does not prove that the next automated edit will create its own record.
+
+Record the fixed-case result, current-window coverage, and later observation separately. [Documentation evaluation and limits](../reports/evals/2026-10-25-fixed-windows-and-access.md#window-cases).
+
+## 59. Verify Access to the Requested Operation
+
+A successful account lookup does not prove that the same credentials can read another resource. Verify the exact operation and authentication mode the workflow needs.
+
+1. Use a bounded, authorized read of the target operation. Keep permission failures distinct from a successful response containing no records.
+2. If the read fails, retain the failure and stop dependent processing that would treat old output as a fresh result. Preserve existing files without labeling them as new evidence.
+3. If historical data is permitted, identify its source and age separately. Keep the time an item was created, the time an action occurred, and the time data was retrieved distinct. Unknown event times stay unknown.
+4. Limit conclusions to what the source establishes. An old saved item cannot prove a recent action or an identity absent from the record.
+5. Keep local client tests, live access, and the usefulness of the resulting recommendation as separate acceptance criteria. Passing mocked requests cannot satisfy the other two.
+
+Test a successful empty response, a denied read with an old output file present, and a permitted historical fallback. If the fallback cannot support the requested decision, report that limit and leave the dependent change unapplied.
+
+[Documentation evaluation and limits](../reports/evals/2026-10-25-fixed-windows-and-access.md#access-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
