@@ -6,12 +6,12 @@ LLMs format consistently in ways humans don't. These rules catch mechanical form
 
 | id | severity | pattern | rewrite |
 |---|---|---|---|
-| v2.01-double-space | P0 | `\.  ` (period followed by 2 spaces) | single space after period |
+| v2.01-double-space | P1 | `\.  ` (period followed by 2 spaces) | single space after period |
 | v2.02-double-space-comma | P1 | `,  ` | single space after comma |
 | v2.03-trailing-space | P1 | ` $` (trailing whitespace at end of line) | strip |
 | v2.04-no-space-after-punct | P1 | `\.\w` (period directly followed by letter, no space) | add space |
 
-**Rationale:** Double-space-after-period is a typewriter convention. Most humans on social platforms type single-space. LLMs trained on long-form prose default to double-space. This is one of the strongest non-lexical fingerprints.
+**Rationale:** Spacing varies by author and publication format. Treat double spaces as an advisory formatting preference, not proof of automated authorship. Apply any learned exception only under the skill's [historical-writing guidance](../SKILL.md#treat-past-writing-as-reference-material).
 
 ## Punctuation
 
@@ -19,7 +19,7 @@ LLMs format consistently in ways humans don't. These rules catch mechanical form
 |---|---|---|---|
 | v2.10-trailing-period-before-link | P1 | `\.\s+(https?://)` | drop the period before the link OR move it after |
 | v2.11-exclamation-marks | P1 | `!` (any) | period unless genuinely exclamatory; cap at 1 per piece |
-| v2.12-multiple-exclamations | P0 | `!!+` | single exclamation max |
+| v2.12-multiple-exclamations | P1 | `!!+` | single exclamation max |
 | v2.13-ellipsis-as-trail | P1 | `\.\.\.\s*$` (line ending in ellipsis as a trail-off) | drop or commit to a sentence |
 | v2.14-curly-quotes-mix | P1 | mixing `'` and `'` or `"` and `"` in same piece | normalize to one style |
 
@@ -67,4 +67,6 @@ This is structural-adjacent but lives here because it's a cadence pattern across
 
 ## How to use
 
-The detector applies these regexes after v1. Same scoring math.
+Apply these rules after the lexical rules. The aggregate scoring thresholds are unchanged. Double spaces and repeated exclamation marks are P1 warnings; rendering-breaking rules remain P0 on the named publication formats. Verify an operator-provided detector against the updated rule definitions before claiming runtime adoption.
+
+[Rule-data evaluation](../../../reports/evals/2026-10-27-dependencies-timeouts-and-formatting.md#formatting-cases).

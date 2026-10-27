@@ -2,6 +2,14 @@
 
 Skill versioning: minor bump for pattern file edits, major bump for scoring rubric or workflow shifts. Every change should carry a linked eval artifact (the repo's "no eval = not Done" rule, `reports/evals/`).
 
+## v0.3: 2026-10-27
+
+Double spaces and repeated exclamation marks are P1 formatting warnings. The reference preserves high-severity rendering failures and the existing aggregate thresholds. Unsupported claims that spacing proves automated authorship are removed.
+
+This refresh changes the documented rule data. It includes no detector implementation, author-specific exemptions, or private writing samples. Operator-provided detectors require a separate update and verification.
+
+The [evaluation](../../reports/evals/2026-10-27-dependencies-timeouts-and-formatting.md#formatting-cases) records the rule-table checks and their limits.
+
 ## 2026-10-17: Structure, Voice, and Meaning Review
 
 The rewrite guidance separates structural revision from author-style revision and requires a final comparison with the supporting facts. Article-level advice has explicit limits for short replies and operational reports.

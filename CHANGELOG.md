@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-27
+
+### Added
+
+- **Dependencies for documented commands** ([self-improvement guide](docs/self-improvement.md#60-keep-documented-commands-in-the-dependency-inventory)): derive support from maintained instructions, check the active interpreter, and distinguish import success from command compatibility.
+- **Optional-input time limits** ([self-improvement guide](docs/self-improvement.md#61-bound-optional-inputs-and-preserve-missing-data-reasons)): preserve missing-data reasons, prove the stalled operation started, and separate local tests from scheduled acceptance.
+
+### Changed
+
+- **Writing-rule severity** ([writing skill](skills/avoid-ai-writing/SKILL.md#separate-cosmetic-warnings-from-substantive-problems)): classify two cosmetic formatting rules as warnings while retaining rendering checks and aggregate thresholds. This refresh covers one mapped skill directory.
+
+The [evaluation](reports/evals/2026-10-27-dependencies-timeouts-and-formatting.md) records manual documentation cases and executable rule-table checks. No runtime or private writing samples are included.
+
 ## 2026-10-25
 
 ### Added

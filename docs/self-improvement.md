@@ -1049,6 +1049,35 @@ Test a successful empty response, a denied read with an old output file present,
 
 [Documentation evaluation and limits](../reports/evals/2026-10-25-fixed-windows-and-access.md#access-cases).
 
+## 60. Keep Documented Commands in the Dependency Inventory
+
+A package inventory can pass while a supported command still fails to start. Treat documentation as part of the support contract: a rarely used command still needs its dependencies while the documentation recommends it.
+
+1. Find supported commands in skills, reference documents, script guides, and scheduled instructions. Resolve each command's script and interpreter, including any project-specific environment.
+2. Map third-party imports to installable packages in the appropriate dependency manifest. Distinguish standard-library and local modules from external packages. Record unsupported scripts with a reason and date; remove or correct their supported-command instructions before excluding their dependencies.
+3. Import the declared modules with the interpreter that runs the command. Record its version and resolved path. Package-manager metadata alone does not establish that imports work after an interpreter upgrade.
+4. Exercise a safe entry point of the documented command, where available. Confirm that the chosen help or validation mode exits before authentication or network operations. Successful imports alone do not establish command compatibility.
+5. Test a supported command whose dependency is absent, a supported command incorrectly classified as unsupported, and a local package that must not be installed from a package registry. State which documentation sources the automated check scans and which were inspected manually.
+
+An import check proves availability under the tested interpreter. It does not prove version compatibility, service access, or the health of another virtual environment. Keep those claims separate.
+
+[Documentation evaluation and limits](../reports/evals/2026-10-27-dependencies-timeouts-and-formatting.md#dependency-cases).
+
+## 61. Bound Optional Inputs and Preserve Missing-Data Reasons
+
+A report should be able to finish without an optional shared folder. Put the slow operation behind a time limit and record which input was unavailable, so a partial report cannot be mistaken for complete data.
+
+1. Identify the blocking operation. Directory enumeration, sorting, file reading, and output collection can stall separately. State exactly which operations the change bounds.
+2. Isolate an uninterruptible read from the reporting process when necessary. Terminate only the child owned by that operation, under the task's cancellation authority. A timeout that leaves the blocking child or its output pipe alive is incomplete.
+3. Preserve the missing-data reason in every output format. Keep timeout, empty input, read failure, and intentional skip distinguishable. Missing usage or scores must remain unknown rather than becoming zero.
+4. Test a healthy input, an empty folder, an explicit-file override, a skip option, and a stalled child. Prove that the stalled child started before accepting the timeout result.
+5. If first execution can consume a short test deadline, check readiness separately before measuring the intended stall. Readiness must not create the marker used to prove that the measured child ran. Keep cold-start reliability as a separate check when it is part of acceptance.
+6. Verify the complete report and the command's exit status. Keep scheduled acceptance open until the required number of scheduled successes has been observed. A local success does not count as a scheduled run.
+
+A bound on folder listing leaves a later file-content read unverified. Document that limit even when the report succeeds. For limits spanning a launcher and its children, see [whole-process waiting guidance](#50-verify-waiting-limits-across-the-whole-process).
+
+[Documentation evaluation and limits](../reports/evals/2026-10-27-dependencies-timeouts-and-formatting.md#optional-input-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
