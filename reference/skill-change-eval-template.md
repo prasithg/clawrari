@@ -40,6 +40,26 @@ Pick what fits the surface. Don't over-instrument:
 - Cost (tokens / $ if material)
 - Qualitative verdict (1–2 sentence judgement on whether the new behavior is actually better)
 
+## Evidence for Search or Retrieval Changes
+
+Record where the failure occurs before choosing a repair. The fault categories in the header apply to each failed question, not only the overall result.
+
+| Observed failure | Evidence to collect | Repair boundary |
+| --- | --- | --- |
+| Source content competes with the maintained record | Exact question, duplicate locations, and returned source order | Correct redundant content through the authorized writing process. |
+| A saved edit is absent from the published index | Current source content, indexed content, and the revision used by the query | Keep publication pending; writer success does not prove that search uses the edit. |
+| Retrieval misses an eligible source | Candidate sources, ranking, routing, and exact-token coverage | Test the retrieval code without weakening source restrictions. |
+| The expected source is excluded by policy | Expected answer, source eligibility, and the unchanged policy | Review the evaluation requirement; do not bypass the policy to improve the score. |
+| An earlier failure cannot be reproduced | Available historical evidence and current query results | Record the cause as unknown until evidence distinguishes it. |
+
+For each edited source, distinguish saved, published, and measured states. Check the content used by the query, using a digest or an exact relevant-content comparison where available. A matching revision label or successful write alone is insufficient. If publication is paused, preserve that boundary and report the measurement as pending.
+
+Record lost and gained passing cases alongside totals. A newly passing case does not replace a required previous pass. Compare verified inputs and disclose changes that prevent causal attribution, as described in [individual-result comparisons](../docs/self-improvement.md#55-compare-individual-results-on-verified-inputs).
+
+Keep targeted regression checks separate from the original repair's acceptance. A check that prevents another duplicate does not prove that an existing duplicate is removed or that search quality improved.
+
+[Documentation evaluation and limits](../reports/evals/2026-10-29-search-reporting-and-publication.md#evaluation-template-cases).
+
 ## Grader / Eval-Fault Check (MANDATORY before verdict)
 
 Before blaming the agent for any failed task, ask: **is the eval itself wrong?** Tag each failure fault-side. If `fault:grader` (broken success criterion, spec-gaming the check, flaky/wrong fixture, `fault:environment`) the repair is to **fix the eval, not the agent** — record that and do not tune the agent to a broken grader. Green ≠ correct; a passing broken grader is still a grader fault. Only failures with `fault:model` / `fault:harness` / `fault:memory` / `fault:tool` justify an agent-side change.

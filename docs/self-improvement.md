@@ -1078,6 +1078,22 @@ A bound on folder listing leaves a later file-content read unverified. Document 
 
 [Documentation evaluation and limits](../reports/evals/2026-10-27-dependencies-timeouts-and-formatting.md#optional-input-cases).
 
+## 62. Keep Task Reports From Reintroducing Search Defects
+
+A report can recreate the search problem it describes. Copying an exact identifier into a dated task note creates another matching source. That note can then outrank the maintained record, even after earlier copies were removed.
+
+1. Keep the identifier in its maintained source. In ordinary task notes, record the event and link to that source without copying the lookup token.
+2. If exact inputs are needed to reproduce a failure, retain them in an authorized evidence location outside the searched collection. Verify that exclusion; a folder named `logs` is not automatically excluded.
+3. Inspect reporting outputs as well as the source repair. A worker's completion note, review summary, or later handoff can reintroduce the same duplicate.
+4. For a narrowly scoped recurrence check, read the token from an existing approved test input. Check new notes without putting another copy into searchable instructions or test reports.
+5. If a known defective line must remain temporarily, identify its exact file and content digest and permit only one occurrence. Reject new, changed, and repeated copies. Removing the line must leave the exception unused.
+
+Preserve legitimate historical facts and follow the workspace's rules for journaled edits or corrections. This pattern concerns redundant lookup tokens; it does not authorize deleting historical records or suppressing useful evidence.
+
+Test a new copy, a changed exception, a repeated exception, a source reference, and removal of the known defect. Passing those checks proves only that the inspected notes meet that narrow rule. Verify the published source and repeat the affected query before claiming better retrieval. See the [search-evaluation requirements](../reference/skill-change-eval-template.md#evidence-for-search-or-retrieval-changes).
+
+[Documentation evaluation and limits](../reports/evals/2026-10-29-search-reporting-and-publication.md#reporting-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

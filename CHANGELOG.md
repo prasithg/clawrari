@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-29
+
+### Added
+
+- **Reports that preserve search repairs** ([self-improvement guide](docs/self-improvement.md#62-keep-task-reports-from-reintroducing-search-defects)): reference maintained identifiers, keep exact reproduction inputs outside the searched collection, and check narrow exceptions without treating them as a repair.
+
+### Changed
+
+- **Search evaluation evidence** ([evaluation template](reference/skill-change-eval-template.md#evidence-for-search-or-retrieval-changes)): distinguish source, publication, retrieval, and evaluation failures; verify the content used by search; and retain individual passing cases. This refresh covers one mapped public artifact.
+
+The [documentation evaluation](reports/evals/2026-10-29-search-reporting-and-publication.md) records manual cases and the behavior left untested. No live search code, private identifiers, or source records are included.
+
 ## 2026-10-27
 
 ### Added
