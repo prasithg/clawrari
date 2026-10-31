@@ -813,6 +813,18 @@ Use explicit, authorized integration tests when real service behavior is require
 
 [Documentation evaluation and limitations](../reports/evals/2026-10-03-clear-writing-and-safe-recovery.md#isolation-cases).
 
+### Check the isolation contract before the call
+
+A test-name filter selects tests; it does not block their side effects. Before calling code that can start real work, verify that the version under test honors the fake callback and disposable directories. Keep this check ahead of the call. An assertion after the call can detect damage only after it happens.
+
+For a narrow regression check, inspect the required callback boundary without executing the unsafe implementation. Exercise three cases: the protected version, a copy with the precondition removed, and a copy with the precondition placed after the call. The latter two must be rejected before the operation can start. An older implementation that ignores the override must also be rejected without invoking it.
+
+A source-pattern assertion can protect a specific known failure, but a matching string does not establish complete isolation. Keep lower-level process and network blocks in place. If a deliberate refactor changes the assertion's shape, review the boundary before changing the check.
+
+Record before-and-after evidence for live state when a test promises to leave it untouched. A later clean run does not erase an earlier side effect. Keep the original failure, the prevention check, and the remaining incident investigation as separate results.
+
+Read the [documentation evaluation](../reports/evals/2026-10-31-test-isolation-and-model-maintenance.md#isolation-cases) for reviewed cases and untested behavior.
+
 ## 45. Check Unattended Work Without Relying on Completion Messages
 
 A worker may finish while its completion message is lost. Another worker may stop without producing its artifact. Unattended work needs an independent scheduled check that can resume the authorized task.

@@ -2,7 +2,7 @@
 
 Single source of truth for which model to use, at what effort, and how to prompt it.
 
-Last updated: 2026-09-11.
+Maintenance guidance updated: 2026-10-31. The model roster remains an example snapshot.
 
 The roster here is an example of one working stack. It does not assume every user has access to every provider or model named; keep the shape (two primaries with task-varied effort, one bounded utility lane, resilience-only tails) and substitute your approved models.
 
@@ -57,3 +57,22 @@ When adding or retiring a model:
 3. Align the human-readable routing docs and per-model guides.
 4. Run live model smokes and the core-workflow eval.
 5. Run `node scripts/validate-model-playbook.mjs`; retirement is incomplete while an active intent still references the old route.
+
+## Maintain Model Routes as One Change
+
+A model replacement can leave scheduled jobs, tool defaults, or plugin settings on the old model after the main setting changes. Maintain a registry that maps each task role to its approved model and records retired identifiers. Keep provider discovery separate from activation: finding a candidate is a reason to evaluate it, not permission to switch.
+
+Before changing a route:
+
+1. Inventory every consumer: runtime allowlists, fallback chains, scheduled-job settings and prompts, command-line tools, plugin settings, and maintained instructions.
+2. Preview the proposed changes without writing. Preserve aliases and required parameters, and remove any fallback that becomes identical to the primary model.
+3. Back up affected configuration and apply the approved change through each system's supported writer. Preserve unrelated jobs and settings.
+4. Check active consumers for retired identifiers. Treat an unreadable consumer as incomplete coverage. Keep historical examples outside active-route checks, with narrow, explained exceptions.
+5. Determine whether activation requires a restart. After activation, check service health and run the intended operation through the selected runtime. A provider response alone does not prove the runtime uses the replacement.
+6. Save the evaluation and report unfinished consumers. Keep discovery, configuration validation, activation, and operation results separate.
+
+When implementing this workflow, test a no-write preview, a replacement across multiple consumers, and rejection of unknown or unchanged models. Check that unrelated jobs remain unchanged. Use disposable configuration and a fake command runner before any live write.
+
+This section refreshes the maintenance process from operational work. The model list above remains an example snapshot; this update does not replace its model identifiers. The public repository's existing validator checks the bundled playbook. The wider discovery, switching, and consumer-scanning tools described here are design requirements and are not shipped by this update.
+
+Read the [documentation evaluation](../../reports/evals/2026-10-31-test-isolation-and-model-maintenance.md#model-maintenance-cases) for reviewed cases and untested behavior.

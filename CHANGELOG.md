@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-10-31
+
+### Added
+
+- **Test preconditions before live-capable calls** ([isolation guidance](docs/self-improvement.md#check-the-isolation-contract-before-the-call)): reject missing or late checks before an operation can start, and retain the original side-effect failure after a clean rerun.
+
+### Changed
+
+- **Model-route maintenance** ([model playbook](reference/model-playbook/README.md#maintain-model-routes-as-one-change)): separate discovery from activation, inspect every consumer, preserve unrelated configuration, and verify the selected runtime after a switch. This targeted refresh covers one mapped public directory; its example roster is unchanged.
+
+The [documentation evaluation](reports/evals/2026-10-31-test-isolation-and-model-maintenance.md) records eight manual cases and untested behavior. This update publishes no private records, live configuration, or switching implementation.
+
 ## 2026-10-29
 
 ### Added
