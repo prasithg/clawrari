@@ -1106,6 +1106,34 @@ Test a new copy, a changed exception, a repeated exception, a source reference, 
 
 [Documentation evaluation and limits](../reports/evals/2026-10-29-search-reporting-and-publication.md#reporting-cases).
 
+## 63. Retain Original Sources Before Measuring Draft Accuracy
+
+A draft and its accepted revision show what changed. They do not establish whether the original claims were supported. Save the original source text, its location, and its type when recording the draft, within the workspace's privacy and retention rules.
+
+1. Keep the source, draft, and accepted revision as distinct records. A run label or a link without the retrieved text cannot reproduce what the writer saw.
+2. If historical sources are missing, name that gap. An accepted revision can support an edit comparison, but it remains a substitute for the original source.
+3. Separate missing support from proven falsehood. A claim omitted from the revision might have been removed for length or style.
+4. Keep exploratory checks report-only until the evidence supports enforcement. Report input errors separately from an empty finding list, even when both return a successful process exit.
+5. Preserve a result that shows no useful relationship. Successful software tests do not establish that its predictions help reviewers or justify a new writing rule.
+
+Use synthetic or sanitized examples in public reports. Retaining evidence for authorized private analysis does not permit publishing that evidence.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-01-source-evidence-and-test-traceability.md#source-evidence-cases).
+
+## 64. Check Answer Leakage Against Permitted Inputs
+
+An evaluation can falsely report answer leakage when the answer repeats text already present in the permitted input. Matching words alone cannot establish that hidden answers reached the model.
+
+1. Declare the input fields the model may receive. Build the prompt from those fields and keep answer fields outside that selection.
+2. Save the exact prompt and its content digest before scoring. Keep answer data separate until predictions are recorded.
+3. Investigate each match against the permitted input and the hidden answer. Distinguish an unchanged input passage from answer-only text; inspect the construction path as well as the text.
+4. Keep the original check result visible. If its acceptance requirement cannot distinguish these cases, report the unresolved requirement instead of editing prompts or waiving the failure to improve the score.
+5. Report malformed replies and missing predictions in the declared denominators. Compare against a simple baseline, and keep retrospective results separate from performance on unseen cases.
+
+Test a shared input passage, an answer-only passage, an accidentally included answer field, and a malformed reply. Finding no forbidden field names alone does not prove that answer content was excluded.
+
+[Read the documentation evaluation and the behavior it leaves untested](../reports/evals/2026-11-01-source-evidence-and-test-traceability.md#answer-boundary-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.

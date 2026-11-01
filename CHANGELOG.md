@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-01
+
+### Added
+
+- **Source evidence for writing checks** ([self-improvement guide](docs/self-improvement.md#63-retain-original-sources-before-measuring-draft-accuracy)): retain original sources, distinguish unsupported claims from false claims, and preserve inconclusive results.
+- **Answer-leakage checks** ([evaluation guidance](docs/self-improvement.md#64-check-answer-leakage-against-permitted-inputs)): distinguish permitted input from answer-only text without hiding failed checks or dropping malformed replies.
+
+### Changed
+
+- **Tests tied to acceptance criteria** ([agent prompt template](reference/agent-prompt-template.md#connect-behavior-tests-to-acceptance-criteria)): map behavior tests to stable criteria, inspect their assertions, and preserve verification evidence. This refresh covers one mapped public artifact.
+
+The [documentation evaluation](reports/evals/2026-11-01-source-evidence-and-test-traceability.md) records ten manual cases and the behavior left untested. No private drafts, original sources, model replies, or live writing rules are published.
+
 ## 2026-10-31
 
 ### Added

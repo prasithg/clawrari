@@ -192,6 +192,18 @@ A stated time horizon is a review requirement. It does not refresh sources or sc
 
 This targeted refresh carries the source template's decision-horizon field into the public copy. Other mapped differences remain for separate review. [Documentation evaluation](../reports/evals/2026-10-25-fixed-windows-and-access.md#template-cases).
 
+## Connect Behavior Tests to Acceptance Criteria
+
+Give each acceptance criterion a stable identifier. When adding or changing a behavior test, include the relevant identifier in its name where the test framework permits it. Otherwise, record an explicit mapping from the criterion to the test's full name and location.
+
+For a behavior fix, show that the test fails for the intended reason before the repair and passes afterward. Keep that evidence with the verification result. A criterion identifier in a test name does not prove the assertion covers the criterion; the reviewer must inspect the behavior being checked.
+
+Reuse an existing test when it already verifies the requirement. Do not rename unrelated tests or add tests that repeat the implementation. Documentation-only requirements can use a declared review rubric instead of an artificial behavior test. Keep criteria without adequate evidence open.
+
+This targeted refresh brings the source template's requirement for acceptance identifiers in test names into the public copy. It changes one mapped artifact and installs no automatic enforcement. Other source differences remain for separate review.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-01-source-evidence-and-test-traceability.md#test-traceability-cases).
+
 ## Base Template
 
 ```
@@ -252,6 +264,7 @@ Use the same names for files, results, and states across all steps.
 - Prefer the smallest boring solution. Do not add speculative abstractions.
 - Make surgical changes only. Avoid drive-by refactors and dependency churn.
 - Trace every changed line to the task, an acceptance criterion, or a named bug.
+- Map changed behavior tests to acceptance identifiers through their names or an explicit test-to-criterion record; inspect the assertions and retain relevant before-and-after results.
 - Run the narrowest meaningful test, lint, or build command before handoff.
 - State the verification budget for this change; broaden it when new evidence warrants further checks.
 </code_change_discipline>
