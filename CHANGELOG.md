@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-03
+
+### Added
+
+- **Evidence-based record recovery** ([self-improvement guide](docs/self-improvement.md#65-recover-missing-records-without-inventing-history)): preserve surviving bytes, recover only supported events, compare underlying records, and retain unresolved data-format conflicts.
+- **Protection for scheduled data** ([storage guidance](docs/self-improvement.md#66-protect-scheduled-data-from-repository-operations)): isolate repository operations from active writers and state the limits of local copies and row-count checks.
+
+### Changed
+
+- **Automated-report attribution** ([agent prompt template](reference/agent-prompt-template.md#identify-automated-completion-reports)): distinguish automated reports from human instructions, including when both use the same account. This refresh covers one mapped public artifact.
+
+The [documentation evaluation](reports/evals/2026-11-03-recovery-and-report-attribution.md) records twelve manual cases and untested behavior. This update includes no private records, recovery implementation, or live responder changes.
+
 ## 2026-11-01
 
 ### Added

@@ -1134,6 +1134,37 @@ Test a shared input passage, an answer-only passage, an accidentally included an
 
 [Read the documentation evaluation and the behavior it leaves untested](../reports/evals/2026-11-01-source-evidence-and-test-traceability.md#answer-boundary-cases).
 
+## 65. Recover Missing Records Without Inventing History
+
+Restore a missing record only when retained evidence supports its content and identity. A historical total can reveal a gap, but it cannot supply the missing events.
+
+1. Preserve the surviving file and its content digest before recovery. Build a separate candidate from retained reports, saved outputs, and original event records.
+2. Record the source and recovery time for every addition. Keep unavailable metadata explicit. If a publication time substitutes for an unknown original write time, label that distinction.
+3. Preserve existing records byte for byte when recovery is append-only. Inspect how readers handle ordering, duplicates, and events that arrive before their related records. Recheck the live input before applying the candidate.
+4. Reproduce saved measurements with unchanged readers and compare the individual records behind the totals. Matching an aggregate alone cannot establish complete recovery.
+5. Validate against both application checks and the declared data format. If they disagree, report each result and the unresolved contract. A permissive application check cannot establish compliance with a stricter format.
+
+Keep unsupported outcomes absent and listed as gaps. Approval, rejection, and publication each require their own evidence. A missing response leaves the outcome unknown. After a shared storage incident, inspect related files; a changed digest is evidence to investigate, while an exact match to a trusted saved version supports that version's recovery.
+
+[Read the documentation evaluation and the recovery behavior left untested](../reports/evals/2026-11-03-recovery-and-report-attribution.md#recovery-cases).
+
+## 66. Protect Scheduled Data From Repository Operations
+
+A scheduled job can append records after the last commit. Repository operations can then replace those newer bytes with an older tracked version. A clean working tree afterward does not prove that history survived.
+
+Keep branch integration in an isolated checkout when the live workspace has active writers or uncommitted records. Avoid merge, rebase, branch replacement, and abort operations in that shared workspace. Transfer reviewed changes through a controlled process that preserves unrelated files.
+
+Choose storage protection according to the data's owner and recovery needs:
+
+- If runtime records move outside Git tracking, preserve the live file and add precise ignore rules for it and its local copies. An untracked file without an ignore rule can still be removed by cleanup.
+- Save complete recovery copies through coordinated writes and atomic publication. Define the time zone, retention period, and exact filenames eligible for pruning. Keep test copies beside test inputs.
+- Compare the live record count with a known recovery point. A smaller or missing file requires investigation. Report a missing recovery copy as unavailable evidence.
+- If an append succeeds but its backup fails, report the two outcomes separately. Retrying the append can duplicate the event.
+
+A first-of-day copy does not protect later changes that day. Row counts miss equal-count corruption, and a newer truncated copy can hide loss if it replaces the comparison point. Local copies also do not protect against disk loss. State these limits and test restoration separately before promising complete recovery.
+
+[Read the documentation evaluation and the storage behavior left untested](../reports/evals/2026-11-03-recovery-and-report-attribution.md#storage-cases).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
