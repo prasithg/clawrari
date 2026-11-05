@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-05
+
+### Added
+
+- **Passage-level recall diagnosis** ([search guidance](docs/self-improvement.md#identify-the-failed-passage-and-the-questions-date)): distinguish missing passages, outdated expectations, absent source labels, and limits in saved search records.
+
+### Changed
+
+- **Checkable procedure steps** ([agent prompt template](reference/agent-prompt-template.md#write-procedure-steps-with-completion-checks)): put conditions before actions, pair actions with completion checks, and adapt reports to their reader. This refresh covers one mapped public artifact.
+
+The [documentation evaluation](reports/evals/2026-11-05-recall-diagnosis-and-procedure-steps.md) records nine manual cases and untested behavior. No private source records, live search changes, or test-expectation edits are included.
+
 ## 2026-11-03
 
 ### Added

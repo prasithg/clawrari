@@ -781,6 +781,25 @@ Exercise a matching answer from the wrong source, a correct answer from the decl
 
 [Read the documentation evaluation and its untested runtime limits](../reports/evals/2026-10-01-ownership-sources-and-review.md#source-cases).
 
+### Identify the Failed Passage and the Question's Date
+
+A search can return the correct file first and still miss the passage that answers the question. Record the exact passage and its position within the measured result limit. Matching words elsewhere in the results do not establish that the answer was retrieved.
+
+Before changing search behavior, compare each failed question with its expected answer, the returned passages, and the maintained source:
+
+| Evidence | Initial diagnosis | Next check |
+| --- | --- | --- |
+| The source answers the unchanged question, but that passage is missing from the results. | Retrieval selection failed. | Inspect ranking and source eligibility without changing the expected answer. |
+| A question asks for current status, but its expected answer describes an earlier milestone. | The test may be outdated. | Verify newer evidence and propose a dated historical question or an authorized expectation change. |
+| The answer is returned, but a required uncertainty label is absent from the source. | The source may be incomplete. | Inspect source metadata and label handling before changing ranking. |
+| A test names duplicate crowding, but its recorded duplicate count is zero. | The test name does not explain the miss. | Retain the observed answer omission and investigate its cause separately. |
+
+A proposed test correction is not a passing result. Preserve the original failure and use the normal review process before editing controlled test data. If source maintenance is paused, keep the proposed source repair pending.
+
+State what the saved search record can prove. A shortened first passage and file paths for later results cannot reconstruct every returned passage. An aggregate word-match flag cannot identify which passage matched. Distinguish what the evaluator examined from what the log retained, and leave unsupported positions unknown.
+
+[Read the documentation evaluation and its limits](../reports/evals/2026-11-05-recall-diagnosis-and-procedure-steps.md#recall-cases).
+
 ## 43. Make Clearer Writing Preserve the Facts
 
 A clearer update can still be wrong. Replacing "daily" with "every weekday" changes a schedule even when every number remains unchanged. Review readability and factual accuracy separately.

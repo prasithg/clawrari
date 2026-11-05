@@ -10,6 +10,24 @@ XML blocks are machine-parsed; Markdown sections are for human readability.
 
 ---
 
+## Write Procedure Steps With Completion Checks
+
+An agent needs to know when each action is complete. Write ordered procedures as numbered imperative steps. Put a condition before the action it controls, pair each action with an observable completion check, and use one term for the same object throughout.
+
+For example, a document-export procedure can say:
+
+1. If the output directory is absent, create it. Verify that the directory exists.
+2. Export the selected records to the named output file. Verify that every saved record satisfies the selection rule.
+3. Write the operator's summary. Verify that its counts match the saved export and that any missing data is stated.
+
+Keep the procedure's language separate from the human report. Instructions may use exact tool names and paths. A report should lead with the result, explain unfamiliar names, and state uncertainty without requiring the reader to know the internal procedure.
+
+Completion checks must inspect the intended effect. A successful process exit alone does not establish that an export contains the right records. These instructions guide execution; enforcement still requires the relevant tools and checks.
+
+This targeted refresh carries the source template's numbered-step, condition-first, completion-check, and reader-specific writing rules into the public template. Other intentional public differences remain unchanged.
+
+[Read the documentation evaluation and its limits](../reports/evals/2026-11-05-recall-diagnosis-and-procedure-steps.md#procedure-cases).
+
 ## Compile the Request Before Delegating
 
 People should not have to speak in templates. Convert a casual request into a complete
