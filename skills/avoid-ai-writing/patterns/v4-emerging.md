@@ -242,6 +242,26 @@ These are manual review criteria. Before promotion, evaluate recurring examples,
 
 [Documentation evaluation and limits](../../../reports/evals/2026-10-21-generated-exceptions-and-writing-patterns.md#writing-cases).
 
+## 2026-11-07: Repeated Setup Anecdotes
+
+### v4.58-recycled-setup-anecdote: One Personal Setup Reused Across Unrelated Replies
+
+**Severity proposal:** P1, a review concern.
+**Confidence:** Weak; candidate only.
+**Status:** Observation-only. No detector or scoring change is included.
+
+**Review rule:** Within seven days, look for at least three distinct replies to different source posts that reuse the same first-person setup anecdote as supporting evidence. Count revisions and alternative drafts for the same reply once. Review what the anecdote contributes to each claim; repetition alone does not establish poor writing.
+
+**Synthetic examples:** Three unrelated replies about search, code review, and document export each start with `I run my assistant on a small server and access it from a laptop, so...`.
+
+**Rewrite:** Remove the repeated biography and keep the relevant observation or question. `I run my assistant on a small server, so this browser interests me. Can it retain a login between runs?` becomes `Can the browser retain a login between runs?` Do not invent an experience or measurement to replace the anecdote.
+
+**Boundaries:** One biographical mention does not meet the threshold. Multiple revisions of one reply are one case. A source post that asks how the author hosts or accesses the assistant can make the setup directly relevant. Different concrete incidents remain distinct even when they use the same equipment.
+
+This is a generalized review candidate from maintained writing guidance. Public examples are synthetic. Evaluate recurrence, direct-answer cases, and false positives before considering automatic enforcement.
+
+[Read the reviewed examples and the limits of this documentation evaluation](../../../reports/evals/2026-11-07-terminal-evidence-and-repeated-anecdotes.md#writing-cases).
+
 ## Promoted to v3
 
 _(empty — entries move to `patterns/v3-structural.md` and the entry here is replaced with a stub linking to the v3 id.)_

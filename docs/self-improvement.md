@@ -450,6 +450,19 @@ Keep intentionally failing controls outside the default passing suite and expose
 
 [Documentation evaluation](../reports/evals/2026-09-29-assertions-context-and-feasibility.md#assertion-cases).
 
+### Read the Agent's Final Record Before Launcher Messages
+
+The last line of a process log may belong to its launcher rather than its agent. A fixed last-lines window can miss a valid completion record when routine launcher messages follow it.
+
+1. Preserve the original log. Recognize only documented launcher tags in a contiguous trailing block when locating the agent's final output. A matching line elsewhere in the log is not a trailing block.
+2. Require the completion record at the final nonempty agent line. An example quoted in the prompt, an earlier record, or a record followed by more agent output cannot satisfy that requirement.
+3. Keep signal lines and unrecognized warnings visible. Inspect process termination evidence separately; removing routine launcher messages does not prove that the worker completed successfully.
+4. Test a valid record followed by many launcher lines, an echoed example, later agent output, and a terminated worker with no final record. Preserve the distinction between a valid report of failure and successful work.
+
+This is a parsing boundary, not permission to ignore output after a success claim. If the launcher format is unknown, report that completion could not be verified.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-07-terminal-evidence-and-repeated-anecdotes.md#completion-record-cases).
+
 ## 25. Recover the Measurement Without Changing the Score
 
 A health probe can fail before it measures the system. Retrying that failed measurement may help; retrying an unfavorable score until it passes invalidates the evaluation.
@@ -535,6 +548,18 @@ When a check reads a saved report, validate the score, required fields, and fres
 Test a failing score, a boundary score, a fully passing score, and unavailable evidence. Keep the parser's test result separate from the system's score. A passing parser test does not prove the defect was repaired, the running service changed, or a later scheduled check succeeded.
 
 [Documentation evaluation](../reports/evals/2026-10-23-scheduler-results-and-owned-defects.md#diagnostic-cases).
+
+### Bind Historical Failure Acknowledgements to Exact Evidence
+
+An old killed run can remain a known failure without producing the same unexplained alert on every check. Record that acknowledgement separately from successful completion.
+
+Bind it to the exact record name, a content hash that identifies its bytes, and the specific failure being acknowledged. Include a reason, date, supporting evidence, and a fixed historical cutoff. Validate the acknowledgement data before using it; a broad directory or date exemption can hide unrelated failures.
+
+If the bytes change, the failure type changes, or a later run fails, require a fresh decision. An acknowledgement for one record must not suppress another record with the same symptom. Preserve the original failed record and show acknowledged failures separately from passing work and unresolved failures.
+
+Exercise an unchanged acknowledged record, changed bytes, a different failure, and a new run beyond the cutoff. Reject duplicate or malformed acknowledgement entries. A lower alert count after this change measures reduced repetition; it does not prove that historical work succeeded or that the underlying defect was repaired.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-07-terminal-evidence-and-repeated-anecdotes.md#historical-failure-cases).
 
 ## 30. Separate Fixture Tests From Live Evaluation
 

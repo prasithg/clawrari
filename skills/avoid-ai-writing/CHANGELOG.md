@@ -2,6 +2,14 @@
 
 Skill versioning: minor bump for pattern file edits, major bump for scoring rubric or workflow shifts. Every change should carry a linked eval artifact (the repo's "no eval = not Done" rule, `reports/evals/`).
 
+## v0.4: 2026-11-07
+
+Add an observation-only candidate for repeated personal-setup anecdotes across unrelated replies. Count alternative drafts once and preserve cases where the setup answers the source question.
+
+The examples are synthetic. This refresh includes no private drafts, author-specific exemptions, detector implementation, or scoring change.
+
+The [documentation evaluation](../../reports/evals/2026-11-07-terminal-evidence-and-repeated-anecdotes.md#writing-cases) records the reviewed cases and untested behavior.
+
 ## v0.3: 2026-10-27
 
 Double spaces and repeated exclamation marks are P1 formatting warnings. The reference preserves high-severity rendering failures and the existing aggregate thresholds. Unsupported claims that spacing proves automated authorship are removed.

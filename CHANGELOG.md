@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-07
+
+### Added
+
+- **Completion-record parsing** ([verification guidance](docs/self-improvement.md#read-the-agents-final-record-before-launcher-messages)): distinguish the agent's final output from trailing launcher messages without accepting echoed examples or hiding termination evidence.
+- **Exact historical acknowledgements** ([failure reporting](docs/self-improvement.md#bind-historical-failure-acknowledgements-to-exact-evidence)): bind each acknowledged failure to its original bytes and failure type while keeping new failures visible.
+
+### Changed
+
+- **Repeated setup anecdotes** ([writing-review candidate](skills/avoid-ai-writing/patterns/v4-emerging.md#v458-recycled-setup-anecdote-one-personal-setup-reused-across-unrelated-replies)): add a generalized, observation-only candidate with synthetic examples. This refresh covers one mapped skill directory and updates its documented version to v0.4.
+
+The [documentation evaluation](reports/evals/2026-11-07-terminal-evidence-and-repeated-anecdotes.md) records twelve manual cases and their limits. No private logs, historical exceptions, writing samples, or executable changes are included.
+
 ## 2026-11-05
 
 ### Added
