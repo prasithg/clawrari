@@ -2,6 +2,14 @@
 
 Skill versioning: minor bump for pattern file edits, major bump for scoring rubric or workflow shifts. Every change should carry a linked eval artifact (the repo's "no eval = not Done" rule, `reports/evals/`).
 
+## v0.5: 2026-11-09
+
+Add a documented rule for generic praise at the start of a draft. Specific observations and phrases quoted later in a paragraph remain outside this rule's match.
+
+This targeted refresh includes no detector implementation, author-specific exemptions, or private writing samples. Existing scoring thresholds stay unchanged.
+
+The [evaluation](../../reports/evals/2026-11-09-memory-events-and-background-work.md#writing-cases) runs the published expression against synthetic examples and states its limits.
+
 ## v0.4: 2026-11-07
 
 Add an observation-only candidate for repeated personal-setup anecdotes across unrelated replies. Count alternative drafts once and preserve cases where the setup answers the source question.

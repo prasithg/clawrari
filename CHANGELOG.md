@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026-11-09
+
+### Added
+
+- **Memory-change detection** ([file integrity guidance](docs/self-improvement.md#67-detect-file-changes-outside-the-recorded-writing-process)): compare recorded writes with file content and preserve exact historical exceptions across the next normal write.
+- **Self-generated event filtering** ([notification guidance](docs/self-improvement.md#68-filter-self-generated-events-before-delivery)): compare recipient identities before delivery without suppressing other subscribers.
+- **Background-work survival** ([process guidance](docs/self-improvement.md#69-verify-background-work-survives-its-caller)): test caller-group termination and distinguish a confirmed start from completed work.
+- **Failed-collection protection** ([saved-data guidance](docs/self-improvement.md#preserve-existing-data-when-collection-fails)): preserve existing data when collection is failed, incomplete, or not authorized to clear it.
+
+### Changed
+
+- **Generic praise openers** ([writing rule](skills/avoid-ai-writing/patterns/v1-lexical.md#generic-reaction-openers)): refresh one mapped skill directory with a generalized source rule and advance its documented version to v0.5.
+
+The [evaluation](reports/evals/2026-11-09-memory-events-and-background-work.md) distinguishes manual scenario review from executed expression checks. No private records, author samples, or executable production changes are included.
+
+
 ## 2026-11-07
 
 ### Added

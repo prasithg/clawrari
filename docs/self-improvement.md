@@ -979,6 +979,16 @@ A filename ending in `.json` does not make error text valid JSON. Keep the raw r
 
 [Read the documentation evaluation for reviewed cases and limits](../reports/evals/2026-10-09-waiting-results-and-draft-retention.md#search-result-cases).
 
+### Preserve Existing Data When Collection Fails
+
+A collector can return no usable records after an access, quota, or network failure. Do not replace an existing curated list with that result.
+
+Require successful collection, understood coverage, and validated records before replacing saved data. If partial results are allowed, define that policy explicitly. For a valid empty result, use an explicit clearing rule; the absence of records alone does not authorize deleting the previous list. Preserve the existing data and report why no replacement was made when these conditions are unmet.
+
+Verify preservation byte-for-byte after failed and incomplete collection. Also test a valid nonempty replacement and an explicitly authorized empty replacement. A nonempty check alone cannot detect incomplete collection or distinguish a valid clear from a failed request.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-09-memory-events-and-background-work.md#collection-cases).
+
 ## 52. Keep Small Test Runs From Replacing Full Reports
 
 A one-check success can hide unresolved failures if it overwrites the latest full report. Give diagnostic runs their own output location and record their coverage explicitly.
@@ -1208,6 +1218,48 @@ Choose storage protection according to the data's owner and recovery needs:
 A first-of-day copy does not protect later changes that day. Row counts miss equal-count corruption, and a newer truncated copy can hide loss if it replaces the comparison point. Local copies also do not protect against disk loss. State these limits and test restoration separately before promising complete recovery.
 
 [Read the documentation evaluation and the storage behavior left untested](../reports/evals/2026-11-03-recovery-and-report-attribution.md#storage-cases).
+
+## 67. Detect File Changes Outside the Recorded Writing Process
+
+A protected writer cannot detect every change made outside it. Compare each file's current content with the last recorded result, and compare consecutive records for the same file.
+
+1. Record a content hash before and after each completed write. For each file, compare one record's ending hash with the next record's starting hash. Expand records that contain several files before comparing them.
+2. Compare the current file with its latest completed write. Report missing files and unreadable records as verification failures. Avoid comparing while a known write is incomplete; use a consistent read or report that uncertainty.
+3. For files without write records, retain dated size and line-count measurements. An initial measurement establishes a baseline; it cannot establish that earlier content was preserved. A size drop can reveal loss, but equal size cannot prove unchanged content.
+4. Review historical differences individually. Preserve the original evidence and distinguish explained changes, unresolved changes, and damage awaiting recovery. A reviewed exception acknowledges a difference; it does not repair the file.
+5. Identify an exception by the file, the preceding completed write, and the expected and observed content hashes. Keep that identity stable when a later normal write moves the same difference from the current file into recorded history.
+
+Test the operation after an exception is accepted. A correctly recorded next write should preserve recognition of the historical difference. A different hash or a later unrecorded edit must still produce a new finding. Do not exempt an entire file.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-09-memory-events-and-background-work.md#memory-cases).
+
+## 68. Filter Self-Generated Events Before Delivery
+
+Returning an agent's own update to that same agent can trigger unnecessary work. Filter confirmed self-generated events before invoking the recipient.
+
+1. Compare the event's recorded author identity with the intended recipient's runtime identity. A job label or shared bot account does not establish that they are the same session.
+2. Apply the decision separately for each recipient. The event may be redundant for its author and useful to another subscriber.
+3. Record a skipped event as processed for that recipient so the next poll does not rediscover it. Count skips separately from deliveries and keep them out of delivery-latency measurements.
+4. Reuse one identity-comparison rule for filtering and display labels. Apply only the normalization defined by that identity's contract.
+5. Preserve human updates, events from other sessions, and uncertain identities. Check missing-recipient routing separately; filtering a live recipient does not establish how recovery routing behaves.
+
+Test an author's own event, another session's event, an unstamped human event, and one event addressed to two recipients. A body marker is an attribution convention, not authentication. Use trusted source metadata where available.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-09-memory-events-and-background-work.md#event-cases).
+
+## 69. Verify Background Work Survives Its Caller
+
+A background process can still die when the host stops the caller's process group. A different parent process alone does not prove independence.
+
+If the task authorizes work to continue after its caller ends, use a supported detached launcher or service supervisor. Retain the run identity, process identity, output location, and terminal-result record. Redirect inherited input and output so collection can finish without keeping the caller alive.
+
+Before reporting that work started, check both process liveness and a matching start record after a bounded observation period. Distinguish started, still running, and completed. If tracking cannot be established, stop only the verified process owned by this launch, or report uncertainty when ownership cannot be proved.
+
+Reproduce the failure with a harmless temporary worker. Stop the verified caller's entire process group, then check the worker's identity, continued execution, and final output. Include immediate exit, delayed exit, missing start record, and dry-run controls. Never use unrelated production processes for this test.
+
+Passing a simulated-worker test proves the launch behavior exercised by that test. Keep the real scheduled workload's completion check open until its result is observed. Document the false-alarm cost of the startup deadline: a slow but healthy worker may be stopped before its start record appears.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-09-memory-events-and-background-work.md#background-cases).
 
 ## Governance Rules
 

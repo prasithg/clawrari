@@ -46,6 +46,15 @@ Necessary but not sufficient. These are the surface-level vocabulary fingerprint
 | v1.37-unpopular-opinion | P0 | `^Unpopular opinion:\s` | just give the take |
 | v1.38-buckle-up | P0 | `\bBuckle up\b` | drop |
 | v1.39-are-you-ready | P0 | `\bAre you ready\b` | drop |
+| v1.41-generic-reaction-opener | P0 | `^(Great to see this\|Love this\|Love it\|Great post\|Great share\|Great insights?\|Thanks for sharing\|Well said\|Spot on\|Couldn't agree more\|So true\|This is so true)[!.,]` (case-insensitive) | replace generic praise with a specific observation about the source |
+
+## Generic Reaction Openers
+
+The opener rule above identifies a fixed set of generic praise phrases at the start of a draft. It is a writing preference, not evidence of who wrote the text. A specific response such as "The retry diagram explains the timeout" does not match this rule. A phrase quoted later in a paragraph is outside its anchored match.
+
+This refresh adds documented rule data only. It does not install a detector or import another author's preferences. A detector supplied by the operator needs a separate update and verification. Passing this one rule does not establish that a draft passes the other writing rules.
+
+[Rule evaluation and limits](../../../reports/evals/2026-11-09-memory-events-and-background-work.md#writing-cases).
 
 ## Hashtag rule
 
