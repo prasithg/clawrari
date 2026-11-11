@@ -124,6 +124,22 @@ The skill is not static. On a weekly cadence, an **AWDS Pattern Research** job:
 
 This is the self-improving piece. The skill gets smarter every week without heavy human curation; humans only step in to prune false positives or veto promotions.
 
+## Report Research Execution and Source Coverage Separately
+
+A completed research run can have incomplete input coverage. Record which sources were available, which were missing, and how those gaps limit the findings.
+
+1. Define required sources, optional sources, and reviewer completion requirements before launching the run. If an optional source is unavailable, retain its reason and continue only when the remaining evidence meets the declared minimum.
+2. If no usable writing samples remain, save a dated no-analysis result. Do not launch reviewers or describe the missing evidence as a clean review.
+3. Launch the supervised review once per logical run. Collect its terminal result and validate the required reviewer outputs. Inspect saved results to resolve uncertainty before considering another launch.
+4. If a required reviewer fails or returns invalid output, preserve usable findings as partial and keep promotion disabled. Missing optional source data and a failed required reviewer have different consequences.
+5. Report execution, evidence coverage, candidate count, and promotion decisions separately. Use the scheduler's documented failure contract; a word in the final prose has no control effect unless that scheduler explicitly implements it.
+
+A successful run with zero candidates is valid when the required analysis completed. Missing inputs narrow its conclusions; they do not establish that the omitted writing contains no problems. Keep the existing evidence and review requirements for promoting patterns.
+
+This targeted documentation refresh adds no runner or detector implementation. Pattern severities, scoring, and the v0.5 pattern set remain unchanged. Other source-directory differences remain for later review.
+
+[Documentation evaluation and limits](../../reports/evals/2026-11-11-shell-coverage-and-completion-evidence.md#research-cases).
+
 ## Eval / regression tests
 
 Maintain a growing set of known examples with expected verdicts. Before any pattern file change ships, run the detector against the eval set — it must stay green. New tests get added by:

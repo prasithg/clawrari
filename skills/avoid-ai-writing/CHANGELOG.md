@@ -2,6 +2,14 @@
 
 Skill versioning: minor bump for pattern file edits, major bump for scoring rubric or workflow shifts. Every change should carry a linked eval artifact (the repo's "no eval = not Done" rule, `reports/evals/`).
 
+## 2026-11-11: Research Completion and Input Coverage
+
+Document missing-source limits separately from required-reviewer failures. Check the saved result before retrying a review, retain partial findings, and keep promotion disabled when a required reviewer fails.
+
+This clarification leaves the v0.5 pattern set, scoring, and promotion evidence requirements unchanged. No private writing samples or research runner are included.
+
+The [documentation evaluation](../../reports/evals/2026-11-11-shell-coverage-and-completion-evidence.md#research-cases) records four manual scenarios and the behavior left untested.
+
 ## v0.5: 2026-11-09
 
 Add a documented rule for generic praise at the start of a draft. Specific observations and phrases quoted later in a paragraph remain outside this rule's match.

@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-11
+
+### Added
+
+- **Agent-shell protection checks** ([repository guidance](docs/self-improvement.md#verify-protection-in-the-agents-actual-shell)): verify the executable used by fresh agent sessions, compare protected file contents, and name bypasses and concurrent-write limits.
+- **Evidence-based completion reporting** ([reporting guidance](docs/self-improvement.md#70-require-relevant-evidence-before-reporting-delivery)): tie claims to relevant delivery evidence, preserve unapplied decisions, and separate live measurements from replayed records.
+
+### Changed
+
+- **Writing-research outcomes** ([writing-review skill](skills/avoid-ai-writing/SKILL.md#report-research-execution-and-source-coverage-separately)): distinguish missing optional sources, absent usable samples, and required-reviewer failures. This refresh covers one mapped skill directory.
+
+The [documentation evaluation](reports/evals/2026-11-11-shell-coverage-and-completion-evidence.md) records twelve manual cases and their limits. This update contains no private records or executable changes.
+
 ## 2026-11-09
 
 ### Added

@@ -1219,6 +1219,22 @@ A first-of-day copy does not protect later changes that day. Row counts miss equ
 
 [Read the documentation evaluation and the storage behavior left untested](../reports/evals/2026-11-03-recovery-and-report-attribution.md#storage-cases).
 
+### Verify Protection in the Agent's Actual Shell
+
+A command check can work in an interactive terminal and remain absent from an agent's shell. Shell startup files, command-search paths, and saved shell environments can change which executable runs.
+
+Before relying on a check that blocks repository operations:
+
+1. Define the protected checkout, data paths, and commands that can replace working files. Inspect modified, staged, and untracked records within that scope. An unreadable status result must remain visible as a verification failure.
+2. Intercept the command before it can replace files. Confirm when each available hook runs: a hook after checkout or after a merge changes files cannot prevent that earlier change.
+3. Resolve the executable from a fresh agent session using the same launch path as normal work. Configuring an interactive shell alone does not establish coverage of scheduled jobs or coding subprocesses.
+4. Exercise blocked operations in disposable repositories. Compare protected bytes before and after the refusal. Include permitted reads, task-owned commits, and integration inside a separate checkout so the check does not obstruct unrelated work.
+5. State bypasses and remaining risks. An absolute executable path, a desktop Git client, or another process may avoid a command-search-path check. A status read followed by a command also leaves a race with concurrent writers; use coordinated access when that guarantee is required.
+
+Keep integration outside the shared checkout even when a command check is installed. A refusal should explain the safe alternative without automatically stashing, resetting, or restoring another writer's files.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-11-shell-coverage-and-completion-evidence.md#shell-cases).
+
 ## 67. Detect File Changes Outside the Recorded Writing Process
 
 A protected writer cannot detect every change made outside it. Compare each file's current content with the last recorded result, and compare consecutive records for the same file.
@@ -1260,6 +1276,21 @@ Reproduce the failure with a harmless temporary worker. Stop the verified caller
 Passing a simulated-worker test proves the launch behavior exercised by that test. Keep the real scheduled workload's completion check open until its result is observed. Document the false-alarm cost of the startup deadline: a slow but healthy worker may be stopped before its start record appears.
 
 [Documentation evaluation and limits](../reports/evals/2026-11-09-memory-events-and-background-work.md#background-cases).
+
+## 70. Require Relevant Evidence Before Reporting Delivery
+
+A task marked complete in a tracker can still be waiting for deployment. A real commit mentioned in its history may be the cause of the failure. Reports need evidence tied to the claimed result.
+
+1. Define what completion means for each task. A repository change needs evidence that the intended revision was published. A deployed fix needs evidence from the running service. A notification task needs confirmed delivery after the relevant change.
+2. Check cited artifacts and their context. A file's existence does not prove its contents passed review, and a commit's existence does not prove publication. A citation in a failure description cannot establish that the repair succeeded.
+3. Preserve explicit pending and declined decisions. Working code does not override a decision to leave it unapplied. When the required evidence cannot be read, report completion as unverified.
+4. Read targets from their maintained sources and retain withdrawal decisions. Show an observed count separately from an active target. Do not recreate a request that the owner has already declined.
+5. Separate live measurements from replays and backfilled records. Show exclusions and sample counts. Investigate implausible durations rather than presenting them as normal service performance.
+6. Validate claims before rendering the summary. If a claim lacks evidence, move it to an accurate category and retain the reason. Keep the source references so a reader can inspect the classification.
+
+Test an unsupported tracker completion, a verified delivery, an old failure citation, and a completed implementation awaiting deployment. Review a read-only report against live evidence as well as synthetic cases: stricter checks can also hide valid completed work when they recognize too few evidence types.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-11-shell-coverage-and-completion-evidence.md#reporting-cases).
 
 ## Governance Rules
 
