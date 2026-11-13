@@ -89,6 +89,11 @@ Add these checks when the changed surface carries the matching risk:
 
 - **Validators, scanners, and alerts:** state the expected false-alarm cost and who pays it. A noisy guardrail trains people to ignore the real signal, so precision is part of the specification.
 - **Human-facing writing:** grade against fixed golden exemplars and a stable rubric. A paired rewrite comparison alone can show that one draft is better than another without proving either draft meets the real quality bar.
+- **Changes to user data:** test inspection-only, unapproved write, and explicitly approved write cases. Check authorization at the writer as well as the planner, and verify denied requests leave data unchanged.
+- **Adoption of manual edits:** compare recorded prior and adopted content identities with actual content. Verify that a no-content-change write preserves the approval reason and structured history. Missing or mismatched evidence must remain unresolved.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-13-approval-and-change-history.md).
+
 
 ---
 

@@ -1292,6 +1292,24 @@ Test an unsupported tracker completion, a verified delivery, an old failure cita
 
 [Documentation evaluation and limits](../reports/evals/2026-11-11-shell-coverage-and-completion-evidence.md#reporting-cases).
 
+## 71. Require Explicit Approval Before Restoring User Data
+
+An alert that asks an agent to inspect missing data does not authorize restoration. A plan must not turn an inspection request into permission to overwrite files. Silence from an absent owner is not approval.
+
+Check authorization when selecting the work, before launching a worker, and at the write boundary. Bind approval to the intended operation and affected data. Refuse a restore, overwrite, or deletion when approval is absent or cannot be verified. Keep read-only investigation available so the agent can explain the problem without changing the owner's data.
+
+Test an inspection-only request, a restore without approval, and an explicitly approved restore. Verify that the denied cases leave the target unchanged. A planner check alone is insufficient when another caller can reach the writer directly.
+
+## 72. Preserve the History of Approved Manual Changes
+
+An approved manual edit can break a journal's expected content chain. Recording only the final content loses the explanation for that transition, especially when the writer sees no further content change and treats the operation as a no-op.
+
+Store a structured adoption record with the reason, prior content identity, and adopted content identity. Retain it even when the content write itself changes no bytes. Accept an explained transition only when the record matches the actual content on both sides. Missing reasons, missing records, and mismatched content must remain unresolved rather than being classified as approved history.
+
+Test the persisted journal output, not only the helper's exit status. Include a matching record, a missing record, a mismatched content identity, and an adoption with unchanged bytes. Isolated tests do not establish behavior under concurrent edits or prove that a live search index has incorporated the adopted content.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-13-approval-and-change-history.md).
+
 ## Governance Rules
 
 - Not every signal deserves promotion.
