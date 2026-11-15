@@ -64,6 +64,14 @@ Keep targeted regression checks separate from the original repair's acceptance. 
 
 Before blaming the agent for any failed task, ask: **is the eval itself wrong?** Tag each failure fault-side. If `fault:grader` (broken success criterion, spec-gaming the check, flaky/wrong fixture, `fault:environment`) the repair is to **fix the eval, not the agent** — record that and do not tune the agent to a broken grader. Green ≠ correct; a passing broken grader is still a grader fault. Only failures with `fault:model` / `fault:harness` / `fault:memory` / `fault:tool` justify an agent-side change.
 
+## Maintained Facts and Expected Answers
+
+If the change updates a fact quoted by active tests, record the source revision and the affected expectations. Update them together. Preserve retired cases according to the evaluation policy; do not weaken ranking requirements or thresholds to accommodate a new answer.
+
+Compare staged content with the previous committed version to distinguish newly introduced drift from existing debt. Exercise a fact-only edit, a coordinated update, unrelated work with existing drift, and a genuine behavior failure. Record inspection errors and bypass behavior separately from a clean result.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-15-fact-expectation-consistency.md).
+
 ## Verdict
 
 One of: **ship** | **iterate** | **rollback**.

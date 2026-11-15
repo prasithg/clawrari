@@ -1329,3 +1329,15 @@ Before promoting a learning, ask:
 5. Can a human inspect and undo it easily?
 
 That discipline is what keeps self-improvement useful instead of chaotic.
+
+## Change Facts and Their Test Expectations Together
+
+A search system can return the correct maintained record and still fail a test because the expected answer quotes an obsolete fact. If repeated failures pause index publication, an outdated expectation can stop healthy updates.
+
+When a maintained fact changes, review active tests that quote it in the same change. Preserve historical cases by retiring them and adding replacements where the evaluation policy requires append-only history. Keep the question, source restrictions, ranking requirements, and scoring thresholds unchanged unless independent evidence justifies changing them.
+
+A commit-time check can compare active expectations against the staged source and compare that result with the previous committed version. Block newly introduced mismatches; report pre-existing mismatches separately so unrelated maintenance does not become impossible. An inspection error is not a clean result. State whether that error blocks the commit or produces a warning, and retain a scheduled audit for bypassed checks.
+
+Exercise a fact-only edit that must be rejected, a coordinated fact-and-expectation edit that must pass, and unrelated work with existing drift. Also test that an actual retrieval failure still fails. Repairing an expectation must not lower the quality threshold or manually clear protective state.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-15-fact-expectation-consistency.md).
