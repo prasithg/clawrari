@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-11-17
+
+### Added
+
+- [Bounded draft revisions](docs/self-improvement.md#bound-revisions-where-repetition-is-controlled): retain one budget across writers and hold drafts when the limit is reached.
+
+### Changed
+
+- [Evaluation template](reference/skill-change-eval-template.md#revision-budget-evidence): distinguish instruction checks from live compliance. This refresh covers one mapped public artifact.
+
+The [documentation evaluation](reports/evals/2026-11-17-bounded-revisions.md) records manual cases and untested behavior. No runtime changes or private records are included.
+
 ## 2026-11-11
 
 ### Added

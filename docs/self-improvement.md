@@ -1341,3 +1341,15 @@ A commit-time check can compare active expectations against the staged source an
 Exercise a fact-only edit that must be rejected, a coordinated fact-and-expectation edit that must pass, and unrelated work with existing drift. Also test that an actual retrieval failure still fails. Repairing an expectation must not lower the quality threshold or manually clear protective state.
 
 [Documentation evaluation and limits](../reports/evals/2026-11-15-fact-expectation-consistency.md).
+
+## Bound Revisions Where Repetition Is Controlled
+
+Repeated edits need a shared budget for the draft. A useful starting policy allows at most three fixes per request and three revision rounds, with stricter existing stop rules taking precedence. Stop sooner when the checks pass.
+
+Keep one record of the draft identifier, rounds used, substantive rewrites, failed evaluations, and remaining findings. The initial draft is not a revision. Every request to change it consumes a round, even if the writer changes nothing. Switching writers, renaming files, restarting a run, or rewriting the same piece must not reset the budget. Unknown history requires review rather than a fresh allowance.
+
+Rank findings by severity, then protect facts and meaning before voice and formatting. Merge duplicates and send only the highest-priority fixes. Do not hide several fixes in one item. Recheck the full returned draft, including its meaning. When a limit is reached, save the latest draft and remaining findings, mark it held for review, and exclude it from publication.
+
+Locate the actual repeat decision before adding enforcement. A program that processes several independent inputs is not necessarily a revision loop. If an agent instruction controls resubmission, check that every relevant instruction points to the shared policy. Static instruction checks can prove those references exist; they cannot prove a live writer obeys the budget. Measure that separately.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-17-bounded-revisions.md).

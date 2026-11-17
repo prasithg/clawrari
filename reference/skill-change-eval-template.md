@@ -91,6 +91,12 @@ Where the raw eval run output lives — fixtures, transcripts, JSON snapshots, m
 - Date: YYYY-MM-DD
 - Linked from: change PR / ticket / regression entry
 
+## Revision-Budget Evidence
+
+For workflows that resubmit drafts, record where the repeat decision occurs, the per-request fix limit, the per-draft round limit, and any stricter existing stop rules. Exercise too many findings, an exhausted budget, a writer change, and unknown prior counts. Check that held drafts cannot enter publication. Distinguish static checks of instructions from executed writer behavior; a passing instruction check does not establish live compliance.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-17-bounded-revisions.md).
+
 ## Risk-Specific Additions
 
 Add these checks when the changed surface carries the matching risk:
