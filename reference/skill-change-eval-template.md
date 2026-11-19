@@ -97,6 +97,16 @@ For workflows that resubmit drafts, record where the repeat decision occurs, the
 
 [Documentation evaluation and limits](../reports/evals/2026-11-17-bounded-revisions.md).
 
+## Decision-Request and Reminder Evidence
+
+For workflows that ask a human to decide, exercise missing approval impact, missing silence impact, and missing personal authority separately. Require explicit source statements rather than borrowing choice labels or planned defaults. Check that held requests remain visible to their owner when the outbound message is empty.
+
+Test a mixed message containing due, deferred, and held requests. Verify that only included requests receive reminder dates after confirmed delivery. Include failed and uncertain delivery. Distinguish planned defaults from completed actions tied to the same request, and tracking-issue closure from completion of a remaining human-only action.
+
+Separate parser tests and read-only rehearsals from actual delivery evidence. State any unresolved ordering risk between closing a request and sending it.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-19-decision-requests.md).
+
 ## Risk-Specific Additions
 
 Add these checks when the changed surface carries the matching risk:

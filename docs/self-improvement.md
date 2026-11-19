@@ -1353,3 +1353,16 @@ Rank findings by severity, then protect facts and meaning before voice and forma
 Locate the actual repeat decision before adding enforcement. A program that processes several independent inputs is not necessarily a revision loop. If an agent instruction controls resubmission, check that every relevant instruction points to the shared policy. Static instruction checks can prove those references exist; they cannot prove a live writer obeys the budget. Measure that separately.
 
 [Documentation evaluation and limits](../reports/evals/2026-11-17-bounded-revisions.md).
+
+
+## Require complete decision requests and confirmed reminders
+
+Before asking a person to decide, require three explicit source statements: what approval changes, what happens without an answer, and why that person must decide. A choice label or a planned default cannot fill a missing consequence. Hold incomplete requests for their owner to repair; do not invent the missing reason.
+
+Keep held requests visible in an owner report even when no complete request can be sent. An empty outbound message does not mean there is no maintenance work.
+
+Build reminders from the exact set of requests included in the message. Update their reminder dates only after delivery succeeds. An age-based scan can include held or omitted requests, so it cannot establish which requests reached the reader. On uncertain delivery, retain the uncertainty and verify history before resending.
+
+A planned default and a completed default are different states. Close a request only when evidence tied to that request records the completed action. A due date, silence, or another request's outcome is insufficient. If a human-only action remains after a tracking issue closes, retain that action until its own completion condition is met.
+
+[Documentation evaluation and limits](../reports/evals/2026-11-19-decision-requests.md).

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-19
+
+- Added [decision-request guidance](docs/self-improvement.md#require-complete-decision-requests-and-confirmed-reminders) for explicit consequences, held requests, and delivery-based reminder dates.
+- Refreshed one mapped [evaluation template](reference/skill-change-eval-template.md#decision-request-and-reminder-evidence) with matching cases.
+- The [documentation evaluation](reports/evals/2026-11-19-decision-requests.md) records manual comparisons and limits. No executable changes are included.
+
 ## 2026-11-17
 
 ### Added
