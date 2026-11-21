@@ -289,11 +289,15 @@ A successful lookup can return the wrong record. Human-readable identifiers ofte
 Before reading details or using a returned ID in a write:
 
 1. Keep the full requested identifier, including its namespace.
-2. Select a result whose returned identifier exactly matches the request. Check the tenant or project too when the identifier is unique only within that scope.
+2. Select a result whose returned identifier exactly matches the request. Independently check the expected team, tenant, or project. A matching identifier alone cannot establish that the ownership fields are correct. Treat missing ownership evidence as unresolved.
 3. Require exactly one match. Treat zero matches or multiple exact matches as unresolved; do not choose an arbitrary record.
 4. Use only that verified record's stable ID downstream. Check the identity again when fetching its details.
 
 For a synthetic request for `OPS-42`, a response containing `WEB-42` and `OPS-42` yields only the second record. A response containing only `WEB-42` must stop the lookup. The same rule applies to repositories, documents, accounts, and inventory items with locally unique names.
+
+Test a matching identifier paired with the wrong team, a missing team, duplicate exact matches, and a valid response with usable detail fields. Check that rejected responses cannot reach downstream writes or summaries. Inventory callers so a repaired helper does not leave direct lookups unprotected.
+
+[Documentation evaluation](../reports/evals/2026-11-21-identity-and-completion.md#identity-cases).
 
 A later correct response does not prove an intermittent resolver fault is fixed. Keep the check at the response boundary. A written instruction asks an agent to perform it; a wrapper that rejects mismatches enforces it. Report which protection you actually have.
 

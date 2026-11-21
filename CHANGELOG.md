@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-21
+
+- Strengthened [lookup identity checks](docs/self-improvement.md#17-verify-the-identity-returned-by-a-lookup) to require independent ownership evidence and caller coverage.
+- Refreshed one mapped [agent prompt template](reference/agent-prompt-template.md#track-implementation-validation-and-handoff-separately) with separate implementation, validation, and handoff evidence.
+- The [documentation evaluation](reports/evals/2026-11-21-identity-and-completion.md) records ten manual cases and their limits. No executable changes are included.
+
 ## 2026-11-19
 
 - Added [decision-request guidance](docs/self-improvement.md#require-complete-decision-requests-and-confirmed-reminders) for explicit consequences, held requests, and delivery-based reminder dates.

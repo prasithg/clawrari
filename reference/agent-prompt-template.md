@@ -719,3 +719,14 @@ Handoff: notes/export-active-users-handoff.md
 Early stop: Once you know the DB client API and User type shape, start coding.
 </context_gathering>
 ```
+
+
+## Track Implementation, Validation, and Handoff Separately
+
+Keep three completion items in the task record: the requested change, validation of its behavior, and the required handoff. Complete each item only with its own evidence. A file written successfully does not establish that it runs, and a passing check does not establish that the recipient received the report.
+
+Before finalizing, run the changed entry point or the closest safe validation path. Check the expected output location, required fields, and empty-result behavior where applicable. Confirm that excluded files remain unchanged. Name the untested behavior. Keep blocked criteria visible. A passing checker proves only the checks it performed.
+
+This targeted refresh carries the source template's separate completion items and verification loop into one mapped public artifact. It installs no runtime enforcement. Other source differences remain for separate review.
+
+[Documentation evaluation](../reports/evals/2026-11-21-identity-and-completion.md#completion-cases).
